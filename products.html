@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="vi">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Danh sách sản phẩm nội thất chất lượng từ Bàng Vũ">
+
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://noithatbangvu.com/products.html">
+    <meta property="og:title" content="Sản Phẩm Nội Thất - Nội Thất Bàng Vũ">
+    <meta property="og:description"
+        content="Khám phá bộ sưu tập sản phẩm nội thất đa dạng với chất lượng cao và thiết kế hiện đại. Từ tủ quần áo, tủ bếp đến bàn ghế và giường ngủ.">
+    <meta property="og:image"
+        content="https://images.unsplash.com/photo-1586023492125-27b2c045efd7?q=80&w=2158&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D">
+
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image">
+    <meta property="twitter:url" content="https://noithatbangvu.com/products.html">
+    <meta property="twitter:title" content="Sản Phẩm Nội Thất - Nội Thất Bàng Vũ">
+    <meta property="twitter:description"
+        content="Khám phá bộ sưu tập sản phẩm nội thất đa dạng với chất lượng cao và thiết kế hiện đại. Từ tủ quần áo, tủ bếp đến bàn ghế và giường ngủ.">
+    <meta property="twitter:image"
+        content="https://images.unsplash.com/photo-1586023492125-27b2c045efd7?q=80&w=2158&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D">
+    <title>Sản Phẩm - Nội Thất Bàng Vũ</title>
+    <link rel="stylesheet" href="css/main.css">
+    <link rel="stylesheet" href="css/products.css">
+    <link rel="stylesheet" href="css/loading.css">
+    <!-- Font Awesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css"
+        integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+</head>
+
+<body>
+    <header>
+        <a href="./index.html" class="logo">
+            <div class="logo-icon">
+                <img src="./images/logo.svg" alt="Logo Nội Thất Bàng Vũ">
+            </div>
+            <div class="logo-text">
+                <h1>Nội Thất Chất Lượng Bàng Vũ</h1>
+                <p>Giải pháp nội thất cao cấp</p>
+            </div>
+        </a>
+        <nav>
+            <div class="menu-toggle">☰</div>
+            <ul class="menu">
+                <li><a href="index.html">Trang chủ</a></li>
+                <li><a href="products.html">Sản phẩm</a></li>
+                <li><a href="blog.html">Blog</a></li>
+                <li><a href="quote-ai.html">Báo giá AI</a></li>
+            </ul>
+        </nav>
+        <a href="https://zalo.me/123456789" class="btn-contact">Liên hệ</a>
+    </header>
+    <main>
+        <section class="products">
+            <h1>Sản Phẩm Nội Thất</h1>
+            <div class="filters">
+                <select id="category">
+                    <option value="all">Tất cả</option>
+                    <option value="Tủ Quần Áo">Tủ Quần Áo</option>
+                    <option value="Tủ Bếp">Tủ Bếp</option>
+                    <option value="Bàn Học">Bàn Học</option>
+                    <option value="Bàn Làm Việc">Bàn Làm Việc</option>
+                    <option value="Bàn Trang Điểm">Bàn Trang Điểm</option>
+                    <option value="Tủ Giày">Tủ Giày</option>
+                    <option value="Tủ Sách">Tủ Sách</option>
+                    <option value="Giường Ngủ">Giường Ngủ</option>
+                </select>
+                <div class="search-container">
+                    <input type="text" id="search" placeholder="Tìm kiếm sản phẩm...">
+                    <button id="search-button" class="search-button">
+                        <i class="fa-solid fa-magnifying-glass"></i>
+                    </button>
+                </div>
+            </div>
+            <div class="product-grid" id="product-grid"></div>
+            <div class="pagination" id="pagination"></div>
+            <div class="product-count" id="product-count"></div>
+        </section>
+    </main>
+    <footer>
+        <p>Liên hệ: 0123 456 789 | Email: contact@bangvu.com</p>
+        <p><a href="https://facebook.com/bangvu">Facebook</a> | <a href="https://zalo.me/123456789">Zalo</a></p>
+        <p>© 2025 Nội Thất Chất Lượng Bàng Vũ</p>
+    </footer>
+    <script src="js/main.js"></script>
+    <script src="js/products.js"></script>
+    <script src="js/effects.js"></script>
+</body>
+
+</html>
