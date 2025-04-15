@@ -89,17 +89,27 @@ document.addEventListener('DOMContentLoaded', function () {
       // Animate contact button
       const contactBtn = mobileMenu.querySelector('.mobile-contact-btn');
       if (contactBtn) {
-        contactBtn.style.opacity = '0';
-        contactBtn.style.transform = 'translateY(20px)';
+        // Reset any inline styles that might be causing conflicts
+        contactBtn.style.cssText = '';
+
+        // Force a reflow to ensure CSS transitions work properly
+        void contactBtn.offsetWidth;
+
+        // Let CSS handle the transition
         setTimeout(() => {
-          contactBtn.style.opacity = '1';
-          contactBtn.style.transform = 'translateY(0)';
+          contactBtn.classList.add('visible');
         }, 500);
       }
     });
 
     // Function to close mobile menu
     function closeMenu() {
+      // Remove visible class from contact button first
+      const contactBtn = mobileMenu.querySelector('.mobile-contact-btn');
+      if (contactBtn) {
+        contactBtn.classList.remove('visible');
+      }
+
       mobileMenu.classList.remove('active');
       menuToggle.classList.remove('active'); // Remove active class from menu toggle
       document.body.style.overflow = ''; // Re-enable scrolling
