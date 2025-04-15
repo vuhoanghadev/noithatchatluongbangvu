@@ -834,7 +834,7 @@ body {
 
 @media (max-width: 576px) {
     .main-header {
-        padding: 0 calc(4% + 0px);
+        padding: 0 calc(2% + 12px);
         height: 75px;
         top: 30px;
     }
