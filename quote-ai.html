@@ -48,8 +48,6 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <link rel="stylesheet" href="styles.css"> <!-- Liên kết với file styles.css từ trang chính -->
     <link rel="stylesheet" href="css/main.css">
-    <link rel="stylesheet" href="css/header-new.css">
-    <link rel="stylesheet" href="css/banner-new.css">
     <style>
         body {
             font-family: 'Poppins', sans-serif;
@@ -800,81 +798,30 @@
 </head>
 
 <body class="bg-white">
-    <!-- Announcement Banner -->
-    <div class="announcement-banner">
-        Giảm giá 20% cho tất cả các sản phẩm mới! <a href="products.html">Xem ngay</a>
-    </div>
-
-    <!-- Main Header -->
-    <header class="main-header">
+    <header>
         <!-- Logo -->
-        <a href="./index.html" class="logo-container">
-            <div class="logo-image">
+        <a href="./index.html" class="logo">
+            <div class="logo-icon">
                 <img src="./images/logo.svg" alt="Logo Nội Thất Bàng Vũ">
             </div>
-            <div class="logo-text-container">
-                <h1 class="logo-text">Nội Thất Chất Lượng Bàng Vũ</h1>
-                <p class="logo-tagline">Nâng Tầm Không Gian Sống</p>
+            <div class="logo-text">
+                <h1>Nội Thất Chất Lượng Bàng Vũ</h1>
+                <p>Giải pháp nội thất cao cấp</p>
             </div>
         </a>
 
-        <div class="right-side">
-            <!-- Navigation -->
-            <nav class="nav-container">
-                <ul class="nav-menu">
-                    <li><a href="index.html">Trang Chủ</a></li>
-                    <li><a href="products.html">Sản Phẩm</a></li>
-                    <li><a href="blog.html">Blog</a></li>
-                    <li><a href="quote-ai.html">Báo Giá</a></li>
-                </ul>
-            </nav>
-
-            <!-- Contact Button -->
-            <a href="https://zalo.me/123456789" class="contact-btn">Tư Vấn Miễn Phí</a>
-        </div>
-
-        <!-- Mobile Menu Toggle -->
-        <button class="menu-toggle">
-            <span class="menu-toggle-bar"></span>
-            <span class="menu-toggle-bar"></span>
-            <span class="menu-toggle-bar"></span>
-        </button>
+        <!-- Navigation -->
+        <nav>
+            <div class="menu-toggle">☰</div>
+            <ul class="menu">
+                <li><a href="index.html">Trang chủ</a></li>
+                <li><a href="products.html">Sản phẩm</a></li>
+                <li><a href="blog.html">Blog</a></li>
+                <li><a href="quote-ai.html">Báo giá AI</a></li>
+            </ul>
+        </nav>
+        <a href="https://zalo.me/123456789" class="btn-contact">Liên hệ</a>
     </header>
-
-    <!-- Mobile Menu -->
-    <div class="mobile-menu">
-        <button class="mobile-menu-close">
-            <span class="close-bar"></span>
-            <span class="close-bar"></span>
-        </button>
-
-        <div class="mobile-menu-logo">
-            <img src="./images/logo.svg" alt="Logo Nội Thất Bàng Vũ">
-            <div>
-                <h2>Nội Thất Chất Lượng Bàng Vũ</h2>
-                <p>Nâng Tầm Không Gian Sống</p>
-            </div>
-        </div>
-
-        <ul class="mobile-menu-links">
-            <li><a href="index.html"><i class="fas fa-home"></i> Trang Chủ</a></li>
-            <li><a href="products.html"><i class="fas fa-couch"></i> Sản Phẩm</a></li>
-            <li><a href="blog.html"><i class="fas fa-newspaper"></i> Blog</a></li>
-            <li><a href="quote-ai.html"><i class="fas fa-robot"></i> Báo Giá AI</a></li>
-        </ul>
-
-        <div class="mobile-menu-divider"></div>
-
-        <div class="mobile-contact-info">
-            <h3>Liên hệ với chúng tôi</h3>
-            <p><i class="fas fa-phone"></i>097.277.4646</p>
-            <p><i class="fas fa-envelope"></i> contact@noithatbangvu.com</p>
-        </div>
-
-        <div class="mobile-contact-btn">
-            <a href="https://zalo.me/123456789" class="contact-btn"><i class="fas fa-comment"></i> TƯ VẤN MIỄN PHÍ</a>
-        </div>
-    </div>
 
     <!-- Main Content -->
     <section class="ai-pricing-section">
@@ -1376,9 +1323,6 @@
 
     <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script>
     <script src="script.js"></script>
-    <script src="js/header.js"></script>
-    <script src="js/header-scroll.js"></script>
-    <script src="js/logo-animation.js"></script>
     <script>
         // Set the active tab for this page
         document.addEventListener('DOMContentLoaded', function () {

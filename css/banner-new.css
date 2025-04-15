@@ -510,7 +510,7 @@
     }
 
     .hero-container {
-        padding: 0 calc(4% + 10px);
+        padding: 0 calc(4% + -10px);
     }
 
     .hero-stats {
