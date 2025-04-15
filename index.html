@@ -24,8 +24,17 @@
     <meta property="twitter:image"
         content="https://images.unsplash.com/photo-1598928506311-c55ded91a20c?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D">
     <title>Trang Chủ - Nội Thất Bàng Vũ</title>
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&family=Playfair+Display:wght@400;500;600;700&family=Roboto:wght@300;400;500;700&display=swap"
+        rel="stylesheet">
+    <!-- Stylesheets -->
     <link rel="stylesheet" href="css/main.css">
     <link rel="stylesheet" href="css/home.css">
+    <link rel="stylesheet" href="css/header-new.css">
+    <link rel="stylesheet" href="css/banner-new.css">
     <!-- Font Awesome Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css"
         integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA=="
@@ -33,66 +42,263 @@
 </head>
 
 <body>
-    <header>
+    <!-- Announcement Banner -->
+    <div class="announcement-banner">
+        Giảm giá 20% cho tất cả các sản phẩm mới! <a href="products.html">Xem ngay</a>
+    </div>
+
+    <!-- Main Header -->
+    <header class="main-header">
         <!-- Logo -->
-        <a href="./index.html" class="logo">
-            <div class="logo-icon">
+        <a href="./index.html" class="logo-container">
+            <div class="logo-image">
                 <img src="./images/logo.svg" alt="Logo Nội Thất Bàng Vũ">
             </div>
-            <div class="logo-text">
-                <h1>Nội Thất Chất Lượng Bàng Vũ</h1>
-                <p>Giải pháp nội thất cao cấp</p>
+            <div class="logo-text-container">
+                <h1 class="logo-text">Nội Thất Chất Lượng Bàng Vũ</h1>
+                <p class="logo-tagline">Nâng Tầm Không Gian Sống</p>
             </div>
         </a>
 
-        <!-- Navigation -->
-        <nav>
-            <div class="menu-toggle">☰</div>
-            <ul class="menu">
-                <li><a href="index.html">Trang chủ</a></li>
-                <li><a href="products.html">Sản phẩm</a></li>
-                <li><a href="blog.html">Blog</a></li>
-                <li><a href="quote-ai.html">Báo giá AI</a></li>
-            </ul>
-        </nav>
-        <a href="https://zalo.me/123456789" class="btn-contact">Liên hệ</a>
+        <div class="right-side">
+            <!-- Navigation -->
+            <nav class="nav-container">
+                <ul class="nav-menu">
+                    <li><a href="index.html">Trang Chủ</a></li>
+                    <li><a href="products.html">Sản Phẩm</a></li>
+                    <li><a href="blog.html">Blog</a></li>
+                    <li><a href="quote-ai.html">Báo Giá</a></li>
+                </ul>
+            </nav>
+
+            <!-- Contact Button -->
+            <a href="https://zalo.me/123456789" class="contact-btn">Tư Vấn Miễn Phí</a>
+        </div>
+
+        <!-- Mobile Menu Toggle -->
+        <button class="menu-toggle">
+            <span class="menu-toggle-bar"></span>
+            <span class="menu-toggle-bar"></span>
+            <span class="menu-toggle-bar"></span>
+        </button>
     </header>
+
+    <!-- Mobile Menu -->
+    <div class="mobile-menu">
+        <button class="mobile-menu-close">
+            <span class="close-bar"></span>
+            <span class="close-bar"></span>
+        </button>
+
+        <div class="mobile-menu-logo">
+            <img src="./images/logo.svg" alt="Logo Nội Thất Bàng Vũ">
+            <div>
+                <h2>Nội Thất Chất Lượng Bàng Vũ</h2>
+                <p>Nâng Tầm Không Gian Sống</p>
+            </div>
+        </div>
+
+        <ul class="mobile-menu-links">
+            <li><a href="index.html"><i class="fas fa-home"></i> Trang Chủ</a></li>
+            <li><a href="products.html"><i class="fas fa-couch"></i> Sản Phẩm</a></li>
+            <li><a href="blog.html"><i class="fas fa-newspaper"></i> Blog</a></li>
+            <li><a href="quote-ai.html"><i class="fas fa-robot"></i> Báo Giá AI</a></li>
+        </ul>
+
+        <div class="mobile-menu-divider"></div>
+
+        <div class="mobile-contact-info">
+            <h3>Liên hệ với chúng tôi</h3>
+            <p><i class="fas fa-phone"></i>097.277.4646</p>
+            <p><i class="fas fa-envelope"></i> contact@noithatbangvu/p>
+        </div>
+
+        <div class="mobile-contact-btn">
+            <a href="https://zalo.me/123456789" class="contact-btn"><i class="fas fa-comment"></i> TƯ VẤN MIỄN PHÍ</a>
+        </div>
+    </div>
     <main>
-        <section class="banner"
-            style="background-image: url('https://images.unsplash.com/photo-1638885930125-85350348d266?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA==');">
-            <div class="banner-content">
-                <h1>Nội Thất Chất Lượng Bàng Vũ</h1>
-                <p>Thiết kế và sản xuất nội thất theo yêu cầu của bạn</p>
-                <a href="products.html" class="btn-explore">Khám phá sản phẩm</a>
+        <section class="hero-banner"
+            style="background-image: url('https://images.unsplash.com/photo-1631679706909-1844bbd07221?q=80&w=2092&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D');">
+            <!-- Particles -->
+            <div class="particle particle-1"></div>
+            <div class="particle particle-2"></div>
+            <div class="particle particle-3"></div>
+            <div class="particle particle-4"></div>
+
+            <div class="hero-container">
+                <div class="hero-content">
+                    <div class="hero-badge">Giải pháp nội thất thông minh</div>
+                    <h1 class="hero-title">Không gian sống <span>hoàn hảo</span> từ ý tưởng của bạn</h1>
+                    <p class="hero-description"><em>"Nội Thất Chất Lượng Bàng Vũ đồng hành cùng bạn hiện thực hóa không
+                            gian sống mơ ước, với thiết kế chuẩn gu, thi công chỉn chu và chất lượng vượt trội trong
+                            từng
+                            chi tiết."</em></p>
+                    <div class="hero-stats">
+                        <div class="stat-item">
+                            <span class="stat-number">10+</span>
+                            <span class="stat-text">Năm kinh nghiệm</span>
+                        </div>
+                        <div class="stat-item">
+                            <span class="stat-number">500+</span>
+                            <span class="stat-text">Dự án hoàn thành</span>
+                        </div>
+                        <div class="stat-item">
+                            <span class="stat-number">98%</span>
+                            <span class="stat-text">Khách hàng hài lòng</span>
+                        </div>
+                    </div>
+                    <div class="hero-buttons">
+                        <div class="btn-wrapper">
+                            <a href="quote-ai.html" class="btn-primary"><i class="fas fa-robot"></i> Báo giá AI ngay</a>
+                            <span class="btn-subtitle">Dự đoán giá nội thất trong 1 phút</span>
+                        </div>
+                        <a href="products.html" class="btn-secondary"><i class="fas fa-search"></i> Xem bộ sưu tập</a>
+                    </div>
+                    <!-- <div class="hero-scroll-hint">
+                        <span>Cuộn xuống để khám phá</span>
+                        <i class="fas fa-chevron-down"></i>
+                    </div> -->
+                </div>
+                <div class="hero-scroll-hint">
+                    <span>Cuộn xuống để khám phá</span>
+                    <i class="fas fa-chevron-down"></i>
+                </div>
             </div>
         </section>
-        <section class="promotion">
-            <h2>Ưu Đãi Đặc Biệt</h2>
-            <div id="promotion-list"></div>
-        </section>
+
         <section class="intro">
-            <h2>Về chúng tôi</h2>
-            <p>Với hơn 10 năm kinh nghiệm, Bàng Vũ mang đến các sản phẩm nội thất tinh tế, chất lượng cao, phù hợp với
-                mọi không gian.</p>
-            <img src="images/showroom.jpg" alt="Showroom Bàng Vũ">
+            <div class="container">
+                <div class="intro-content">
+                    <h2>Về chúng tôi</h2>
+                    <p>Với hơn 10 năm kinh nghiệm, Nội Thất Chất Lượng Bàng Vũ tự hào mang đến các sản phẩm nội thất
+                        tinh tế, chất lượng cao, phù hợp với mọi không gian sống và làm việc.</p>
+                    <p>Chúng tôi kết hợp công nghệ AI hiện đại với tay nghề thủ công tinh xảo để tạo ra những sản phẩm
+                        nội thất không chỉ đẹp mắt mà còn bền vững, thân thiện với môi trường và đáp ứng đúng nhu cầu
+                        của khách hàng.</p>
+                    <a href="about.html" class="btn-details">Tìm hiểu thêm</a>
+                </div>
+                <img src="https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+                    alt="Showroom Bàng Vũ">
+            </div>
         </section>
+
         <section class="featured-products">
-            <h2>Sản Phẩm Nổi Bật</h2>
-            <div class="product-grid" id="featured-products"></div>
+            <div class="container">
+                <h2>Sản Phẩm Nổi Bật</h2>
+                <div class="product-grid" id="featured-products"></div>
+            </div>
         </section>
+
+        <section class="promotion">
+            <div class="container">
+                <h2>Ưu Đãi Đặc Biệt</h2>
+                <div id="promotion-list"></div>
+            </div>
+        </section>
+
         <section class="services">
-            <h2>Dịch Vụ Thiết Kế</h2>
-            <p>Chúng tôi cung cấp dịch vụ thiết kế nội thất theo yêu cầu, từ ý tưởng đến thi công.</p>
-            <a href="https://zalo.me/123456789" class="btn-contact">Liên hệ ngay</a>
+            <div class="container">
+                <h2>Dịch Vụ Thiết Kế</h2>
+                <p>Chúng tôi cung cấp dịch vụ thiết kế nội thất theo yêu cầu, từ ý tưởng đến thi công. Với sự hỗ trợ của
+                    công nghệ AI, chúng tôi có thể tạo ra những thiết kế phù hợp nhất với không gian và phong cách của
+                    bạn.</p>
+                <a href="services.html" class="btn-details">Xem dịch vụ</a>
+            </div>
+        </section>
+
+        <section class="testimonials">
+            <div class="container">
+                <h2>Khách Hàng Nói Gì</h2>
+                <div class="testimonial-grid">
+                    <div class="testimonial-card">
+                        <p>"Tôi rất hài lòng với bộ bàn ghế phòng khách mà Nội Thất Bàng Vũ đã thiết kế. Chất lượng sản
+                            phẩm tuyệt vời và dịch vụ chăm sóc khách hàng rất chu đáo."</p>
+                        <div class="testimonial-author">
+                            <img src="https://randomuser.me/api/portraits/women/65.jpg" alt="Nguyễn Thị Minh">
+                            <div class="author-info">
+                                <h4>Nguyễn Thị Minh</h4>
+                                <p>Hà Nội</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="testimonial-card">
+                        <p>"Đội ngũ thiết kế rất chuyên nghiệp, họ đã lắng nghe và hiểu rõ nhu cầu của tôi. Kết quả là
+                            một không gian làm việc hoàn hảo cho văn phòng của chúng tôi."</p>
+                        <div class="testimonial-author">
+                            <img src="https://randomuser.me/api/portraits/men/32.jpg" alt="Trần Văn Đức">
+                            <div class="author-info">
+                                <h4>Trần Văn Đức</h4>
+                                <p>Giám đốc công ty ABC</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="testimonial-card">
+                        <p>"Tôi đặc biệt ấn tượng với công nghệ AI mà Bàng Vũ sử dụng để thiết kế nội thất. Họ đã tạo ra
+                            một không gian sống hoàn hảo cho gia đình tôi."</p>
+                        <div class="testimonial-author">
+                            <img src="https://randomuser.me/api/portraits/women/45.jpg" alt="Lê Thị Hương">
+                            <div class="author-info">
+                                <h4>Lê Thị Hương</h4>
+                                <p>Hải Phòng</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="cta-section">
+            <div class="container">
+                <h2>Bạn Đang Tìm Kiếm Giải Pháp Nội Thất?</h2>
+                <p>Hãy để chúng tôi giúp bạn tạo ra không gian sống và làm việc hoàn hảo với các sản phẩm nội thất chất
+                    lượng cao. Với công nghệ AI, chúng tôi sẽ mang đến những thiết kế độc đáo và phù hợp nhất.</p>
+                <div class="cta-buttons">
+                    <a href="products.html" class="btn-explore">Xem sản phẩm</a>
+                    <a href="https://zalo.me/123456789" class="btn-secondary">Liên hệ tư vấn</a>
+                </div>
+            </div>
         </section>
     </main>
     <footer>
-        <p>Liên hệ: 0123 456 789 | Email: contact@bangvu.com</p>
-        <p><a href="https://facebook.com/bangvu">Facebook</a> | <a href="https://zalo.me/123456789">Zalo</a></p>
-        <p>© 2025 Nội Thất Chất Lượng Bàng Vũ</p>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-info">
+                    <h3>Nội Thất Chất Lượng Bàng Vũ</h3>
+                    <p><i class="fas fa-map-marker-alt"></i> Địa chỉ: 123 Đường ABC, Quận XYZ, Hà Nội</p>
+                    <p><i class="fas fa-phone"></i> Điện thoại: 0123 456 789</p>
+                    <p><i class="fas fa-envelope"></i> Email: contact@bangvu.com</p>
+                </div>
+                <div class="footer-links">
+                    <h3>Liên kết nhanh</h3>
+                    <ul>
+                        <li><a href="index.html">Trang chủ</a></li>
+                        <li><a href="products.html">Sản phẩm</a></li>
+                        <li><a href="services.html">Dịch vụ</a></li>
+                        <li><a href="about.html">Về chúng tôi</a></li>
+                        <li><a href="contact.html">Liên hệ</a></li>
+                    </ul>
+                </div>
+                <div class="footer-social">
+                    <h3>Kết nối với chúng tôi</h3>
+                    <div class="social-icons">
+                        <a href="https://facebook.com/bangvu"><i class="fab fa-facebook-f"></i></a>
+                        <a href="https://zalo.me/123456789"><i class="fas fa-comment"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-youtube"></i></a>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>© 2025 Nội Thất Chất Lượng Bàng Vũ. Tất cả các quyền được bảo lưu.</p>
+            </div>
+        </div>
     </footer>
     <script src="js/main.js"></script>
     <script src="js/products.js"></script>
+    <script src="js/header.js"></script>
+    <script src="js/header-scroll.js"></script>
+    <script src="js/logo-animation.js"></script>
 </body>
 
 </html>

@@ -24,9 +24,18 @@
     <meta property="twitter:image"
         content="https://images.unsplash.com/photo-1586023492125-27b2c045efd7?q=80&w=2158&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D">
     <title>Sản Phẩm - Nội Thất Bàng Vũ</title>
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&family=Playfair+Display:wght@400;500;600;700&family=Roboto:wght@300;400;500;700&display=swap"
+        rel="stylesheet">
+    <!-- Stylesheets -->
     <link rel="stylesheet" href="css/main.css">
     <link rel="stylesheet" href="css/products.css">
     <link rel="stylesheet" href="css/loading.css">
+    <link rel="stylesheet" href="css/header-new.css">
+    <link rel="stylesheet" href="css/banner-new.css">
     <!-- Font Awesome Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css"
         integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA=="
@@ -34,27 +43,81 @@
 </head>
 
 <body>
-    <header>
-        <a href="./index.html" class="logo">
-            <div class="logo-icon">
+    <!-- Announcement Banner -->
+    <div class="announcement-banner">
+        Giảm giá 20% cho tất cả các sản phẩm mới! <a href="products.html">Xem ngay</a>
+    </div>
+
+    <!-- Main Header -->
+    <header class="main-header">
+        <!-- Logo -->
+        <a href="./index.html" class="logo-container">
+            <div class="logo-image">
                 <img src="./images/logo.svg" alt="Logo Nội Thất Bàng Vũ">
             </div>
-            <div class="logo-text">
-                <h1>Nội Thất Chất Lượng Bàng Vũ</h1>
-                <p>Giải pháp nội thất cao cấp</p>
+            <div class="logo-text-container">
+                <h1 class="logo-text">Nội Thất Chất Lượng Bàng Vũ</h1>
+                <p class="logo-tagline">Nâng Tầm Không Gian Sống</p>
             </div>
         </a>
-        <nav>
-            <div class="menu-toggle">☰</div>
-            <ul class="menu">
-                <li><a href="index.html">Trang chủ</a></li>
-                <li><a href="products.html">Sản phẩm</a></li>
-                <li><a href="blog.html">Blog</a></li>
-                <li><a href="quote-ai.html">Báo giá AI</a></li>
-            </ul>
-        </nav>
-        <a href="https://zalo.me/123456789" class="btn-contact">Liên hệ</a>
+
+        <div class="right-side">
+            <!-- Navigation -->
+            <nav class="nav-container">
+                <ul class="nav-menu">
+                    <li><a href="index.html">Trang Chủ</a></li>
+                    <li><a href="products.html">Sản Phẩm</a></li>
+                    <li><a href="blog.html">Blog</a></li>
+                    <li><a href="quote-ai.html">Báo Giá</a></li>
+                </ul>
+            </nav>
+
+            <!-- Contact Button -->
+            <a href="https://zalo.me/123456789" class="contact-btn">Tư Vấn Miễn Phí</a>
+        </div>
+
+        <!-- Mobile Menu Toggle -->
+        <button class="menu-toggle">
+            <span class="menu-toggle-bar"></span>
+            <span class="menu-toggle-bar"></span>
+            <span class="menu-toggle-bar"></span>
+        </button>
     </header>
+
+    <!-- Mobile Menu -->
+    <div class="mobile-menu">
+        <button class="mobile-menu-close">
+            <span class="close-bar"></span>
+            <span class="close-bar"></span>
+        </button>
+
+        <div class="mobile-menu-logo">
+            <img src="./images/logo.svg" alt="Logo Nội Thất Bàng Vũ">
+            <div>
+                <h2>Nội Thất Chất Lượng Bàng Vũ</h2>
+                <p>Nâng Tầm Không Gian Sống</p>
+            </div>
+        </div>
+
+        <ul class="mobile-menu-links">
+            <li><a href="index.html"><i class="fas fa-home"></i> Trang Chủ</a></li>
+            <li><a href="products.html"><i class="fas fa-couch"></i> Sản Phẩm</a></li>
+            <li><a href="blog.html"><i class="fas fa-newspaper"></i> Blog</a></li>
+            <li><a href="quote-ai.html"><i class="fas fa-robot"></i> Báo Giá AI</a></li>
+        </ul>
+
+        <div class="mobile-menu-divider"></div>
+
+        <div class="mobile-contact-info">
+            <h3>Liên hệ với chúng tôi</h3>
+            <p><i class="fas fa-phone"></i>097.277.4646</p>
+            <p><i class="fas fa-envelope"></i> contact@noithatbangvu.com</p>
+        </div>
+
+        <div class="mobile-contact-btn">
+            <a href="https://zalo.me/123456789" class="contact-btn"><i class="fas fa-comment"></i> TƯ VẤN MIỄN PHÍ</a>
+        </div>
+    </div>
     <main>
         <section class="products">
             <h1>Sản Phẩm Nội Thất</h1>
@@ -89,6 +152,9 @@
     </footer>
     <script src="js/main.js"></script>
     <script src="js/products.js"></script>
+    <script src="js/header.js"></script>
+    <script src="js/header-scroll.js"></script>
+    <script src="js/logo-animation.js"></script>
     <script src="js/effects.js"></script>
 </body>
 

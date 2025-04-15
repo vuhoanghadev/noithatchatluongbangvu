@@ -8,6 +8,7 @@ const products = [
       'Tủ quần áo 3 cánh gỗ MDF, kích thước 120x180x50cm, thiết kế hiện đại.',
     promotion: 'sale 20%',
     gallery: [
+      'images/products/product1.png',
       'images/products/product2.png',
       'images/products/product3.png',
       'images/products/product4.png',
