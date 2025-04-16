@@ -41,7 +41,42 @@ document.addEventListener('DOMContentLoaded', function () {
   if (menuToggle && mobileMenu && mobileMenuClose) {
     const menuBars = document.querySelectorAll('.menu-toggle-bar');
 
+    // Function to close mobile menu - định nghĩa trước để có thể sử dụng ở bất kỳ đâu
+    function closeMenu() {
+      // Remove visible class from contact button first
+      const contactBtn = mobileMenu.querySelector('.mobile-contact-btn');
+      if (contactBtn) {
+        contactBtn.classList.remove('visible');
+      }
+
+      mobileMenu.classList.remove('active');
+      menuToggle.classList.remove('active'); // Remove active class from menu toggle
+      document.body.style.overflow = ''; // Re-enable scrolling
+
+      // Reset animation if menu bars exist
+      if (menuBars.length === 3) {
+        // Reset first bar
+        menuBars[0].style.width = '16px';
+        menuBars[0].style.marginLeft = '-6px';
+        menuBars[0].style.transform = 'none';
+
+        // Reset second bar
+        menuBars[1].style.opacity = '1';
+
+        // Reset third bar
+        menuBars[2].style.width = '16px';
+        menuBars[2].style.marginLeft = '6px';
+        menuBars[2].style.transform = 'none';
+      }
+    }
+
     menuToggle.addEventListener('click', function () {
+      // Kiểm tra xem menu đã active chưa để tránh click nhiều lần
+      if (mobileMenu.classList.contains('active')) {
+        closeMenu();
+        return;
+      }
+
       mobileMenu.classList.add('active');
       menuToggle.classList.add('active'); // Add active class to menu toggle
       document.body.style.overflow = 'hidden'; // Prevent scrolling when menu is open
@@ -102,34 +137,7 @@ document.addEventListener('DOMContentLoaded', function () {
       }
     });
 
-    // Function to close mobile menu
-    function closeMenu() {
-      // Remove visible class from contact button first
-      const contactBtn = mobileMenu.querySelector('.mobile-contact-btn');
-      if (contactBtn) {
-        contactBtn.classList.remove('visible');
-      }
-
-      mobileMenu.classList.remove('active');
-      menuToggle.classList.remove('active'); // Remove active class from menu toggle
-      document.body.style.overflow = ''; // Re-enable scrolling
-
-      // Reset animation if menu bars exist
-      if (menuBars.length === 3) {
-        // Reset first bar
-        menuBars[0].style.width = '16px';
-        menuBars[0].style.marginLeft = '-6px';
-        menuBars[0].style.transform = 'none';
-
-        // Reset second bar
-        menuBars[1].style.opacity = '1';
-
-        // Reset third bar
-        menuBars[2].style.width = '16px';
-        menuBars[2].style.marginLeft = '6px';
-        menuBars[2].style.transform = 'none';
-      }
-    }
+    // Hàm closeMenu đã được định nghĩa ở trên
 
     // Close menu when clicking the close button
     mobileMenuClose.addEventListener('click', closeMenu);

@@ -1,6 +1,8 @@
 document.addEventListener('DOMContentLoaded', function () {
   const announcementBanner = document.querySelector('.announcement-banner');
   const mainHeader = document.querySelector('.main-header');
+  const menuToggle = document.querySelector('.menu-toggle');
+  const mobileMenu = document.querySelector('.mobile-menu');
   let lastScrollTop = 0;
 
   function handleScroll() {
@@ -11,10 +13,20 @@ document.addEventListener('DOMContentLoaded', function () {
       announcementBanner.classList.add('hidden');
       mainHeader.classList.add('announcement-hidden');
       mainHeader.classList.add('scrolled'); // Thêm class scrolled khi cuộn xuống
+
+      // Đảm bảo trạng thái menu toggle được giữ nguyên khi cuộn trang
+      if (menuToggle && mobileMenu && mobileMenu.classList.contains('active')) {
+        menuToggle.classList.add('active');
+      }
     } else {
       announcementBanner.classList.remove('hidden');
       mainHeader.classList.remove('announcement-hidden');
       mainHeader.classList.remove('scrolled'); // Bỏ class scrolled khi cuộn lên đầu trang
+
+      // Đảm bảo trạng thái menu toggle được giữ nguyên khi cuộn trang
+      if (menuToggle && mobileMenu && mobileMenu.classList.contains('active')) {
+        menuToggle.classList.add('active');
+      }
     }
 
     lastScrollTop = scrollTop;
