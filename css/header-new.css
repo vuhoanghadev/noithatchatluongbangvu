@@ -706,6 +706,7 @@ body {
     opacity: 0;
     transform: translateY(10px);
     transition: opacity 0.3s ease-out, transform 0.3s ease-out;
+    padding: 0 20px;
 }
 
 .mobile-contact-btn.visible {

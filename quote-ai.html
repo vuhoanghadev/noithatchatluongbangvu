@@ -84,56 +84,76 @@
             padding-top: 8rem !important;
         }
 
-        /* Fix for mobile menu contact button */
-        .mobile-contact-btn {
-            margin-top: auto !important;
-            width: 100% !important;
-            opacity: 0 !important;
-            transform: translateY(10px) !important;
-            transition: opacity 0.3s ease-out, transform 0.3s ease-out !important;
-            padding: 20px !important;
-            text-align: center !important;
-            display: block !important;
-            position: relative !important;
+        /* No custom styles needed for mobile menu contact button - using header-new.css */
+
+        /* Styles for the suggest size button */
+        #suggestSize {
+            transition: all 0.3s ease;
+            border: 2px solid #f97316;
+            background-color: white;
+            color: #f97316;
+            font-weight: 600;
+            height: 48px;
+            /* Match height with input fields */
+            position: relative;
+            /* Enable positioning context */
+            z-index: 1;
+            /* Ensure button is above other elements */
+            overflow: hidden;
+            /* For ripple effect */
         }
 
-        .mobile-contact-btn.visible {
-            opacity: 1 !important;
-            transform: translateY(0) !important;
+        #suggestSize:hover {
+            background-color: #f97316;
+            color: white;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(249, 115, 22, 0.2);
         }
 
-        .mobile-contact-btn a.contact-btn {
-            margin-left: 0px !important;
-            background-color: #f97316 !important;
-            color: white !important;
-            padding: 12px 20px !important;
-            font-size: 14px !important;
-            border: none !important;
-            border-radius: 8px !important;
-            display: flex !important;
-            align-items: center !important;
-            justify-content: center !important;
-            gap: 10px !important;
-            width: 100% !important;
-            font-weight: 600 !important;
-            box-shadow: 0 4px 10px rgba(249, 115, 22, 0.3) !important;
-            text-align: center !important;
-            margin: 0 !important;
-            float: none !important;
-            position: static !important;
-            left: auto !important;
-            right: auto !important;
-            transition: background-color 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease !important;
+        #suggestSize i {
+            transition: transform 0.3s ease;
+            font-size: 16px;
+            /* Consistent icon size */
         }
 
-        .mobile-menu .contact-btn i {
-            font-size: 16px !important;
+        #suggestSize:hover i {
+            transform: rotate(15deg);
         }
 
-        .mobile-menu .contact-btn:hover {
-            background-color: #ea580c !important;
-            transform: translateY(-2px) !important;
-            box-shadow: 0 6px 15px rgba(249, 115, 22, 0.4) !important;
+        /* Add ripple effect */
+        #suggestSize::after {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 5px;
+            height: 5px;
+            background: rgba(255, 255, 255, 0.5);
+            opacity: 0;
+            border-radius: 100%;
+            transform: scale(1, 1) translate(-50%, -50%);
+            transform-origin: 50% 50%;
+        }
+
+        #suggestSize:focus:not(:active)::after {
+            animation: ripple 1s ease-out;
+        }
+
+        @keyframes ripple {
+            0% {
+                transform: scale(0, 0);
+                opacity: 0.5;
+            }
+
+            20% {
+                transform: scale(25, 25);
+                opacity: 0.5;
+            }
+
+            100% {
+                opacity: 0;
+                transform: scale(40, 40);
+            }
         }
 
         @media (max-width: 768px) {
@@ -146,12 +166,42 @@
             }
 
             .mobile-contact-btn {
-                padding: 15px !important;
+                padding: 0 20px !important;
             }
 
             .mobile-contact-btn a.contact-btn {
                 padding: 10px 15px !important;
                 font-size: 13px !important;
+            }
+
+            /* Ensure suggest size button is visible on mobile */
+            #suggestSize {
+                display: flex !important;
+                width: 100% !important;
+                margin-top: 0.5rem !important;
+                height: 44px !important;
+                /* Slightly smaller on mobile */
+                font-size: 14px !important;
+                /* Smaller font size on mobile */
+                padding: 8px 12px !important;
+                /* Adjusted padding for mobile */
+            }
+
+            #suggestSize i {
+                font-size: 14px !important;
+                /* Smaller icon on mobile */
+            }
+
+            /* Adjust form layout on mobile */
+            .grid-cols-1 {
+                display: grid;
+                grid-template-columns: 1fr;
+                gap: 1rem;
+            }
+
+            /* Ensure all form groups have proper spacing */
+            .form-group {
+                margin-bottom: 1rem !important;
             }
         }
 
@@ -965,17 +1015,14 @@
             <p><i class="fas fa-envelope"></i> contact@noithatbangvu.com</p>
         </div>
 
-        <div class="mobile-contact-btn"
-            style="opacity: 1;transform: translateY(0px);margin-top: auto !important;width: 100% !important;padding: 0px 0px 100px !important;text-align: center !important;display: block !important;position: relative !important;">
-            <a href="https://zalo.me/123456789" class="contact-btn"
-                style="margin-left: 0px !important; background-color: #f97316 !important; color: white !important; padding: 12px 20px !important; font-size: 14px !important; border: none !important; border-radius: 8px !important; display: flex !important; align-items: center !important; justify-content: center !important; gap: 10px !important; width: 100% !important; font-weight: 600 !important; box-shadow: 0 4px 10px rgba(249, 115, 22, 0.3) !important; text-align: center !important; margin: 0 !important; float: none !important; position: static !important; left: auto !important; right: auto !important; transform: none !important;"><i
-                    class="fas fa-comment"></i> TƯ VẤN MIỄN PHÍ</a>
+        <div class="mobile-contact-btn visible">
+            <a href="https://zalo.me/123456789" class="contact-btn"><i class="fas fa-comment"></i> TƯ VẤN MIỄN PHÍ</a>
         </div>
     </div>
 
     <!-- Main Content -->
     <section class="ai-pricing-section">
-        <div class="container">
+        <div class="container" style="padding: 4px;">
             <div class="text-center mb-12 pt-16 md:pt-0">
                 <h1 class="text-4xl md:text-5xl font-bold text-gray-900 mb-4">
                     <span class="text-transparent bg-clip-text bg-gradient-to-r from-orange-500 to-orange-700">Báo Giá
@@ -1031,6 +1078,7 @@
                         <h2 class="text-2xl font-semibold mb-6 text-gray-900">Tùy Chọn Sản Phẩm</h2>
                         <form id="pricingForm">
                             <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                                <!-- Loại sản phẩm và Chất liệu -->
                                 <div class="form-group">
                                     <label for="productType" class="form-label">Loại sản phẩm</label>
                                     <select id="productType" class="form-select" required>
@@ -1052,6 +1100,8 @@
                                         <option value="luxury">Nhựa siêu bền</option>
                                     </select>
                                 </div>
+
+                                <!-- Kích thước -->
                                 <div class="form-group">
                                     <label for="width" class="form-label">Chiều rộng (m)</label>
                                     <input type="number" id="width" class="form-input" step="0.1" min="0.5" max="10"
@@ -1062,14 +1112,19 @@
                                     <input type="number" id="height" class="form-input" step="0.1" min="0.5" max="3"
                                         required>
                                 </div>
+
+                                <!-- Chiều sâu và Gợi ý kích thước -->
                                 <div class="form-group">
                                     <label for="depth" class="form-label">Chiều sâu (m)</label>
                                     <input type="number" id="depth" class="form-input" step="0.1" min="0.3" max="1"
                                         required>
                                 </div>
-                                <div class="form-group flex items-end">
-                                    <button type="button" id="suggestSize" class="btn-secondary w-full">Gợi ý kích
-                                        thước</button>
+                                <div class="form-group">
+                                    <label class="form-label">Gợi ý tự động</label>
+                                    <button type="button" id="suggestSize"
+                                        class="btn-secondary w-full flex items-center justify-center gap-2">
+                                        <i class="fas fa-magic"></i> Gợi ý kích thước
+                                    </button>
                                 </div>
                             </div>
                             <button type="submit" class="btn-primary mt-6 w-full md:w-auto">
