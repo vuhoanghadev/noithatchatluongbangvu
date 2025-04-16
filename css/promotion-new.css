@@ -16,7 +16,7 @@
     --promo-shadow: 0 10px 30px rgba(44, 82, 130, 0.1);
     --promo-shadow-hover: 0 15px 35px rgba(44, 82, 130, 0.2);
     --promo-transition: all 0.4s ease;
-    --promo-border-radius: 12px;
+    --promo-border-radius: 20px;
     --promo-border-radius-sm: 6px;
 }
 
@@ -128,13 +128,13 @@
 
 .promo-badge {
     position: absolute;
-    top: 10px;
-    right: 10px;
+    top: 0px;
+    right: 0px;
     background: linear-gradient(135deg, #FF6B35, #FF9E64);
     color: white;
     font-weight: 700;
     padding: 8px 15px;
-    border-radius: 50px;
+    border-radius: 0 20px 0 20px;
     font-size: 0.85rem;
     box-shadow: 0 6px 15px rgba(255, 107, 53, 0.4);
     z-index: 2;

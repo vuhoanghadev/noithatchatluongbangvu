@@ -25,7 +25,7 @@
     --fp-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
     --fp-shadow-hover: 0 8px 15px rgba(255, 107, 53, 0.15);
     --fp-transition: all 0.3s ease;
-    --fp-border-radius: 6px;
+    --fp-border-radius: 20px;
 }
 
 .featured-products {
