@@ -275,22 +275,22 @@ document.addEventListener('DOMContentLoaded', function () {
   }
 
   // Add a test button for debugging
-  const testButton = document.createElement('button');
-  testButton.textContent = 'Test Modal';
-  testButton.style.position = 'fixed';
-  testButton.style.bottom = '20px';
-  testButton.style.right = '20px';
-  testButton.style.zIndex = '9998';
-  testButton.style.padding = '10px 15px';
-  testButton.style.background = '#f97316';
-  testButton.style.color = 'white';
-  testButton.style.border = 'none';
-  testButton.style.borderRadius = '5px';
-  testButton.style.cursor = 'pointer';
+  // const testButton = document.createElement('button');
+  // testButton.textContent = 'Test Modal';
+  // testButton.style.position = 'fixed';
+  // testButton.style.bottom = '20px';
+  // testButton.style.right = '20px';
+  // testButton.style.zIndex = '9998';
+  // testButton.style.padding = '10px 15px';
+  // testButton.style.background = '#f97316';
+  // testButton.style.color = 'white';
+  // testButton.style.border = 'none';
+  // testButton.style.borderRadius = '5px';
+  // testButton.style.cursor = 'pointer';
 
-  testButton.onclick = function () {
-    showModal();
-  };
+  // testButton.onclick = function () {
+  //   showModal();
+  // };
 
   document.body.appendChild(testButton);
 });
