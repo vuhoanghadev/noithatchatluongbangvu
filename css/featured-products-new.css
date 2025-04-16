@@ -100,6 +100,7 @@
     flex-direction: column;
     height: 100%;
     border: 1px solid #eee;
+    padding: 20px;
 }
 
 .product-card:hover {
@@ -126,7 +127,7 @@
 }
 
 .product-info {
-    padding: 20px;
+    padding: 0px;
     flex-grow: 1;
     display: flex;
     flex-direction: column;
@@ -134,11 +135,22 @@
 }
 
 .product-card h3 {
+    text-align: left;
     font-size: 1.2rem;
     font-weight: 600;
     margin-bottom: 10px;
     color: var(--fp-dark);
     transition: var(--fp-transition);
+}
+
+.product-card p {
+    text-align: left;
+    font-style: italic;
+    font-size: 1rem;
+    color: var(--fp-text-light);
+    line-height: 1.6;
+    margin-bottom: 20px;
+    flex-grow: 1;
 }
 
 .product-card:hover h3 {
@@ -173,7 +185,7 @@
 }
 
 .btn-details {
-    margin-top: auto;
+    margin-top: 23px;
     display: inline-block;
     padding: 10px 20px;
     background: var(--fp-white);

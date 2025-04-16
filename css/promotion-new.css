@@ -144,6 +144,7 @@
     text-transform: uppercase;
     letter-spacing: 0.5px;
     animation: shakeBadge 3s ease-in-out infinite;
+    font-family: 'Roboto', 'Helvetica Neue', Arial, sans-serif;
 }
 
 .promo-badge:hover {
@@ -213,6 +214,7 @@
     padding: 8px 15px;
     border: 2px solid rgba(255, 255, 255, 0.5);
     text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.2);
+    font-family: 'Roboto', 'Helvetica Neue', Arial, sans-serif;
 }
 
 /* Sale promotion badge */
@@ -225,6 +227,7 @@
     border: 2px solid rgba(255, 255, 255, 0.5);
     text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.2);
     transform: translateX(0);
+    font-family: 'Roboto', 'Helvetica Neue', Arial, sans-serif;
 }
 
 .sale-promo:hover {
@@ -257,6 +260,7 @@
     border: 2px solid rgba(255, 255, 255, 0.4);
     text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.15);
     transform: translateX(0);
+    font-family: 'Roboto', 'Helvetica Neue', Arial, sans-serif;
 }
 
 .monthly-promo:hover {
@@ -304,7 +308,8 @@
 
 
 .promo-card-content {
-    padding: 25px;
+    text-align: left;
+    padding: 0px;
     display: flex;
     flex-direction: column;
     flex-grow: 1;
@@ -322,6 +327,7 @@
     font-size: 0.9rem;
     color: var(--promo-secondary);
     margin-bottom: 15px;
+    font-family: 'Roboto', 'Helvetica Neue', Arial, sans-serif;
 }
 
 .promo-card-category i {
@@ -329,6 +335,7 @@
 }
 
 .promo-card-description {
+    font-style: italic;
     color: #4A5568;
     margin-bottom: 20px;
     line-height: 1.6;
@@ -533,38 +540,4 @@
     }
 }
 
-/* Promo code styling */
-.promo-code {
-    background: linear-gradient(135deg, #2C5282, #4A6FA5);
-    color: white;
-    padding: 4px 10px;
-    border-radius: 4px;
-    font-weight: 600;
-    display: inline-block;
-    margin-left: 5px;
-    letter-spacing: 0.5px;
-    border: 1px solid rgba(255, 255, 255, 0.2);
-    box-shadow: 0 2px 5px rgba(44, 82, 130, 0.2);
-}
-
-/* Promo details styling */
-.promo-details {
-    background: rgba(247, 250, 252, 0.7);
-    border-radius: 8px;
-    padding: 15px;
-    margin: 15px 0;
-    border-left: 3px solid var(--promo-primary);
-}
-
-.promo-details p {
-    margin-bottom: 8px;
-}
-
-.promo-details p:last-child {
-    margin-bottom: 0;
-}
-
-.promo-details strong {
-    color: var(--promo-dark);
-    font-weight: 600;
-}
+/* Removed CSS for promo-code and promo-details */

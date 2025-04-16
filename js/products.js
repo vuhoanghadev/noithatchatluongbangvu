@@ -30,7 +30,7 @@ const products = [
     image: 'images/products/product3.png',
     description:
       'Bàn học gỗ tự nhiên, kích thước 100x50x75cm, thiết kế tối giản.',
-    promotion: 'Ưu đãi đặc biệt',
+    promotion: 'ƯU ĐÃI ĐẶC BIỆT THÁNG 4',
     gallery: ['images/products/product3.png'],
   },
   {

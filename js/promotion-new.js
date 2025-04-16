@@ -68,12 +68,7 @@ function renderEnhancedPromotions() {
     card.className = 'promo-card';
     card.setAttribute('data-index', index);
 
-    // Format end date
-    const formattedDate = promo.endDate.toLocaleDateString('vi-VN', {
-      day: '2-digit',
-      month: '2-digit',
-      year: 'numeric',
-    });
+    // Không cần format end date nữa vì đã xóa phần hiển thị
 
     // Create HTML for the promotion card
     card.innerHTML = `
@@ -127,15 +122,7 @@ function renderEnhancedPromotions() {
                     : ''
                 }
 
-                <div class="promo-details">
-                    <p><strong>Ưu đãi:</strong> ${promo.discount}</p>
-                    ${
-                      promo.code
-                        ? `<p><strong>Mã ưu đãi:</strong> <span class="promo-code">${promo.code}</span></p>`
-                        : ''
-                    }
-                    <p><strong>Có hiệu lực đến:</strong> ${formattedDate}</p>
-                </div>
+
 
                 <div class="promo-card-actions">
                     <a href="product-details.html?id=${
