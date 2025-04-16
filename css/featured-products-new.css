@@ -172,16 +172,17 @@
 
 .promo-badge {
     position: absolute;
-    top: 15px;
-    right: 15px;
+    top: -10px;
+    right: 10px;
     background: var(--fp-primary);
     color: var(--fp-white);
     padding: 5px 12px;
     border-radius: 20px;
     font-size: 0.8rem;
     font-weight: 500;
-    z-index: 1;
+    z-index: 10;
     box-shadow: 0 2px 5px rgba(255, 107, 53, 0.3);
+    font-family: 'Roboto', 'Helvetica Neue', Arial, sans-serif;
 }
 
 .btn-details {

@@ -1166,13 +1166,13 @@ if (document.getElementById('featured-products')) {
     const card = document.createElement('div');
     card.className = 'product-card';
     card.innerHTML = `
+        ${
+          product.promotion
+            ? `<span class="promo-badge">${product.promotion}</span>`
+            : ''
+        }
         <div class="image-container">
           <img src="${product.image}" alt="${product.name}" loading="lazy">
-          ${
-            product.promotion
-              ? `<span class="promo-badge">${product.promotion}</span>`
-              : ''
-          }
         </div>
         <div class="product-info">
           <h3>${product.name}</h3>

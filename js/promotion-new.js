@@ -72,21 +72,19 @@ function renderEnhancedPromotions() {
 
     // Create HTML for the promotion card
     card.innerHTML = `
+            <div class="promo-badge ${
+              promo.product.promotion.toLowerCase().includes('ưu đãi đặc biệt')
+                ? 'special-promo'
+                : promo.product.promotion.toLowerCase().includes('sale')
+                ? 'sale-promo'
+                : promo.product.promotion.toLowerCase().includes('tháng')
+                ? 'monthly-promo'
+                : ''
+            }">${promo.product.promotion}</div>
             <div class="promo-card-image">
                 <img src="${promo.product.image}" alt="${
       promo.product.name
     }" loading="lazy">
-                <div class="promo-badge ${
-                  promo.product.promotion
-                    .toLowerCase()
-                    .includes('ưu đãi đặc biệt')
-                    ? 'special-promo'
-                    : promo.product.promotion.toLowerCase().includes('sale')
-                    ? 'sale-promo'
-                    : promo.product.promotion.toLowerCase().includes('tháng')
-                    ? 'monthly-promo'
-                    : ''
-                }">${promo.product.promotion}</div>
             </div>
             <div class="promo-card-content">
                 <h3 class="promo-card-title">${promo.product.name}</h3>

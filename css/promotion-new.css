@@ -128,8 +128,8 @@
 
 .promo-badge {
     position: absolute;
-    top: 20px;
-    right: 20px;
+    top: 10px;
+    right: 10px;
     background: linear-gradient(135deg, #FF6B35, #FF9E64);
     color: white;
     font-weight: 700;

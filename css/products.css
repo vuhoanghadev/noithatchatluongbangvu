@@ -96,8 +96,12 @@
     background: #FF4500;
     color: white;
     padding: 5px 10px;
-    border-radius: 3px;
-    font-size: 0.9em;
+    border-radius: 20px;
+    font-size: 0.8rem;
+    font-weight: 500;
+    z-index: 1;
+    box-shadow: 0 2px 5px rgba(255, 69, 0, 0.3);
+    font-family: 'Roboto', 'Helvetica Neue', Arial, sans-serif;
 }
 
 .btn-details {
