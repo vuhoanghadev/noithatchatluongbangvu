@@ -1,0 +1,220 @@
+/* Floating Contact Buttons */
+:root {
+    --contact-primary: #f97316;
+    --contact-phone: #00c853;
+    --contact-zalo: #0068ff;
+    --contact-messenger: #0084ff;
+    --contact-white: #ffffff;
+    --contact-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+    --contact-hover-shadow: 0 6px 15px rgba(0, 0, 0, 0.3);
+    --contact-transition: all 0.3s ease;
+}
+
+.floating-contact {
+    position: fixed;
+    bottom: 60px;
+    /* Dịch lên trên 40px (từ 20px lên 60px) */
+    right: 20px;
+    z-index: 999;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.floating-contact-button {
+    width: 55px;
+    height: 55px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--contact-white);
+    box-shadow: var(--contact-shadow);
+    cursor: pointer;
+    position: relative;
+    transition: var(--contact-transition);
+    text-decoration: none;
+    /* Bỏ gạch chân */
+}
+
+.floating-contact-button:hover {
+    transform: translateY(-5px) scale(1.05);
+    box-shadow: var(--contact-hover-shadow);
+}
+
+.floating-contact-button i,
+.floating-contact-button img {
+    font-size: 24px;
+    transition: var(--contact-transition);
+}
+
+.floating-contact-button:hover i,
+.floating-contact-button:hover img {
+    transform: scale(1.1);
+}
+
+.floating-contact-label {
+    position: absolute;
+    right: 70px;
+    background: var(--contact-white);
+    padding: 5px 15px;
+    border-radius: 20px;
+    font-size: 14px;
+    font-weight: 500;
+    box-shadow: var(--contact-shadow);
+    color: #333;
+    opacity: 0;
+    transform: translateX(20px);
+    transition: var(--contact-transition);
+    pointer-events: none;
+    white-space: nowrap;
+}
+
+.floating-contact-button:hover .floating-contact-label {
+    opacity: 1;
+    transform: translateX(0);
+}
+
+/* Phone button */
+.floating-contact-phone {
+    background: var(--contact-phone);
+}
+
+.floating-contact-phone .floating-contact-label {
+    background: var(--contact-phone);
+    color: var(--contact-white);
+}
+
+/* Zalo button */
+.floating-contact-zalo {
+    background: var(--contact-zalo);
+}
+
+.floating-contact-zalo .floating-contact-label {
+    background: var(--contact-zalo);
+    color: var(--contact-white);
+}
+
+.floating-contact-zalo img {
+    width: 28px;
+    height: 28px;
+}
+
+/* Messenger button */
+.floating-contact-messenger {
+    background: var(--contact-messenger);
+}
+
+.floating-contact-messenger .floating-contact-label {
+    background: var(--contact-messenger);
+    color: var(--contact-white);
+}
+
+/* Animation */
+.floating-contact-button {
+    animation: float-in 0.5s ease forwards;
+    opacity: 0;
+    transform: translateY(20px);
+}
+
+.floating-contact-phone {
+    animation-delay: 0.1s;
+}
+
+.floating-contact-zalo {
+    animation-delay: 0.2s;
+}
+
+.floating-contact-messenger {
+    animation-delay: 0.3s;
+}
+
+@keyframes float-in {
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Pulse animation */
+.floating-contact-phone::after {
+    content: '';
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    background: var(--contact-phone);
+    opacity: 0.4;
+    z-index: -1;
+    animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+    0% {
+        transform: scale(1);
+        opacity: 0.4;
+    }
+
+    50% {
+        transform: scale(1.2);
+        opacity: 0.2;
+    }
+
+    100% {
+        transform: scale(1);
+        opacity: 0.4;
+    }
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .floating-contact {
+        bottom: 55px;
+        /* Dịch lên trên 40px (từ 15px lên 55px) */
+        right: 15px;
+        gap: 12px;
+    }
+
+    .floating-contact-button {
+        width: 50px;
+        height: 50px;
+    }
+
+    .floating-contact-button i,
+    .floating-contact-button img {
+        font-size: 22px;
+    }
+
+    .floating-contact-zalo img {
+        width: 25px;
+        height: 25px;
+    }
+
+    .floating-contact-label {
+        display: none;
+    }
+}
+
+@media (max-width: 576px) {
+    .floating-contact {
+        bottom: 50px;
+        /* Dịch lên trên 40px (từ 10px lên 50px) */
+        right: 10px;
+        gap: 10px;
+    }
+
+    .floating-contact-button {
+        width: 45px;
+        height: 45px;
+    }
+
+    .floating-contact-button i,
+    .floating-contact-button img {
+        font-size: 20px;
+    }
+
+    .floating-contact-zalo img {
+        width: 22px;
+        height: 22px;
+    }
+}
