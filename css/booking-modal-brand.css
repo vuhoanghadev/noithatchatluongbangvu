@@ -1,0 +1,173 @@
+/* Cố định kích thước và căn chỉnh phần branding */
+.booking-modal-branding {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    gap: 12px;
+    margin-bottom: 5px;
+    width: 100%;
+    position: relative;
+    min-height: 60px;
+}
+
+.booking-modal-logo {
+    width: 50px;
+    height: 50px;
+    object-fit: contain;
+    flex-shrink: 0;
+}
+
+.booking-modal-logo:hover {
+    transform: scale(1.05);
+    filter: drop-shadow(0 6px 8px rgba(0, 0, 0, 0.2)) brightness(1.1);
+}
+
+.booking-modal-brand-text {
+    text-align: left;
+    flex-grow: 1;
+    max-width: calc(100% - 70px);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.booking-brand-name {
+    color: var(--modal-white);
+    font-size: 0.85rem;
+    line-height: 1.2;
+    font-weight: 700;
+    margin: 0 0 2px 0;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+    position: relative;
+    display: inline-block;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    width: 100%;
+    background: linear-gradient(90deg, var(--modal-white), var(--modal-primary), var(--modal-white));
+    background-size: 200% auto;
+    color: transparent;
+    background-clip: text;
+    -webkit-background-clip: text;
+    animation: textShine 3s linear infinite;
+}
+
+@keyframes textShine {
+    to {
+        background-position: 200% center;
+    }
+}
+
+.booking-brand-tagline {
+    color: var(--modal-white);
+    font-size: 0.7rem;
+    line-height: 1.2;
+    font-weight: 600;
+    margin: 0;
+    /* font-style: italic; */
+    /* Removed italic style */
+    opacity: 1;
+    /* Increased opacity for better visibility */
+    text-shadow: 0 1px 3px rgba(0, 0, 0, 0.4);
+    /* Enhanced shadow for better contrast */
+    position: relative;
+    padding-left: 2px;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    width: 100%;
+    animation: fadeInUp 0.5s ease-out forwards;
+    letter-spacing: 0.3px;
+    /* Added letter spacing for better readability */
+}
+
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+
+    to {
+        opacity: 1;
+        /* Updated to match the new opacity */
+        transform: translateY(0);
+    }
+}
+
+/* Responsive styles */
+@media (min-width: 1200px) {
+    .booking-modal-logo {
+        width: 55px;
+        height: 55px;
+    }
+
+    .booking-brand-name {
+        font-size: 0.9rem;
+    }
+
+    .booking-brand-tagline {
+        font-size: 0.75rem;
+    }
+}
+
+@media (max-width: 576px) {
+    .booking-modal-branding {
+        gap: 10px;
+        min-height: 50px;
+    }
+
+    .booking-modal-logo {
+        width: 45px;
+        height: 45px;
+    }
+
+    .booking-brand-name {
+        font-size: 0.8rem;
+    }
+
+    .booking-brand-tagline {
+        font-size: 0.65rem;
+    }
+}
+
+@media (max-width: 375px) {
+    .booking-modal-branding {
+        gap: 8px;
+        min-height: 45px;
+    }
+
+    .booking-modal-logo {
+        width: 40px;
+        height: 40px;
+    }
+
+    .booking-brand-name {
+        font-size: 0.75rem;
+    }
+
+    .booking-brand-tagline {
+        font-size: 0.6rem;
+    }
+}
+
+@media (max-width: 320px) {
+    .booking-modal-branding {
+        gap: 6px;
+        min-height: 40px;
+    }
+
+    .booking-modal-logo {
+        width: 35px;
+        height: 35px;
+    }
+
+    .booking-brand-name {
+        font-size: 0.7rem;
+    }
+
+    .booking-brand-tagline {
+        font-size: 0.55rem;
+    }
+}

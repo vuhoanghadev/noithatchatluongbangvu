@@ -1,0 +1,688 @@
+/* Compact Booking Modal Styles */
+:root {
+    --modal-primary: #f97316;
+    --modal-secondary: #0058dd;
+    --modal-dark: #1c2332;
+    --modal-light: #f8fafc;
+    --modal-white: #ffffff;
+    --modal-gray: #64748b;
+    --modal-shadow: 0 20px 50px rgba(0, 0, 0, 0.25);
+    --modal-transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+    --modal-border-radius: 16px;
+    --modal-accent: rgba(249, 115, 22, 0.1);
+}
+
+.booking-modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.75);
+    backdrop-filter: blur(8px);
+    z-index: 9999;
+    display: none;
+    /* Hidden by default */
+    align-items: center;
+    justify-content: center;
+    padding: 15px;
+    pointer-events: auto;
+    /* Ensure it can receive clicks */
+}
+
+.booking-modal {
+    background: var(--modal-white);
+    border-radius: var(--modal-border-radius);
+    width: 100%;
+    max-width: 450px;
+    /* Reduced from 500px */
+    padding: 0;
+    box-shadow: var(--modal-shadow);
+    position: relative;
+    transform: translateY(0);
+    transition: var(--modal-transition);
+    display: flex;
+    flex-direction: column;
+    margin: 0 auto;
+    /* No max-height to ensure content fits */
+    overflow: hidden;
+    /* Prevent scrolling */
+    z-index: 10000;
+    /* Lower than success notification */
+}
+
+/* Animation for modal */
+@keyframes modalFadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(30px) scale(0.95);
+        visibility: hidden;
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+        visibility: visible;
+    }
+}
+
+.booking-modal-overlay[style*="display: flex"] .booking-modal {
+    animation: modalFadeIn 0.5s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+.booking-modal-header {
+    background: var(--modal-dark);
+    padding: 15px 15px 10px;
+    /* Reduced padding */
+    position: relative;
+    border-radius: var(--modal-border-radius) var(--modal-border-radius) 0 0;
+    background-image: linear-gradient(135deg, rgba(28, 35, 50, 0.95), rgba(28, 35, 50, 0.85)),
+        url('../images/services-bg.jpg');
+    background-size: cover;
+    background-position: center;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+
+/* Branding styles moved to booking-modal-brand.css */
+
+.booking-modal-close {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    width: 30px;
+    /* Reduced from 36px */
+    height: 30px;
+    /* Reduced from 36px */
+    background: rgba(255, 255, 255, 0.15);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: var(--modal-transition);
+    border: none;
+    color: var(--modal-white);
+    font-size: 16px;
+    /* Reduced from 18px */
+    backdrop-filter: blur(5px);
+}
+
+.booking-modal-close:hover {
+    background: var(--modal-primary);
+    transform: rotate(90deg);
+    box-shadow: 0 0 15px rgba(249, 115, 22, 0.5);
+}
+
+.booking-modal-body {
+    padding: 15px 20px;
+    /* Reduced padding */
+    position: relative;
+}
+
+.booking-modal-body::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 40px;
+    /* Reduced from 60px */
+    height: 3px;
+    /* Reduced from 5px */
+    background: var(--modal-accent);
+    border-radius: 3px;
+    margin-top: -1.5px;
+}
+
+.booking-modal-title {
+    font-size: 1.4rem;
+    /* Reduced from 1.75rem */
+    font-weight: 700;
+    color: var(--modal-dark);
+    margin-bottom: 5px;
+    /* Reduced from 10px */
+    text-align: center;
+    position: relative;
+    display: inline-block;
+    width: 100%;
+}
+
+.booking-modal-subtitle {
+    font-size: 0.85rem;
+    /* Reduced from 1rem */
+    color: var(--modal-gray);
+    margin-bottom: 15px;
+    /* Reduced from 30px */
+    text-align: center;
+    line-height: 1.4;
+}
+
+.booking-form-group {
+    margin-bottom: 15px;
+    /* Reduced from 25px */
+    position: relative;
+}
+
+.booking-form-label {
+    display: block;
+    font-size: 0.85rem;
+    /* Reduced from 0.95rem */
+    font-weight: 600;
+    color: var(--modal-dark);
+    margin-bottom: 5px;
+    /* Reduced from 10px */
+    transition: var(--modal-transition);
+}
+
+.booking-form-input {
+    width: 100%;
+    padding: 10px 15px;
+    /* Reduced from 15px 20px */
+    border: 2px solid #e2e8f0;
+    border-radius: 10px;
+    /* Reduced from 12px */
+    font-size: 0.9rem;
+    /* Reduced from 1rem */
+    transition: var(--modal-transition);
+    background: #f8fafc;
+}
+
+.booking-form-input:focus {
+    border-color: var(--modal-primary);
+    box-shadow: 0 0 0 3px rgba(249, 115, 22, 0.15);
+    /* Reduced from 4px */
+    outline: none;
+    background: var(--modal-white);
+}
+
+.booking-form-input::placeholder {
+    color: #a0aec0;
+    transition: var(--modal-transition);
+}
+
+.booking-form-input:focus::placeholder {
+    opacity: 0.7;
+}
+
+.booking-form-icon {
+    position: absolute;
+    right: 12px;
+    /* Reduced from 15px */
+    top: 35px;
+    /* Adjusted from 45px */
+    color: var(--modal-gray);
+    font-size: 1rem;
+    /* Reduced from 1.2rem */
+    pointer-events: none;
+    transition: var(--modal-transition);
+}
+
+.booking-form-input:focus+.booking-form-icon {
+    color: var(--modal-primary);
+}
+
+.booking-form-submit {
+    width: 100%;
+    padding: 10px;
+    /* Reduced from 16px */
+    background: var(--modal-primary);
+    color: var(--modal-white);
+    border: none;
+    border-radius: 10px;
+    /* Reduced from 12px */
+    font-size: 0.95rem;
+    /* Reduced from 1.1rem */
+    font-weight: 600;
+    cursor: pointer;
+    transition: var(--modal-transition);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    position: relative;
+    overflow: hidden;
+    box-shadow: 0 5px 15px rgba(249, 115, 22, 0.3);
+}
+
+.booking-form-submit::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+    transition: var(--modal-transition);
+}
+
+.booking-form-submit:hover {
+    background: var(--modal-secondary);
+    transform: translateY(-2px);
+    /* Reduced from -3px */
+    box-shadow: 0 5px 15px rgba(0, 88, 221, 0.4);
+    /* Reduced from 8px 25px */
+}
+
+.booking-form-submit:hover::before {
+    left: 100%;
+    transition: 0.7s;
+}
+
+.booking-modal-footer {
+    padding: 12px 20px;
+    /* Reduced from 25px 30px */
+    background: var(--modal-light);
+    border-top: 1px solid rgba(0, 0, 0, 0.05);
+    border-radius: 0 0 var(--modal-border-radius) var(--modal-border-radius);
+}
+
+.booking-support {
+    text-align: center;
+    margin-bottom: 10px;
+    /* Reduced from 20px */
+}
+
+.booking-support-text {
+    font-size: 0.9rem;
+    /* Reduced from 1rem */
+    color: var(--modal-dark);
+    font-weight: 700;
+    margin-bottom: 2px;
+    /* Reduced from 5px */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.booking-support-text i {
+    margin-right: 6px;
+    /* Reduced from 8px */
+    color: var(--modal-primary);
+}
+
+.booking-support-desc {
+    font-size: 0.8rem;
+    /* Reduced from 0.9rem */
+    color: var(--modal-gray);
+    line-height: 1.4;
+}
+
+.booking-social {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    /* Reduced from 20px */
+    margin-top: 10px;
+    /* Reduced from 20px */
+}
+
+.booking-social a {
+    text-decoration: none;
+    /* Loại bỏ gạch chân cho tất cả các liên kết */
+}
+
+.booking-social-link {
+    width: 40px;
+    /* Reduced from 50px */
+    height: 40px;
+    /* Reduced from 50px */
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--modal-white);
+    font-size: 1.1rem;
+    /* Reduced from 1.3rem */
+    transition: var(--modal-transition);
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
+    /* Reduced from 5px 15px */
+    position: relative;
+    overflow: hidden;
+    text-decoration: none;
+    /* Loại bỏ gạch chân */
+}
+
+.booking-social-link::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(255, 255, 255, 0.1);
+    transform: scale(0);
+    transition: var(--modal-transition);
+    border-radius: 50%;
+}
+
+.booking-social-link:hover::before {
+    transform: scale(1);
+}
+
+.booking-social-link.facebook {
+    background: #1877f2;
+}
+
+.booking-social-link.zalo {
+    background: #0068ff;
+    /* Màu xanh dương của Zalo */
+    padding: 0;
+    overflow: hidden;
+}
+
+.zalo-icon {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    padding: 6px;
+
+}
+
+.booking-social-link.phone {
+    background: #4CAF50;
+    /* Green color for phone */
+    animation: phoneShake 1.5s infinite ease-in-out;
+}
+
+/* Phone shake animation */
+@keyframes phoneShake {
+    0% {
+        transform: rotate(0deg);
+    }
+
+    1% {
+        transform: rotate(15deg);
+    }
+
+    3% {
+        transform: rotate(-15deg);
+    }
+
+    5% {
+        transform: rotate(15deg);
+    }
+
+    7% {
+        transform: rotate(-15deg);
+    }
+
+    9% {
+        transform: rotate(0deg);
+    }
+
+    100% {
+        transform: rotate(0deg);
+    }
+}
+
+.booking-social-link:hover {
+    transform: translateY(-3px) scale(1.05);
+    /* Reduced from -5px scale(1.1) */
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.15);
+    /* Reduced from 10px 20px */
+}
+
+.booking-social-link.phone:hover {
+    animation: none;
+    transform: scale(1.15);
+    box-shadow: 0 5px 15px rgba(76, 175, 80, 0.4);
+}
+
+.booking-social-link.zalo:hover {
+    transform: scale(1.15);
+    box-shadow: 0 5px 15px rgba(0, 104, 255, 0.4);
+    background: #0068ff;
+    /* Giữ nguyên màu xanh khi hover */
+}
+
+.booking-social-divider {
+    text-align: center;
+    position: relative;
+    margin: 10px 0;
+    /* Reduced from 20px 0 */
+}
+
+.booking-social-divider::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 0;
+    width: 100%;
+    height: 1px;
+    background: rgba(0, 0, 0, 0.1);
+}
+
+.booking-social-divider span {
+    position: relative;
+    background: var(--modal-light);
+    padding: 0 15px;
+    /* Reduced from 20px */
+    font-size: 0.8rem;
+    /* Reduced from 0.9rem */
+    color: var(--modal-gray);
+    font-weight: 500;
+}
+
+/* Responsive styles */
+/* Large screens */
+@media (min-width: 1200px) {
+    .booking-modal {
+        max-width: 480px;
+        /* Slightly larger on big screens */
+    }
+
+    .booking-modal-body {
+        padding: 20px 25px;
+    }
+
+    .booking-modal-footer {
+        padding: 15px 25px;
+    }
+
+    .booking-modal-logo {
+        max-width: 120px;
+    }
+
+    .booking-modal-title {
+        font-size: 1.5rem;
+    }
+
+    .booking-modal-subtitle {
+        font-size: 0.9rem;
+    }
+
+    .booking-form-input {
+        padding: 12px 18px;
+    }
+
+    .booking-form-submit {
+        padding: 12px;
+    }
+}
+
+/* Medium screens */
+@media (max-width: 992px) {
+    .booking-modal {
+        max-width: 420px;
+    }
+}
+
+/* Small tablets */
+@media (max-width: 768px) {
+    .booking-modal {
+        max-width: 400px;
+    }
+}
+
+/* Mobile phones */
+@media (max-width: 576px) {
+    .booking-modal-overlay {
+        padding: 10px;
+    }
+
+    .booking-modal {
+        max-width: 100%;
+    }
+
+    .booking-modal-body {
+        padding: 12px 15px;
+    }
+
+    .booking-modal-footer {
+        padding: 10px 15px;
+    }
+
+    .booking-modal-title {
+        font-size: 1.3rem;
+    }
+
+    .booking-modal-subtitle {
+        font-size: 0.8rem;
+        margin-bottom: 12px;
+    }
+
+    .booking-form-group {
+        margin-bottom: 12px;
+    }
+
+    .booking-form-input {
+        padding: 8px 12px;
+    }
+
+    .booking-form-icon {
+        top: 32px;
+    }
+
+    .booking-form-submit {
+        padding: 9px;
+        font-size: 0.9rem;
+    }
+
+    .booking-social-link {
+        width: 36px;
+        height: 36px;
+        font-size: 1rem;
+    }
+
+    .zalo-icon {
+        padding: 5px;
+    }
+}
+
+/* Very small phones */
+@media (max-width: 375px) {
+    .booking-modal-overlay {
+        padding: 8px;
+    }
+
+    .booking-modal-header {
+        padding: 12px 12px 8px;
+    }
+
+    .booking-modal-logo {
+        max-width: 80px;
+        margin-bottom: 3px;
+    }
+
+    .booking-modal-body {
+        padding: 10px 12px;
+    }
+
+    .booking-modal-footer {
+        padding: 8px 12px;
+    }
+
+    .booking-modal-title {
+        font-size: 1.2rem;
+        margin-bottom: 3px;
+    }
+
+    .booking-modal-subtitle {
+        font-size: 0.75rem;
+        margin-bottom: 10px;
+    }
+
+    .booking-form-group {
+        margin-bottom: 10px;
+    }
+
+    .booking-form-label {
+        font-size: 0.8rem;
+        margin-bottom: 3px;
+    }
+
+    .booking-form-input {
+        padding: 7px 10px;
+        font-size: 0.85rem;
+    }
+
+    .booking-form-icon {
+        top: 30px;
+        right: 10px;
+        font-size: 0.9rem;
+    }
+
+    .booking-form-submit {
+        padding: 8px;
+        font-size: 0.85rem;
+    }
+
+    .booking-support-text {
+        font-size: 0.8rem;
+    }
+
+    .booking-support-desc {
+        font-size: 0.75rem;
+    }
+
+    .booking-social-link {
+        width: 32px;
+        height: 32px;
+        font-size: 0.9rem;
+    }
+
+    .zalo-icon {
+        padding: 4px;
+    }
+
+    .booking-social-divider span {
+        font-size: 0.75rem;
+        padding: 0 10px;
+    }
+}
+
+/* Extra small phones */
+@media (max-width: 320px) {
+    .booking-modal-logo {
+        max-width: 70px;
+    }
+
+    .booking-modal-title {
+        font-size: 1.1rem;
+    }
+
+    .booking-modal-subtitle {
+        font-size: 0.7rem;
+    }
+
+    .booking-form-input {
+        padding: 6px 8px;
+        font-size: 0.8rem;
+    }
+
+    .booking-form-submit {
+        padding: 7px;
+        font-size: 0.8rem;
+    }
+
+    .booking-social-link {
+        width: 30px;
+        height: 30px;
+        font-size: 0.85rem;
+    }
+
+    .zalo-icon {
+        padding: 3px;
+    }
+}
