@@ -1,0 +1,146 @@
+/* New color scheme for Intro section */
+:root {
+    /* Original orange */
+    --intro-orange-500: #f97316;
+    --intro-orange-600: #ea580c;
+    --intro-orange-300: #fdba74;
+    --intro-orange-100: #ffedd5;
+    
+    /* New blue */
+    --intro-blue-500: #0058dd;
+    --intro-blue-600: #0046b3;
+    --intro-blue-300: #4d8df5;
+    --intro-blue-100: #e6f0ff;
+    
+    /* New dark */
+    --intro-dark-900: #1c2332;
+    --intro-dark-800: #2a3349;
+    --intro-dark-700: #3a4560;
+    --intro-dark-200: #d1d5db;
+    --intro-dark-100: #e5e7eb;
+    
+    /* Other colors */
+    --intro-white: #ffffff;
+}
+
+/* Section title styling */
+.intro-new .section-title h2::after {
+    background: linear-gradient(90deg, var(--intro-orange-500), var(--intro-blue-500));
+}
+
+/* Story card styling */
+.story-card {
+    border-left: 4px solid var(--intro-blue-500);
+}
+
+.story-card:hover {
+    box-shadow: 0 15px 35px rgba(0, 88, 221, 0.1);
+    border-color: rgba(0, 88, 221, 0.2);
+}
+
+.story-card h3::before {
+    background: var(--intro-blue-500);
+}
+
+/* Timeline styling */
+.timeline::after {
+    background: linear-gradient(to bottom, var(--intro-blue-300), var(--intro-dark-900));
+}
+
+.timeline-item::after {
+    border: 4px solid var(--intro-blue-500);
+    box-shadow: 0 0 0 4px rgba(0, 88, 221, 0.2);
+}
+
+.timeline-year {
+    background: var(--intro-dark-900);
+    box-shadow: 0 2px 5px rgba(28, 35, 50, 0.3);
+}
+
+.timeline-item:nth-child(odd) .timeline-year {
+    background: var(--intro-blue-500);
+}
+
+.timeline-item:nth-child(even) .timeline-year {
+    background: var(--intro-orange-500);
+}
+
+/* Brand evolution section */
+.brand-evolution {
+    background: linear-gradient(135deg, var(--intro-dark-100), var(--intro-blue-100));
+}
+
+.brand-evolution::before {
+    background: linear-gradient(90deg, var(--intro-blue-300), var(--intro-dark-900), var(--intro-orange-300));
+}
+
+.brand-card:nth-child(1) {
+    border-top: 4px solid var(--intro-dark-900);
+}
+
+.brand-card:nth-child(2) {
+    border-top: 4px solid var(--intro-blue-500);
+}
+
+.brand-card::after {
+    background: var(--intro-blue-500);
+}
+
+.brand-card:nth-child(2)::after {
+    background: var(--intro-orange-500);
+}
+
+.brand-icon {
+    color: var(--intro-dark-900);
+}
+
+.brand-card:nth-child(2) .brand-icon {
+    color: var(--intro-orange-500);
+}
+
+.brand-name.highlight {
+    color: var(--intro-blue-500);
+}
+
+/* CTA section */
+.intro-cta-button {
+    background: var(--intro-blue-500);
+    border: 2px solid var(--intro-blue-500);
+    box-shadow: 0 5px 15px rgba(0, 88, 221, 0.2);
+}
+
+.intro-cta-button:hover {
+    background: var(--intro-dark-900);
+    color: var(--intro-white);
+    border-color: var(--intro-dark-900);
+    box-shadow: 0 8px 20px rgba(28, 35, 50, 0.3);
+}
+
+/* Decorative elements */
+.intro-decoration {
+    background: radial-gradient(circle, rgba(0, 88, 221, 0.1) 0%, rgba(0, 88, 221, 0) 70%);
+}
+
+.intro-decoration-1 {
+    background: radial-gradient(circle, rgba(249, 115, 22, 0.1) 0%, rgba(249, 115, 22, 0) 70%);
+}
+
+.intro-decoration-2 {
+    background: radial-gradient(circle, rgba(28, 35, 50, 0.1) 0%, rgba(28, 35, 50, 0) 70%);
+}
+
+/* Project category styling */
+.project-category:hover,
+.project-category.active {
+    background: var(--intro-blue-500);
+    border-color: var(--intro-blue-500);
+}
+
+.project-category-tag {
+    background: var(--intro-dark-900);
+}
+
+/* Project year styling */
+.project-year::before {
+    color: var(--intro-blue-500);
+}

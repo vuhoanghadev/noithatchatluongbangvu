@@ -1,0 +1,250 @@
+/* Professional color scheme for Intro section */
+:root {
+    /* Primary colors - professional palette */
+    --intro-primary: #2C5282;      /* Navy blue - màu chính */
+    --intro-secondary: #4A6FA5;    /* Medium blue - màu phụ */
+    --intro-accent: #90CDF4;       /* Light blue - màu nhấn */
+    --intro-warm: #E2A975;         /* Warm beige - màu ấm */
+    
+    /* Neutral colors */
+    --intro-dark: #2D3748;         /* Dark slate - màu tối */
+    --intro-dark-secondary: #4A5568; /* Slate gray - màu tối phụ */
+    --intro-bg-light: #FFFFFF;     /* Nền trắng */
+    --intro-bg-gray: #F7FAFC;      /* Nền xám nhạt */
+    --intro-text: #1A202C;         /* Màu chữ chính */
+    --intro-text-light: #4A5568;   /* Màu chữ nhạt */
+    --intro-white: #ffffff;        /* Trắng */
+    
+    /* Shadows and effects */
+    --intro-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+    --intro-shadow-hover: 0 8px 15px rgba(44, 82, 130, 0.15);
+    --intro-transition: all 0.3s ease;
+    --intro-border-radius: 6px;
+}
+
+/* Section title styling */
+.intro-new .section-title h2::after {
+    background: linear-gradient(90deg, var(--intro-primary), var(--intro-secondary));
+    box-shadow: 0 2px 4px rgba(44, 82, 130, 0.2);
+}
+
+/* Story card styling */
+.story-card {
+    border-left: 4px solid var(--intro-primary);
+    background: linear-gradient(to right, var(--intro-bg-gray) 0%, var(--intro-white) 5%);
+    box-shadow: var(--intro-shadow);
+}
+
+.story-card:hover {
+    box-shadow: var(--intro-shadow-hover);
+    border-color: var(--intro-secondary);
+}
+
+.story-card h3::before {
+    background: var(--intro-primary);
+}
+
+/* Timeline styling */
+.timeline::after {
+    background: linear-gradient(to bottom, var(--intro-secondary), var(--intro-primary));
+}
+
+.timeline-item::after {
+    border: 4px solid var(--intro-white);
+    background: var(--intro-primary);
+    box-shadow: 0 0 0 4px rgba(44, 82, 130, 0.2);
+}
+
+.timeline-year {
+    background: var(--intro-dark);
+    box-shadow: 0 2px 5px rgba(45, 55, 72, 0.3);
+}
+
+.timeline-item:nth-child(odd) .timeline-year {
+    background: var(--intro-primary);
+}
+
+.timeline-item:nth-child(even) .timeline-year {
+    background: var(--intro-warm);
+    color: var(--intro-dark);
+}
+
+.timeline-content {
+    box-shadow: var(--intro-shadow);
+    transition: var(--intro-transition);
+    border: 1px solid rgba(0, 0, 0, 0.05);
+}
+
+.timeline-content:hover {
+    box-shadow: var(--intro-shadow-hover);
+    transform: translateY(-5px);
+}
+
+/* Brand evolution section */
+.brand-evolution {
+    background: linear-gradient(135deg, var(--intro-bg-gray), #EDF2F7);
+    border-radius: var(--intro-border-radius);
+    border: 1px solid rgba(0, 0, 0, 0.05);
+}
+
+.brand-evolution::before {
+    background: linear-gradient(90deg, var(--intro-primary), var(--intro-secondary), var(--intro-warm));
+}
+
+.brand-card {
+    background: var(--intro-white);
+    transition: var(--intro-transition);
+    border: 1px solid rgba(0, 0, 0, 0.05);
+}
+
+.brand-card:nth-child(1) {
+    border-top: 4px solid var(--intro-dark);
+}
+
+.brand-card:nth-child(2) {
+    border-top: 4px solid var(--intro-warm);
+}
+
+.brand-card::after {
+    background: var(--intro-dark);
+}
+
+.brand-card:nth-child(2)::after {
+    background: var(--intro-warm);
+}
+
+.brand-card:hover {
+    transform: translateY(-5px);
+    box-shadow: var(--intro-shadow-hover);
+}
+
+.brand-icon {
+    color: var(--intro-dark);
+}
+
+.brand-card:nth-child(2) .brand-icon {
+    color: var(--intro-warm);
+}
+
+.brand-name.highlight {
+    color: var(--intro-primary);
+}
+
+.brand-year {
+    background: var(--intro-bg-gray);
+    color: var(--intro-text);
+}
+
+/* CTA section */
+.intro-cta-button {
+    background: var(--intro-primary);
+    color: var(--intro-white);
+    border: 2px solid var(--intro-primary);
+    border-radius: 30px;
+    box-shadow: 0 5px 15px rgba(44, 82, 130, 0.2);
+    transition: var(--intro-transition);
+}
+
+.intro-cta-button:hover {
+    background: var(--intro-warm);
+    color: var(--intro-dark);
+    border-color: var(--intro-warm);
+    transform: translateY(-3px);
+    box-shadow: 0 8px 20px rgba(226, 169, 117, 0.3);
+}
+
+/* Decorative elements */
+.intro-decoration {
+    opacity: 0.5;
+}
+
+.intro-decoration-1 {
+    background: radial-gradient(circle, rgba(44, 82, 130, 0.1) 0%, rgba(44, 82, 130, 0) 70%);
+}
+
+.intro-decoration-2 {
+    background: radial-gradient(circle, rgba(226, 169, 117, 0.1) 0%, rgba(226, 169, 117, 0) 70%);
+}
+
+/* Project category styling */
+.project-category {
+    transition: var(--intro-transition);
+    border: 1px solid #E2E8F0;
+}
+
+.project-category:hover,
+.project-category.active {
+    background: var(--intro-primary);
+    border-color: var(--intro-primary);
+    color: var(--intro-white);
+}
+
+.project-category-tag {
+    background: var(--intro-primary);
+    color: var(--intro-white);
+}
+
+/* Project year styling */
+.project-year::before {
+    color: var(--intro-primary);
+}
+
+/* Timeline image effects */
+.timeline-image {
+    border-radius: var(--intro-border-radius);
+    overflow: hidden;
+    border: 1px solid rgba(0, 0, 0, 0.05);
+}
+
+.timeline-image img {
+    transition: var(--intro-transition);
+}
+
+.timeline-content:hover .timeline-image img {
+    transform: scale(1.05);
+}
+
+/* Timeline content arrow styling */
+.timeline-item.right .timeline-content::after {
+    border-color: transparent var(--intro-white) transparent transparent;
+}
+
+.timeline-item.left .timeline-content::after {
+    border-color: transparent transparent transparent var(--intro-white);
+}
+
+/* Timeline title styling */
+.timeline-title {
+    color: var(--intro-dark);
+    transition: var(--intro-transition);
+}
+
+.timeline-content:hover .timeline-title {
+    color: var(--intro-primary);
+}
+
+/* Timeline text styling */
+.timeline-text {
+    color: var(--intro-text-light);
+}
+
+/* Featured projects styling */
+.featured-projects-title h3 {
+    color: var(--intro-dark);
+}
+
+.featured-projects-title p {
+    color: var(--intro-text-light);
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .timeline::after {
+        background: var(--intro-primary);
+    }
+    
+    .timeline-item.left .timeline-content::after,
+    .timeline-item.right .timeline-content::after {
+        border-color: transparent;
+    }
+}

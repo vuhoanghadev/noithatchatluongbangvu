@@ -20,7 +20,7 @@ const products = [
     category: 'Tủ Bếp',
     image: 'images/products/product2.png',
     description: 'Tủ bếp gỗ công nghiệp, kích thước 200x60x80cm, bền đẹp.',
-    promotion: null,
+    promotion: 'sale 10%',
     gallery: ['images/products/product2.png', 'images/products/product2.png'],
   },
   {
@@ -1162,20 +1162,28 @@ if (document.getElementById('featured-products')) {
   const featured = products.slice(0, 6); // 6 sản phẩm nổi bật
   const promotions = products.filter((p) => p.promotion);
 
-  featured.forEach((product) => {
+  featured.forEach((product, index) => {
     const card = document.createElement('div');
     card.className = 'product-card';
     card.innerHTML = `
-        <img src="${product.image}" alt="${product.name}" loading="lazy">
-        <h3>${product.name}</h3>
-        ${
-          product.promotion
-            ? `<span class="promo-badge">${product.promotion}</span>`
-            : ''
-        }
-        <a href="product-details.html?id=${
-          product.id
-        }" class="btn-details">Xem chi tiết</a>
+        <div class="image-container">
+          <img src="${product.image}" alt="${product.name}" loading="lazy">
+          ${
+            product.promotion
+              ? `<span class="promo-badge">${product.promotion}</span>`
+              : ''
+          }
+        </div>
+        <div class="product-info">
+          <h3>${product.name}</h3>
+          <div class="category"><i class="fas fa-tag"></i> ${
+            product.category
+          }</div>
+          <p>${product.description}</p>
+          <a href="product-details.html?id=${
+            product.id
+          }" class="btn-details">Xem chi tiết</a>
+        </div>
       `;
     featuredProducts.appendChild(card);
   });

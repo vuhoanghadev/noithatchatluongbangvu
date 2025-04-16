@@ -1,0 +1,448 @@
+/* Mobile Optimized Styles for Intro Section */
+
+/* Define variables for mobile */
+:root {
+    --intro-primary: #2C5282;
+    /* Navy blue - màu chính */
+    --intro-secondary: #4A6FA5;
+    /* Medium blue - màu phụ */
+    --intro-accent: #90CDF4;
+    /* Light blue - màu nhấn */
+    --intro-warm: #E2A975;
+    /* Warm beige - màu ấm */
+    --intro-dark: #2D3748;
+    /* Dark slate - màu tối */
+    --intro-dark-secondary: #4A5568;
+    /* Slate gray - màu tối phụ */
+    --intro-bg-light: #FFFFFF;
+    /* Nền trắng */
+    --intro-bg-gray: #F7FAFC;
+    /* Nền xám nhạt */
+    --intro-text: #1A202C;
+    /* Màu chữ chính */
+    --intro-text-light: #4A5568;
+    /* Màu chữ nhạt */
+    --intro-white: #ffffff;
+    /* Trắng */
+}
+
+/* Mobile-first approach for smaller screens */
+@media (max-width: 768px) {
+
+    /* General section adjustments */
+    .intro-new {
+        padding: 40px 0;
+    }
+
+    .intro-new .section-title {
+        margin-bottom: 30px;
+    }
+
+    .intro-new .section-title h2 {
+        font-size: 1.8rem;
+        margin-bottom: 10px;
+    }
+
+    .intro-new .section-title p {
+        font-size: 0.95rem;
+        padding: 0 15px;
+    }
+
+    /* Story card adjustments */
+    .company-story {
+        gap: 20px;
+        margin-bottom: 40px;
+    }
+
+    .story-card {
+        border-left: 4px solid var(--intro-primary);
+        background: var(--intro-white);
+        border-radius: 12px;
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+        overflow: hidden;
+        margin-bottom: 20px;
+    }
+
+    .story-card-content {
+        padding: 20px 15px;
+    }
+
+    .story-card h3 {
+        font-size: 1.3rem;
+        padding-left: 15px;
+        margin-bottom: 15px;
+        position: relative;
+        color: var(--intro-dark);
+        font-weight: 600;
+    }
+
+    .story-card h3::before {
+        content: '';
+        position: absolute;
+        left: 0;
+        top: 50%;
+        transform: translateY(-50%);
+        width: 6px;
+        height: 20px;
+        background: var(--intro-primary);
+        border-radius: 3px;
+    }
+
+    .story-card p {
+        font-size: 0.95rem;
+        line-height: 1.6;
+        margin-bottom: 15px;
+        color: var(--intro-text-light);
+        display: block !important;
+        overflow: visible !important;
+        -webkit-line-clamp: none !important;
+        -webkit-box-orient: initial !important;
+    }
+
+    /* Timeline adjustments */
+    .timeline {
+        margin: 40px auto 30px;
+        padding: 0 10px 0 0;
+    }
+
+    .timeline::after {
+        left: 20px;
+        width: 3px;
+    }
+
+    .timeline-item {
+        width: 100%;
+        padding-left: 50px;
+        padding-right: 10px;
+        padding-top: 0;
+        padding-bottom: 30px;
+    }
+
+    .timeline-item.left,
+    .timeline-item.right {
+        left: 0;
+    }
+
+    .timeline-item.left::after,
+    .timeline-item.right::after {
+        left: 11px;
+        top: 15px;
+        width: 18px;
+        height: 18px;
+    }
+
+    .timeline-content {
+        padding: 15px;
+    }
+
+    .timeline-content::after {
+        display: none;
+        /* Remove arrows on mobile */
+    }
+
+    .timeline-year {
+        padding: 4px 12px;
+        font-size: 0.8rem;
+        display: inline-block;
+    }
+
+    .timeline-title {
+        font-size: 1.1rem;
+        margin-bottom: 8px;
+    }
+
+    .timeline-text {
+        font-size: 0.9rem;
+        line-height: 1.5;
+    }
+
+    .timeline-image {
+        height: 140px;
+        margin-top: 10px;
+    }
+
+    /* Brand evolution adjustments */
+    .brand-evolution {
+        padding: 30px 15px;
+        margin-top: 40px;
+    }
+
+    .brand-evolution-title {
+        margin-bottom: 25px;
+    }
+
+    .brand-evolution-title h3 {
+        font-size: 1.5rem;
+    }
+
+    .brand-evolution-title p {
+        font-size: 0.9rem;
+        padding: 0 10px;
+    }
+
+    .brand-comparison {
+        gap: 20px;
+    }
+
+    .brand-card {
+        padding: 20px 15px;
+        min-width: 100%;
+    }
+
+    .brand-year {
+        padding: 4px 12px;
+        font-size: 0.8rem;
+        margin-bottom: 10px;
+    }
+
+    .brand-name {
+        font-size: 1.2rem;
+        min-height: auto;
+        margin-bottom: 10px;
+    }
+
+    .brand-description {
+        font-size: 0.9rem;
+        line-height: 1.5;
+        margin-bottom: 15px;
+    }
+
+    .brand-icon {
+        font-size: 2rem;
+        margin-bottom: 15px;
+    }
+
+    /* Project showcase adjustments */
+    .project-showcase {
+        margin-top: 40px;
+    }
+
+    .project-showcase-title {
+        margin-bottom: 25px;
+    }
+
+    .project-showcase-title h3 {
+        font-size: 1.5rem;
+    }
+
+    .project-showcase-title p {
+        font-size: 0.9rem;
+        padding: 0 15px;
+    }
+
+    .project-categories {
+        margin-bottom: 20px;
+        justify-content: flex-start;
+        padding: 0 10px;
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+        display: flex;
+        flex-wrap: nowrap;
+        white-space: nowrap;
+        padding-bottom: 10px;
+    }
+
+    .project-category {
+        padding: 6px 15px;
+        font-size: 0.8rem;
+        flex: 0 0 auto;
+    }
+
+    .projects-grid {
+        grid-template-columns: 1fr;
+        gap: 20px;
+        padding: 0 10px;
+    }
+
+    .project-image {
+        height: 180px;
+    }
+
+    .project-info {
+        padding: 15px;
+    }
+
+    .project-title {
+        font-size: 1.1rem;
+    }
+
+    .project-description {
+        font-size: 0.9rem;
+    }
+
+    .project-meta {
+        font-size: 0.8rem;
+    }
+}
+
+/* Extra small devices (phones, 576px and down) */
+@media (max-width: 576px) {
+    .intro-new .section-title h2 {
+        font-size: 1.6rem;
+    }
+
+    .timeline-item {
+        padding-left: 45px;
+    }
+
+    .timeline::after {
+        left: 15px;
+    }
+
+    .timeline-item.left::after,
+    .timeline-item.right::after {
+        left: 6px;
+        width: 16px;
+        height: 16px;
+    }
+
+    .timeline-title {
+        font-size: 1rem;
+    }
+
+    .timeline-text {
+        font-size: 0.85rem;
+    }
+
+    .timeline-image {
+        height: 120px;
+    }
+
+    .brand-evolution-title h3,
+    .project-showcase-title h3 {
+        font-size: 1.3rem;
+    }
+
+    .brand-name {
+        font-size: 1.1rem;
+    }
+
+    /* Story card adjustments for small screens */
+    .story-card {
+        overflow: hidden;
+        border-radius: 10px;
+        margin-bottom: 20px;
+    }
+
+    .story-card-content {
+        max-height: none;
+        padding: 15px;
+    }
+
+    .story-card h3 {
+        position: relative;
+        font-size: 1.2rem;
+        margin-bottom: 12px;
+        padding-right: 15px;
+    }
+
+    /* Read more/less functionality for mobile */
+    .mobile-read-more {
+        display: inline-block;
+        color: var(--intro-primary);
+        font-weight: 500;
+        margin-top: 5px;
+        font-size: 0.85rem;
+        text-decoration: none;
+    }
+
+    .mobile-read-more:hover {
+        color: var(--intro-warm);
+        text-decoration: underline;
+    }
+
+    /* Condensed text for mobile */
+    .mobile-condensed {
+        display: -webkit-box;
+        -webkit-line-clamp: 3;
+        -webkit-box-orient: vertical;
+        overflow: hidden;
+        transition: all 0.3s ease;
+        margin-bottom: 5px;
+    }
+
+    .mobile-condensed.expanded {
+        -webkit-line-clamp: initial;
+        display: block;
+    }
+
+    /* Improved touch targets */
+    .project-category,
+    .timeline-year,
+    .brand-year {
+        padding: 8px 15px;
+        /* Larger padding for better touch targets */
+    }
+
+    /* Simplified timeline for very small screens */
+    .timeline-content {
+        display: grid;
+        grid-template-areas:
+            "year year"
+            "title title"
+            "text text"
+            "image image";
+        grid-template-columns: 1fr 1fr;
+        grid-gap: 10px;
+    }
+
+    .timeline-year {
+        grid-area: year;
+    }
+
+    .timeline-title {
+        grid-area: title;
+    }
+
+    .timeline-text {
+        grid-area: text;
+    }
+
+    .timeline-image {
+        grid-area: image;
+    }
+}
+
+/* Removed toggle indicator styling for story cards */
+
+/* Specific optimizations for very small screens */
+@media (max-width: 360px) {
+    .intro-new .section-title h2 {
+        font-size: 1.4rem;
+    }
+
+    .story-card h3 {
+        font-size: 1.1rem;
+    }
+
+    .timeline-item {
+        padding-left: 40px;
+    }
+
+    .timeline::after {
+        left: 12px;
+    }
+
+    .timeline-item.left::after,
+    .timeline-item.right::after {
+        left: 3px;
+    }
+
+    .brand-card,
+    .timeline-content,
+    .story-card {
+        border-radius: 8px;
+        /* Smaller border radius */
+    }
+
+    .brand-icon {
+        font-size: 1.8rem;
+    }
+
+    /* Stack elements vertically */
+    .project-meta {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 5px;
+    }
+}
