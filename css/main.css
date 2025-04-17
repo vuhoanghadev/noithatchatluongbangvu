@@ -5,6 +5,13 @@
     box-sizing: border-box;
 }
 
+html,
+body {
+    overflow-x: hidden;
+    position: relative;
+    width: 100%;
+}
+
 :root {
     --primary-color: #FF6B35;
     /* Cam chính */

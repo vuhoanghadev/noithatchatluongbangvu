@@ -398,38 +398,9 @@
 /* Responsive */
 @media (max-width: 768px) {
     .floating-contact {
-        bottom: 55px;
-        /* Dịch lên trên 40px (từ 15px lên 55px) */
+        bottom: 30px;
         right: 15px;
         gap: 12px;
-    }
-
-    .floating-contact-button {
-        width: 55px;
-        height: 55px;
-    }
-
-    .floating-contact-button i,
-    .floating-contact-button img {
-        font-size: 24px;
-    }
-
-    .floating-contact-zalo img {
-        width: 28px;
-        height: 28px;
-    }
-
-    .floating-contact-label {
-        display: none;
-    }
-}
-
-@media (max-width: 576px) {
-    .floating-contact {
-        bottom: 50px;
-        /* Dịch lên trên 40px (từ 10px lên 50px) */
-        right: 10px;
-        gap: 10px;
     }
 
     .floating-contact-button {
@@ -445,5 +416,52 @@
     .floating-contact-zalo img {
         width: 25px;
         height: 25px;
+    }
+
+    .floating-contact-label {
+        display: none;
+    }
+}
+
+@media (max-width: 576px) {
+    .floating-contact {
+        bottom: 20px;
+        right: 10px;
+        gap: 10px;
+        flex-direction: column;
+        /* Trở lại hàng dọc */
+    }
+
+    .floating-contact-button {
+        width: 45px;
+        height: 45px;
+        box-shadow: 0 3px 8px rgba(0, 0, 0, 0.25);
+    }
+
+    .floating-contact-button i,
+    .floating-contact-button img {
+        font-size: 20px;
+    }
+
+    .floating-contact-zalo img {
+        width: 22px;
+        height: 22px;
+    }
+
+    /* Reduce animation intensity on mobile */
+    .floating-contact-button::after {
+        animation: none;
+    }
+
+    .floating-contact-phone i,
+    .floating-contact-zalo img,
+    .floating-contact-messenger i {
+        animation: none;
+    }
+
+    /* Improve touch target */
+    .floating-contact-button:active {
+        transform: scale(0.95);
+        transition: transform 0.1s;
     }
 }

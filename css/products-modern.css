@@ -22,6 +22,8 @@
     background-color: var(--product-light);
     color: var(--product-text);
     min-height: 100vh;
+    overflow: hidden !important;
+    /* Xóa hoàn toàn thanh cuộn */
 }
 
 /* Container */
@@ -31,6 +33,10 @@
     margin: 0 auto;
     padding: 0 20px;
     z-index: 2;
+    width: 100%;
+    box-sizing: border-box;
+    overflow: visible;
+    /* Đảm bảo không có thanh cuộn */
 }
 
 /* Section title */
@@ -83,6 +89,8 @@
     gap: 20px;
     position: relative;
     border: 1px solid rgba(0, 0, 0, 0.05);
+    overflow: hidden;
+    /* Xóa thanh cuộn dọc */
 }
 
 .filter-section::before {
@@ -213,6 +221,8 @@
     grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
     gap: 30px;
     margin-bottom: 50px;
+    overflow: visible;
+    /* Đảm bảo không có thanh cuộn */
 }
 
 /* Product card */
@@ -223,8 +233,8 @@
     box-shadow: var(--product-shadow);
     transition: var(--product-transition);
     position: relative;
-    display: flex;
-    flex-direction: column;
+    display: grid;
+    grid-template-rows: auto 1fr;
     height: 100%;
     border: 1px solid rgba(0, 0, 0, 0.05);
 }
@@ -239,6 +249,7 @@
     position: relative;
     overflow: hidden;
     height: 220px;
+    grid-row: 1;
 }
 
 .product-image img {
@@ -275,6 +286,10 @@
     display: flex;
     flex-direction: column;
     flex-grow: 1;
+    overflow: hidden;
+    /* Xóa thanh cuộn dọc */
+    display: grid;
+    grid-template-rows: auto auto auto 1fr;
 }
 
 .product-category {
@@ -286,6 +301,9 @@
     letter-spacing: 0.5px;
     display: flex;
     align-items: center;
+    height: 20px;
+    /* Fixed height */
+    grid-row: 1;
 }
 
 .product-category i {
@@ -300,6 +318,14 @@
     margin-bottom: 10px;
     line-height: 1.4;
     transition: var(--product-transition);
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    height: calc(1.2rem * 1.4 * 2);
+    /* font-size * line-height * 2 lines */
+    min-height: calc(1.2rem * 1.4 * 2);
 }
 
 .product-card:hover .product-title {
@@ -312,6 +338,16 @@
     line-height: 1.6;
     margin-bottom: 20px;
     flex-grow: 1;
+    overflow: hidden;
+    /* Xóa thanh cuộn dọc */
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    /* Giới hạn số dòng */
+    -webkit-box-orient: vertical;
+    height: calc(0.9rem * 1.6 * 3);
+    /* font-size * line-height * 3 lines */
+    min-height: calc(0.9rem * 1.6 * 3);
+    grid-row: 3;
 }
 
 /* Product action */
@@ -322,6 +358,11 @@
     align-items: center;
     border-top: 1px solid rgba(0, 0, 0, 0.05);
     padding-top: 15px;
+    overflow: hidden;
+    /* Xóa thanh cuộn dọc */
+    grid-row: 4;
+    height: 50px;
+    /* Fixed height */
 }
 
 .product-details {
@@ -369,9 +410,12 @@
 /* Pagination */
 .pagination-container {
     display: flex;
-    justify-content: center;
+    flex-direction: column;
+    align-items: center;
     margin-top: 50px;
     margin-bottom: 30px;
+    overflow: visible;
+    /* Đảm bảo không có thanh cuộn */
 }
 
 .pagination {
@@ -382,6 +426,7 @@
     padding: 10px 15px;
     border-radius: 50px;
     box-shadow: var(--product-shadow);
+    margin-bottom: 0;
 }
 
 .pagination button {
@@ -431,7 +476,7 @@
     text-align: center;
     font-size: 0.95rem;
     color: var(--product-text-light);
-    margin-top: 20px;
+    margin-top: 15px;
 }
 
 .product-count span {
@@ -448,6 +493,8 @@
     box-shadow: var(--product-shadow);
     margin: 40px auto;
     max-width: 600px;
+    overflow: hidden;
+    /* Xóa thanh cuộn dọc */
 }
 
 .empty-state i {
@@ -480,12 +527,38 @@
     font-weight: 600;
     cursor: pointer;
     transition: var(--product-transition);
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
 }
 
 .empty-state button:hover {
     background: #e86207;
     transform: translateY(-3px);
     box-shadow: 0 5px 15px rgba(249, 115, 22, 0.2);
+}
+
+.empty-state button i {
+    font-size: 0.9rem;
+}
+
+.reset-filters-btn {
+    animation: pulse-button 2s infinite;
+}
+
+@keyframes pulse-button {
+    0% {
+        box-shadow: 0 0 0 0 rgba(249, 115, 22, 0.4);
+    }
+
+    70% {
+        box-shadow: 0 0 0 10px rgba(249, 115, 22, 0);
+    }
+
+    100% {
+        box-shadow: 0 0 0 0 rgba(249, 115, 22, 0);
+    }
 }
 
 /* Decorative elements */
@@ -509,6 +582,38 @@
     height: 300px;
     bottom: -100px;
     left: -100px;
+}
+
+@media (max-width: 768px) {
+    .product-decoration-1 {
+        width: 250px;
+        height: 250px;
+        top: -100px;
+        right: -100px;
+    }
+
+    .product-decoration-2 {
+        width: 200px;
+        height: 200px;
+        bottom: -80px;
+        left: -80px;
+    }
+}
+
+@media (max-width: 576px) {
+    .product-decoration-1 {
+        width: 150px;
+        height: 150px;
+        top: -50px;
+        right: -50px;
+    }
+
+    .product-decoration-2 {
+        width: 120px;
+        height: 120px;
+        bottom: -40px;
+        left: -40px;
+    }
 }
 
 /* Breadcrumb */
@@ -608,10 +713,41 @@
 
     .product-title {
         font-size: 1.1rem;
+        height: calc(1.1rem * 1.4 * 2);
+        /* Maintain fixed height */
+        min-height: calc(1.1rem * 1.4 * 2);
     }
 
     .product-description {
         font-size: 0.85rem;
+        -webkit-line-clamp: 3;
+        display: -webkit-box;
+        -webkit-box-orient: vertical;
+        overflow: hidden;
+        height: calc(0.85rem * 1.6 * 3);
+        /* Maintain fixed height */
+        min-height: calc(0.85rem * 1.6 * 3);
+    }
+
+    .product-action {
+        flex-wrap: wrap;
+        gap: 10px;
+    }
+
+    .product-details {
+        padding: 8px 15px;
+        font-size: 0.85rem;
+    }
+
+    .product-dimensions {
+        font-size: 0.8rem;
+    }
+
+    .pagination {
+        flex-wrap: wrap;
+        justify-content: center;
+        overflow: visible;
+        /* Đảm bảo không có thanh cuộn */
     }
 
     .pagination button {
@@ -619,11 +755,22 @@
         height: 35px;
         font-size: 0.9rem;
     }
+
+    /* Adjust breadcrumb for mobile */
+    .breadcrumb {
+        flex-wrap: wrap;
+        line-height: 1.8;
+    }
 }
 
 @media (max-width: 576px) {
     .products-section {
         padding: 80px 0 40px;
+        width: 100%;
+        overflow: hidden !important;
+        /* Xóa hoàn toàn thanh cuộn */
+        height: auto !important;
+        /* Đảm bảo chiều cao tự động */
     }
 
     .products-section .section-title h1 {
@@ -641,19 +788,131 @@
     .product-grid {
         grid-template-columns: 1fr;
         gap: 20px;
+        overflow: hidden;
+        /* Xóa thanh cuộn dọc */
+        height: auto !important;
+        /* Đảm bảo chiều cao tự động */
     }
 
     .product-image {
         height: 200px;
     }
 
+    .product-action {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .product-details {
+        width: 100%;
+        text-align: center;
+        margin-bottom: 10px;
+    }
+
+    .product-dimensions {
+        width: 100%;
+        justify-content: center;
+    }
+
+    .pagination-container {
+        flex-direction: column;
+        align-items: center;
+        margin-top: 30px;
+        overflow: hidden;
+        /* Xóa thanh cuộn dọc */
+        height: auto;
+        /* Đảm bảo chiều cao tự động */
+    }
+
     .pagination {
         padding: 8px 12px;
+        border-radius: 10px;
+        max-width: 100%;
+        overflow: hidden;
+        justify-content: center;
+        gap: 5px;
+        margin-bottom: 15px;
+        white-space: nowrap;
+        display: inline-flex;
+        /* Thay đổi thành inline-flex */
     }
 
     .pagination button {
-        width: 32px;
-        height: 32px;
+        width: 36px;
+        height: 36px;
         font-size: 0.85rem;
+        min-width: 36px;
+        margin: 0 2px;
+    }
+
+    .pagination button.nav-btn {
+        background-color: rgba(249, 115, 22, 0.1);
+    }
+
+    .pagination button.active {
+        transform: scale(1.1);
+    }
+
+    /* Simplified pagination for mobile */
+    .pagination .ellipsis {
+        width: 20px;
+    }
+
+    /* Show only essential pagination elements */
+    .pagination button:not(.active):not(.nav-btn):not(:nth-child(2)):not(:last-child-2) {
+        display: none;
+    }
+
+    /* Always show first, last, prev, next, and current page */
+    .pagination button.nav-btn,
+    .pagination button.active,
+    .pagination button:first-of-type,
+    .pagination button:last-of-type {
+        display: flex;
+    }
+
+    .product-count {
+        margin-top: 5px;
+        font-size: 0.9rem;
+    }
+
+    /* Adjust filter section */
+    .filter-section {
+        padding: 15px;
+    }
+
+    .category-filter label,
+    .search-filter label {
+        font-size: 0.85rem;
+    }
+
+    .category-filter select,
+    .search-container input {
+        padding: 10px;
+        font-size: 0.9rem;
+    }
+
+    /* Adjust breadcrumb */
+    .breadcrumb {
+        font-size: 0.8rem;
+        margin-bottom: 20px;
+    }
+
+    /* Adjust empty state */
+    .empty-state {
+        padding: 30px 15px;
+    }
+
+    .empty-state h3 {
+        font-size: 1.3rem;
+    }
+
+    .empty-state p {
+        font-size: 0.9rem;
+    }
+
+    .empty-state button {
+        padding: 8px 20px;
+        font-size: 0.9rem;
     }
 }

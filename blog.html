@@ -4,12 +4,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Blog nội thất từ Bàng Vũ">
+    <meta name="description" content="Blog nội thất từ Bàng Vũ - Chia sẻ kiến thức, xu hướng và mẹo thiết kế nội thất">
 
     <!-- Open Graph / Facebook -->
     <meta property="og:type" content="website">
     <meta property="og:url" content="https://noithatchatluongbangvu.vercel.app/blog.html">
-    <meta property="og:title" content="Blog Nội Thất - Nội Thất Bàng Vũ">
+    <meta property="og:title" content="Blog Nội Thất - Nội Thất Chất Lượng Bàng Vũ">
     <meta property="og:description"
         content="Những bài viết hữu ích về thiết kế nội thất, xu hướng mới nhất và các mẹo trang trí nhà cửa. Cập nhật thường xuyên từ đội ngũ chuyên gia của Bàng Vũ.">
     <meta property="og:image"
@@ -18,12 +18,12 @@
     <!-- Twitter -->
     <meta property="twitter:card" content="summary_large_image">
     <meta property="twitter:url" content="https://noithatchatluongbangvu.vercel.app/blog.html">
-    <meta property="twitter:title" content="Blog Nội Thất - Nội Thất Bàng Vũ">
+    <meta property="twitter:title" content="Blog Nội Thất - Nội Thất Chất Lượng Bàng Vũ">
     <meta property="twitter:description"
         content="Những bài viết hữu ích về thiết kế nội thất, xu hướng mới nhất và các mẹo trang trí nhà cửa. Cập nhật thường xuyên từ đội ngũ chuyên gia của Bàng Vũ.">
     <meta property="twitter:image"
         content="https://images.unsplash.com/photo-1616486338812-3dadae4b4ace?q=80&w=1932&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D">
-    <title>Blog - Nội Thất Bàng Vũ</title>
+    <title>Blog - Nội Thất Chất Lượng Bàng Vũ</title>
     <link rel="icon" href="./images/logo.svg" type="image/svg+xml">
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -33,10 +33,16 @@
         rel="stylesheet">
     <!-- Stylesheets -->
     <link rel="stylesheet" href="css/main.css">
-    <link rel="stylesheet" href="css/blog.css">
+    <link rel="stylesheet" href="css/blog-modern.css">
     <link rel="stylesheet" href="css/loading.css">
     <link rel="stylesheet" href="css/header-new.css">
     <link rel="stylesheet" href="css/banner-new.css">
+    <link rel="stylesheet" href="css/footer-modern.css">
+    <link rel="stylesheet" href="css/floating-contact.css">
+    <link rel="stylesheet" href="css/booking-modal-compact.css">
+    <link rel="stylesheet" href="css/booking-modal-brand.css">
+    <link rel="stylesheet" href="css/booking-success.css">
+    <link rel="stylesheet" href="css/booking-loading.css">
     <!-- Font Awesome Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css"
         integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA=="
@@ -44,6 +50,10 @@
 </head>
 
 <body>
+    <div id="fb-root"></div>
+    <script async defer crossorigin="anonymous"
+        src="https://connect.facebook.net/vi_VN/sdk.js#xfbml=1&version=v22.0"></script>
+
     <!-- Announcement Banner -->
     <div class="announcement-banner">
         Giảm giá 20% cho tất cả các sản phẩm mới! <a href="products.html">Xem ngay</a>
@@ -68,7 +78,7 @@
                 <ul class="nav-menu">
                     <li><a href="index.html">Trang Chủ</a></li>
                     <li><a href="products.html">Sản Phẩm</a></li>
-                    <li><a href="blog.html">Blog</a></li>
+                    <li><a href="blog.html" class="active">Blog</a></li>
                     <li><a href="quote-ai.html">Báo Giá</a></li>
                 </ul>
             </nav>
@@ -94,8 +104,8 @@
 
         <div class="mobile-menu-logo">
             <img src="./images/logo.svg" alt="Logo Nội Thất Bàng Vũ">
-            <div>
-                <h2>Nội Thất Chất Lượng Bàng Vũ</h2>
+            <div class="mobile-menu-logo-text">
+                <h2>NỘI THẤT CHẤT LƯỢNG BÀNG VŨ</h2>
                 <p>Nâng Tầm Không Gian Sống</p>
             </div>
         </div>
@@ -103,7 +113,7 @@
         <ul class="mobile-menu-links">
             <li><a href="index.html"><i class="fas fa-home"></i> Trang Chủ</a></li>
             <li><a href="products.html"><i class="fas fa-couch"></i> Sản Phẩm</a></li>
-            <li><a href="blog.html"><i class="fas fa-newspaper"></i> Blog</a></li>
+            <li><a href="blog.html" class="active"><i class="fas fa-newspaper"></i> Blog</a></li>
             <li><a href="quote-ai.html"><i class="fas fa-robot"></i> Báo Giá AI</a></li>
         </ul>
 
@@ -121,31 +131,225 @@
     </div>
     <main>
         <section class="blog">
-            <h1>Blog Nội Thất</h1>
-            <div class="filters">
-                <select id="category">
-                    <option value="all">Tất cả</option>
-                    <option value="Mẹo thiết kế">Mẹo thiết kế</option>
-                    <option value="Xu hướng">Xu hướng</option>
-                    <option value="Dự án">Dự án</option>
-                </select>
+            <div class="container">
+                <h1>Blog Nội Thất</h1>
+                <div class="filters">
+                    <select id="category">
+                        <option value="all">Tất cả</option>
+                        <option value="Mẹo thiết kế">Mẹo thiết kế</option>
+                        <option value="Xu hướng">Xu hướng</option>
+                        <option value="Dự án">Dự án</option>
+                    </select>
+                </div>
+                <div class="blog-grid" id="blog-grid"></div>
+                <div class="pagination-container">
+                    <div class="pagination" id="pagination"></div>
+                    <div class="product-count" id="post-count"></div>
+                </div>
             </div>
-            <div class="blog-grid" id="blog-grid"></div>
-            <div class="pagination" id="pagination"></div>
-            <div class="product-count" id="post-count"></div>
         </section>
     </main>
     <footer>
-        <p>Liên hệ: 0123 456 789 | Email: contact@bangvu.com</p>
-        <p><a href="https://facebook.com/bangvu">Facebook</a> | <a href="https://zalo.me/123456789">Zalo</a></p>
-        <p>© 2025 Nội Thất Chất Lượng Bàng Vũ</p>
+        <!-- Footer wave decoration -->
+        <svg class="footer-wave" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 50">
+            <path fill-opacity="1"
+                d="M0,32L80,26.7C160,21,320,11,480,16C640,21,800,43,960,42.7C1120,43,1280,21,1360,10.7L1440,0L1440,50L1360,50C1280,50,1120,50,960,50C800,50,640,50,480,50C320,50,160,50,80,50L0,50Z">
+            </path>
+        </svg>
+
+        <div class="footer-main">
+            <div class="container">
+                <div class="footer-content">
+                    <div class="footer-brand">
+                        <div class="footer-logo-container">
+                            <img src="./images/logo.svg" alt="Logo" class="footer-logo">
+                            <div class="footer-brand-text">
+                                <h3>Nội Thất Chất Lượng Bàng Vũ</h3>
+                                <p class="footer-brand-tagline">Nâng Tầm Không Gian Sống</p>
+                            </div>
+                        </div>
+                        <p>Chúng tôi chuyên cung cấp các sản phẩm nội thất cao cấp, thiết kế và thi công nội thất theo
+                            yêu cầu. Với hơn 10 năm kinh nghiệm, chúng tôi tự hào mang đến những sản phẩm chất lượng cao
+                            và dịch vụ chuyên nghiệp.</p>
+
+                        <div class="newsletter-form">
+                            <p>Đăng ký nhận thông tin và ưu đãi mới nhất</p>
+                            <div class="newsletter-input-group">
+                                <input type="email" class="newsletter-input" placeholder="Nhập email của bạn">
+                                <button class="newsletter-button">Đăng ký</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="footer-info">
+                        <h3>Thông tin liên hệ</h3>
+                        <p><i class="fas fa-map-marker-alt"></i> 123 Đường ABC, Quận XYZ, Hà Nội</p>
+                        <p><i class="fas fa-phone"></i> 097.277.4646</p>
+                        <p><i class="fas fa-envelope"></i> contact@noithatbangvu.com</p>
+                        <p><i class="far fa-clock"></i> Thời gian làm việc: 8:00 - 17:30, T2 - CN</p>
+                    </div>
+
+                    <div class="footer-links">
+                        <h3>Liên kết nhanh</h3>
+                        <ul>
+                            <li><a href="index.html">Trang chủ</a></li>
+                            <li><a href="products.html">Sản phẩm</a></li>
+                            <li><a href="services.html">Dịch vụ thiết kế</a></li>
+                            <li><a href="about.html">Về chúng tôi</a></li>
+                            <li><a href="blog.html">Blog</a></li>
+                            <li><a href="quote-ai.html">Báo giá AI</a></li>
+                            <li><a href="contact.html">Liên hệ</a></li>
+                        </ul>
+                    </div>
+
+                    <div class="footer-social">
+                        <h3>Kết nối với chúng tôi</h3>
+                        <div class="social-icons">
+                            <a href="https://facebook.com/tunhuachatluong" class="facebook" target="_blank"><i
+                                    class="fab fa-facebook-f"></i></a>
+                            <a href="https://zalo.me/123456789" class="zalo" target="_blank"><img
+                                    src="./images/Icon_of_Zalo.svg" alt="Zalo" style="width: 18px; height: 18px;"></a>
+                            <a href="#" class="instagram"><i class="fab fa-instagram"></i></a>
+                            <a href="#" class="youtube"><i class="fab fa-youtube"></i></a>
+                        </div>
+
+                        <!-- Facebook Page Plugin -->
+                        <div class="fb-page" data-href="https://web.facebook.com/tunhuachatluong/" data-tabs="timeline"
+                            data-width="" data-height="70" data-small-header="false" data-adapt-container-width="true"
+                            data-hide-cover="false" data-show-facepile="true">
+                            <blockquote cite="https://web.facebook.com/tunhuachatluong/" class="fb-xfbml-parse-ignore">
+                                <a href="https://web.facebook.com/tunhuachatluong/">Nội Thất Chất Lượng Hà Nội</a>
+                            </blockquote>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="footer-bottom">
+            <div class="container">
+                <div class="footer-bottom-content">
+                    <p>© 2025 Bản quyền thuộc về <a href="#">
+                            Nội Thất Chất Lượng Bàng Vũ</a></p>
+                    <div class="footer-payment-methods">
+                        <img src="https://cdn-icons-png.flaticon.com/512/196/196578.png" alt="Visa">
+                        <img src="https://cdn-icons-png.flaticon.com/512/196/196561.png" alt="MasterCard">
+                        <img src="https://cdn-icons-png.flaticon.com/512/217/217445.png" alt="PayPal">
+                        <img src="https://cdn-icons-png.flaticon.com/512/5968/5968299.png" alt="MoMo">
+                    </div>
+                </div>
+            </div>
+        </div>
     </footer>
     <script src="js/main.js"></script>
     <script src="js/blog.js"></script>
     <script src="js/header.js"></script>
     <script src="js/header-scroll.js"></script>
     <script src="js/logo-animation.js"></script>
+    <script src="js/footer-modern.js"></script>
+    <script src="js/floating-contact.js"></script>
     <script src="js/effects.js"></script>
+
+    <!-- Booking Modal -->
+    <div class="booking-modal-overlay" id="bookingModal">
+        <!-- Success Notification -->
+        <div class="booking-success-notification" id="bookingSuccess">
+            <div class="success-icon">
+                <i class="fas fa-check-circle"></i>
+            </div>
+            <h3>Gửi tư vấn thành công!</h3>
+            <p id="successMessage">Cảm ơn <span id="successName"></span> đã gửi yêu cầu tư vấn. Chúng tôi sẽ liên hệ với
+                bạn qua số điện thoại <span id="successPhone"></span> trong thời gian sớm nhất.</p>
+            <button class="success-close-btn" id="successCloseBtn">OK</button>
+        </div>
+
+        <div class="booking-modal">
+            <div class="booking-modal-header">
+                <div class="booking-modal-branding">
+                    <img src="./images/logo.svg" alt="Logo" class="booking-modal-logo">
+                    <div class="booking-modal-brand-text">
+                        <h3 class="booking-brand-name">NỘI THẤT CHẤT LƯỢNG BÀNG VŨ</h3>
+                        <p class="booking-brand-tagline">Nâng Tầm Không Gian Sống</p>
+                    </div>
+                </div>
+                <button class="booking-modal-close" id="closeModal">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div class="booking-modal-body">
+                <!-- Loading overlay -->
+                <div class="loading-overlay" id="loadingOverlay">
+                    <div class="loading-content">
+                        <div class="loading-spinner"></div>
+                        <p class="loading-text">Đang xử lý yêu cầu...</p>
+                    </div>
+                </div>
+
+                <h2 class="booking-modal-title">Đặt lịch tư vấn miễn phí</h2>
+                <p class="booking-modal-subtitle">Hãy để lại thông tin, chúng tôi sẽ liên hệ ngay</p>
+                <form id="bookingForm">
+                    <div class="booking-form-group">
+                        <label for="fullName" class="booking-form-label">Họ và tên</label>
+                        <input type="text" id="fullName" class="booking-form-input" placeholder="Nhập họ và tên của bạn"
+                            required>
+                        <i class="fas fa-user booking-form-icon"></i>
+                    </div>
+                    <div class="booking-form-group">
+                        <label for="phone" class="booking-form-label">Số điện thoại</label>
+                        <input type="tel" id="phone" class="booking-form-input" placeholder="Nhập số điện thoại của bạn"
+                            required>
+                        <i class="fas fa-phone-alt booking-form-icon"></i>
+                    </div>
+                    <button type="submit" class="booking-form-submit">
+                        <span class="submit-text">Gửi tư vấn</span>
+                        <span class="submit-loading">
+                            <i class="fas fa-spinner fa-spin"></i>
+                        </span>
+                    </button>
+                </form>
+            </div>
+            <div class="booking-modal-footer">
+                <div class="booking-support">
+                    <p class="booking-support-text"><i class="fas fa-headset"></i> Tư vấn 24/7</p>
+                    <p class="booking-support-desc">Hỗ trợ bạn mọi lúc</p>
+                </div>
+                <div class="booking-social-divider">
+                    <span>Hoặc liên hệ qua</span>
+                </div>
+                <div class="booking-social">
+                    <a href="https://facebook.com" class="booking-social-link facebook" target="_blank"
+                        title="Facebook">
+                        <i class="fab fa-facebook-f"></i>
+                    </a>
+                    <a href="https://zalo.me/123456789" class="booking-social-link zalo" target="_blank" title="Zalo">
+                        <img src="./images/Icon_of_Zalo.svg" alt="Zalo" class="zalo-icon">
+                    </a>
+                    <a href="tel:097277466" class="booking-social-link phone" target="_blank" title="Gọi điện thoại">
+                        <i class="fas fa-phone-alt"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="js/booking-modal-simple.js"></script>
+
+    <!-- Floating Contact Buttons -->
+    <div class="floating-contact">
+        <a href="tel:0972774646" class="floating-contact-button floating-contact-phone">
+            <i class="fas fa-phone-alt"></i>
+            <span class="floating-contact-label">Gọi ngay: 097.277.4646</span>
+        </a>
+        <a href="https://zalo.me/123456789" target="_blank" class="floating-contact-button floating-contact-zalo">
+            <img src="./images/Icon_of_Zalo.svg" alt="Zalo" style="width: 28px; height: 28px;">
+            <span class="floating-contact-label">Chat Zalo</span>
+        </a>
+        <a href="https://m.me/tunhuachatluong" target="_blank"
+            class="floating-contact-button floating-contact-messenger">
+            <i class="fab fa-facebook-messenger"></i>
+            <span class="floating-contact-label">Messenger</span>
+        </a>
+    </div>
 </body>
 
 </html>
