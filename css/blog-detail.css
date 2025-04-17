@@ -118,14 +118,18 @@
     margin-bottom: 20px;
 }
 
-.blog-author, .blog-date, .blog-views {
+.blog-author,
+.blog-date,
+.blog-views {
     display: flex;
     align-items: center;
     font-size: 0.9rem;
     color: var(--blog-text-light);
 }
 
-.blog-author i, .blog-date i, .blog-views i {
+.blog-author i,
+.blog-date i,
+.blog-views i {
     margin-right: 8px;
 }
 
@@ -267,7 +271,8 @@
     margin: 30px 0 15px;
 }
 
-.blog-content ul, .blog-content ol {
+.blog-content ul,
+.blog-content ol {
     margin: 20px 0;
     padding-left: 20px;
 }
@@ -433,7 +438,8 @@
     padding-top: 30px;
 }
 
-.prev-post, .next-post {
+.prev-post,
+.next-post {
     display: flex;
     align-items: center;
     gap: 15px;
@@ -442,11 +448,13 @@
     transition: var(--blog-transition);
 }
 
-.prev-post:hover, .next-post:hover {
+.prev-post:hover,
+.next-post:hover {
     transform: translateY(-3px);
 }
 
-.prev-post i, .next-post i {
+.prev-post i,
+.next-post i {
     font-size: 1.2rem;
     color: var(--blog-primary);
     transition: var(--blog-transition);
@@ -460,18 +468,21 @@
     transform: translateX(5px);
 }
 
-.prev-post div, .next-post div {
+.prev-post div,
+.next-post div {
     display: flex;
     flex-direction: column;
 }
 
-.prev-post span, .next-post span {
+.prev-post span,
+.next-post span {
     font-size: 0.8rem;
     color: var(--blog-text-light);
     margin-bottom: 5px;
 }
 
-.prev-post h4, .next-post h4 {
+.prev-post h4,
+.next-post h4 {
     font-family: var(--blog-font-heading);
     font-size: 1rem;
     font-weight: 600;
@@ -484,7 +495,8 @@
     overflow: hidden;
 }
 
-.prev-post:hover h4, .next-post:hover h4 {
+.prev-post:hover h4,
+.next-post:hover h4 {
     color: var(--blog-primary);
 }
 
@@ -735,14 +747,14 @@
     margin: 0;
 }
 
-.newsletter-form {
+.main-newsletter-form {
     display: flex;
     flex: 1;
     min-width: 300px;
     max-width: 500px;
 }
 
-.newsletter-form input {
+.main-newsletter-form input {
     flex-grow: 1;
     padding: 15px 20px;
     border: none;
@@ -752,7 +764,7 @@
     outline: none;
 }
 
-.newsletter-form button {
+.main-newsletter-form button {
     padding: 15px 30px;
     background-color: var(--blog-text);
     color: var(--blog-white);
@@ -765,21 +777,25 @@
     transition: var(--blog-transition);
 }
 
-.newsletter-form button:hover {
+.main-newsletter-form button:hover {
     background-color: var(--blog-secondary);
 }
 
 /* Back to Top Button */
 .back-to-top {
     position: fixed;
-    bottom: 30px;
-    right: 30px;
+    bottom: 60px;
+    left: 20px;
     width: 50px;
     height: 50px;
-    border-radius: 50%;
-    background-color: var(--blog-primary);
-    color: var(--blog-white);
-    border: none;
+    border-radius: 12px;
+    /* Hình vuông bo góc thay vì hình tròn */
+    background-color: var(--blog-white);
+    /* Nền trắng */
+    color: var(--blog-primary);
+    /* Màu chữ cam */
+    border: 2px solid var(--blog-primary);
+    /* Viền cam */
     display: flex;
     align-items: center;
     justify-content: center;
@@ -788,18 +804,86 @@
     visibility: hidden;
     transition: var(--blog-transition);
     z-index: 99;
-    box-shadow: 0 4px 15px rgba(249, 115, 22, 0.3);
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
 }
 
 .back-to-top.visible {
     opacity: 1;
     visibility: visible;
+    animation: fadeInUp 0.5s ease forwards, attention 2s ease 1s;
+}
+
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes attention {
+    0% {
+        transform: scale(1);
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    }
+
+    10% {
+        transform: scale(1.05);
+        box-shadow: 0 6px 15px rgba(249, 115, 22, 0.2);
+    }
+
+    20% {
+        transform: scale(1);
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    }
+
+    100% {
+        transform: scale(1);
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    }
 }
 
 .back-to-top:hover {
-    background-color: var(--blog-primary-dark);
-    transform: translateY(-5px);
-    box-shadow: 0 6px 20px rgba(249, 115, 22, 0.4);
+    background-color: var(--blog-primary);
+    /* Nền cam khi hover */
+    color: var(--blog-white);
+    /* Chữ trắng khi hover */
+    transform: translateY(-3px);
+    box-shadow: 0 6px 15px rgba(249, 115, 22, 0.2);
+}
+
+.back-to-top::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: var(--blog-primary);
+    border-radius: 10px;
+    z-index: -1;
+    opacity: 0;
+    transform: scale(0.8);
+    transition: all 0.3s ease;
+}
+
+.back-to-top:hover::before {
+    opacity: 0.1;
+    transform: scale(1.2);
+}
+
+.back-to-top i {
+    font-size: 20px;
+    /* Nhỏ hơn floating-contact-button */
+    transition: var(--blog-transition);
+}
+
+.back-to-top:hover i {
+    transform: translateY(-2px);
 }
 
 /* Responsive Styles */
@@ -822,7 +906,8 @@
         gap: 20px;
     }
 
-    .prev-post, .next-post {
+    .prev-post,
+    .next-post {
         max-width: 100%;
     }
 
@@ -831,13 +916,21 @@
         text-align: center;
     }
 
-    .newsletter-form {
+    .main-newsletter-form {
         width: 100%;
         max-width: 100%;
     }
 }
 
 @media (max-width: 768px) {
+    .back-to-top {
+        bottom: 30px;
+        left: 15px;
+        width: 45px;
+        height: 45px;
+        border-radius: 10px;
+    }
+
     .breadcrumb-container {
         padding: 100px 0 15px;
     }
@@ -890,7 +983,8 @@
         justify-content: center;
     }
 
-    .related-products, .related-posts {
+    .related-products,
+    .related-posts {
         grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
     }
 
@@ -919,7 +1013,8 @@
         gap: 15px;
     }
 
-    .related-products, .related-posts {
+    .related-products,
+    .related-posts {
         grid-template-columns: 1fr;
     }
 
@@ -931,20 +1026,26 @@
         font-size: 1.5rem;
     }
 
-    .newsletter-form {
+    .main-newsletter-form {
         flex-direction: column;
         gap: 10px;
     }
 
-    .newsletter-form input, .newsletter-form button {
+    .main-newsletter-form input,
+    .main-newsletter-form button {
         width: 100%;
         border-radius: 30px;
     }
 
     .back-to-top {
         bottom: 20px;
-        right: 20px;
+        left: 10px;
         width: 40px;
         height: 40px;
+        border-radius: 8px;
+    }
+
+    .back-to-top i {
+        font-size: 18px;
     }
 }

@@ -102,6 +102,7 @@
     flex-direction: column;
     height: 100%;
     border: 1px solid rgba(44, 82, 130, 0.1);
+    padding: 15px;
 }
 
 .promo-card:hover {
@@ -112,10 +113,16 @@
 .promo-card-image {
     position: relative;
     overflow: hidden;
-    height: 250px;
+    aspect-ratio: 1/1;
+    /* Fallback for browsers that don't support aspect-ratio */
+    padding-top: 80%;
+    margin-bottom: 10px;
 }
 
 .promo-card-image img {
+    position: absolute;
+    top: 0;
+    left: 0;
     width: 100%;
     height: 100%;
     object-fit: cover;
@@ -128,19 +135,19 @@
 
 .promo-badge {
     position: absolute;
-    top: 0px;
-    right: 0px;
+    top: 5px;
+    right: 5px;
     background: linear-gradient(135deg, #FF6B35, #FF9E64);
     color: white;
     font-weight: 700;
-    padding: 8px 15px;
-    border-radius: 0 20px 0 20px;
-    font-size: 0.85rem;
-    box-shadow: 0 6px 15px rgba(255, 107, 53, 0.4);
+    padding: 6px 12px;
+    border-radius: 0 15px 0 15px;
+    font-size: 0.75rem;
+    box-shadow: 0 4px 10px rgba(255, 107, 53, 0.4);
     z-index: 2;
     transform: translateX(0);
     transition: all 0.3s ease;
-    border: 2px solid rgba(255, 255, 255, 0.3);
+    border: 1px solid rgba(255, 255, 255, 0.3);
     text-transform: uppercase;
     letter-spacing: 0.5px;
     animation: shakeBadge 3s ease-in-out infinite;
@@ -309,24 +316,47 @@
 
 .promo-card-content {
     text-align: left;
-    padding: 0px;
+    padding: 0px 15px;
     display: flex;
     flex-direction: column;
     flex-grow: 1;
 }
 
 .promo-card-title {
-    font-size: 1.4rem;
+    font-size: 1.2rem;
     color: var(--promo-dark);
-    margin-bottom: 10px;
+    margin-bottom: 8px;
     font-weight: 600;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    height: 2.8em;
+    /* Fixed height: 2 lines * 1.4 line-height */
+    line-height: 1.4;
+    position: relative;
+}
+
+.promo-card-title::after {
+    content: '...';
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    padding-left: 40px;
+    background: linear-gradient(to right, transparent, var(--promo-white) 50%);
+    display: none;
+}
+
+.promo-card-title.truncated::after {
+    display: block;
 }
 
 .promo-card-category {
     display: inline-block;
-    font-size: 0.9rem;
+    font-size: 0.8rem;
     color: var(--promo-secondary);
-    margin-bottom: 15px;
+    margin-bottom: 8px;
     font-family: 'Roboto', 'Helvetica Neue', Arial, sans-serif;
 }
 
@@ -337,9 +367,17 @@
 .promo-card-description {
     font-style: italic;
     color: #4A5568;
-    margin-bottom: 20px;
-    line-height: 1.6;
+    margin-bottom: 15px;
+    line-height: 1.4;
     flex-grow: 1;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    height: 2.8em;
+    /* Fixed height: 2 lines * 1.4 line-height */
+    font-size: 0.9rem;
 }
 
 .promo-card-actions {
@@ -347,21 +385,22 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-    gap: 15px;
+    gap: 10px;
 }
 
 .btn-promo-details {
     display: inline-block;
-    padding: 10px 20px;
+    padding: 8px 15px;
     background: var(--promo-primary);
     color: var(--promo-white);
     text-decoration: none;
     border-radius: var(--promo-border-radius-sm);
     font-weight: 500;
     transition: var(--promo-transition);
-    border: 2px solid var(--promo-primary);
-    min-width: 140px;
+    border: 1px solid var(--promo-primary);
+    min-width: 120px;
     text-align: center;
+    font-size: 0.85rem;
 }
 
 .btn-promo-details:hover {
@@ -373,16 +412,17 @@
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    padding: 10px 20px;
+    padding: 8px 15px;
     background: transparent;
     color: var(--promo-accent);
     text-decoration: none;
     border-radius: var(--promo-border-radius-sm);
     font-weight: 500;
     transition: var(--promo-transition);
-    border: 2px solid var(--promo-accent);
-    min-width: 140px;
+    border: 1px solid var(--promo-accent);
+    min-width: 120px;
     text-align: center;
+    font-size: 0.85rem;
 }
 
 .btn-promo-contact i {
@@ -483,9 +523,7 @@
         gap: 20px;
     }
 
-    .promo-card-image {
-        height: 200px;
-    }
+    /* Image container is now square using aspect-ratio */
 
     .promo-card-content {
         padding: 20px;

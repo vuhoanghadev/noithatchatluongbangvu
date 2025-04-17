@@ -5,9 +5,17 @@ const products = [
     category: 'Tủ Quần Áo',
     image: 'images/products/product1.png',
     description:
-      'Tủ quần áo 3 cánh gỗ MDF, kích thước 120x180x50cm, thiết kế hiện đại.',
+      'Tủ quần áo 3 cánh gỗ MDF, kích thước 120x180x50cm, thiết kế hiện đại. Là loại tủ nhựa có chất liệu nhựa Đài Loan bền chắc, chống ẩm mốc cong vênh và có kích thước vừa phải phù hợp với phòng ngủ có diện tích nhỏ. Là loại tủ nhựa có chất liệu nhựa Đài Loan bền chắc, chống ẩm mốc cong vênh và có kích thước vừa phải phù hợp với phòng ngủ có diện tích nhỏ.',
     promotion: 'sale 20%',
     gallery: [
+      'images/products/product1.png',
+      'images/products/product2.png',
+      'images/products/product3.png',
+      'images/products/product4.png',
+      'images/products/product1.png',
+      'images/products/product2.png',
+      'images/products/product3.png',
+      'images/products/product4.png',
       'images/products/product1.png',
       'images/products/product2.png',
       'images/products/product3.png',
@@ -73,9 +81,10 @@ const products = [
   {
     id: 8,
     name: 'Giường Ngủ Gỗ Tự Nhiên',
-    category: 'Giường Ngủ',
+    category: 'Tủ Quần Áo',
     image: 'images/products/product8.png',
-    description: 'Giường ngủ gỗ tự nhiên, kích thước 180x200cm, sang trọng.',
+    description:
+      'Giường ngủ gỗ tự nhiên, kích thước 180x200cm, sang trọng. thiết kế hiện đại. Là loại tủ nhựa có chất liệu nhựa Đài Loan bền chắc, chống ẩm mốc cong vênh và có kích thước vừa phải phù hợp với phòng ngủ có diện tích nhỏ. Là loại tủ nhựa có chất liệu nhựa Đài Loan bền chắc, chống ẩm mốc cong vênh và có kích thước vừa phải phù hợp với phòng ngủ có diện tích nhỏ.',
     promotion: null,
     gallery: ['images/products/product8.png'],
   },
@@ -83,7 +92,7 @@ const products = [
   {
     id: 8,
     name: 'Giường Ngủ Gỗ Tự Nhiên',
-    category: 'Giường Ngủ',
+    category: 'Tủ Quần Áo',
     image: 'images/products/product8.png',
     description: 'Giường ngủ gỗ tự nhiên, kích thước 180x200cm, sang trọng.',
     promotion: null,

@@ -52,6 +52,7 @@
     <link rel="stylesheet" href="css/booking-modal-brand.css">
     <link rel="stylesheet" href="css/booking-success.css">
     <link rel="stylesheet" href="css/booking-loading.css">
+    <link rel="stylesheet" href="css/back-to-top.css">
     <!-- Font Awesome Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css"
         integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA=="
@@ -421,66 +422,142 @@
                 <h2>Khách Hàng Nói Gì</h2>
                 <p class="section-subtitle">Những đánh giá chân thực từ khách hàng đã sử dụng dịch vụ của chúng tôi</p>
 
-                <div class="testimonial-grid">
-                    <div class="testimonial-card">
-                        <div class="testimonial-rating">
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                        </div>
-                        <p>"Tôi rất hài lòng với bộ bàn ghế phòng khách mà Nội Thất Bàng Vũ đã thiết kế. Chất lượng sản
-                            phẩm tuyệt vời và dịch vụ chăm sóc khách hàng rất chu đáo. Tôi sẽ tiếp tục sử dụng dịch vụ
-                            và giới thiệu cho bạn bè."</p>
-                        <div class="testimonial-author">
-                            <img src="https://randomuser.me/api/portraits/women/65.jpg" alt="Nguyễn Thị Minh">
-                            <div class="author-info">
-                                <h4>Nguyễn Thị Minh</h4>
-                                <p>Hà Nội</p>
+                <div class="testimonial-slider-container">
+                    <div class="testimonial-slider-controls">
+                        <button class="testimonial-prev"><i class="fas fa-chevron-left"></i></button>
+                        <button class="testimonial-next"><i class="fas fa-chevron-right"></i></button>
+                    </div>
+                    <div class="testimonial-grid testimonial-slider">
+                        <div class="testimonial-card">
+                            <div class="testimonial-rating">
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                            </div>
+                            <p>"Tôi đặt làm combo giường, tủ và bàn học cho bé. Sản phẩm hoàn thiện rất chắc chắn, màu
+                                sắc đẹp, đúng theo bản thiết kế. Thợ làm gọn gàng, đúng tiến độ. Bé nhà tôi mê tít cái
+                                bàn học mới!"</p>
+                            <div class="testimonial-author">
+                                <img src="./images/avatar feedback/nguen thu ha.jpg" alt="Nguyễn Thu Hà">
+                                <div class="author-info">
+                                    <h4>Chị Nguyễn Thu Hà</h4>
+                                    <p class="address">Chung cư HH Linh Đàm, Hoàng Mai, Hà Nội</p>
+                                    <p class="review-time">1 tháng trước</p>
+                                </div>
                             </div>
                         </div>
-                    </div>
 
-                    <div class="testimonial-card">
-                        <div class="testimonial-rating">
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                        </div>
-                        <p>"Đội ngũ thiết kế rất chuyên nghiệp, họ đã lắng nghe và hiểu rõ nhu cầu của tôi. Kết quả là
-                            một không gian làm việc hoàn hảo cho văn phòng của chúng tôi. Từ khâu tư vấn đến thi công
-                            đều rất chuyên nghiệp."</p>
-                        <div class="testimonial-author">
-                            <img src="https://randomuser.me/api/portraits/men/32.jpg" alt="Trần Văn Đức">
-                            <div class="author-info">
-                                <h4>Trần Văn Đức</h4>
-                                <p>Giám đốc công ty ABC</p>
+                        <div class="testimonial-card">
+                            <div class="testimonial-rating">
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                            </div>
+                            <p>"Mình đã đặt một bộ tủ giày và kệ tivi cho căn hộ nhỏ, không ngờ bên này làm quá gọn và
+                                hợp lý. Tận dụng được tối đa không gian, lại rất thẩm mỹ. Nhân viên tư vấn rất có tâm,
+                                đưa ra nhiều giải pháp linh hoạt."</p>
+                            <div class="testimonial-author">
+                                <img src="./images/avatar feedback/le minh duc.jpg" alt="Lê Minh Đức">
+                                <div class="author-info">
+                                    <h4>Anh Lê Minh Đức</h4>
+                                    <p class="address">Khu đô thị Times City, Hai Bà Trưng, Hà Nội</p>
+                                    <p class="review-time">2 tuần trước</p>
+                                </div>
                             </div>
                         </div>
-                    </div>
 
-                    <div class="testimonial-card">
-                        <div class="testimonial-rating">
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                        </div>
-                        <p>"Tôi đặc biệt ấn tượng với kỹ thuật tiên tiến mà Bàng Vũ sử dụng để thiết kế nội thất. Họ đã
-                            tạo ra một không gian sống hoàn hảo và chính xác theo ý tưởng cho gia đình tôi. Sẽ tiếp tục
-                            hợp tác trong tương lai."</p>
-                        <div class="testimonial-author">
-                            <img src="https://randomuser.me/api/portraits/women/45.jpg" alt="Lê Thị Hương">
-                            <div class="author-info">
-                                <h4>Lê Thị Hương</h4>
-                                <p>Hải Phòng</p>
+                        <div class="testimonial-card">
+                            <div class="testimonial-rating">
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                            </div>
+                            <p>"Ấn tượng nhất là thái độ làm việc: rõ ràng, đúng hẹn, hỗ trợ chỉnh sửa bản thiết kế mấy
+                                lần mà vẫn rất nhiệt tình. Tủ nhựa bên mình đặt làm cho phòng ngủ rất đẹp và sạch sẽ.
+                                Giá cả cũng hợp lý."</p>
+                            <div class="testimonial-author">
+                                <img src="./images/avatar feedback/pham quy anh.jpg" alt="Phạm Quỳnh Anh">
+                                <div class="author-info">
+                                    <h4>Chị Phạm Quỳnh Anh</h4>
+                                    <p class="address">Ngõ 68 Cầu Giấy, Quận Cầu Giấy, Hà Nội</p>
+                                    <p class="review-time">3 ngày trước</p>
+                                </div>
                             </div>
                         </div>
+
+                        <div class="testimonial-card">
+                            <div class="testimonial-rating">
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                            </div>
+                            <p>"Thi công hơi lâu hơn dự kiến một chút nhưng bù lại sản phẩm hoàn thiện rất ưng ý. Giường
+                                gỗ công nghiệp làm chắc chắn, đường nét tinh tế, màu gỗ hiện đại và hài hòa với không
+                                gian. Mình vẫn sẽ giới thiệu bạn bè tới đặt."</p>
+                            <div class="testimonial-author">
+                                <img src="./images/avatar feedback/tran quoc bao.webp" alt="Trần Quốc Bảo">
+                                <div class="author-info">
+                                    <h4>Anh Trần Quốc Bảo</h4>
+                                    <p class="address">89 Nguyễn Công Trứ, Hai Bà Trưng, Hà Nội</p>
+                                    <p class="review-time">1 tuần trước</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="testimonial-card">
+                            <div class="testimonial-rating">
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                            </div>
+                            <p>"Tôi đã làm full nội thất cho căn nhà cấp 4 với đơn vị này: từ giường ngủ, bàn học cho
+                                bé, tủ bếp cho đến kệ tivi. Tất cả đều làm theo yêu cầu, chuẩn kích thước, đúng ý tưởng.
+                                Không có điểm gì để chê."</p>
+                            <div class="testimonial-author">
+                                <img src="./images/avatar feedback/le thi huong.jpg" alt="Lê Thị Hương">
+                                <div class="author-info">
+                                    <h4>Chị Lê Thị Hương</h4>
+                                    <p class="address">Thôn Bầu, xã Kim Chung, Đông Anh, Hà Nội</p>
+                                    <p class="review-time">2 ngày trước</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="testimonial-card">
+                            <div class="testimonial-rating">
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                            </div>
+                            <p>"Rất chuyên nghiệp! Tôi chỉ gửi ảnh mẫu và kích thước sơ bộ, bên thi công đã dựng bản vẽ
+                                và gửi lại duyệt cực nhanh. Chất lượng nhựa dày dặn, màu sắc tươi mới, không có mùi. Lắp
+                                đặt gọn gàng, sạch sẽ."</p>
+                            <div class="testimonial-author">
+                                <img src="./images/avatar feedback/dang tuan kiet.webp" alt="Đặng Tuấn Kiệt">
+                                <div class="author-info">
+                                    <h4>Anh Đặng Tuấn Kiệt</h4>
+                                    <p class="address">Goldmark City, Bắc Từ Liêm, Hà Nội</p>
+                                    <p class="review-time">Hôm qua</p>
+                                </div>
+                            </div>
+                        </div>
+
+
+
                     </div>
+                    <div class="testimonial-pagination"></div>
                 </div>
             </div>
         </section>
@@ -493,12 +570,16 @@
 
             <div class="container">
                 <h2>Bạn Đang Tìm Kiếm Giải Pháp Nội Thất?</h2>
-                <p>Hãy để chúng tôi giúp bạn tạo ra không gian sống và làm việc hoàn hảo với các sản phẩm nội thất chất
-                    lượng cao. Với công nghệ tiên tiến và đội ngũ chuyên nghiệp, chúng tôi sẽ mang đến những thiết kế
+                <p>Hãy để chúng tôi giúp bạn tạo ra không gian sống và làm việc hoàn hảo với các sản phẩm
+                    nội thất chất
+                    lượng cao. Với công nghệ tiên tiến và đội ngũ chuyên nghiệp, chúng tôi sẽ mang đến những
+                    thiết kế
                     độc đáo và phù hợp nhất.</p>
                 <div class="cta-buttons">
-                    <a href="products.html" class="btn-explore"><i class="fas fa-search"></i> Xem sản phẩm</a>
-                    <a href="https://zalo.me/123456789" class="btn-secondary"><i class="fas fa-comment"></i> Liên hệ tư
+                    <a href="products.html" class="btn-explore"><i class="fas fa-search"></i> Xem sản
+                        phẩm</a>
+                    <a href="https://zalo.me/123456789" class="btn-secondary"><i class="fas fa-comment"></i>
+                        Liên hệ tư
                         vấn</a>
                 </div>
             </div>
@@ -538,7 +619,8 @@
 
                     <div class="footer-info">
                         <h3>Thông tin liên hệ</h3>
-                        <p><i class="fas fa-map-marker-alt"></i> 123 Đường ABC, Quận XYZ, Hà Nội</p>
+                        <p><i class="fas fa-map-marker-alt"></i> Số 91,93 Ngõ 85, đường Đức Diễn, Phúc Diễn, Bắc Từ
+                            Liêm, Hà Nội</p>
                         <p><i class="fas fa-phone"></i> 097.277.4646</p>
                         <p><i class="fas fa-envelope"></i> contact@noithatbangvu.com</p>
                         <p><i class="far fa-clock"></i> Thời gian làm việc: 8:00 - 17:30, T2 - CN</p>
@@ -607,11 +689,14 @@
     <script src="js/promotion-new.js"></script>
     <script src="js/services-modern.js"></script>
     <script src="js/testimonials-modern.js"></script>
+    <script src="js/testimonial-slider.js"></script>
     <script src="js/cta-modern.js"></script>
     <script src="js/footer-modern.js"></script>
     <script src="js/floating-contact.js"></script>
     <script src="js/scroll-hint.js"></script>
     <script src="js/intro-section-fix.js"></script>
+    <script src="js/back-to-top.js"></script>
+    <script src="js/truncate-titles.js"></script>
 
     <!-- Booking Modal -->
     <div class="booking-modal-overlay" id="bookingModal">
@@ -696,6 +781,11 @@
     </div>
 
     <script src="js/booking-modal-simple.js"></script>
+
+    <!-- Back to Top Button -->
+    <button id="back-to-top" class="back-to-top">
+        <i class="fas fa-arrow-up"></i>
+    </button>
 
     <!-- Floating Contact Buttons -->
     <div class="floating-contact">

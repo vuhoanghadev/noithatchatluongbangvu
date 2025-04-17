@@ -49,19 +49,28 @@ document.addEventListener('DOMContentLoaded', function () {
             <div class="main-image-container">
                 <img src="${product.image}" alt="${product.name}" id="main-image">
             </div>
-            <div class="thumbnails">
+            <div class="thumbnails-container">
+                <div class="thumbnails-nav prev" onclick="slideThumbnails('prev')"><i class="fas fa-chevron-left"></i></div>
+                <div class="thumbnails" id="thumbnails-slider">
         `;
 
     // Add thumbnails
     if (product.gallery && product.gallery.length > 0) {
+      // First add the main image as the first thumbnail
+      galleryHTML += `
+                <img src="${product.image}" alt="${product.name} - Main Image" class="active" onclick="changeMainImage(this, '${product.image}')">
+      `;
+
+      // Then add the rest of the gallery images
       product.gallery.forEach((image, index) => {
-        galleryHTML += `
-                    <img src="${image}" alt="${product.name} - Image ${
-          index + 1
-        }" class="${
-          index === 0 ? 'active' : ''
-        }" onclick="changeMainImage(this, '${image}')">
-                `;
+        // Skip if the image is the same as the main image to avoid duplication
+        if (image !== product.image) {
+          galleryHTML += `
+                      <img src="${image}" alt="${product.name} - Image ${
+            index + 1
+          }" onclick="changeMainImage(this, '${image}')">
+                  `;
+        }
       });
     } else {
       // If no gallery, just show the main image as thumbnail
@@ -70,7 +79,10 @@ document.addEventListener('DOMContentLoaded', function () {
             `;
     }
 
-    galleryHTML += `</div>`;
+    galleryHTML += `
+                </div>
+                <div class="thumbnails-nav next" onclick="slideThumbnails('next')"><i class="fas fa-chevron-right"></i></div>
+            </div>`;
 
     // Set gallery HTML
     productGallery.innerHTML = galleryHTML;
@@ -346,23 +358,90 @@ document.addEventListener('DOMContentLoaded', function () {
     if (twitterImage) twitterImage.setAttribute('content', product.image);
     if (twitterUrl) twitterUrl.setAttribute('content', window.location.href);
   }
+
+  // Initialize thumbnail navigation
+  initThumbnailNavigation();
 });
 
 // Global functions
 function changeMainImage(thumbnail, imageSrc) {
-  // Update main image
+  // Update main image with animation
   const mainImage = document.getElementById('main-image');
   if (mainImage) {
-    mainImage.src = imageSrc;
+    // Create a new image element for smooth transition
+    const newImage = document.createElement('img');
+    newImage.src = imageSrc;
+    newImage.alt = mainImage.alt;
+    newImage.id = 'main-image-new';
+    newImage.style.position = 'absolute';
+    newImage.style.top = '0';
+    newImage.style.left = '0';
+    newImage.style.width = '100%';
+    newImage.style.height = '100%';
+    newImage.style.objectFit = 'cover';
+    newImage.style.opacity = '0';
+    newImage.style.zIndex = '2';
+
+    // Add fade-out class to current image
+    mainImage.classList.add('fade-out');
+
+    // Add the new image to container
+    const container = mainImage.parentElement;
+    container.appendChild(newImage);
+
+    // Trigger reflow for animation to work
+    void newImage.offsetWidth;
+
+    // Add fade-in class to new image
+    newImage.classList.add('fade-in');
+
+    // After animation completes, replace the old image
+    setTimeout(() => {
+      mainImage.src = imageSrc;
+      mainImage.classList.remove('fade-out');
+      container.removeChild(newImage);
+    }, 500); // Match this with the CSS animation duration
   }
 
-  // Update active thumbnail
+  // Update active thumbnail with ripple effect
   const thumbnails = document.querySelectorAll('.thumbnails img');
   thumbnails.forEach((thumb) => {
     thumb.classList.remove('active');
+    // Remove any existing ripple effects
+    const ripple = thumb.querySelector('.ripple');
+    if (ripple) {
+      thumb.removeChild(ripple);
+    }
   });
 
+  // Add active class to clicked thumbnail
   thumbnail.classList.add('active');
+
+  // Add ripple effect to clicked thumbnail
+  const ripple = document.createElement('span');
+  ripple.className = 'ripple';
+  thumbnail.appendChild(ripple);
+
+  // Position the ripple at center of thumbnail
+  const rect = thumbnail.getBoundingClientRect();
+  const size = Math.max(rect.width, rect.height);
+  ripple.style.width = ripple.style.height = size + 'px';
+  ripple.style.left = '50%';
+  ripple.style.top = '50%';
+  ripple.style.transform = 'translate(-50%, -50%) scale(0)';
+
+  // Animate the ripple
+  setTimeout(() => {
+    ripple.style.transform = 'translate(-50%, -50%) scale(1.5)';
+    ripple.style.opacity = '0';
+  }, 10);
+
+  // Remove ripple after animation
+  setTimeout(() => {
+    if (thumbnail.contains(ripple)) {
+      thumbnail.removeChild(ripple);
+    }
+  }, 500);
 }
 
 function shareProduct() {
@@ -378,8 +457,149 @@ function shareProduct() {
     // Fallback: show social share section
     const socialShare = document.querySelector('.social-share');
     if (socialShare) {
-      socialShare.scrollIntoView({ behavior: 'smooth' });
+      // No scrolling needed
       socialShare.style.animation = 'highlight 1s ease';
     }
   }
+}
+
+// Thumbnail slider functionality
+function slideThumbnails(direction) {
+  const thumbnailsSlider = document.getElementById('thumbnails-slider');
+  if (!thumbnailsSlider) return;
+
+  const thumbnailWidth = 90; // Width of thumbnail + gap
+  const visibleWidth = thumbnailsSlider.offsetWidth;
+  const scrollAmount =
+    direction === 'next' ? thumbnailWidth * 3 : -thumbnailWidth * 3;
+
+  thumbnailsSlider.scrollBy({
+    left: scrollAmount,
+    behavior: 'smooth',
+  });
+
+  // Show/hide navigation buttons based on scroll position
+  setTimeout(() => {
+    updateThumbnailNavigation();
+  }, 300);
+}
+
+// Update thumbnail navigation buttons visibility
+function updateThumbnailNavigation() {
+  const thumbnailsSlider = document.getElementById('thumbnails-slider');
+  if (!thumbnailsSlider) return;
+
+  const prevBtn = document.querySelector('.thumbnails-nav.prev');
+  const nextBtn = document.querySelector('.thumbnails-nav.next');
+
+  if (!prevBtn || !nextBtn) return;
+
+  // Check if we can scroll left or right
+  const canScrollLeft = thumbnailsSlider.scrollLeft > 0;
+  const canScrollRight =
+    thumbnailsSlider.scrollLeft <
+    thumbnailsSlider.scrollWidth - thumbnailsSlider.offsetWidth;
+
+  // Show/hide buttons accordingly
+  prevBtn.style.opacity = canScrollLeft ? '0.8' : '0.3';
+  prevBtn.style.pointerEvents = canScrollLeft ? 'auto' : 'none';
+
+  nextBtn.style.opacity = canScrollRight ? '0.8' : '0.3';
+  nextBtn.style.pointerEvents = canScrollRight ? 'auto' : 'none';
+}
+
+// Add drag and swipe functionality to thumbnails
+function enableThumbnailDragScroll() {
+  const thumbnailsSlider = document.getElementById('thumbnails-slider');
+  if (!thumbnailsSlider) return;
+
+  let isDown = false;
+  let startX;
+  let scrollLeft;
+
+  // Mouse events for desktop
+  thumbnailsSlider.addEventListener('mousedown', (e) => {
+    isDown = true;
+    thumbnailsSlider.classList.add('active');
+    startX = e.pageX - thumbnailsSlider.offsetLeft;
+    scrollLeft = thumbnailsSlider.scrollLeft;
+    // Prevent default behavior to avoid text selection during drag
+    e.preventDefault();
+  });
+
+  thumbnailsSlider.addEventListener('mouseleave', () => {
+    isDown = false;
+    thumbnailsSlider.classList.remove('active');
+  });
+
+  thumbnailsSlider.addEventListener('mouseup', () => {
+    isDown = false;
+    thumbnailsSlider.classList.remove('active');
+    updateThumbnailNavigation();
+  });
+
+  thumbnailsSlider.addEventListener('mousemove', (e) => {
+    if (!isDown) return;
+    e.preventDefault();
+    const x = e.pageX - thumbnailsSlider.offsetLeft;
+    const walk = (x - startX) * 2; // Scroll speed multiplier
+    thumbnailsSlider.scrollLeft = scrollLeft - walk;
+  });
+
+  // Touch events for mobile
+  thumbnailsSlider.addEventListener(
+    'touchstart',
+    (e) => {
+      isDown = true;
+      thumbnailsSlider.classList.add('active');
+      startX = e.touches[0].pageX - thumbnailsSlider.offsetLeft;
+      scrollLeft = thumbnailsSlider.scrollLeft;
+    },
+    { passive: true }
+  );
+
+  thumbnailsSlider.addEventListener(
+    'touchend',
+    () => {
+      isDown = false;
+      thumbnailsSlider.classList.remove('active');
+      updateThumbnailNavigation();
+    },
+    { passive: true }
+  );
+
+  thumbnailsSlider.addEventListener(
+    'touchcancel',
+    () => {
+      isDown = false;
+      thumbnailsSlider.classList.remove('active');
+    },
+    { passive: true }
+  );
+
+  thumbnailsSlider.addEventListener(
+    'touchmove',
+    (e) => {
+      if (!isDown) return;
+      const x = e.touches[0].pageX - thumbnailsSlider.offsetLeft;
+      const walk = (x - startX) * 2;
+      thumbnailsSlider.scrollLeft = scrollLeft - walk;
+      // Prevent page scrolling when dragging thumbnails
+      if (Math.abs(walk) > 10) {
+        e.preventDefault();
+      }
+    },
+    { passive: false }
+  );
+}
+
+// Initialize thumbnail navigation on page load
+// This will be called from the main DOMContentLoaded event
+function initThumbnailNavigation() {
+  // Initial check for navigation buttons
+  setTimeout(() => {
+    updateThumbnailNavigation();
+    // Enable drag and swipe functionality
+    enableThumbnailDragScroll();
+  }, 500);
 }

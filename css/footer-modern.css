@@ -59,58 +59,92 @@ footer .container {
 .footer-brand {
     display: flex;
     flex-direction: column;
+    margin: -5px;
 }
 
 .footer-logo-container {
     display: flex;
     align-items: center;
     margin-bottom: 25px;
-    min-width: 320px;
+    position: relative;
+    max-width: 100%;
+    overflow: hidden;
+    padding: 5px 0;
+    transition: var(--footer-transition);
 }
 
 .footer-logo {
-    width: 60px;
-    height: 60px;
-    margin-right: 18px;
-    margin-top: -24px;
-    transition: transform 0.3s ease;
+    width: 55px;
+    height: 55px;
+    margin-right: 15px;
+    margin-top: 0;
+    transition: all 0.3s ease;
+    flex-shrink: 0;
+    /* Ngăn logo bị co lại khi không đủ không gian */
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.footer-logo-container:hover {
+    background-color: rgba(255, 255, 255, 0.03);
+    border-radius: 10px;
 }
 
 .footer-logo-container:hover .footer-logo {
-    transform: scale(1.05) rotate(5deg);
+    transform: scale(1.08);
+    box-shadow: 0 6px 12px rgba(249, 115, 22, 0.3);
+}
+
+.footer-logo-container:hover .footer-brand-text h3 {
+    color: var(--footer-primary);
+}
+
+.footer-logo-container:hover .footer-brand-tagline {
+    color: rgba(255, 255, 255, 0.8);
 }
 
 .footer-brand-text {
     display: flex;
     flex-direction: column;
     justify-content: center;
+    flex-grow: 1;
+    min-width: 0;
+    /* Để text có thể bị cắt ngắn khi không đủ không gian */
+    overflow: hidden;
+    /* Để text có thể bị cắt ngắn khi không đủ không gian */
 }
 
 .footer-brand-text h3 {
-    font-size: 1.25rem;
+    font-size: 1.2rem;
     font-weight: 700;
     color: var(--footer-white);
-    margin: 0 0 0;
+    margin: 0;
     letter-spacing: 0.5px;
     line-height: 1.3;
     white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    transition: var(--footer-transition);
 }
 
 .footer-brand-tagline {
-    font-size: 0.95rem;
+    font-size: 0.9rem;
     color: var(--footer-text-light);
-    margin-top: 10px;
+    margin-top: 6px;
     margin-bottom: 0;
     font-style: italic;
     letter-spacing: 0.3px;
     white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    transition: var(--footer-transition);
 }
 
 .footer-brand p {
     text-align: justify;
     font-size: 0.95rem;
     line-height: 1.7;
-    margin: 20px 0;
+    margin: 0;
 }
 
 /* Footer info section */
@@ -157,6 +191,8 @@ footer .container {
     margin-bottom: 25px;
     position: relative;
     padding-bottom: 12px;
+    white-space: nowrap;
+    /* Ngăn chặn xuống dòng */
 }
 
 .footer-links h3::after {
@@ -233,7 +269,8 @@ footer .container {
     display: flex;
     gap: 20px;
     margin-bottom: 25px;
-    justify-content: center;
+    justify-content: flex-start;
+    /* Căn trái trên desktop */
     width: 100%;
 }
 
@@ -289,18 +326,22 @@ footer .container {
     overflow: hidden;
     box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
     display: flex;
-    justify-content: center;
+    justify-content: flex-start;
+    /* Căn trái trên desktop */
     width: 100%;
-    margin-left: auto;
+    margin-left: 0;
+    /* Loại bỏ margin auto để căn trái */
     margin-right: auto;
-    text-align: center;
+    text-align: left;
+    /* Căn trái text */
 }
 
-/* Ensure Facebook plugin is centered */
+/* Footer social section container */
 .footer-social {
     display: flex;
     flex-direction: column;
-    align-items: center;
+    align-items: flex-start;
+    /* Căn trái trên desktop */
 }
 
 .footer-social h3 {
@@ -438,6 +479,41 @@ footer .container {
     .footer-social {
         grid-column: span 2;
     }
+
+    /* Đảm bảo các tiêu đề không bị xuống dòng */
+    .footer-info h3,
+    .footer-links h3 {
+        font-size: 1.1rem;
+        white-space: nowrap;
+    }
+
+    /* Tăng khoảng cách giữa các cột */
+    .footer-content {
+        gap: 30px 50px;
+    }
+}
+
+@media (max-width: 992px) {
+
+    /* Tối ưu hóa logo container cho màn hình nhỏ hơn */
+    .footer-logo-container {
+        padding: 5px;
+    }
+
+    .footer-logo {
+        width: 50px;
+        height: 50px;
+        margin-right: 12px;
+    }
+
+    .footer-brand-text h3 {
+        font-size: 1.05rem;
+    }
+
+    .footer-brand-tagline {
+        font-size: 0.85rem;
+        margin-top: 4px;
+    }
 }
 
 @media (max-width: 768px) {
@@ -455,6 +531,24 @@ footer .container {
     .footer-links,
     .footer-social {
         grid-column: span 1;
+    }
+
+    /* Căn giữa social icons trên tablet */
+    .social-icons {
+        justify-content: center;
+    }
+
+    /* Căn giữa footer social section trên tablet */
+    .footer-social {
+        align-items: center;
+    }
+
+    /* Căn giữa Facebook plugin trên tablet */
+    .fb-page {
+        justify-content: center;
+        margin-left: auto;
+        margin-right: auto;
+        text-align: center;
     }
 
     .footer-bottom-content {
@@ -506,6 +600,8 @@ footer .container {
     .footer-links h3,
     .footer-social h3 {
         text-align: center;
+        width: 100%;
+        /* Đảm bảo tiêu đề chiếm toàn bộ chiều rộng */
     }
 
     .footer-info h3::after,
@@ -515,8 +611,14 @@ footer .container {
         transform: translateX(-50%);
     }
 
+    /* Căn giữa social icons trên mobile */
     .social-icons {
         justify-content: center;
+    }
+
+    /* Căn giữa footer social section trên mobile */
+    .footer-social {
+        align-items: center;
     }
 
     /* Center Facebook plugin on mobile */
@@ -528,6 +630,8 @@ footer .container {
         max-width: 340px;
         margin: 20px auto 0;
         border-radius: 4px !important;
+        text-align: center;
+        /* Căn giữa text trên mobile */
     }
 
     .fb-page iframe,
