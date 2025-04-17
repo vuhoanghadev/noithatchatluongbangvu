@@ -38,10 +38,12 @@
         rel="stylesheet">
     <!-- Stylesheets -->
     <link rel="stylesheet" href="css/main.css">
-    <link rel="stylesheet" href="css/product-details.css">
+    <link rel="stylesheet" href="css/product-details-modern.css">
     <link rel="stylesheet" href="css/loading.css">
     <link rel="stylesheet" href="css/header-new.css">
     <link rel="stylesheet" href="css/banner-new.css">
+    <link rel="stylesheet" href="css/footer-modern.css">
+    <link rel="stylesheet" href="css/floating-contact.css">
     <!-- Font Awesome Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css"
         integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA=="
@@ -124,37 +126,157 @@
             <a href="https://zalo.me/123456789" class="contact-btn"><i class="fas fa-comment"></i> TƯ VẤN MIỄN PHÍ</a>
         </div>
     </div>
-    <main>
-        <section class="product-details">
-            <div class="product-container">
-                <div class="product-gallery" id="product-gallery"></div>
-                <div class="product-info" id="product-info"></div>
-            </div>
-            <div class="related-products">
-                <h2>Sản Phẩm Liên Quan</h2>
-                <p class="section-intro">Khám phá thêm các sản phẩm tương tự trong cùng danh mục, được thiết kế với
-                    phong cách và chất lượng tương đương.</p>
-                <div class="product-grid" id="related-products"></div>
+    <!-- Floating Contact Buttons -->
+    <div class="floating-contact">
+        <a href="tel:0123456789" class="floating-contact-button floating-contact-phone">
+            <i class="fas fa-phone-alt"></i>
+            <span class="floating-contact-label">Gọi ngay</span>
+        </a>
+        <a href="https://zalo.me/0123456789" class="floating-contact-button floating-contact-zalo">
+            <img src="images/Icon_of_Zalo.svg" alt="Zalo">
+            <span class="floating-contact-label">Chat Zalo</span>
+        </a>
+        <a href="https://m.me/noithatbangvu" class="floating-contact-button floating-contact-messenger">
+            <i class="fab fa-facebook-messenger"></i>
+            <span class="floating-contact-label">Messenger</span>
+        </a>
+    </div>
 
-                <div class="customers-also-liked">
-                    <h3>Khách Hàng Cũng Thích</h3>
-                    <div class="product-grid" id="also-liked-products"></div>
+    <main>
+        <section class="product-details-section">
+            <div class="container">
+                <!-- Breadcrumb -->
+                <div class="breadcrumb">
+                    <a href="index.html">Trang chủ</a>
+                    <i class="fas fa-chevron-right"></i>
+                    <a href="products.html">Sản phẩm</a>
+                    <i class="fas fa-chevron-right"></i>
+                    <span id="breadcrumb-product-name">Chi tiết sản phẩm</span>
+                </div>
+
+                <!-- Product Container -->
+                <div class="product-container">
+                    <div class="product-gallery" id="product-gallery"></div>
+                    <div class="product-info" id="product-info"></div>
+                </div>
+
+                <!-- Related Products -->
+                <div class="related-products">
+                    <h2>Sản Phẩm Liên Quan</h2>
+                    <p class="section-intro">Khám phá thêm các sản phẩm tương tự trong cùng danh mục, được thiết kế với
+                        phong cách và chất lượng tương đương.</p>
+                    <div class="product-grid" id="related-products"></div>
+
+                    <div class="customers-also-liked">
+                        <h3>Khách Hàng Cũng Thích</h3>
+                        <div class="product-grid" id="also-liked-products"></div>
+                    </div>
                 </div>
             </div>
+
+            <!-- Decorative elements -->
+            <div class="product-decoration product-decoration-1"></div>
+            <div class="product-decoration product-decoration-2"></div>
         </section>
     </main>
+    <!-- Footer -->
     <footer>
-        <p>Liên hệ: 0123 456 789 | Email: contact@bangvu.com</p>
-        <p><a href="https://facebook.com/bangvu">Facebook</a> | <a href="https://zalo.me/123456789">Zalo</a></p>
-        <p>© 2025 Nội Thất Chất Lượng Bàng Vũ</p>
+        <!-- Footer Wave -->
+        <svg class="footer-wave" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 50">
+            <path fill-opacity="1"
+                d="M0,32L80,26.7C160,21,320,11,480,16C640,21,800,43,960,42.7C1120,43,1280,21,1360,10.7L1440,0L1440,50L1360,50C1280,50,1120,50,960,50C800,50,640,50,480,50C320,50,160,50,80,50L0,50Z">
+            </path>
+        </svg>
+
+        <!-- Footer Main Content -->
+        <div class="footer-main">
+            <div class="container">
+                <div class="footer-content">
+                    <!-- Footer Brand -->
+                    <div class="footer-brand">
+                        <div class="footer-logo-container">
+                            <img src="images/logo.svg" alt="Nội Thất Chất Lượng Bàng Vũ" class="footer-logo">
+                            <div class="footer-brand-text">
+                                <h3>Nội Thất Chất Lượng Bàng Vũ</h3>
+                                <p class="footer-brand-tagline">Nâng Tầm Không Gian Sống</p>
+                            </div>
+                        </div>
+                        <p>Chúng tôi tự hào mang đến những sản phẩm nội thất chất lượng cao, thiết kế hiện đại và dịch
+                            vụ chuyên nghiệp. Với hơn 10 năm kinh nghiệm, Nội Thất Chất Lượng Bàng Vũ cam kết đồng hành
+                            cùng bạn trong việc kiến tạo không gian sống lý tưởng.</p>
+                    </div>
+
+                    <!-- Footer Info -->
+                    <div class="footer-info">
+                        <h3>Thông Tin Liên Hệ</h3>
+                        <p><i class="fas fa-map-marker-alt"></i> 123 Đường ABC, Quận XYZ, Hà Nội</p>
+                        <p><i class="fas fa-phone"></i> 0123 456 789</p>
+                        <p><i class="fas fa-envelope"></i> info@noithatbangvu.com</p>
+                        <p><i class="fas fa-clock"></i> 8:00 - 17:30, Thứ Hai - Thứ Bảy</p>
+                    </div>
+
+                    <!-- Footer Links -->
+                    <div class="footer-links">
+                        <h3>Liên Kết Nhanh</h3>
+                        <ul>
+                            <li><a href="index.html">Trang Chủ</a></li>
+                            <li><a href="products.html">Sản Phẩm</a></li>
+                            <li><a href="blog.html">Blog</a></li>
+                            <li><a href="quote-ai.html">Báo Giá</a></li>
+                        </ul>
+                    </div>
+
+                    <!-- Footer Social -->
+                    <div class="footer-social">
+                        <h3>Kết Nối Với Chúng Tôi</h3>
+                        <div class="social-icons">
+                            <a href="#" class="facebook"><i class="fab fa-facebook-f"></i></a>
+                            <a href="#" class="zalo"><img src="images/Icon_of_Zalo.svg" alt="Zalo"></a>
+                            <a href="#" class="instagram"><i class="fab fa-instagram"></i></a>
+                            <a href="#" class="youtube"><i class="fab fa-youtube"></i></a>
+                        </div>
+
+                        <!-- Facebook Page -->
+                        <div class="facebook-page">
+                            <!-- Facebook Page Plugin Code -->
+                            <iframe
+                                src="https://www.facebook.com/plugins/page.php?href=https%3A%2F%2Fwww.facebook.com%2Ffacebook&tabs=timeline&width=340&height=130&small_header=false&adapt_container_width=true&hide_cover=false&show_facepile=true&appId"
+                                width="340" height="130" style="border:none;overflow:hidden" scrolling="no"
+                                frameborder="0" allowfullscreen="true"
+                                allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share"></iframe>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Footer Bottom -->
+        <div class="footer-bottom">
+            <div class="container">
+                <div class="footer-bottom-content">
+                    <p>&copy; 2023 Nội Thất Chất Lượng Bàng Vũ. Tất cả quyền được bảo lưu.</p>
+                    <div class="footer-payment-methods">
+                        <img src="images/payment/visa.png" alt="Visa">
+                        <img src="images/payment/mastercard.png" alt="MasterCard">
+                        <img src="images/payment/momo.png" alt="MoMo">
+                        <img src="images/payment/zalopay.png" alt="ZaloPay">
+                    </div>
+                </div>
+            </div>
+        </div>
     </footer>
+
+
+
+    <!-- Scripts -->
     <script src="js/main.js"></script>
     <script src="js/products.js"></script>
-    <script src="js/product-details.js"></script>
+    <script src="js/product-details-modern.js"></script>
     <script src="js/header.js"></script>
     <script src="js/header-scroll.js"></script>
     <script src="js/logo-animation.js"></script>
-    <script src="js/effects.js"></script>
+    <script src="js/booking-modal.js"></script>
+    <script src="js/floating-contact.js"></script>
 </body>
 
 </html>
