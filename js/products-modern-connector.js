@@ -13,6 +13,7 @@ document.addEventListener('DOMContentLoaded', function () {
   // Elements
   const productGrid = document.querySelector('.product-grid');
   const categoryFilter = document.getElementById('category-filter');
+  const promotionFilter = document.getElementById('promotion-filter');
   const searchInput = document.getElementById('search-input');
   const searchButton = document.querySelector('.search-button');
   const paginationContainer = document.querySelector('.pagination');
@@ -63,6 +64,10 @@ document.addEventListener('DOMContentLoaded', function () {
   // Event listeners
   if (categoryFilter) {
     categoryFilter.addEventListener('change', handleFilter);
+  }
+
+  if (promotionFilter) {
+    promotionFilter.addEventListener('change', handleFilter);
   }
 
   if (searchButton) {
@@ -287,9 +292,8 @@ document.addEventListener('DOMContentLoaded', function () {
         keywordBtn.addEventListener('click', () => {
           if (searchInput) {
             searchInput.value = keyword;
-            handleSearch();
+            handleSearch(); // hideSearchSuggestions() is already called inside handleSearch
           }
-          hideSearchSuggestions();
         });
 
         suggestedKeywords.appendChild(keywordBtn);
@@ -585,11 +589,8 @@ document.addEventListener('DOMContentLoaded', function () {
         searchInput.value = searchTerm;
       }
 
-      // Trigger search
+      // Trigger search (hideSearchSuggestions() is already called inside handleSearch)
       handleSearch();
-
-      // Hide suggestions
-      hideSearchSuggestions();
     });
 
     // Assemble the container
@@ -670,14 +671,42 @@ document.addEventListener('DOMContentLoaded', function () {
     if (!categoryFilter) return;
 
     // Get unique categories
-    const categories = [
-      ...new Set(products.map((product) => product.category)),
+    let categories = [...new Set(products.map((product) => product.category))];
+
+    // Định nghĩa danh sách ưu tiên cho các danh mục phổ biến
+    const priorityCategories = [
+      'Tủ Quần Áo',
+      'Tủ Bếp',
+      'Giường Ngủ',
+      'Bàn Làm Việc',
+      'Bàn Học',
     ];
+
+    // Sắp xếp danh mục theo thứ tự ưu tiên, sau đó theo bảng chữ cái
+    categories.sort((a, b) => {
+      const priorityA = priorityCategories.indexOf(a);
+      const priorityB = priorityCategories.indexOf(b);
+
+      // Nếu cả hai đều trong danh sách ưu tiên, sắp xếp theo thứ tự ưu tiên
+      if (priorityA !== -1 && priorityB !== -1) {
+        return priorityA - priorityB;
+      }
+
+      // Nếu chỉ có một trong danh sách ưu tiên, đặt nó lên trước
+      if (priorityA !== -1) return -1;
+      if (priorityB !== -1) return 1;
+
+      // Nếu không có cái nào trong danh sách ưu tiên, sắp xếp theo bảng chữ cái
+      return a.localeCompare(b, 'vi');
+    });
 
     // Clear existing options except the first one
     while (categoryFilter.options.length > 1) {
       categoryFilter.remove(1);
     }
+
+    // Kiểm tra xem có danh mục đã lưu trong localStorage không
+    const savedCategory = localStorage.getItem('selectedCategory');
 
     // Add options to select
     categories.forEach((category) => {
@@ -686,6 +715,77 @@ document.addEventListener('DOMContentLoaded', function () {
       option.textContent = category;
       categoryFilter.appendChild(option);
     });
+
+    // Nếu có danh mục đã lưu, chọn nó
+    if (savedCategory && savedCategory !== 'all') {
+      // Kiểm tra xem danh mục đã lưu có tồn tại trong danh sách không
+      const categoryExists = Array.from(categoryFilter.options).some(
+        (option) => option.value === savedCategory
+      );
+
+      if (categoryExists) {
+        categoryFilter.value = savedCategory;
+        // Áp dụng bộ lọc ngay lập tức
+        setTimeout(() => {
+          handleFilter();
+        }, 100);
+      } else {
+        // Nếu danh mục không tồn tại, xóa khỏi localStorage
+        localStorage.removeItem('selectedCategory');
+      }
+    }
+
+    // Khởi tạo bộ lọc khuyến mãi
+    initPromotionFilter();
+  }
+
+  function initPromotionFilter() {
+    if (!promotionFilter) return;
+
+    // Xóa các tùy chọn hiện tại trừ tùy chọn đầu tiên và thứ hai
+    while (promotionFilter.options.length > 2) {
+      promotionFilter.remove(2);
+    }
+
+    // Lấy danh sách các loại khuyến mãi duy nhất
+    const promotions = [];
+    products.forEach((product) => {
+      if (product.promotion && !promotions.includes(product.promotion)) {
+        promotions.push(product.promotion);
+      }
+    });
+
+    // Sắp xếp các loại khuyến mãi theo bảng chữ cái
+    promotions.sort((a, b) => a.localeCompare(b, 'vi'));
+
+    // Thêm các tùy chọn vào select
+    promotions.forEach((promotion) => {
+      const option = document.createElement('option');
+      option.value = promotion;
+      option.textContent = promotion;
+      promotionFilter.appendChild(option);
+    });
+
+    // Kiểm tra xem có khuyến mãi đã lưu trong localStorage không
+    const savedPromotion = localStorage.getItem('selectedPromotion');
+
+    if (savedPromotion && savedPromotion !== 'all') {
+      // Kiểm tra xem khuyến mãi đã lưu có tồn tại trong danh sách không
+      const promotionExists = Array.from(promotionFilter.options).some(
+        (option) => option.value === savedPromotion
+      );
+
+      if (promotionExists) {
+        promotionFilter.value = savedPromotion;
+        // Áp dụng bộ lọc ngay lập tức
+        setTimeout(() => {
+          handleFilter();
+        }, 100);
+      } else {
+        // Nếu khuyến mãi không tồn tại, xóa khỏi localStorage
+        localStorage.removeItem('selectedPromotion');
+      }
+    }
   }
 
   // Biến để theo dõi trạng thái loading
@@ -811,6 +911,16 @@ document.addEventListener('DOMContentLoaded', function () {
   function handleFilter() {
     currentPage = 1;
 
+    // Lưu danh mục đã chọn vào localStorage
+    if (categoryFilter) {
+      localStorage.setItem('selectedCategory', categoryFilter.value);
+    }
+
+    // Lưu khuyến mãi đã chọn vào localStorage
+    if (promotionFilter) {
+      localStorage.setItem('selectedPromotion', promotionFilter.value);
+    }
+
     // Clear any existing timeouts
     if (window.loadingTimeout) {
       clearTimeout(window.loadingTimeout);
@@ -825,7 +935,7 @@ document.addEventListener('DOMContentLoaded', function () {
         applyFilters();
         renderProducts();
         renderPagination();
-        // updateProductCount(); // Đã bị xóa
+        updateProductCount(); // Khôi phục cập nhật số lượng sản phẩm
       } catch (error) {
         console.error('Error during filter processing:', error);
       } finally {
@@ -839,6 +949,9 @@ document.addEventListener('DOMContentLoaded', function () {
   function handleSearch() {
     currentPage = 1;
 
+    // Ẩn box gợi ý sản phẩm khi nhấn nút tìm kiếm
+    hideSearchSuggestions();
+
     // Clear any existing timeouts
     if (window.loadingTimeout) {
       clearTimeout(window.loadingTimeout);
@@ -853,7 +966,7 @@ document.addEventListener('DOMContentLoaded', function () {
         applyFilters();
         renderProducts();
         renderPagination();
-        // updateProductCount(); // Đã bị xóa
+        updateProductCount(); // Khôi phục cập nhật số lượng sản phẩm
 
         // Show search results review if there are results and search input is not empty
         if (searchInput && searchInput.value.trim() !== '') {
@@ -899,7 +1012,15 @@ document.addEventListener('DOMContentLoaded', function () {
     const searchTerm = searchInput.value.trim();
     const resultCount = filteredProducts.length;
 
-    // Create content
+    // Tính toán phạm vi sản phẩm đang hiển thị
+    const startIndex = (currentPage - 1) * productsPerPage + 1;
+    const endIndex = Math.min(startIndex + productsPerPage - 1, resultCount);
+    const pageInfo =
+      resultCount > 0
+        ? `(trang ${currentPage}/${Math.ceil(resultCount / productsPerPage)})`
+        : '';
+
+    // Create content with improved information
     searchResultsContainer.innerHTML = `
       <div style="display: flex; justify-content: space-between; align-items: center;">
         <div>
@@ -908,7 +1029,11 @@ document.addEventListener('DOMContentLoaded', function () {
             Kết quả tìm kiếm cho "<span style="color: var(--product-primary);">${searchTerm}</span>"
           </h3>
           <p style="margin: 0; font-size: 0.9rem; color: var(--product-text-light);">
-            Tìm thấy ${resultCount} sản phẩm phù hợp
+            ${
+              resultCount > 0
+                ? `Hiển thị <strong>${startIndex}-${endIndex}</strong> của <strong>${resultCount}</strong> sản phẩm phù hợp ${pageInfo}`
+                : 'Không tìm thấy sản phẩm nào phù hợp'
+            }
           </p>
         </div>
         <button class="close-search-results" style="background: none; border: none; cursor: pointer; color: var(--product-text-light); font-size: 1.2rem;">
@@ -959,6 +1084,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
   function applyFilters() {
     const categoryValue = categoryFilter ? categoryFilter.value : 'all';
+    const promotionValue = promotionFilter ? promotionFilter.value : 'all';
     const searchValue = searchInput
       ? searchInput.value.toLowerCase().trim()
       : '';
@@ -970,6 +1096,18 @@ document.addEventListener('DOMContentLoaded', function () {
       // Category filter
       const categoryMatch =
         categoryValue === 'all' || product.category === categoryValue;
+
+      // Promotion filter
+      let promotionMatch = true;
+      if (promotionValue !== 'all') {
+        if (promotionValue === 'has-promotion') {
+          // Lọc sản phẩm có khuyến mãi bất kỳ
+          promotionMatch = !!product.promotion;
+        } else {
+          // Lọc sản phẩm có khuyến mãi cụ thể
+          promotionMatch = product.promotion === promotionValue;
+        }
+      }
 
       // Search filter - support both accented and non-accented search
       const normalizedName = removeAccents(product.name.toLowerCase());
@@ -983,7 +1121,7 @@ document.addEventListener('DOMContentLoaded', function () {
         normalizedName.includes(normalizedSearchValue) ||
         normalizedDescription.includes(normalizedSearchValue);
 
-      return categoryMatch && searchMatch;
+      return categoryMatch && promotionMatch && searchMatch;
     });
   }
 
@@ -1209,16 +1347,77 @@ document.addEventListener('DOMContentLoaded', function () {
     // Check if we're on mobile
     const isMobile = window.innerWidth <= 576;
 
-    // Create a more responsive empty state
+    // Kiểm tra xem có bộ lọc danh mục hoặc khuyến mãi đang áp dụng không
+    const hasActiveCategoryFilter =
+      categoryFilter && categoryFilter.value !== 'all';
+    const hasActivePromotionFilter =
+      promotionFilter && promotionFilter.value !== 'all';
+    const hasSearchTerm = searchInput && searchInput.value.trim() !== '';
+
+    // Tạo thông báo giải thích phù hợp
+    let explanationMessage = '';
+
+    if (hasActiveCategoryFilter && hasSearchTerm) {
+      // Trường hợp có cả bộ lọc danh mục và từ khóa tìm kiếm
+      const categoryName =
+        categoryFilter.options[categoryFilter.selectedIndex].text;
+      const searchTerm = searchInput.value.trim();
+      explanationMessage = `Không tìm thấy sản phẩm nào thuộc danh mục <strong>${categoryName}</strong> phù hợp với từ khóa <strong>${searchTerm}</strong>.`;
+    } else if (hasActivePromotionFilter && hasSearchTerm) {
+      // Trường hợp có cả bộ lọc khuyến mãi và từ khóa tìm kiếm
+      const promotionName =
+        promotionFilter.options[promotionFilter.selectedIndex].text;
+      const searchTerm = searchInput.value.trim();
+      explanationMessage = `Không tìm thấy sản phẩm nào có khuyến mãi <strong>${promotionName}</strong> phù hợp với từ khóa <strong>${searchTerm}</strong>.`;
+    } else if (hasActiveCategoryFilter && hasActivePromotionFilter) {
+      // Trường hợp có cả bộ lọc danh mục và khuyến mãi
+      const categoryName =
+        categoryFilter.options[categoryFilter.selectedIndex].text;
+      const promotionName =
+        promotionFilter.options[promotionFilter.selectedIndex].text;
+      explanationMessage = `Không tìm thấy sản phẩm nào thuộc danh mục <strong>${categoryName}</strong> có khuyến mãi <strong>${promotionName}</strong>.`;
+    } else if (hasActiveCategoryFilter) {
+      // Chỉ có bộ lọc danh mục
+      const categoryName =
+        categoryFilter.options[categoryFilter.selectedIndex].text;
+      explanationMessage = `Không tìm thấy sản phẩm nào thuộc danh mục <strong>${categoryName}</strong>.`;
+    } else if (hasActivePromotionFilter) {
+      // Chỉ có bộ lọc khuyến mãi
+      const promotionName =
+        promotionFilter.options[promotionFilter.selectedIndex].text;
+      explanationMessage = `Không tìm thấy sản phẩm nào có khuyến mãi <strong>${promotionName}</strong>.`;
+    } else if (hasSearchTerm) {
+      // Chỉ có từ khóa tìm kiếm
+      const searchTerm = searchInput.value.trim();
+      explanationMessage = `Không tìm thấy sản phẩm nào phù hợp với từ khóa <strong>${searchTerm}</strong>.`;
+    } else {
+      // Không có bộ lọc nào
+      explanationMessage = 'Không tìm thấy sản phẩm nào.';
+    }
+
+    // Tạo nút gợi ý mở rộng tìm kiếm nếu có từ khóa tìm kiếm và bộ lọc danh mục/khuyến mãi
+    let searchAllCategoriesButton = '';
+    if (
+      hasSearchTerm &&
+      (hasActiveCategoryFilter || hasActivePromotionFilter)
+    ) {
+      const searchTerm = searchInput.value.trim();
+      searchAllCategoriesButton = `
+        <button onclick="searchAllCategories('${searchTerm}')" class="search-all-categories-btn">
+            <i class="fas fa-search"></i> Tìm kiếm "${searchTerm}" trong tất cả danh mục
+        </button>
+      `;
+    }
+
+    // Create a more responsive and visually appealing empty state
     productGrid.innerHTML = `
             <div class="empty-state">
-                <i class="fas fa-search"></i>
+                <div class="empty-state-icon-container">
+                    <i class="fas fa-search"></i>
+                </div>
                 <h3>Không tìm thấy sản phẩm</h3>
-                <p>${
-                  isMobile
-                    ? 'Không có sản phẩm nào phù hợp với tiêu chí tìm kiếm.'
-                    : 'Không có sản phẩm nào phù hợp với tiêu chí tìm kiếm của bạn. Vui lòng thử lại với các bộ lọc khác.'
-                }</p>
+                <p>${explanationMessage}</p>
+                ${searchAllCategoriesButton}
                 <button onclick="resetFilters()" class="reset-filters-btn">
                     <i class="fas fa-sync-alt"></i> Xóa bộ lọc
                 </button>
@@ -1229,7 +1428,73 @@ document.addEventListener('DOMContentLoaded', function () {
     if (paginationContainer) {
       paginationContainer.innerHTML = '';
     }
+
+    // Tự động cuộn xuống và căn giữa empty-state
+    setTimeout(() => {
+      const emptyState = document.querySelector('.empty-state');
+      if (emptyState) {
+        // Lấy chiều cao của header
+        const announcementBanner = document.querySelector(
+          '.announcement-banner'
+        );
+        const mainHeader = document.querySelector('.main-header');
+
+        // Tính tổng chiều cao của header (announcement banner + main header)
+        const announcementHeight = announcementBanner
+          ? announcementBanner.offsetHeight
+          : 0;
+        const headerHeight = mainHeader ? mainHeader.offsetHeight : 0;
+        const totalHeaderHeight = announcementHeight + headerHeight;
+
+        // Tính toán vị trí để empty-state nằm giữa phần nhìn thấy của màn hình (trừ đi chiều cao của header)
+        const windowHeight = window.innerHeight;
+        const visibleWindowHeight = windowHeight - totalHeaderHeight;
+        const emptyStateRect = emptyState.getBoundingClientRect();
+        const emptyStateHeight = emptyStateRect.height;
+        const emptyStateTop = emptyStateRect.top + window.pageYOffset;
+
+        // Tính toán vị trí cuộn để empty-state nằm giữa phần nhìn thấy của màn hình
+        const scrollToPosition =
+          emptyStateTop -
+          totalHeaderHeight -
+          (visibleWindowHeight - emptyStateHeight) / 2;
+
+        // Cuộn đến vị trí đã tính toán với hiệu ứng mượt mà
+        window.scrollTo({
+          top: scrollToPosition,
+          behavior: 'smooth',
+        });
+
+        console.log('Empty state centered with header adjustment');
+        console.log('Header height:', totalHeaderHeight);
+        console.log('Window height:', windowHeight);
+        console.log('Visible window height:', visibleWindowHeight);
+        console.log('Empty state height:', emptyStateHeight);
+        console.log('Scroll position:', scrollToPosition);
+      }
+    }, 300); // Tăng thời gian chờ để đảm bảo empty-state đã được render đầy đủ
   }
+
+  // Hàm tìm kiếm trong tất cả danh mục
+  window.searchAllCategories = function (searchTerm) {
+    try {
+      // Đặt bộ lọc danh mục và khuyến mãi về "Tất cả"
+      if (categoryFilter) categoryFilter.value = 'all';
+      if (promotionFilter) promotionFilter.value = 'all';
+
+      // Đặt từ khóa tìm kiếm
+      if (searchInput) searchInput.value = searchTerm;
+
+      // Xóa danh mục và khuyến mãi đã lưu trong localStorage
+      localStorage.removeItem('selectedCategory');
+      localStorage.removeItem('selectedPromotion');
+
+      // Áp dụng tìm kiếm
+      handleSearch();
+    } catch (error) {
+      console.error('Error searching all categories:', error);
+    }
+  };
 
   function renderPagination() {
     if (!paginationContainer) return;
@@ -1522,27 +1787,66 @@ document.addEventListener('DOMContentLoaded', function () {
   function updateProductCount() {
     const productCountElement = document.getElementById('product-count-number');
     const productTotalElement = document.getElementById('product-total-number');
+    const productCountInfoElement = document.querySelector(
+      '.product-count-info span'
+    );
 
+    // Tính toán phạm vi sản phẩm đang hiển thị
+    const startIndex = (currentPage - 1) * productsPerPage + 1;
+    const endIndex = Math.min(
+      startIndex + productsPerPage - 1,
+      filteredProducts.length
+    );
+
+    // Xử lý trường hợp không có sản phẩm nào
+    if (filteredProducts.length === 0) {
+      if (productCountInfoElement) {
+        productCountInfoElement.innerHTML = 'Không có sản phẩm nào phù hợp';
+      }
+      if (productCountElement) {
+        productCountElement.textContent = '0';
+      }
+      if (productTotalElement) {
+        productTotalElement.textContent = products.length;
+      }
+      return;
+    }
+
+    // Cập nhật thông tin hiển thị
+    if (productCountInfoElement) {
+      // Hiển thị phạm vi sản phẩm và tổng số sản phẩm sau khi lọc
+      productCountInfoElement.innerHTML = `Hiển thị <strong>${startIndex}-${endIndex}</strong> của <strong>${filteredProducts.length}</strong> sản phẩm`;
+    }
+
+    // Cập nhật các phần tử riêng lẻ nếu cần
     if (productCountElement) {
-      const visibleProducts = document.querySelectorAll(
-        '.product-card:not(.hidden)'
-      );
-      productCountElement.textContent = visibleProducts.length;
+      productCountElement.textContent = endIndex - startIndex + 1;
     }
 
     if (productTotalElement) {
-      productTotalElement.textContent = products.length;
+      productTotalElement.textContent = filteredProducts.length;
     }
   }
 
   // Expose functions to global scope with Safari compatibility
   window.resetFilters = function () {
     try {
+      // Xóa danh mục và khuyến mãi đã lưu trong localStorage
+      localStorage.removeItem('selectedCategory');
+      localStorage.removeItem('selectedPromotion');
+
       if (categoryFilter) categoryFilter.value = 'all';
+      if (promotionFilter) promotionFilter.value = 'all';
       if (searchInput) searchInput.value = '';
 
       currentPage = 1;
       filteredProducts = Array.isArray(products) ? [...products] : [];
+
+      // Xóa kết quả tìm kiếm hiển thị
+      const existingResults = document.querySelector('.search-results-review');
+      if (existingResults) {
+        existingResults.remove();
+      }
 
       // Clear any existing timeouts
       if (window.loadingTimeout) {

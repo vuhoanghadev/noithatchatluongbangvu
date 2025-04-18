@@ -380,7 +380,7 @@ const products = [
     image: 'images/products/product7.png',
     description:
       'Tủ sách kết hợp kệ trang trí, kích thước 110x30x180cm, đa năng.',
-    promotion: 'sale 25%',
+    promotion: null,
     gallery: ['images/products/product7.png', 'images/products/product8.png'],
   },
   {

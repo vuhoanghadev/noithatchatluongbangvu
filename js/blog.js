@@ -541,10 +541,12 @@ if (document.getElementById('blog-grid')) {
     // Check if we're on mobile
     const isMobile = window.innerWidth <= 576;
 
-    // Create a more responsive empty state
+    // Create a more responsive and visually appealing empty state
     blogGrid.innerHTML = `
       <div class="empty-state">
-        <i class="fas fa-newspaper"></i>
+        <div class="empty-state-icon-container">
+          <i class="fas fa-newspaper"></i>
+        </div>
         <h3>Không tìm thấy bài viết nào</h3>
         <p>${
           isMobile
@@ -599,53 +601,216 @@ if (document.getElementById('blog-grid')) {
   style.textContent = `
     .empty-state {
       text-align: center;
-      padding: 50px 20px;
+      padding: 60px 30px;
       background: var(--blog-white);
       border-radius: var(--blog-border-radius);
-      box-shadow: var(--blog-shadow);
+      box-shadow: 0 15px 35px rgba(0, 0, 0, 0.08), 0 5px 15px rgba(0, 0, 0, 0.05);
       margin: 40px auto;
       max-width: 600px;
+      position: relative;
+      overflow: hidden;
+      border: 1px solid rgba(0, 0, 0, 0.05);
+      transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
+      transform: translateY(0);
+      animation: empty-state-appear 0.6s cubic-bezier(0.165, 0.84, 0.44, 1);
+    }
+
+    .empty-state::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 4px;
+      background: linear-gradient(90deg, var(--blog-primary), var(--blog-secondary));
+      border-radius: var(--blog-border-radius) var(--blog-border-radius) 0 0;
+    }
+
+    .empty-state::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: radial-gradient(circle at center, rgba(249, 115, 22, 0.03) 0%, transparent 70%);
+      z-index: 0;
+      opacity: 0.8;
+    }
+
+    @keyframes empty-state-appear {
+      0% {
+        opacity: 0;
+        transform: translateY(30px);
+      }
+      100% {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .empty-state-icon-container {
+      position: relative;
+      width: 120px;
+      height: 120px;
+      margin: 0 auto 25px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background-color: rgba(249, 115, 22, 0.05);
+      border-radius: 50%;
+      z-index: 1;
+    }
+
+    .empty-state-icon-container::before {
+      content: '';
+      position: absolute;
+      top: -8px;
+      left: -8px;
+      right: -8px;
+      bottom: -8px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, rgba(249, 115, 22, 0.2), rgba(0, 88, 221, 0.2));
+      z-index: -1;
+      opacity: 0.5;
+      animation: rotate-gradient 8s linear infinite;
+    }
+
+    @keyframes rotate-gradient {
+      0% {
+        transform: rotate(0deg);
+      }
+      100% {
+        transform: rotate(360deg);
+      }
     }
 
     .empty-state i {
-      font-size: 3rem;
+      font-size: 3.5rem;
       color: var(--blog-primary);
-      margin-bottom: 20px;
-      opacity: 0.7;
+      position: relative;
+      z-index: 2;
+      animation: float 3s ease-in-out infinite;
+    }
+
+    @keyframes float {
+      0%, 100% {
+        transform: translateY(0);
+      }
+      50% {
+        transform: translateY(-10px);
+      }
     }
 
     .empty-state h3 {
       font-family: var(--blog-font-heading);
-      font-size: 1.5rem;
+      font-size: 1.8rem;
       color: var(--blog-text);
       margin-bottom: 15px;
+      position: relative;
+      display: inline-block;
+      z-index: 1;
+    }
+
+    .empty-state h3::after {
+      content: '';
+      position: absolute;
+      bottom: -5px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 50px;
+      height: 2px;
+      background: linear-gradient(90deg, var(--blog-primary), var(--blog-secondary));
+      border-radius: 2px;
     }
 
     .empty-state p {
       color: var(--blog-text-light);
-      margin-bottom: 25px;
+      margin-bottom: 30px;
       line-height: 1.6;
+      font-size: 1.1rem;
+      max-width: 80%;
+      margin-left: auto;
+      margin-right: auto;
+      position: relative;
+      z-index: 1;
     }
 
     .empty-state button {
-      padding: 12px 25px;
+      padding: 12px 28px;
       background: var(--blog-primary);
       color: var(--blog-white);
       border: none;
-      border-radius: 30px;
+      border-radius: 50px;
       font-size: 1rem;
       font-weight: 600;
       cursor: pointer;
-      transition: var(--blog-transition);
+      transition: all 0.3s cubic-bezier(0.165, 0.84, 0.44, 1);
       display: inline-flex;
       align-items: center;
-      gap: 8px;
+      justify-content: center;
+      gap: 10px;
+      position: relative;
+      overflow: hidden;
+      z-index: 1;
+      box-shadow: 0 6px 15px rgba(249, 115, 22, 0.25);
+    }
+
+    .empty-state button::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, var(--blog-primary), var(--blog-primary-dark));
+      z-index: -1;
+      transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
+    }
+
+    .empty-state button::after {
+      content: '';
+      position: absolute;
+      top: -50%;
+      left: -50%;
+      width: 200%;
+      height: 200%;
+      background: linear-gradient(to right, rgba(255, 255, 255, 0) 0%, rgba(255, 255, 255, 0.3) 50%, rgba(255, 255, 255, 0) 100%);
+      transform: rotate(30deg);
+      opacity: 0;
+      transition: opacity 0.6s, transform 0.6s;
+      z-index: 0;
     }
 
     .empty-state button:hover {
-      background: var(--blog-primary-dark);
-      transform: translateY(-3px);
-      box-shadow: 0 5px 15px rgba(249, 115, 22, 0.2);
+      background: transparent;
+      transform: translateY(-5px);
+      box-shadow: 0 10px 20px rgba(249, 115, 22, 0.3);
+    }
+
+    .empty-state button:hover::before {
+      background: linear-gradient(90deg, var(--blog-primary-dark), var(--blog-primary));
+    }
+
+    .empty-state button:hover::after {
+      opacity: 1;
+      transform: rotate(30deg) translate(120%, -60%);
+      transition: transform 0.8s;
+    }
+
+    .empty-state button i {
+      font-size: 1rem;
+      animation: spin 2s linear infinite;
+      margin: 0;
+    }
+
+    @keyframes spin {
+      0% {
+        transform: rotate(0deg);
+      }
+      100% {
+        transform: rotate(360deg);
+      }
     }
 
     .reset-filters-btn {
@@ -654,13 +819,13 @@ if (document.getElementById('blog-grid')) {
 
     @keyframes pulse-button {
       0% {
-        box-shadow: 0 0 0 0 rgba(249, 115, 22, 0.4);
+        box-shadow: 0 6px 15px rgba(249, 115, 22, 0.25);
       }
       70% {
-        box-shadow: 0 0 0 10px rgba(249, 115, 22, 0);
+        box-shadow: 0 0 0 15px rgba(249, 115, 22, 0);
       }
       100% {
-        box-shadow: 0 0 0 0 rgba(249, 115, 22, 0);
+        box-shadow: 0 6px 15px rgba(249, 115, 22, 0.25);
       }
     }
 
@@ -803,24 +968,40 @@ if (document.getElementById('blog-grid')) {
 
     @media (max-width: 576px) {
       .empty-state {
-        padding: 30px 15px;
+        padding: 40px 20px;
+        margin: 30px auto;
+      }
+
+      .empty-state-icon-container {
+        width: 90px;
+        height: 90px;
+        margin-bottom: 20px;
       }
 
       .empty-state i {
-        font-size: 2.5rem;
+        font-size: 2.8rem;
       }
 
       .empty-state h3 {
-        font-size: 1.3rem;
+        font-size: 1.4rem;
+        margin-bottom: 12px;
+      }
+
+      .empty-state h3::after {
+        width: 40px;
+        bottom: -4px;
       }
 
       .empty-state p {
-        font-size: 0.9rem;
+        font-size: 0.95rem;
+        margin-bottom: 25px;
+        max-width: 95%;
       }
 
       .empty-state button {
-        padding: 10px 20px;
+        padding: 10px 22px;
         font-size: 0.9rem;
+        border-radius: 30px;
       }
 
       .blog-card-author {

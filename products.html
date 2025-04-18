@@ -47,6 +47,385 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css"
         integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA=="
         crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+    <!-- Inline CSS for Empty State -->
+    <style>
+        /* Promotion filter */
+        .promotion-filter {
+            margin-bottom: 20px;
+        }
+
+        .promotion-filter label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 500;
+            color: var(--product-dark);
+        }
+
+        .promotion-filter select {
+            width: 100%;
+            padding: 10px 15px;
+            border: 1px solid #e5e7eb;
+            border-radius: 8px;
+            background-color: #fff;
+            font-size: 0.95rem;
+            color: var(--product-dark);
+            transition: all 0.3s ease;
+            -webkit-appearance: none;
+            -moz-appearance: none;
+            appearance: none;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%231c2332' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");
+            background-repeat: no-repeat;
+            background-position: right 15px center;
+            background-size: 16px;
+        }
+
+        .promotion-filter select:focus {
+            outline: none;
+            border-color: var(--product-primary);
+            box-shadow: 0 0 0 3px rgba(249, 115, 22, 0.15);
+        }
+
+        .promotion-filter select option {
+            padding: 10px;
+        }
+
+        /* Empty state */
+        .empty-state {
+            text-align: center;
+            padding: 70px 40px;
+            background: #ffffff;
+            border-radius: 20px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.08), 0 10px 20px rgba(0, 0, 0, 0.05);
+            margin: 60px auto;
+            width: 90%;
+            max-width: 650px;
+            position: relative;
+            overflow: hidden;
+            border: 1px solid rgba(0, 0, 0, 0.05);
+            transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
+            transform: translateY(0);
+            animation: empty-state-appear 0.6s cubic-bezier(0.165, 0.84, 0.44, 1);
+            min-height: 400px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            left: 0;
+            right: 0;
+            grid-column: 1 / -1;
+            /* Span all columns in the grid */
+        }
+
+        /* Make sure the empty state is centered in the product grid */
+        .product-grid:has(.empty-state) {
+            display: block;
+            text-align: center;
+        }
+
+        /* Empty state decorative elements */
+        .empty-state::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background: linear-gradient(90deg, #f97316, #0058dd);
+            border-radius: 16px 16px 0 0;
+        }
+
+        .empty-state::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle at center, rgba(249, 115, 22, 0.03) 0%, transparent 70%);
+            z-index: 0;
+            opacity: 0.8;
+        }
+
+        @keyframes empty-state-appear {
+            0% {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+
+            100% {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .empty-state-icon-container {
+            position: relative;
+            width: 120px;
+            height: 120px;
+            margin: 0 auto 30px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background-color: rgba(249, 115, 22, 0.08);
+            border-radius: 50%;
+            z-index: 1;
+            box-shadow: 0 10px 25px rgba(249, 115, 22, 0.15);
+        }
+
+        .empty-state-icon-container::before {
+            content: '';
+            position: absolute;
+            top: -8px;
+            left: -8px;
+            right: -8px;
+            bottom: -8px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, rgba(249, 115, 22, 0.2), rgba(0, 88, 221, 0.2));
+            z-index: -1;
+            opacity: 0.5;
+            animation: rotate-gradient 8s linear infinite;
+        }
+
+        @keyframes rotate-gradient {
+            0% {
+                transform: rotate(0deg);
+            }
+
+            100% {
+                transform: rotate(360deg);
+            }
+        }
+
+        .empty-state i {
+            font-size: 3.5rem;
+            color: #f97316;
+            position: relative;
+            z-index: 2;
+            animation: float 3s ease-in-out infinite;
+            text-shadow: 0 5px 15px rgba(249, 115, 22, 0.3);
+        }
+
+        @keyframes float {
+
+            0%,
+            100% {
+                transform: translateY(0);
+            }
+
+            50% {
+                transform: translateY(-10px);
+            }
+        }
+
+        .empty-state h3 {
+            font-size: 2rem;
+            color: #1c2332;
+            margin-bottom: 20px;
+            position: relative;
+            display: inline-block;
+            z-index: 1;
+            font-weight: 700;
+            letter-spacing: 0.5px;
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+        }
+
+        .empty-state h3::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 50px;
+            height: 2px;
+            background: linear-gradient(90deg, #f97316, #0058dd);
+            border-radius: 2px;
+        }
+
+        .empty-state p {
+            font-size: 1.1rem;
+            color: #555555;
+            margin-bottom: 30px;
+            line-height: 1.7;
+            max-width: 85%;
+            margin-left: auto;
+            margin-right: auto;
+            position: relative;
+            z-index: 1;
+            font-weight: 400;
+        }
+
+        .empty-state p strong {
+            color: #1c2332;
+            font-weight: 600;
+        }
+
+        .empty-state button {
+            padding: 14px 32px;
+            background: #f97316;
+            color: #ffffff;
+            border: none;
+            border-radius: 50px;
+            font-size: 1.05rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s cubic-bezier(0.165, 0.84, 0.44, 1);
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+            position: relative;
+            overflow: hidden;
+            z-index: 1;
+            box-shadow: 0 8px 20px rgba(249, 115, 22, 0.25);
+            letter-spacing: 0.5px;
+            margin: 5px 8px;
+        }
+
+        .empty-state button::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, #f97316, #e86207);
+            z-index: -1;
+            transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
+        }
+
+        .empty-state button::after {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: linear-gradient(to right, rgba(255, 255, 255, 0) 0%, rgba(255, 255, 255, 0.3) 50%, rgba(255, 255, 255, 0) 100%);
+            transform: rotate(30deg);
+            opacity: 0;
+            transition: opacity 0.6s, transform 0.6s;
+            z-index: 0;
+        }
+
+        .empty-state button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(249, 115, 22, 0.3);
+        }
+
+        .empty-state button i {
+            font-size: 1rem;
+            color: #ffffff;
+            animation: spin 2s linear infinite;
+            margin: 0;
+        }
+
+        @keyframes spin {
+            0% {
+                transform: rotate(0deg);
+            }
+
+            100% {
+                transform: rotate(360deg);
+            }
+        }
+
+        .reset-filters-btn {
+            animation: pulse-button 2s infinite;
+        }
+
+        /* Nút tìm kiếm trong tất cả danh mục */
+        .search-all-categories-btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            padding: 12px 20px;
+            margin-bottom: 15px;
+            background-color: #0058dd;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-weight: 500;
+            font-size: 0.95rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 12px rgba(0, 88, 221, 0.2);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .search-all-categories-btn i {
+            margin-right: 8px;
+            font-size: 0.9rem;
+            animation: none !important;
+            /* Bỏ hiệu ứng xoay cho icon trong nút tìm kiếm tất cả danh mục */
+        }
+
+        .search-all-categories-btn:hover {
+            background-color: #0046b1;
+            transform: translateY(-3px);
+            box-shadow: 0 6px 15px rgba(0, 88, 221, 0.3);
+        }
+
+        .search-all-categories-btn:active {
+            transform: translateY(-1px);
+            box-shadow: 0 2px 8px rgba(0, 88, 221, 0.2);
+        }
+
+        @keyframes pulse-button {
+            0% {
+                box-shadow: 0 6px 15px rgba(249, 115, 22, 0.25);
+            }
+
+            70% {
+                box-shadow: 0 0 0 15px rgba(249, 115, 22, 0);
+            }
+
+            100% {
+                box-shadow: 0 6px 15px rgba(249, 115, 22, 0.25);
+            }
+        }
+
+        /* Mobile styles for empty state */
+        @media (max-width: 576px) {
+            .empty-state {
+                padding: 40px 20px;
+                margin: 30px auto;
+            }
+
+            .empty-state-icon-container {
+                width: 90px;
+                height: 90px;
+                margin-bottom: 20px;
+            }
+
+            .empty-state i {
+                font-size: 2.8rem;
+            }
+
+            .empty-state h3 {
+                font-size: 1.4rem;
+                margin-bottom: 12px;
+            }
+
+            .empty-state h3::after {
+                width: 40px;
+                bottom: -4px;
+            }
+
+            .empty-state p {
+                font-size: 0.95rem;
+                margin-bottom: 25px;
+                max-width: 95%;
+            }
+
+            .empty-state button {
+                padding: 10px 22px;
+                font-size: 0.9rem;
+                border-radius: 30px;
+            }
+        }
+    </style>
 </head>
 
 <body>
@@ -183,6 +562,15 @@
                             <option value="Tủ Giày">Tủ Giày</option>
                             <option value="Tủ Sách">Tủ Sách</option>
                             <option value="Giường Ngủ">Giường Ngủ</option>
+                        </select>
+                    </div>
+
+                    <div class="promotion-filter">
+                        <label for="promotion-filter">Khuyến mãi</label>
+                        <select id="promotion-filter">
+                            <option value="all">Tất cả sản phẩm</option>
+                            <option value="has-promotion">Đang khuyến mãi</option>
+                            <!-- Các loại khuyến mãi cụ thể sẽ được thêm tự động từ JavaScript -->
                         </select>
                     </div>
 
