@@ -77,7 +77,6 @@ const products = [
     promotion: 'Ưu đãi tháng 4',
     gallery: ['images/products/product7.png'],
   },
-
   {
     id: 8,
     name: 'Giường Ngủ Gỗ Tự Nhiên',
@@ -88,7 +87,6 @@ const products = [
     promotion: null,
     gallery: ['images/products/product8.png'],
   },
-
   {
     id: 9,
     name: 'Giường Ngủ Gỗ Tự Nhiên',
@@ -226,28 +224,312 @@ const products = [
   },
   {
     id: 24,
-    title: 'Nội Thất Thông Minh Cho Nhà Nhỏ',
-    category: 'Xu hướng',
-    image:
-      'https://plus.unsplash.com/premium_photo-1661595245288-65d1430d0d13?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NXx8bGl2aW5nJTIwcm9vbXxlbnwwfHwwfHx8MA%3D%3D',
-    excerpt: 'Giải pháp nội thất thông minh cho không gian hạn chế.',
-    content: `
-        <p>Nội thất đa năng như giường gấp, bàn gấp đang rất được ưa chuộng...</p>
-      `,
-    relatedProducts: [6, 7],
+    name: 'Tủ Quần Áo 4 Cánh',
+    category: 'Tủ Quần Áo',
+    image: 'images/products/product1.png',
+    description:
+      'Tủ quần áo 4 cánh gỗ MDF, kích thước 160x200x50cm, thiết kế hiện đại, phù hợp cho phòng ngủ lớn.',
+    promotion: 'sale 15%',
+    gallery: [
+      'images/products/product1.png',
+      'images/products/product2.png',
+      'images/products/product3.png',
+    ],
   },
-
   {
     id: 25,
-    title: 'Nội Thất Thông Minh Cho Nhà Nhỏ',
-    category: 'Xu hướng',
-    image:
-      'https://plus.unsplash.com/premium_photo-1661595245288-65d1430d0d13?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NXx8bGl2aW5nJTIwcm9vbXxlbnwwfHwwfHx8MA%3D%3D',
-    excerpt: 'Giải pháp nội thất thông minh cho không gian hạn chế.',
-    content: `
-        <p>Nội thất đa năng như giường gấp, bàn gấp đang rất được ưa chuộng...</p>
-      `,
-    relatedProducts: [6, 7],
+    name: 'Tủ Bếp Tích Hợp',
+    category: 'Tủ Bếp',
+    image: 'images/products/product2.png',
+    description:
+      'Tủ bếp gỗ công nghiệp tích hợp kệ, kích thước 220x60x85cm, tiện lợi và bền bỉ.',
+    promotion: null,
+    gallery: ['images/products/product2.png', 'images/products/product4.png'],
+  },
+  {
+    id: 26,
+    name: 'Bàn Học Gỗ MDF',
+    category: 'Bàn Học',
+    image: 'images/products/product3.png',
+    description:
+      'Bàn học gỗ MDF, kích thước 90x45x70cm, thiết kế nhỏ gọn cho học sinh.',
+    promotion: 'Ưu đãi tháng 5',
+    gallery: ['images/products/product3.png'],
+  },
+  {
+    id: 27,
+    name: 'Bàn Làm Việc Gỗ Công Nghiệp',
+    category: 'Bàn Làm Việc',
+    image: 'images/products/product4.png',
+    description:
+      'Bàn làm việc gỗ công nghiệp, kích thước 140x60x75cm, phù hợp văn phòng tại nhà.',
+    promotion: 'sale 25%',
+    gallery: [
+      'images/products/product4.png',
+      'images/products/product5.png',
+      'images/products/product6.png',
+    ],
+  },
+  {
+    id: 28,
+    name: 'Bàn Trang Điểm Gương Vuông',
+    category: 'Bàn Trang Điểm',
+    image: 'images/products/product5.png',
+    description:
+      'Bàn trang điểm gương vuông, kích thước 85x40x135cm, phong cách tối giản.',
+    promotion: null,
+    gallery: ['images/products/product5.png'],
+  },
+  {
+    id: 29,
+    name: 'Tủ Giày 3 Cánh',
+    category: 'Tủ Giày',
+    image: 'images/products/product6.png',
+    description:
+      'Tủ giày 3 cánh gỗ công nghiệp, kích thước 100x30x110cm, chứa được nhiều giày.',
+    promotion: 'sale 10%',
+    gallery: ['images/products/product6.png', 'images/products/product7.png'],
+  },
+  {
+    id: 30,
+    name: 'Tủ Sách Gỗ Tự Nhiên',
+    category: 'Tủ Sách',
+    image: 'images/products/product7.png',
+    description:
+      'Tủ sách gỗ tự nhiên, kích thước 120x30x200cm, thiết kế sang trọng.',
+    promotion: null,
+    gallery: ['images/products/product7.png', 'images/products/product8.png'],
+  },
+  {
+    id: 31,
+    name: 'Giường Ngủ Gỗ MDF',
+    category: 'Giường Ngủ',
+    image: 'images/products/product8.png',
+    description:
+      'Giường ngủ gỗ MDF, kích thước 160x200cm, thiết kế hiện đại và tiện dụng.',
+    promotion: 'sale 20%',
+    gallery: [
+      'images/products/product8.png',
+      'images/products/product1.png',
+      'images/products/product2.png',
+    ],
+  },
+  {
+    id: 32,
+    name: 'Tủ Quần Áo Kính Cường Lực',
+    category: 'Tủ Quần Áo',
+    image: 'images/products/product1.png',
+    description:
+      'Tủ quần áo cửa kính cường lực, kích thước 140x190x50cm, phong cách hiện đại.',
+    promotion: null,
+    gallery: ['images/products/product1.png'],
+  },
+  {
+    id: 33,
+    name: 'Tủ Bếp Gỗ Tự Nhiên',
+    category: 'Tủ Bếp',
+    image: 'images/products/product2.png',
+    description:
+      'Tủ bếp gỗ tự nhiên, kích thước 210x60x80cm, bền đẹp và sang trọng.',
+    promotion: 'Ưu đãi tháng 6',
+    gallery: ['images/products/product2.png', 'images/products/product3.png'],
+  },
+  {
+    id: 34,
+    name: 'Bàn Học Gỗ Công Nghiệp',
+    category: 'Bàn Học',
+    image: 'images/products/product3.png',
+    description:
+      'Bàn học gỗ công nghiệp, kích thước 95x50x70cm, thiết kế tối giản.',
+    promotion: 'sale 15%',
+    gallery: ['images/products/product3.png', 'images/products/product4.png'],
+  },
+  {
+    id: 35,
+    name: 'Bàn Làm Việc Gỗ Tự Nhiên',
+    category: 'Bàn Làm Việc',
+    image: 'images/products/product4.png',
+    description:
+      'Bàn làm việc gỗ tự nhiên, kích thước 130x60x75cm, chắc chắn và tinh tế.',
+    promotion: null,
+    gallery: ['images/products/product4.png'],
+  },
+  {
+    id: 36,
+    name: 'Bàn Trang Điểm Gương Gấp',
+    category: 'Bàn Trang Điểm',
+    image: 'images/products/product5.png',
+    description:
+      'Bàn trang điểm với gương gấp, kích thước 80x40x130cm, tiện lợi và nhỏ gọn.',
+    promotion: 'sale 10%',
+    gallery: ['images/products/product5.png', 'images/products/product6.png'],
+  },
+  {
+    id: 37,
+    name: 'Tủ Giày Gỗ MDF',
+    category: 'Tủ Giày',
+    image: 'images/products/product6.png',
+    description: 'Tủ giày gỗ MDF, kích thước 90x30x100cm, thiết kế hiện đại.',
+    promotion: null,
+    gallery: ['images/products/product6.png'],
+  },
+  {
+    id: 38,
+    name: 'Tủ Sách Kết Hợp Kệ',
+    category: 'Tủ Sách',
+    image: 'images/products/product7.png',
+    description:
+      'Tủ sách kết hợp kệ trang trí, kích thước 110x30x180cm, đa năng.',
+    promotion: 'sale 25%',
+    gallery: ['images/products/product7.png', 'images/products/product8.png'],
+  },
+  {
+    id: 39,
+    name: 'Giường Ngủ Gỗ Công Nghiệp',
+    category: 'Giường Ngủ',
+    image: 'images/products/product8.png',
+    description:
+      'Giường ngủ gỗ công nghiệp, kích thước 180x200cm, thiết kế tối giản.',
+    promotion: null,
+    gallery: ['images/products/product8.png', 'images/products/product1.png'],
+  },
+  {
+    id: 40,
+    name: 'Tủ Quần Áo 2 Cánh',
+    category: 'Tủ Quần Áo',
+    image: 'images/products/product1.png',
+    description:
+      'Tủ quần áo 2 cánh gỗ MDF, kích thước 100x180x50cm, nhỏ gọn và tiện dụng.',
+    promotion: 'sale 20%',
+    gallery: ['images/products/product1.png', 'images/products/product2.png'],
+  },
+  {
+    id: 41,
+    name: 'Tủ Bếp Gỗ MDF',
+    category: 'Tủ Bếp',
+    image: 'images/products/product2.png',
+    description: 'Tủ bếp gỗ MDF, kích thước 200x60x80cm, bền đẹp và hiện đại.',
+    promotion: null,
+    gallery: ['images/products/product2.png'],
+  },
+  {
+    id: 42,
+    name: 'Bàn Học Gỗ Tự Nhiên Lớn',
+    category: 'Bàn Học',
+    image: 'images/products/product3.png',
+    description:
+      'Bàn học gỗ tự nhiên, kích thước 110x55x75cm, rộng rãi và chắc chắn.',
+    promotion: 'Ưu đãi tháng 7',
+    gallery: ['images/products/product3.png', 'images/products/product4.png'],
+  },
+  {
+    id: 43,
+    name: 'Bàn Làm Việc Gỗ MDF Lớn',
+    category: 'Bàn Làm Việc',
+    image: 'images/products/product4.png',
+    description:
+      'Bàn làm việc gỗ MDF, kích thước 150x60x75cm, phù hợp văn phòng chuyên nghiệp.',
+    promotion: 'sale 15%',
+    gallery: ['images/products/product4.png', 'images/products/product5.png'],
+  },
+  {
+    id: 44,
+    name: 'Bàn Trang Điểm Gương Trượt',
+    category: 'Bàn Trang Điểm',
+    image: 'images/products/product5.png',
+    description:
+      'Bàn trang điểm gương trượt, kích thước 90x40x135cm, hiện đại và tiện ích.',
+    promotion: null,
+    gallery: ['images/products/product5.png'],
+  },
+  {
+    id: 45,
+    name: 'Tủ Giày 4 Cánh',
+    category: 'Tủ Giày',
+    image: 'images/products/product6.png',
+    description:
+      'Tủ giày 4 cánh gỗ công nghiệp, kích thước 120x30x110cm, chứa nhiều giày.',
+    promotion: 'sale 10%',
+    gallery: ['images/products/product6.png', 'images/products/product7.png'],
+  },
+  {
+    id: 46,
+    name: 'Tủ Sách Gỗ MDF',
+    category: 'Tủ Sách',
+    image: 'images/products/product7.png',
+    description:
+      'Tủ sách gỗ MDF, kích thước 100x30x180cm, thiết kế đơn giản và tiện lợi.',
+    promotion: null,
+    gallery: ['images/products/product7.png'],
+  },
+  {
+    id: 47,
+    name: 'Giường Ngủ Gỗ Tự Nhiên Lớn',
+    category: 'Giường Ngủ',
+    image: 'images/products/product8.png',
+    description:
+      'Giường ngủ gỗ tự nhiên, kích thước 200x220cm, sang trọng và rộng rãi.',
+    promotion: 'sale 20%',
+    gallery: ['images/products/product8.png', 'images/products/product1.png'],
+  },
+  {
+    id: 48,
+    name: 'Tủ Quần Áo Gương Trượt',
+    category: 'Tủ Quần Áo',
+    image: 'images/products/product1.png',
+    description:
+      'Tủ quần áo gương trượt, kích thước 150x200x50cm, tiết kiệm không gian.',
+    promotion: null,
+    gallery: ['images/products/product1.png', 'images/products/product2.png'],
+  },
+  {
+    id: 49,
+    name: 'Tủ Bếp Gỗ Công Nghiệp Lớn',
+    category: 'Tủ Bếp',
+    image: 'images/products/product2.png',
+    description:
+      'Tủ bếp gỗ công nghiệp, kích thước 230x60x85cm, hiện đại và tiện nghi.',
+    promotion: 'sale 15%',
+    gallery: ['images/products/product2.png', 'images/products/product3.png'],
+  },
+  {
+    id: 50,
+    name: 'Bàn Học Gỗ MDF Nhỏ',
+    category: 'Bàn Học',
+    image: 'images/products/product3.png',
+    description: 'Bàn học gỗ MDF, kích thước 80x40x70cm, nhỏ gọn và tiện dụng.',
+    promotion: null,
+    gallery: ['images/products/product3.png'],
+  },
+  {
+    id: 51,
+    name: 'Bàn Làm Việc Gỗ Công Nghiệp Nhỏ',
+    category: 'Bàn Làm Việc',
+    image: 'images/products/product4.png',
+    description:
+      'Bàn làm việc gỗ công nghiệp, kích thước 100x50x75cm, phù hợp không gian nhỏ.',
+    promotion: 'sale 10%',
+    gallery: ['images/products/product4.png', 'images/products/product5.png'],
+  },
+  {
+    id: 52,
+    name: 'Bàn Trang Điểm Gỗ Tự Nhiên',
+    category: 'Bàn Trang Điểm',
+    image: 'images/products/product5.png',
+    description:
+      'Bàn trang điểm gỗ tự nhiên, kích thước 85x40x130cm, sang trọng và tinh tế.',
+    promotion: null,
+    gallery: ['images/products/product5.png'],
+  },
+  {
+    id: 53,
+    name: 'Tủ Giày Gỗ Tự Nhiên',
+    category: 'Tủ Giày',
+    image: 'images/products/product6.png',
+    description:
+      'Tủ giày gỗ tự nhiên, kích thước 100x30x100cm, bền đẹp và chắc chắn.',
+    promotion: 'sale 20%',
+    gallery: ['images/products/product6.png', 'images/products/product7.png'],
   },
 
   // ... tiếp tục với các sản phẩm khác

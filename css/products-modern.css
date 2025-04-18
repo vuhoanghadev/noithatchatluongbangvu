@@ -650,34 +650,7 @@
     }
 }
 
-/* Product count */
-.product-count {
-    text-align: center;
-    font-size: 0.95rem;
-    color: var(--product-text-light);
-    margin-top: 15px;
-    padding: 10px 15px;
-    background-color: rgba(249, 115, 22, 0.05);
-    border-radius: 8px;
-    display: inline-flex;
-    align-items: center;
-    transition: all 0.3s ease;
-    min-width: 200px;
-}
 
-.product-count span {
-    color: var(--product-primary);
-    font-weight: 600;
-    margin: 0 3px;
-}
-
-.product-count.empty {
-    background-color: rgba(0, 0, 0, 0.05);
-    color: var(--product-text-light);
-    padding: 10px 15px;
-    border-left: 3px solid var(--product-primary);
-    border-radius: 0 8px 8px 0;
-}
 
 /* Empty state */
 .empty-state {

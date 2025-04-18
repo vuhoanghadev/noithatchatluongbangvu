@@ -16,7 +16,6 @@ document.addEventListener('DOMContentLoaded', function () {
   const searchInput = document.getElementById('search-input');
   const searchButton = document.querySelector('.search-button');
   const paginationContainer = document.querySelector('.pagination');
-  const productCountElement = document.querySelector('.product-count');
 
   // Scroll to top button removed as requested
 
@@ -32,7 +31,7 @@ document.addEventListener('DOMContentLoaded', function () {
         initCategoryFilter();
         renderProducts();
         renderPagination();
-        updateProductCount();
+        // updateProductCount(); // Đã bị xóa
         console.log('Products initialized successfully');
       } catch (error) {
         console.error('Error initializing products:', error);
@@ -923,7 +922,7 @@ document.addEventListener('DOMContentLoaded', function () {
         applyFilters();
         renderProducts();
         renderPagination();
-        updateProductCount();
+        // updateProductCount(); // Đã bị xóa
       } catch (error) {
         console.error('Error during filter processing:', error);
       } finally {
@@ -951,7 +950,7 @@ document.addEventListener('DOMContentLoaded', function () {
         applyFilters();
         renderProducts();
         renderPagination();
-        updateProductCount();
+        // updateProductCount(); // Đã bị xóa
 
         // Show search results review if there are results and search input is not empty
         if (searchInput && searchInput.value.trim() !== '') {
@@ -1338,7 +1337,7 @@ document.addEventListener('DOMContentLoaded', function () {
           try {
             renderProducts();
             renderPagination();
-            updateProductCount();
+            // updateProductCount(); // Đã bị xóa
           } catch (error) {
             console.error('Error during pagination processing:', error);
           } finally {
@@ -1414,7 +1413,7 @@ document.addEventListener('DOMContentLoaded', function () {
           try {
             renderProducts();
             renderPagination();
-            updateProductCount();
+            // updateProductCount(); // Đã bị xóa
           } catch (error) {
             console.error('Error during pagination processing:', error);
           } finally {
@@ -1520,7 +1519,7 @@ document.addEventListener('DOMContentLoaded', function () {
           try {
             renderProducts();
             renderPagination();
-            updateProductCount();
+            // updateProductCount(); // Đã bị xóa
           } catch (error) {
             console.error('Error during pagination processing:', error);
           } finally {
@@ -1580,66 +1579,8 @@ document.addEventListener('DOMContentLoaded', function () {
   }
 
   function updateProductCount() {
-    if (!productCountElement) return;
-
-    // Lấy tổng số sản phẩm trong toàn bộ hệ thống
-    const totalAllProducts = products.length;
-
-    // Lấy số lượng sản phẩm sau khi lọc
-    const totalFilteredProducts = filteredProducts.length;
-
-    // Tính toán số lượng sản phẩm trên trang hiện tại dựa trên phân trang
-    const start = (currentPage - 1) * productsPerPage + 1;
-    const end = Math.min(currentPage * productsPerPage, totalFilteredProducts);
-
-    // Lấy thông tin bộ lọc hiện tại
-    const categoryValue = categoryFilter ? categoryFilter.value : 'all';
-    const searchValue = searchInput ? searchInput.value.trim() : '';
-    const isFiltered = categoryValue !== 'all' || searchValue !== '';
-
-    // Cập nhật hiển thị dựa trên số lượng sản phẩm và trạng thái lọc
-    if (totalFilteredProducts === 0) {
-      // Không tìm thấy sản phẩm nào
-      productCountElement.innerHTML = 'Không tìm thấy sản phẩm nào';
-      productCountElement.className = 'product-count empty';
-    } else {
-      // Tìm thấy sản phẩm
-      productCountElement.classList.remove('empty');
-
-      // Trên mobile, hiển thị đơn giản hơn
-      if (window.innerWidth <= 576) {
-        productCountElement.innerHTML = `Hiển thị <span>${totalFilteredProducts}</span> sản phẩm`;
-      } else {
-        // Trên desktop
-        if (isFiltered) {
-          // Hiển thị chi tiết số lượng sản phẩm đã lọc trên desktop
-          let filterInfo = '';
-
-          if (categoryValue !== 'all') {
-            filterInfo += `danh mục "<span style="color: var(--product-primary);">${categoryValue}</span>"`;
-          }
-
-          if (searchValue !== '') {
-            if (filterInfo !== '') filterInfo += ' và ';
-            filterInfo += `từ khóa "<span style="color: var(--product-primary);">${searchValue}</span>"`;
-          }
-
-          if (filterInfo) {
-            productCountElement.innerHTML = `Hiển thị <span>${start} - ${end}</span> trên tổng số <span>${totalFilteredProducts}</span> sản phẩm phù hợp với ${filterInfo}`;
-          } else {
-            productCountElement.innerHTML = `Hiển thị <span>${start} - ${end}</span> trên tổng số <span>${totalFilteredProducts}</span> sản phẩm`;
-          }
-        } else {
-          // Hiển thị tiêu chuẩn trên desktop
-          productCountElement.innerHTML = `Hiển thị <span>${start} - ${end}</span> trên tổng số <span>${totalAllProducts}</span> sản phẩm`;
-        }
-      }
-    }
-
-    // Log để debug
-    console.log(
-      `Hiển thị ${start} - ${end} trên tổng số ${totalFilteredProducts} sản phẩm (Trang ${currentPage})`
-    );
+    // Hàm này đã bị xóa
+    return;
   }
 
   // Expose functions to global scope with Safari compatibility
