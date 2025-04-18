@@ -1,0 +1,46 @@
+/* Safari-specific fixes for image transitions */
+@media not all and (min-resolution:.001dpcm) { 
+    @supports (-webkit-appearance:none) {
+        /* Safari-only CSS here */
+        .main-image-container img {
+            -webkit-transform: translateZ(0);
+            -webkit-backface-visibility: hidden;
+            -webkit-perspective: 1000;
+            -webkit-transform-style: preserve-3d;
+        }
+        
+        .main-image-container img.fade-in {
+            -webkit-animation-fill-mode: both;
+            -webkit-animation-duration: 0.3s;
+            -webkit-animation-timing-function: ease-out;
+        }
+        
+        .main-image-container img.fade-out {
+            -webkit-animation-fill-mode: both;
+            -webkit-animation-duration: 0.2s;
+            -webkit-animation-timing-function: ease-in;
+        }
+        
+        /* Force hardware acceleration for Safari */
+        .thumbnails img {
+            -webkit-transform: translateZ(0);
+            -webkit-backface-visibility: hidden;
+            -webkit-perspective: 1000;
+        }
+        
+        /* Ensure Safari properly handles the active state */
+        .thumbnails img.active {
+            -webkit-transform: translateY(-3px);
+            border-color: var(--product-primary);
+            box-shadow: 0 5px 15px rgba(249, 115, 22, 0.2);
+        }
+        
+        /* Fix for Safari's handling of transitions */
+        #main-image-new {
+            -webkit-transform: translateZ(0);
+            -webkit-backface-visibility: hidden;
+            -webkit-perspective: 1000;
+            -webkit-transform-style: preserve-3d;
+        }
+    }
+}

@@ -23,27 +23,6 @@
       // Get the main image container
       const mainImageContainer = mainImage.parentElement;
 
-      // Preload the image to avoid flickering
-      const preloadImg = new Image();
-      preloadImg.src = imageSrc;
-
-      // Check if we're already in a transition
-      if (mainImageContainer.dataset.transitioning === 'true') {
-        // If we're in a transition, just update the main image directly without effects
-        mainImage.src = imageSrc;
-
-        // Update active thumbnail without fancy effects
-        const thumbnails = document.querySelectorAll('.thumbnails img');
-        thumbnails.forEach((thumb) => {
-          thumb.classList.remove('active');
-        });
-        thumbnail.classList.add('active');
-        return;
-      }
-
-      // Set transitioning flag
-      mainImageContainer.dataset.transitioning = 'true';
-
       // Create a container for the transition if it doesn't exist
       let transitionContainer = document.querySelector(
         '.safari-image-transition-container'
@@ -57,7 +36,7 @@
       // Clear any existing content
       transitionContainer.innerHTML = '';
 
-      // Create a simplified luxury image display effect with fewer layers
+      // Create a luxury image display effect with multiple layers
 
       // 1. Create the zoom-blur container for the current image
       const zoomBlurContainer = document.createElement('div');
@@ -77,43 +56,63 @@
       newImage.className = 'safari-luxury-image';
       transitionContainer.appendChild(newImage);
 
-      // Ensure the image is loaded before starting animations
-      newImage.onload = function () {
-        // Start the luxury image display sequence with shorter durations
-        // First, activate the zoom-blur effect on current image
-        requestAnimationFrame(() => {
-          zoomBlurContainer.classList.add('active');
+      // 4. Create the shine effect for luxury feel
+      const shineEffect = document.createElement('div');
+      shineEffect.className = 'safari-luxury-shine';
+      transitionContainer.appendChild(shineEffect);
 
-          // Then show the gradient overlay
-          setTimeout(() => {
-            gradientOverlay.classList.add('active');
-          }, 50);
+      // 5. Create the vignette effect for depth
+      const vignetteEffect = document.createElement('div');
+      vignetteEffect.className = 'safari-vignette';
+      transitionContainer.appendChild(vignetteEffect);
 
-          // Fade in the new image with luxury effect
-          setTimeout(() => {
-            newImage.classList.add('active');
-          }, 100);
+      // 6. Create the radial reveal effect
+      const radialReveal = document.createElement('div');
+      radialReveal.className = 'safari-radial-reveal';
+      transitionContainer.appendChild(radialReveal);
 
-          // After luxury transition completes, update the main image and clean up
-          setTimeout(() => {
-            mainImage.src = imageSrc;
-            transitionContainer.innerHTML = '';
-            // Reset transitioning flag
-            mainImageContainer.dataset.transitioning = 'false';
-          }, 300);
-        });
-      };
+      // Start the luxury image display sequence
+      // First, activate the zoom-blur effect on current image
+      setTimeout(() => {
+        zoomBlurContainer.classList.add('active');
+      }, 10);
 
-      // If image is already cached, onload might not fire, so we need a fallback
-      if (preloadImg.complete) {
-        newImage.onload();
-      }
+      // Then show the gradient overlay
+      setTimeout(() => {
+        gradientOverlay.classList.add('active');
+      }, 100);
+
+      // Start the radial reveal effect
+      setTimeout(() => {
+        radialReveal.classList.add('active');
+      }, 200);
+
+      // Fade in the new image with luxury effect
+      setTimeout(() => {
+        newImage.classList.add('active');
+      }, 300);
+
+      // Add the shine sweep effect
+      setTimeout(() => {
+        shineEffect.classList.add('active');
+      }, 500);
+
+      // Add the vignette effect
+      setTimeout(() => {
+        vignetteEffect.classList.add('active');
+      }, 400);
+
+      // After luxury transition completes, update the main image and clean up
+      setTimeout(() => {
+        mainImage.src = imageSrc;
+        transitionContainer.innerHTML = '';
+      }, 1200);
 
       // Add a luxury shadow effect to the main container
       mainImageContainer.classList.add('safari-luxury-shadow');
       setTimeout(() => {
         mainImageContainer.classList.remove('safari-luxury-shadow');
-      }, 300);
+      }, 1200);
 
       // Update active thumbnail without fancy effects
       const thumbnails = document.querySelectorAll('.thumbnails img');
