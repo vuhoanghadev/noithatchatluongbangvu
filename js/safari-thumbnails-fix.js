@@ -1,132 +1,140 @@
-/**
- * Safari-specific thumbnail fix for product-details.html
- * This script detects Safari browser and applies special handling for thumbnails
- */
-
-document.addEventListener('DOMContentLoaded', function() {
-    // Detect Safari browser
+// Safari Thumbnails Fix - Smooth Transition Effects
+(function () {
+    // Detect Safari
     const isSafari = /^((?!chrome|android).)*safari/i.test(navigator.userAgent);
-    
+
     if (isSafari) {
-        console.log('Safari browser detected, applying special thumbnail handling');
-        
-        // Add Safari class to body for CSS targeting
-        document.body.classList.add('safari-browser');
-        
-        // Override the changeMainImage function for Safari
-        window.originalChangeMainImage = window.changeMainImage;
-        
-        window.changeMainImage = function(imageSrc) {
-            const mainImage = document.getElementById('main-image');
-            if (!mainImage) return;
-            
-            // Special handling for Safari
-            // 1. Create a fade out effect
-            mainImage.classList.add('safari-image-transition');
-            
-            // 2. Wait for fade out to complete, then change the image
-            setTimeout(function() {
-                // Change the image source
-                mainImage.src = imageSrc;
-                
-                // 3. Wait for the image to load, then fade it back in
-                mainImage.onload = function() {
-                    setTimeout(function() {
-                        mainImage.classList.remove('safari-image-transition');
-                    }, 50);
-                };
-                
-                // If image fails to load or onload doesn't fire
-                setTimeout(function() {
-                    mainImage.classList.remove('safari-image-transition');
-                }, 300);
-            }, 300);
-        };
-        
-        // Override the slideThumbnails function for Safari
+        console.log('Safari detected, applying enhanced thumbnails effects...');
+
+        // Override the global slideThumbnails function for Safari
         window.originalSlideThumbnails = window.slideThumbnails;
-        
-        window.slideThumbnails = function(direction) {
+
+        // Safari-specific version of slideThumbnails
+        window.slideThumbnails = function (direction) {
             const thumbnailsSlider = document.getElementById('thumbnails-slider');
             if (!thumbnailsSlider) return;
-            
+
             // Get all thumbnails
             const thumbnails = thumbnailsSlider.querySelectorAll('img');
             const thumbnailCount = thumbnails.length;
             
-            // Calculate sizes and positions
-            const thumbnailWidth = 90; // Width of thumbnail + gap
-            const visibleWidth = thumbnailsSlider.offsetWidth;
-            const visibleThumbnails = Math.floor(visibleWidth / thumbnailWidth);
+            // Calculate visible thumbnails
+            const containerWidth = thumbnailsSlider.parentElement.offsetWidth;
+            const thumbnailWidth = 80; // Approximate width of thumbnail + gap
+            const visibleCount = Math.floor(containerWidth / thumbnailWidth);
             
-            // Get current transform value
-            const transform = window.getComputedStyle(thumbnailsSlider).getPropertyValue('transform');
-            let currentTranslateX = 0;
+            // Get current position from data attribute or initialize it
+            let currentPosition = parseInt(thumbnailsSlider.getAttribute('data-position') || '0');
             
-            if (transform && transform !== 'none') {
-                const matrix = transform.match(/matrix\\((.*)\\)/);
-                if (matrix) {
-                    const values = matrix[1].split(', ');
-                    currentTranslateX = parseFloat(values[4]) || 0;
-                }
-            }
-            
-            // Calculate current index based on translateX
-            const currentIndex = Math.round(Math.abs(currentTranslateX) / thumbnailWidth);
-            
-            // Determine new index
-            let newIndex;
+            // Calculate new position based on direction
             if (direction === 'next') {
-                newIndex = Math.min(currentIndex + visibleThumbnails, thumbnailCount - visibleThumbnails);
+                currentPosition = Math.min(currentPosition + visibleCount, thumbnailCount - visibleCount);
             } else {
-                newIndex = Math.max(currentIndex - visibleThumbnails, 0);
+                currentPosition = Math.max(currentPosition - visibleCount, 0);
             }
             
-            // Calculate new position
-            const newPosition = -newIndex * thumbnailWidth;
+            // Store the new position
+            thumbnailsSlider.setAttribute('data-position', currentPosition.toString());
             
-            // Apply the new position directly without transition
-            thumbnailsSlider.style.transition = 'none';
-            thumbnailsSlider.style.transform = `translateX(${newPosition}px)`;
+            // Apply fade effect to all thumbnails
+            thumbnails.forEach(thumb => {
+                thumb.classList.add('thumbnail-fade');
+                setTimeout(() => {
+                    thumb.classList.remove('thumbnail-fade');
+                }, 300);
+            });
             
-            // Force a reflow to ensure the transition is removed
-            thumbnailsSlider.offsetHeight;
+            // Create a smooth scrolling effect using opacity instead of transform
+            // First, make all thumbnails slightly transparent
+            thumbnails.forEach(thumb => {
+                thumb.style.opacity = '0.5';
+                thumb.style.transition = 'opacity 0.3s ease';
+            });
+            
+            // Then, after a small delay, scroll to the new position and restore opacity
+            setTimeout(() => {
+                // Use scrollTo for Safari which works better than transform
+                thumbnailsSlider.scrollTo({
+                    left: currentPosition * thumbnailWidth,
+                    behavior: 'smooth'
+                });
+                
+                // Restore opacity with a slight delay for each thumbnail
+                thumbnails.forEach((thumb, index) => {
+                    setTimeout(() => {
+                        thumb.style.opacity = '1';
+                    }, 50 * Math.abs(index - currentPosition));
+                });
+            }, 50);
             
             // Update navigation buttons
-            setTimeout(() => {
-                updateThumbnailNavigation(newIndex, thumbnailCount, visibleThumbnails);
-            }, 50);
+            updateThumbnailNavigation(currentPosition, thumbnailCount, visibleCount);
         };
-        
-        // Fix thumbnail click handling for Safari
-        const thumbnails = document.querySelectorAll('.thumbnails img');
-        thumbnails.forEach(thumb => {
-            // Remove any existing click handlers
-            const newThumb = thumb.cloneNode(true);
-            thumb.parentNode.replaceChild(newThumb, thumb);
-            
-            // Add new click handler with Safari-specific behavior
-            newThumb.addEventListener('click', function(e) {
-                e.preventDefault();
-                e.stopPropagation();
-                
-                // Get the image source from onclick attribute if it exists
-                let imgSrc = this.src;
-                const onclickAttr = this.getAttribute('onclick');
-                if (onclickAttr) {
-                    const match = onclickAttr.match(/'([^']+)'/);
-                    if (match) {
-                        imgSrc = match[1];
-                    }
-                }
-                
-                // Call the Safari-specific changeMainImage function
-                changeMainImage(imgSrc);
-                
-                // Update active state on thumbnails
-                thumbnails.forEach(t => t.classList.remove('active'));
-                this.classList.add('active');
+
+        // Override the changeMainImage function for Safari
+        window.originalChangeMainImage = window.changeMainImage;
+
+        // Safari-specific version of changeMainImage
+        window.changeMainImage = function (thumbnail, imageSrc) {
+            // Get the main image element
+            const mainImage = document.getElementById('main-image');
+            if (!mainImage) return;
+
+            // Get the main image container
+            const mainImageContainer = mainImage.parentElement;
+
+            // Create a container for the transition if it doesn't exist
+            let transitionContainer = document.querySelector('.safari-image-transition-container');
+            if (!transitionContainer) {
+                transitionContainer = document.createElement('div');
+                transitionContainer.className = 'safari-image-transition-container';
+                mainImageContainer.appendChild(transitionContainer);
+            }
+
+            // Clear any existing content
+            transitionContainer.innerHTML = '';
+
+            // Create a simple fade transition for Safari
+            const newImage = document.createElement('img');
+            newImage.src = imageSrc;
+            newImage.alt = mainImage.alt;
+            newImage.className = 'safari-luxury-image';
+            transitionContainer.appendChild(newImage);
+
+            // Fade in the new image
+            setTimeout(() => {
+                newImage.classList.add('active');
+            }, 10);
+
+            // After transition completes, update the main image and clean up
+            setTimeout(() => {
+                mainImage.src = imageSrc;
+                transitionContainer.innerHTML = '';
+            }, 800);
+
+            // Update active thumbnail
+            const thumbnails = document.querySelectorAll('.thumbnails img');
+            thumbnails.forEach((thumb) => {
+                thumb.classList.remove('active');
             });
+
+            // Add active class to clicked thumbnail
+            thumbnail.classList.add('active');
+        };
+
+        // Add Safari-specific thumbnail navigation
+        document.addEventListener('DOMContentLoaded', function() {
+            // Initialize thumbnail positions
+            const thumbnailsSlider = document.getElementById('thumbnails-slider');
+            if (thumbnailsSlider) {
+                thumbnailsSlider.setAttribute('data-position', '0');
+                
+                // Add Safari-specific class to thumbnails container
+                const thumbnailsContainer = document.querySelector('.thumbnails-container');
+                if (thumbnailsContainer) {
+                    thumbnailsContainer.classList.add('safari-thumbnails-container');
+                }
+            }
         });
     }
-});
+})();

@@ -1,35 +1,164 @@
-/* Safari-specific thumbnail fixes */
+/* Safari Thumbnails Fix - Smooth Transition Effects */
 
-/* Detect Safari browser */
-@supports (-webkit-hyphens:none) and (not (-ms-ime-align:auto)) and (not (-moz-appearance:none)) {
-    /* Safari-specific styles for thumbnails */
-    .thumbnails {
-        /* Disable transform transition for Safari to avoid flickering */
-        transition: none !important;
-    }
-    
-    /* Use opacity transition instead for smoother experience on Safari */
-    .main-image-container img {
-        transition: opacity 0.3s ease !important;
-    }
-    
-    /* Special class for Safari image transitions */
-    .safari-image-transition {
+/* Safari-specific styles for thumbnails container */
+.safari-browser .thumbnails-container {
+    -webkit-transform: translateZ(0);
+    -webkit-backface-visibility: hidden;
+    will-change: transform;
+    overflow: hidden;
+}
+
+/* Safari-specific styles for thumbnails slider */
+.safari-browser .thumbnails {
+    display: flex;
+    gap: 10px;
+    padding-top: 5px;
+    padding-bottom: 10px;
+    width: 100%;
+    overflow-x: hidden;
+    -webkit-transform: translateZ(0);
+    -webkit-backface-visibility: hidden;
+    will-change: transform;
+    /* Use opacity transition instead of transform for Safari */
+    transition: opacity 0.3s ease;
+    -webkit-transition: opacity 0.3s ease;
+}
+
+/* Safari-specific thumbnail styles */
+.safari-browser .thumbnails img {
+    position: relative;
+    border: 2px solid transparent;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+    -webkit-transition: border-color 0.3s ease, box-shadow 0.3s ease;
+    -webkit-transform: translateZ(0);
+    -webkit-backface-visibility: hidden;
+    will-change: transform, border-color;
+    overflow: hidden;
+}
+
+.safari-browser .thumbnails img:hover {
+    border-color: rgba(249, 115, 22, 0.5);
+    box-shadow: 0 3px 8px rgba(0, 0, 0, 0.1);
+}
+
+.safari-browser .thumbnails img.active {
+    border-color: var(--product-primary);
+    box-shadow: 0 4px 12px rgba(249, 115, 22, 0.2);
+}
+
+/* Safari-specific thumbnail navigation buttons */
+.safari-browser .thumbnails-nav {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    -webkit-transform: translateY(-50%);
+    width: 30px;
+    height: 30px;
+    background: var(--product-white);
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    color: var(--product-dark);
+    font-size: 0.9rem;
+    z-index: 2;
+    transition: all 0.3s ease;
+    -webkit-transition: all 0.3s ease;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.safari-browser .thumbnails-nav:hover {
+    background: var(--product-primary);
+    color: var(--product-white);
+    box-shadow: 0 3px 10px rgba(249, 115, 22, 0.2);
+}
+
+/* Safari-specific thumbnail sliding effect */
+@-webkit-keyframes safariSlideLeft {
+    from {
         opacity: 0;
+        -webkit-transform: translateX(20px);
     }
-    
-    /* Ensure Safari renders thumbnails correctly */
-    .thumbnails img {
-        -webkit-transform: translateZ(0);
-        transform: translateZ(0);
-        -webkit-backface-visibility: hidden;
-        backface-visibility: hidden;
-        -webkit-perspective: 1000px;
-        perspective: 1000px;
+    to {
+        opacity: 1;
+        -webkit-transform: translateX(0);
     }
-    
-    /* Improve Safari thumbnail click response */
-    .thumbnails img:active {
-        opacity: 0.7;
+}
+
+@-webkit-keyframes safariSlideRight {
+    from {
+        opacity: 0;
+        -webkit-transform: translateX(-20px);
     }
+    to {
+        opacity: 1;
+        -webkit-transform: translateX(0);
+    }
+}
+
+.safari-browser .thumbnail-slide-left {
+    -webkit-animation: safariSlideLeft 0.3s ease forwards;
+}
+
+.safari-browser .thumbnail-slide-right {
+    -webkit-animation: safariSlideRight 0.3s ease forwards;
+}
+
+/* Safari-specific thumbnail fade effect */
+.safari-browser .thumbnail-fade {
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    -webkit-transition: opacity 0.3s ease;
+}
+
+.safari-browser .thumbnail-fade.active {
+    opacity: 1;
+}
+
+/* Safari-specific thumbnail selection indicator */
+.safari-browser .thumbnails img::after {
+    content: '';
+    position: absolute;
+    bottom: -2px;
+    left: 50%;
+    width: 0;
+    height: 2px;
+    background-color: var(--product-primary);
+    transition: width 0.3s ease, left 0.3s ease;
+    -webkit-transition: width 0.3s ease, left 0.3s ease;
+    transform: translateX(-50%);
+    -webkit-transform: translateX(-50%);
+}
+
+.safari-browser .thumbnails img.active::after {
+    width: 100%;
+}
+
+/* Safari-specific thumbnail container for smooth sliding */
+.safari-thumbnail-container {
+    position: relative;
+    width: 100%;
+    overflow: hidden;
+}
+
+.safari-thumbnail-wrapper {
+    display: flex;
+    transition: transform 0.3s ease;
+    -webkit-transition: -webkit-transform 0.3s ease;
+}
+
+.safari-thumbnail-item {
+    flex: 0 0 auto;
+    margin-right: 10px;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    -webkit-transition: opacity 0.3s ease;
+}
+
+.safari-thumbnail-item.visible {
+    opacity: 1;
 }
