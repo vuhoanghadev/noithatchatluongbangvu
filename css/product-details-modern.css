@@ -959,24 +959,16 @@ body {
     }
 }
 
-/* Safari-specific styles - Enhanced for better visual effects */
+/* Safari-specific styles - Simple fade effect */
 .safari-browser .main-image-container {
     -webkit-transform: translateZ(0);
     -webkit-backface-visibility: hidden;
-    transition: box-shadow 0.5s ease, transform 0.3s ease;
-    -webkit-transition: box-shadow 0.5s ease, -webkit-transform 0.3s ease;
-}
-
-.safari-browser .main-image-container:hover {
-    transform: translateY(-5px);
-    -webkit-transform: translateY(-5px);
-    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.15);
+    overflow: hidden;
 }
 
 .safari-browser .main-image-container img {
     -webkit-transform: translateZ(0);
     -webkit-backface-visibility: hidden;
-    -webkit-transition: transform 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94), opacity 0.5s ease;
 }
 
 /* Safari-specific animation overrides */
@@ -986,30 +978,27 @@ body {
     animation: none !important;
 }
 
-/* Safari-specific thumbnail styles - Enhanced */
+/* Safari-specific thumbnail styles - Simple */
 .safari-browser .thumbnails img {
     -webkit-transform: translateZ(0);
     -webkit-backface-visibility: hidden;
-    -webkit-transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    -webkit-transition: all 0.3s ease;
+    transition: all 0.3s ease;
     border: 2px solid transparent;
 }
 
 .safari-browser .thumbnails img:hover {
-    -webkit-transform: translateY(-3px) scale(1.05);
-    transform: translateY(-3px) scale(1.05);
     border-color: rgba(249, 115, 22, 0.5);
-    box-shadow: 0 5px 15px rgba(249, 115, 22, 0.2);
 }
 
 .safari-browser .thumbnails img.active {
-    -webkit-transform: translateY(-5px) scale(1.05);
-    transform: translateY(-5px) scale(1.05);
     border-color: var(--product-primary);
-    box-shadow: 0 8px 20px rgba(249, 115, 22, 0.3);
+    transform: translateY(-3px);
+    -webkit-transform: translateY(-3px);
+    box-shadow: 0 5px 15px rgba(249, 115, 22, 0.3);
 }
 
-/* Safari-specific elegant transition container */
+/* Safari-specific transition container */
 .safari-image-transition-container {
     position: absolute;
     top: 0;
@@ -1022,30 +1011,8 @@ body {
     border-radius: var(--product-card-radius);
 }
 
-/* Beautiful overlay for transition effect */
-.safari-transition-overlay {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: linear-gradient(135deg, rgba(249, 115, 22, 0.3) 0%, rgba(249, 115, 22, 0.1) 100%);
-    opacity: 0;
-    transform: scale(1.1);
-    -webkit-transform: scale(1.1);
-    transition: opacity 0.3s ease, transform 0.3s ease;
-    -webkit-transition: opacity 0.3s ease, -webkit-transform 0.3s ease;
-    z-index: 1;
-}
-
-.safari-transition-overlay.active {
-    opacity: 1;
-    transform: scale(1);
-    -webkit-transform: scale(1);
-}
-
-/* Enhanced image transition with elegant effect */
-.safari-transition-image {
+/* Simple fade image transition */
+.safari-fade-image {
     position: absolute;
     top: 0;
     left: 0;
@@ -1053,67 +1020,11 @@ body {
     height: 100%;
     object-fit: cover;
     opacity: 0;
-    transform: scale(1.05);
-    -webkit-transform: scale(1.05);
-    transition: opacity 0.5s ease, transform 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-    -webkit-transition: opacity 0.5s ease, -webkit-transform 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    transition: opacity 0.6s ease;
+    -webkit-transition: opacity 0.6s ease;
     z-index: 2;
-    filter: brightness(1.05) contrast(1.05);
-    -webkit-filter: brightness(1.05) contrast(1.05);
 }
 
-.safari-transition-image.active {
+.safari-fade-image.fade-in {
     opacity: 1;
-    transform: scale(1);
-    -webkit-transform: scale(1);
-}
-
-/* Beautiful glow effect for thumbnails */
-.safari-thumbnail-glow {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: radial-gradient(circle, rgba(249, 115, 22, 0.4) 0%, rgba(249, 115, 22, 0) 70%);
-    opacity: 0;
-    animation: safari-thumbnail-glow 1s ease;
-    -webkit-animation: safari-thumbnail-glow 1s ease;
-    pointer-events: none;
-    z-index: 2;
-    border-radius: 8px;
-}
-
-@keyframes safari-thumbnail-glow {
-    0% {
-        opacity: 0;
-        transform: scale(0.5);
-    }
-
-    50% {
-        opacity: 0.8;
-        transform: scale(1.2);
-    }
-
-    100% {
-        opacity: 0;
-        transform: scale(1.5);
-    }
-}
-
-@-webkit-keyframes safari-thumbnail-glow {
-    0% {
-        opacity: 0;
-        -webkit-transform: scale(0.5);
-    }
-
-    50% {
-        opacity: 0.8;
-        -webkit-transform: scale(1.2);
-    }
-
-    100% {
-        opacity: 0;
-        -webkit-transform: scale(1.5);
-    }
 }
