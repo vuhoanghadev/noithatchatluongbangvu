@@ -959,11 +959,18 @@ body {
     }
 }
 
-/* Safari-specific styles - Simple fade effect */
+/* Safari-specific styles - Beautiful fade effect */
 .safari-browser .main-image-container {
     -webkit-transform: translateZ(0);
     -webkit-backface-visibility: hidden;
     overflow: hidden;
+    transition: box-shadow 0.5s ease, transform 0.3s ease;
+    -webkit-transition: box-shadow 0.5s ease, -webkit-transform 0.3s ease;
+}
+
+/* Subtle pulse effect for main container */
+.safari-browser .main-image-container.safari-subtle-pulse {
+    box-shadow: 0 8px 25px rgba(249, 115, 22, 0.25);
 }
 
 .safari-browser .main-image-container img {
@@ -978,24 +985,29 @@ body {
     animation: none !important;
 }
 
-/* Safari-specific thumbnail styles - Simple */
+/* Safari-specific thumbnail styles - Beautiful */
 .safari-browser .thumbnails img {
     -webkit-transform: translateZ(0);
     -webkit-backface-visibility: hidden;
-    -webkit-transition: all 0.3s ease;
-    transition: all 0.3s ease;
+    -webkit-transition: all 0.4s ease;
+    transition: all 0.4s ease;
     border: 2px solid transparent;
+    position: relative;
+    overflow: hidden;
 }
 
 .safari-browser .thumbnails img:hover {
     border-color: rgba(249, 115, 22, 0.5);
+    transform: translateY(-2px);
+    -webkit-transform: translateY(-2px);
+    box-shadow: 0 4px 10px rgba(249, 115, 22, 0.2);
 }
 
 .safari-browser .thumbnails img.active {
     border-color: var(--product-primary);
-    transform: translateY(-3px);
-    -webkit-transform: translateY(-3px);
-    box-shadow: 0 5px 15px rgba(249, 115, 22, 0.3);
+    transform: translateY(-4px);
+    -webkit-transform: translateY(-4px);
+    box-shadow: 0 6px 15px rgba(249, 115, 22, 0.3);
 }
 
 /* Safari-specific transition container */
@@ -1011,7 +1023,25 @@ body {
     border-radius: var(--product-card-radius);
 }
 
-/* Simple fade image transition */
+/* Elegant overlay for fade effect */
+.safari-fade-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(135deg, rgba(249, 115, 22, 0.1) 0%, rgba(249, 115, 22, 0.05) 100%);
+    opacity: 0;
+    transition: opacity 0.4s ease;
+    -webkit-transition: opacity 0.4s ease;
+    z-index: 1;
+}
+
+.safari-fade-overlay.active {
+    opacity: 1;
+}
+
+/* Beautiful fade image transition */
 .safari-fade-image {
     position: absolute;
     top: 0;
@@ -1020,6 +1050,8 @@ body {
     height: 100%;
     object-fit: cover;
     opacity: 0;
+    filter: brightness(1.03);
+    -webkit-filter: brightness(1.03);
     transition: opacity 0.6s ease;
     -webkit-transition: opacity 0.6s ease;
     z-index: 2;
@@ -1027,4 +1059,71 @@ body {
 
 .safari-fade-image.fade-in {
     opacity: 1;
+}
+
+/* Elegant shine effect */
+.safari-shine-effect {
+    position: absolute;
+    top: -100%;
+    left: -100%;
+    width: 300%;
+    height: 300%;
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0) 0%, rgba(255, 255, 255, 0.4) 50%, rgba(255, 255, 255, 0) 100%);
+    transform: rotate(45deg);
+    -webkit-transform: rotate(45deg);
+    opacity: 0;
+    transition: opacity 0.4s ease, transform 1.2s ease;
+    -webkit-transition: opacity 0.4s ease, -webkit-transform 1.2s ease;
+    z-index: 3;
+    pointer-events: none;
+}
+
+.safari-shine-effect.active {
+    opacity: 0.6;
+    transform: rotate(45deg) translate(100%, 100%);
+    -webkit-transform: rotate(45deg) translate(100%, 100%);
+}
+
+/* Subtle highlight effect for thumbnails */
+.safari-thumbnail-highlight {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: radial-gradient(circle, rgba(249, 115, 22, 0.3) 0%, rgba(249, 115, 22, 0) 70%);
+    opacity: 0;
+    animation: safari-thumbnail-highlight 0.8s ease;
+    -webkit-animation: safari-thumbnail-highlight 0.8s ease;
+    pointer-events: none;
+    z-index: 2;
+    border-radius: 6px;
+}
+
+@keyframes safari-thumbnail-highlight {
+    0% {
+        opacity: 0;
+    }
+
+    40% {
+        opacity: 0.7;
+    }
+
+    100% {
+        opacity: 0;
+    }
+}
+
+@-webkit-keyframes safari-thumbnail-highlight {
+    0% {
+        opacity: 0;
+    }
+
+    40% {
+        opacity: 0.7;
+    }
+
+    100% {
+        opacity: 0;
+    }
 }
