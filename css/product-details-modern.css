@@ -495,16 +495,18 @@ body {
     flex-direction: column;
     height: 100%;
     border: 1px solid rgba(0, 0, 0, 0.05);
-    opacity: 0;
-    transform: translateY(20px);
+    opacity: 1;
+    /* Changed from 0 to 1 to fix Safari issue */
+    transform: none;
+    /* Changed from translateY(20px) to none */
 }
 
 
 
 .product-card.fade-in {
     opacity: 1;
-    transform: translateY(0);
-    transition: opacity 0.5s ease, transform 0.5s ease;
+    transform: none;
+    /* Safari fix: removed transition */
 }
 
 .product-card:hover {
@@ -959,41 +961,78 @@ body {
     }
 }
 
-/* Safari-specific styles - Beautiful fade effect */
-.safari-browser .main-image-container {
+/* Safari-specific styles - Enhanced for better compatibility */
+.safari-browser .main-image-container,
+.main-image-container {
     -webkit-transform: translateZ(0);
+    transform: translateZ(0);
     -webkit-backface-visibility: hidden;
+    backface-visibility: hidden;
     overflow: hidden;
-    transition: box-shadow 0.5s ease, transform 0.3s ease;
-    -webkit-transition: box-shadow 0.5s ease, -webkit-transform 0.3s ease;
+    transition: none;
+    -webkit-transition: none;
+    will-change: transform, opacity;
 }
 
-/* Subtle pulse effect for main container */
-.safari-browser .main-image-container.safari-subtle-pulse {
-    box-shadow: 0 8px 25px rgba(249, 115, 22, 0.25);
+/* Force visibility for Safari */
+.safari-browser .product-container,
+.safari-browser .product-gallery,
+.safari-browser .product-info,
+.safari-browser .related-products,
+.safari-browser .customers-also-liked,
+.product-container,
+.product-gallery,
+.product-info,
+.related-products,
+.customers-also-liked {
+    opacity: 1 !important;
+    visibility: visible !important;
+    display: block !important;
+    transform: none !important;
+    -webkit-transform: none !important;
 }
 
-.safari-browser .main-image-container img {
-    -webkit-transform: translateZ(0);
-    -webkit-backface-visibility: hidden;
+/* Ensure images are visible */
+.safari-browser .main-image-container img,
+.main-image-container img {
+    -webkit-transform: none !important;
+    transform: none !important;
+    opacity: 1 !important;
+    visibility: visible !important;
+    transition: none !important;
+    -webkit-transition: none !important;
 }
 
-/* Safari-specific animation overrides */
-.safari-browser .main-image-container img.fade-in,
-.safari-browser .main-image-container img.fade-out {
-    -webkit-animation: none !important;
+/* Disable all animations for Safari */
+.safari-browser * {
     animation: none !important;
+    -webkit-animation: none !important;
+    transition: none !important;
+    -webkit-transition: none !important;
 }
 
-/* Safari-specific thumbnail styles - Beautiful */
-.safari-browser .thumbnails img {
-    -webkit-transform: translateZ(0);
-    -webkit-backface-visibility: hidden;
-    -webkit-transition: all 0.4s ease;
-    transition: all 0.4s ease;
+/* Ensure product cards are visible */
+.safari-browser .product-card,
+.product-card {
+    opacity: 1 !important;
+    transform: none !important;
+    -webkit-transform: none !important;
+    visibility: visible !important;
+}
+
+/* Ensure thumbnails are visible and working */
+.safari-browser .thumbnails img,
+.thumbnails img {
+    -webkit-transform: none;
+    transform: none;
+    opacity: 1;
+    visibility: visible;
     border: 2px solid transparent;
-    position: relative;
-    overflow: hidden;
+}
+
+.safari-browser .thumbnails img.active,
+.thumbnails img.active {
+    border-color: var(--product-primary);
 }
 
 .safari-browser .thumbnails img:hover {

@@ -205,10 +205,8 @@ document.addEventListener('DOMContentLoaded', function () {
       const card = createProductCard(relatedProduct);
       relatedProducts.appendChild(card);
 
-      // Add fade-in animation with delay
-      setTimeout(() => {
-        card.classList.add('fade-in');
-      }, index * 100);
+      // Add fade-in class immediately without delay
+      card.classList.add('fade-in');
     });
   }
 
@@ -235,10 +233,8 @@ document.addEventListener('DOMContentLoaded', function () {
       const card = createProductCard(likedProduct);
       alsoLikedProducts.appendChild(card);
 
-      // Add fade-in animation with delay
-      setTimeout(() => {
-        card.classList.add('fade-in');
-      }, index * 100);
+      // Add fade-in class immediately without delay
+      card.classList.add('fade-in');
     });
   }
 
