@@ -40,6 +40,16 @@ document.addEventListener('DOMContentLoaded', function () {
         renderProducts();
         renderPagination();
         updateProductCount();
+
+        // Cập nhật search-results-review nếu đang hiển thị và có từ khóa tìm kiếm
+        if (
+          searchInput &&
+          searchInput.value.trim() !== '' &&
+          document.querySelector('.search-results-review')
+        ) {
+          showSearchResults();
+        }
+
         hideLoading();
       }, 500);
     });
@@ -1825,6 +1835,30 @@ document.addEventListener('DOMContentLoaded', function () {
 
     if (productTotalElement) {
       productTotalElement.textContent = filteredProducts.length;
+    }
+
+    // Cập nhật search-results-review nếu đang hiển thị và có từ khóa tìm kiếm
+    const searchResultsReview = document.querySelector(
+      '.search-results-review'
+    );
+    if (searchResultsReview && searchInput && searchInput.value.trim() !== '') {
+      // Tìm phần tử hiển thị thông tin số lượng sản phẩm trong search-results-review
+      const searchResultsInfo = searchResultsReview.querySelector('p');
+      if (searchResultsInfo) {
+        const searchTerm = searchInput.value.trim();
+        const pageInfo =
+          filteredProducts.length > 0
+            ? `(trang ${currentPage}/${Math.ceil(
+                filteredProducts.length / productsPerPage
+              )})`
+            : '';
+
+        if (filteredProducts.length > 0) {
+          searchResultsInfo.innerHTML = `Hiển thị <strong>${startIndex}-${endIndex}</strong> của <strong>${filteredProducts.length}</strong> sản phẩm phù hợp ${pageInfo}`;
+        } else {
+          searchResultsInfo.innerHTML = 'Không tìm thấy sản phẩm nào phù hợp';
+        }
+      }
     }
   }
 

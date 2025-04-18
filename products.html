@@ -550,35 +550,52 @@
 
                 <!-- Filter Section -->
                 <div class="filter-section">
-                    <div class="category-filter">
-                        <label for="category-filter">Danh mục sản phẩm</label>
-                        <select id="category-filter">
-                            <option value="all">Tất cả sản phẩm</option>
-                            <option value="Tủ Quần Áo">Tủ Quần Áo</option>
-                            <option value="Tủ Bếp">Tủ Bếp</option>
-                            <option value="Bàn Học">Bàn Học</option>
-                            <option value="Bàn Làm Việc">Bàn Làm Việc</option>
-                            <option value="Bàn Trang Điểm">Bàn Trang Điểm</option>
-                            <option value="Tủ Giày">Tủ Giày</option>
-                            <option value="Tủ Sách">Tủ Sách</option>
-                            <option value="Giường Ngủ">Giường Ngủ</option>
-                        </select>
-                    </div>
+                    <div class="filter-cards">
+                        <div class="filter-card category-card">
+                            <div class="filter-card-header">
+                                <i class="fas fa-th-large"></i>
+                                <label for="category-filter">Danh mục sản phẩm</label>
+                            </div>
+                            <div class="filter-card-body">
+                                <select id="category-filter">
+                                    <option value="all">Tất cả sản phẩm</option>
+                                    <option value="Tủ Quần Áo">Tủ Quần Áo</option>
+                                    <option value="Tủ Bếp">Tủ Bếp</option>
+                                    <option value="Bàn Học">Bàn Học</option>
+                                    <option value="Bàn Làm Việc">Bàn Làm Việc</option>
+                                    <option value="Bàn Trang Điểm">Bàn Trang Điểm</option>
+                                    <option value="Tủ Giày">Tủ Giày</option>
+                                    <option value="Tủ Sách">Tủ Sách</option>
+                                    <option value="Giường Ngủ">Giường Ngủ</option>
+                                </select>
+                            </div>
+                        </div>
 
-                    <div class="promotion-filter">
-                        <label for="promotion-filter">Khuyến mãi</label>
-                        <select id="promotion-filter">
-                            <option value="all">Tất cả sản phẩm</option>
-                            <option value="has-promotion">Đang khuyến mãi</option>
-                            <!-- Các loại khuyến mãi cụ thể sẽ được thêm tự động từ JavaScript -->
-                        </select>
-                    </div>
+                        <div class="filter-card promotion-card">
+                            <div class="filter-card-header">
+                                <i class="fas fa-tags"></i>
+                                <label for="promotion-filter">Khuyến mãi</label>
+                            </div>
+                            <div class="filter-card-body">
+                                <select id="promotion-filter">
+                                    <option value="all">Tất cả sản phẩm</option>
+                                    <option value="has-promotion">Đang khuyến mãi</option>
+                                    <!-- Các loại khuyến mãi cụ thể sẽ được thêm tự động từ JavaScript -->
+                                </select>
+                            </div>
+                        </div>
 
-                    <div class="search-filter">
-                        <label for="search-input">Tìm kiếm sản phẩm</label>
-                        <div class="search-container">
-                            <input type="text" id="search-input" placeholder="Nhập tên sản phẩm...">
-                            <button class="search-button"><i class="fas fa-search"></i></button>
+                        <div class="filter-card search-card">
+                            <div class="filter-card-header">
+                                <i class="fas fa-search"></i>
+                                <label for="search-input">Tìm kiếm sản phẩm</label>
+                            </div>
+                            <div class="filter-card-body">
+                                <div class="search-container">
+                                    <input type="text" id="search-input" placeholder="Nhập tên sản phẩm...">
+                                    <button class="search-button"><i class="fas fa-search"></i></button>
+                                </div>
+                            </div>
                         </div>
                     </div>
 
