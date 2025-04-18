@@ -16,13 +16,9 @@ document.addEventListener('DOMContentLoaded', function () {
   const searchInput = document.getElementById('search-input');
   const searchButton = document.querySelector('.search-button');
   const paginationContainer = document.querySelector('.pagination');
-  const productCountElement = document.querySelector('.product-count span');
+  const productCountElement = document.querySelector('.product-count');
 
-  // Create scroll to top button
-  const scrollToTopButton = document.createElement('div');
-  scrollToTopButton.className = 'scroll-to-top';
-  scrollToTopButton.innerHTML = '<i class="fas fa-arrow-up"></i>';
-  document.body.appendChild(scrollToTopButton);
+  // Scroll to top button removed as requested
 
   // Variables
   let currentPage = 1;
@@ -55,48 +51,735 @@ document.addEventListener('DOMContentLoaded', function () {
   }
 
   if (searchInput) {
+    // Handle Enter key press
     searchInput.addEventListener('keypress', function (e) {
       if (e.key === 'Enter') {
         handleSearch();
       }
     });
+
+    // Handle input changes with debounce
+    let searchTimeout;
+    searchInput.addEventListener('input', function () {
+      // Clear previous timeout
+      if (searchTimeout) {
+        clearTimeout(searchTimeout);
+      }
+
+      // Hide search suggestions if input is empty
+      if (this.value.trim().length === 0) {
+        hideSearchSuggestions();
+        return;
+      }
+
+      // Set new timeout (debounce for 300ms)
+      searchTimeout = setTimeout(() => {
+        // Show search suggestions
+        showSearchSuggestions(this.value.trim());
+      }, 300);
+    });
+
+    // Hide suggestions when clicking outside
+    document.addEventListener('click', function (e) {
+      // Check if click is outside both search container and suggestions
+      if (
+        !e.target.closest('.search-container') &&
+        !e.target.closest('.search-suggestions')
+      ) {
+        hideSearchSuggestions();
+      }
+    });
+
+    // Handle window resize to reposition or hide suggestions
+    window.addEventListener('resize', function () {
+      const suggestions = document.querySelector('.search-suggestions');
+      if (suggestions) {
+        // On mobile, just hide suggestions when resizing
+        if (window.innerWidth < 768) {
+          hideSearchSuggestions();
+          return;
+        }
+
+        // On desktop, reposition
+        const searchContainer = document.querySelector('.search-container');
+        if (searchContainer) {
+          const rect = searchContainer.getBoundingClientRect();
+          const scrollTop =
+            window.pageYOffset || document.documentElement.scrollTop;
+          const scrollLeft =
+            window.pageXOffset || document.documentElement.scrollLeft;
+
+          suggestions.style.top = rect.bottom + scrollTop + 'px';
+          suggestions.style.left = rect.left + scrollLeft + 'px';
+          suggestions.style.width = rect.width + 'px';
+        }
+      }
+    });
+
+    // Handle scroll to reposition suggestions
+    window.addEventListener('scroll', function () {
+      const suggestions = document.querySelector('.search-suggestions');
+      if (suggestions) {
+        const searchContainer = document.querySelector('.search-container');
+        if (searchContainer) {
+          const rect = searchContainer.getBoundingClientRect();
+          const scrollTop =
+            window.pageYOffset || document.documentElement.scrollTop;
+          const scrollLeft =
+            window.pageXOffset || document.documentElement.scrollLeft;
+
+          suggestions.style.top = rect.bottom + scrollTop + 'px';
+          suggestions.style.left = rect.left + scrollLeft + 'px';
+        }
+      }
+    });
   }
 
-  // Scroll to top button event listener
-  scrollToTopButton.addEventListener('click', function () {
-    // Show loading effect
-    showLoading();
+  // Scroll to top button event listeners removed as requested
 
-    // Scroll to top of products
-    window.scrollTo({ top: 0, behavior: 'smooth' });
+  // Function to show search suggestions
+  function showSearchSuggestions(searchTerm) {
+    // Remove existing suggestions
+    hideSearchSuggestions();
 
-    // Clear any existing timeouts
-    if (window.loadingTimeout) {
-      clearTimeout(window.loadingTimeout);
-    }
+    // Normalize search term for non-accented search
+    const normalizedSearchTerm = removeAccents(searchTerm.toLowerCase());
 
-    // Apply changes after loading time
-    window.loadingTimeout = setTimeout(() => {
-      try {
-        // No need to re-render, just hide loading
-        hideLoading();
-        window.loadingTimeout = null;
-      } catch (error) {
-        console.error('Error during scroll to top:', error);
-        hideLoading();
-        window.loadingTimeout = null;
+    // Find matching products
+    let matchingProducts = products.filter((product) => {
+      const normalizedName = removeAccents(product.name.toLowerCase());
+      const normalizedDescription = removeAccents(
+        product.description.toLowerCase()
+      );
+
+      return (
+        normalizedName.includes(normalizedSearchTerm) ||
+        normalizedDescription.includes(normalizedSearchTerm) ||
+        product.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
+        product.description.toLowerCase().includes(searchTerm.toLowerCase())
+      );
+    });
+
+    // Store total count before limiting
+    const totalMatchCount = matchingProducts.length;
+
+    // Limit to 5 results for display
+    matchingProducts = matchingProducts.slice(0, 5);
+
+    // If no matches, show "no results" message
+    if (matchingProducts.length === 0) {
+      // Create no results container
+      const noResultsContainer = document.createElement('div');
+      noResultsContainer.className = 'search-suggestions';
+
+      // Style the container
+      Object.assign(noResultsContainer.style, {
+        position: 'absolute',
+        top: '100%',
+        left: '0',
+        right: '0',
+        zIndex: '9999',
+        backgroundColor: '#fff',
+        borderRadius: '8px',
+        boxShadow:
+          '0 6px 16px rgba(0, 0, 0, 0.12), 0 3px 6px rgba(0, 0, 0, 0.08)',
+        marginTop: '8px',
+        border: 'none',
+        opacity: '0',
+        transform: 'translateY(-8px) scale(0.98)',
+        transition: 'all 0.25s cubic-bezier(0.165, 0.84, 0.44, 1)',
+        padding: '20px',
+        textAlign: 'center',
+      });
+
+      // Create icon
+      const noResultsIcon = document.createElement('div');
+      Object.assign(noResultsIcon.style, {
+        fontSize: '2rem',
+        color: 'rgba(249, 115, 22, 0.5)',
+        marginBottom: '10px',
+      });
+      noResultsIcon.innerHTML = '<i class="fas fa-search"></i>';
+
+      // Create message
+      const noResultsMessage = document.createElement('div');
+      Object.assign(noResultsMessage.style, {
+        fontSize: '1rem',
+        fontWeight: '500',
+        color: '#1c2332',
+        marginBottom: '8px',
+      });
+      noResultsMessage.textContent = `Không tìm thấy kết quả cho "${searchTerm}"`;
+
+      // Create suggestions
+      const noResultsSuggestions = document.createElement('div');
+      Object.assign(noResultsSuggestions.style, {
+        fontSize: '0.9rem',
+        color: 'var(--product-text-light)',
+        marginBottom: '15px',
+      });
+      noResultsSuggestions.innerHTML =
+        'Vui lòng thử lại với từ khóa khác hoặc xem các gợi ý dưới đây';
+
+      // Create suggested keywords
+      const suggestedKeywords = document.createElement('div');
+      Object.assign(suggestedKeywords.style, {
+        display: 'flex',
+        flexWrap: 'wrap',
+        gap: '8px',
+        justifyContent: 'center',
+        marginTop: '15px',
+      });
+
+      // Get some popular categories as suggestions
+      const categories = [...new Set(products.map((p) => p.category))].slice(
+        0,
+        3
+      );
+
+      // Add suggested keywords
+      [...categories, 'tủ', 'bàn', 'giường'].forEach((keyword) => {
+        const keywordBtn = document.createElement('button');
+        Object.assign(keywordBtn.style, {
+          padding: '6px 12px',
+          backgroundColor: 'rgba(249, 115, 22, 0.1)',
+          color: 'var(--product-primary)',
+          border: 'none',
+          borderRadius: '4px',
+          cursor: 'pointer',
+          fontSize: '0.85rem',
+          fontWeight: '500',
+          transition: 'all 0.2s ease',
+        });
+        keywordBtn.textContent = keyword;
+
+        // Add hover effect
+        keywordBtn.addEventListener('mouseenter', () => {
+          keywordBtn.style.backgroundColor = 'rgba(249, 115, 22, 0.2)';
+          keywordBtn.style.transform = 'translateY(-2px)';
+        });
+
+        keywordBtn.addEventListener('mouseleave', () => {
+          keywordBtn.style.backgroundColor = 'rgba(249, 115, 22, 0.1)';
+          keywordBtn.style.transform = 'translateY(0)';
+        });
+
+        // Add click event
+        keywordBtn.addEventListener('click', () => {
+          if (searchInput) {
+            searchInput.value = keyword;
+            handleSearch();
+          }
+          hideSearchSuggestions();
+        });
+
+        suggestedKeywords.appendChild(keywordBtn);
+      });
+
+      // Append all elements
+      noResultsContainer.appendChild(noResultsIcon);
+      noResultsContainer.appendChild(noResultsMessage);
+      noResultsContainer.appendChild(noResultsSuggestions);
+      noResultsContainer.appendChild(suggestedKeywords);
+
+      // Add to DOM
+      const searchContainer = document.querySelector('.search-container');
+      if (searchContainer) {
+        // Ensure search container has proper positioning
+        searchContainer.style.position = 'relative';
+        searchContainer.style.zIndex = '1001';
+
+        // Append to body
+        document.body.appendChild(noResultsContainer);
+
+        // Position the container
+        const searchContainerRect = searchContainer.getBoundingClientRect();
+        const scrollTop =
+          window.pageYOffset || document.documentElement.scrollTop;
+        const scrollLeft =
+          window.pageXOffset || document.documentElement.scrollLeft;
+
+        noResultsContainer.style.position = 'absolute';
+        noResultsContainer.style.top =
+          searchContainerRect.bottom + scrollTop + 'px';
+        noResultsContainer.style.left =
+          searchContainerRect.left + scrollLeft + 'px';
+        noResultsContainer.style.width = searchContainerRect.width + 'px';
+
+        // Animate in
+        setTimeout(() => {
+          noResultsContainer.style.opacity = '1';
+          noResultsContainer.style.transform = 'translateY(0) scale(1)';
+        }, 10);
       }
-    }, 800);
-  });
 
-  // Show/hide scroll to top button based on scroll position
-  window.addEventListener('scroll', function () {
-    if (window.pageYOffset > 300) {
-      scrollToTopButton.classList.add('visible');
-    } else {
-      scrollToTopButton.classList.remove('visible');
+      return;
     }
-  });
+
+    // Create suggestions container
+    const suggestionsContainer = document.createElement('div');
+    suggestionsContainer.className = 'search-suggestions';
+
+    // Style the container
+    Object.assign(suggestionsContainer.style, {
+      position: 'absolute',
+      top: '100%',
+      left: '0',
+      right: '0',
+      zIndex: '9999', // Increased z-index to ensure it's above other elements
+      backgroundColor: '#fff',
+      borderRadius: '8px',
+      boxShadow:
+        '0 6px 16px rgba(0, 0, 0, 0.12), 0 3px 6px rgba(0, 0, 0, 0.08)',
+      maxHeight: '350px',
+      overflowY: 'auto',
+      marginTop: '8px',
+      border: 'none',
+      opacity: '0',
+      transform: 'translateY(-8px) scale(0.98)',
+      transition: 'all 0.25s cubic-bezier(0.165, 0.84, 0.44, 1)',
+      backdropFilter: 'blur(8px)',
+    });
+
+    // Add custom scrollbar
+    suggestionsContainer.style.scrollbarWidth = 'thin';
+    suggestionsContainer.style.scrollbarColor =
+      'rgba(249, 115, 22, 0.3) rgba(0, 0, 0, 0.05)';
+
+    // Add webkit scrollbar styles
+    const scrollbarStyle = document.createElement('style');
+    scrollbarStyle.textContent = `
+      .search-suggestions::-webkit-scrollbar {
+        width: 6px;
+      }
+      .search-suggestions::-webkit-scrollbar-track {
+        background: rgba(0, 0, 0, 0.05);
+        border-radius: 8px;
+      }
+      .search-suggestions::-webkit-scrollbar-thumb {
+        background-color: rgba(249, 115, 22, 0.3);
+        border-radius: 8px;
+      }
+      .search-suggestions::-webkit-scrollbar-thumb:hover {
+        background-color: rgba(249, 115, 22, 0.5);
+      }
+    `;
+    document.head.appendChild(scrollbarStyle);
+
+    // Create header
+    const header = document.createElement('div');
+    Object.assign(header.style, {
+      padding: '12px 16px',
+      borderBottom: '1px solid rgba(0, 0, 0, 0.05)',
+      fontSize: '0.9rem',
+      color: 'var(--product-text-light)',
+      fontWeight: '500',
+      display: 'flex',
+      alignItems: 'center',
+      background: 'rgba(249, 115, 22, 0.03)',
+      borderRadius: '8px 8px 0 0',
+    });
+
+    // Add search icon with animation
+    const searchIcon = document.createElement('i');
+    searchIcon.className = 'fas fa-search';
+    Object.assign(searchIcon.style, {
+      color: 'var(--product-primary)',
+      marginRight: '10px',
+      fontSize: '0.9rem',
+      animation: 'pulse 1.5s infinite',
+    });
+
+    // Add animation keyframes
+    const pulseAnimation = document.createElement('style');
+    pulseAnimation.textContent = `
+      @keyframes pulse {
+        0% { opacity: 0.7; transform: scale(1); }
+        50% { opacity: 1; transform: scale(1.1); }
+        100% { opacity: 0.7; transform: scale(1); }
+      }
+    `;
+    document.head.appendChild(pulseAnimation);
+
+    header.appendChild(searchIcon);
+    header.appendChild(document.createTextNode(`Kết quả tìm kiếm cho `));
+
+    const searchTermSpan = document.createElement('span');
+    searchTermSpan.textContent = `"${searchTerm}"`;
+    Object.assign(searchTermSpan.style, {
+      color: 'var(--product-primary)',
+      fontWeight: '600',
+      marginLeft: '2px',
+      marginRight: '2px',
+    });
+
+    header.appendChild(searchTermSpan);
+    header.appendChild(document.createTextNode(':'));
+
+    suggestionsContainer.appendChild(header);
+
+    // Create suggestions list
+    matchingProducts.forEach((product) => {
+      const item = document.createElement('div');
+      item.className = 'search-suggestion-item';
+
+      // Style the item
+      Object.assign(item.style, {
+        padding: '12px 16px',
+        display: 'flex',
+        alignItems: 'center',
+        gap: '12px',
+        cursor: 'pointer',
+        transition: 'all 0.2s ease',
+        borderBottom: '1px solid rgba(0, 0, 0, 0.05)',
+        position: 'relative',
+        overflow: 'hidden',
+      });
+
+      // Add hover effect
+      item.addEventListener('mouseenter', () => {
+        item.style.backgroundColor = 'rgba(249, 115, 22, 0.05)';
+        item.style.transform = 'translateX(4px)';
+      });
+
+      item.addEventListener('mouseleave', () => {
+        item.style.backgroundColor = '';
+        item.style.transform = 'translateX(0)';
+      });
+
+      // Add ripple effect on click
+      item.addEventListener('mousedown', (e) => {
+        const ripple = document.createElement('span');
+        ripple.className = 'search-ripple-effect';
+
+        const rect = item.getBoundingClientRect();
+        const size = Math.max(rect.width, rect.height) * 2;
+
+        ripple.style.width = ripple.style.height = `${size}px`;
+        ripple.style.left = `${e.clientX - rect.left - size / 2}px`;
+        ripple.style.top = `${e.clientY - rect.top - size / 2}px`;
+        ripple.style.position = 'absolute';
+        ripple.style.borderRadius = '50%';
+        ripple.style.backgroundColor = 'rgba(249, 115, 22, 0.2)';
+        ripple.style.transform = 'scale(0)';
+        ripple.style.animation = 'ripple 0.6s linear';
+        ripple.style.pointerEvents = 'none';
+
+        item.appendChild(ripple);
+
+        setTimeout(() => {
+          ripple.remove();
+        }, 600);
+      });
+
+      // Add ripple animation if not already added
+      if (!document.querySelector('style[data-ripple]')) {
+        const rippleStyle = document.createElement('style');
+        rippleStyle.setAttribute('data-ripple', 'true');
+        rippleStyle.textContent = `
+          @keyframes ripple {
+            to {
+              transform: scale(2);
+              opacity: 0;
+            }
+          }
+        `;
+        document.head.appendChild(rippleStyle);
+      }
+
+      // Create thumbnail with enhanced styling
+      const thumbnail = document.createElement('div');
+      Object.assign(thumbnail.style, {
+        width: '48px',
+        height: '48px',
+        flexShrink: '0',
+        borderRadius: '6px',
+        overflow: 'hidden',
+        backgroundColor: 'rgba(0, 0, 0, 0.03)',
+        boxShadow: '0 2px 6px rgba(0, 0, 0, 0.08)',
+        transition: 'transform 0.3s ease',
+        position: 'relative',
+      });
+
+      const img = document.createElement('img');
+      img.src = product.image || 'images/products/placeholder.jpg';
+      img.alt = product.name;
+      Object.assign(img.style, {
+        width: '100%',
+        height: '100%',
+        objectFit: 'cover',
+        transition: 'transform 0.3s ease',
+      });
+
+      img.onerror = function () {
+        this.src = 'images/products/placeholder.jpg';
+      };
+
+      // Add hover effect for image
+      thumbnail.addEventListener('mouseenter', () => {
+        img.style.transform = 'scale(1.1)';
+      });
+
+      thumbnail.addEventListener('mouseleave', () => {
+        img.style.transform = 'scale(1)';
+      });
+
+      thumbnail.appendChild(img);
+      item.appendChild(thumbnail);
+
+      // Create content with enhanced styling
+      const content = document.createElement('div');
+      Object.assign(content.style, {
+        flex: '1',
+        minWidth: '0',
+        display: 'flex',
+        flexDirection: 'column',
+        justifyContent: 'center',
+      });
+
+      const name = document.createElement('div');
+      Object.assign(name.style, {
+        fontWeight: '600',
+        marginBottom: '4px',
+        whiteSpace: 'nowrap',
+        overflow: 'hidden',
+        textOverflow: 'ellipsis',
+        color: '#1c2332',
+        fontSize: '0.95rem',
+        transition: 'color 0.2s ease',
+      });
+      name.textContent = product.name;
+      content.appendChild(name);
+
+      // Add hover effect for product name
+      item.addEventListener('mouseenter', () => {
+        name.style.color = 'var(--product-primary)';
+      });
+
+      item.addEventListener('mouseleave', () => {
+        name.style.color = '#1c2332';
+      });
+
+      // Create flex container for category and price (if available)
+      const metaContainer = document.createElement('div');
+      Object.assign(metaContainer.style, {
+        display: 'flex',
+        alignItems: 'center',
+        gap: '12px',
+      });
+
+      const category = document.createElement('div');
+      Object.assign(category.style, {
+        fontSize: '0.8rem',
+        color: 'var(--product-text-light)',
+        display: 'flex',
+        alignItems: 'center',
+        gap: '5px',
+      });
+
+      const tagIcon = document.createElement('i');
+      tagIcon.className = 'fas fa-tag';
+      tagIcon.style.fontSize = '0.7rem';
+      tagIcon.style.color = 'var(--product-primary)';
+
+      category.appendChild(tagIcon);
+      category.appendChild(document.createTextNode(product.category));
+      metaContainer.appendChild(category);
+
+      // Add price if available (extracted from description)
+      const priceMatch = product.description.match(/giá[:\s]*([\d.,]+)/i);
+      if (priceMatch && priceMatch[1]) {
+        const price = document.createElement('div');
+        Object.assign(price.style, {
+          fontSize: '0.8rem',
+          fontWeight: '600',
+          color: 'var(--product-primary)',
+          display: 'flex',
+          alignItems: 'center',
+          gap: '5px',
+        });
+
+        const priceIcon = document.createElement('i');
+        priceIcon.className = 'fas fa-tag';
+        priceIcon.style.fontSize = '0.7rem';
+
+        price.appendChild(priceIcon);
+        price.appendChild(document.createTextNode(priceMatch[1]));
+        metaContainer.appendChild(price);
+      }
+
+      content.appendChild(metaContainer);
+      item.appendChild(content);
+
+      // Add click event
+      item.addEventListener('click', () => {
+        // Show loading effect
+        showLoading();
+
+        // Navigate to product details
+        setTimeout(() => {
+          window.location.href = `product-details.html?id=${product.id}`;
+        }, 300);
+      });
+
+      suggestionsContainer.appendChild(item);
+    });
+
+    // Add "View all results" button
+    const viewAllButton = document.createElement('div');
+    viewAllButton.className = 'view-all-results';
+
+    // Style the button
+    Object.assign(viewAllButton.style, {
+      padding: '14px 16px',
+      textAlign: 'center',
+      backgroundColor: 'rgba(249, 115, 22, 0.05)',
+      color: 'var(--product-primary)',
+      fontWeight: '600',
+      cursor: 'pointer',
+      transition: 'all 0.25s cubic-bezier(0.165, 0.84, 0.44, 1)',
+      borderRadius: '0 0 8px 8px',
+      position: 'relative',
+      overflow: 'hidden',
+      display: 'flex',
+      alignItems: 'center',
+      justifyContent: 'center',
+      gap: '8px',
+    });
+
+    // Create icon
+    const searchAllIcon = document.createElement('i');
+    searchAllIcon.className = 'fas fa-search-plus';
+    searchAllIcon.style.transition = 'transform 0.3s ease';
+
+    // Create text span
+    const textSpan = document.createElement('span');
+    textSpan.textContent = `Xem tất cả kết quả (${totalMatchCount})`;
+
+    viewAllButton.appendChild(searchAllIcon);
+    viewAllButton.appendChild(textSpan);
+
+    // Add hover effect
+    viewAllButton.addEventListener('mouseenter', () => {
+      viewAllButton.style.backgroundColor = 'rgba(249, 115, 22, 0.1)';
+      viewAllButton.style.transform = 'translateY(-2px)';
+      searchAllIcon.style.transform = 'scale(1.2)';
+    });
+
+    viewAllButton.addEventListener('mouseleave', () => {
+      viewAllButton.style.backgroundColor = 'rgba(249, 115, 22, 0.05)';
+      viewAllButton.style.transform = 'translateY(0)';
+      searchAllIcon.style.transform = 'scale(1)';
+    });
+
+    // Add ripple effect on click (similar to item ripple)
+    viewAllButton.addEventListener('mousedown', (e) => {
+      const ripple = document.createElement('span');
+      ripple.className = 'search-ripple-effect';
+
+      const rect = viewAllButton.getBoundingClientRect();
+      const size = Math.max(rect.width, rect.height) * 2;
+
+      ripple.style.width = ripple.style.height = `${size}px`;
+      ripple.style.left = `${e.clientX - rect.left - size / 2}px`;
+      ripple.style.top = `${e.clientY - rect.top - size / 2}px`;
+      ripple.style.position = 'absolute';
+      ripple.style.borderRadius = '50%';
+      ripple.style.backgroundColor = 'rgba(249, 115, 22, 0.2)';
+      ripple.style.transform = 'scale(0)';
+      ripple.style.animation = 'ripple 0.6s linear';
+      ripple.style.pointerEvents = 'none';
+
+      viewAllButton.appendChild(ripple);
+
+      setTimeout(() => {
+        ripple.remove();
+      }, 600);
+    });
+
+    // Add click event
+    viewAllButton.addEventListener('click', () => {
+      // Set search input value
+      if (searchInput) {
+        searchInput.value = searchTerm;
+      }
+
+      // Trigger search
+      handleSearch();
+
+      // Hide suggestions
+      hideSearchSuggestions();
+    });
+
+    suggestionsContainer.appendChild(viewAllButton);
+
+    // Add to DOM
+    const searchContainer = document.querySelector('.search-container');
+    if (searchContainer) {
+      // Ensure search container has proper positioning
+      searchContainer.style.position = 'relative';
+      searchContainer.style.zIndex = '1001'; // Higher z-index for the container
+
+      // Find the search input field to align with
+      const searchInputField =
+        searchContainer.querySelector('input[type="text"]');
+
+      // Append to body instead of search container for better positioning
+      document.body.appendChild(suggestionsContainer);
+
+      // Position the suggestions relative to the search container
+      const searchContainerRect = searchContainer.getBoundingClientRect();
+      const scrollTop =
+        window.pageYOffset || document.documentElement.scrollTop;
+      const scrollLeft =
+        window.pageXOffset || document.documentElement.scrollLeft;
+
+      // Calculate position to align with search input
+      let leftPosition = searchContainerRect.left + scrollLeft;
+      let width = searchContainerRect.width;
+
+      // If we found the input field, align with it precisely
+      if (searchInputField) {
+        const inputRect = searchInputField.getBoundingClientRect();
+        leftPosition = inputRect.left + scrollLeft;
+        width = inputRect.width;
+      }
+
+      suggestionsContainer.style.position = 'absolute';
+      suggestionsContainer.style.top =
+        searchContainerRect.bottom + scrollTop + 'px';
+      suggestionsContainer.style.left = leftPosition + 'px';
+      suggestionsContainer.style.width = width + 'px';
+
+      // Animate in with improved animation
+      setTimeout(() => {
+        suggestionsContainer.style.opacity = '1';
+        suggestionsContainer.style.transform = 'translateY(0) scale(1)';
+      }, 10);
+    }
+  }
+
+  // Function to hide search suggestions
+  function hideSearchSuggestions() {
+    const existingSuggestions = document.querySelector('.search-suggestions');
+    if (existingSuggestions) {
+      // Animate out with improved animation
+      existingSuggestions.style.opacity = '0';
+      existingSuggestions.style.transform = 'translateY(-8px) scale(0.98)';
+
+      // Remove after animation
+      setTimeout(() => {
+        // Remove from document body
+        if (document.body.contains(existingSuggestions)) {
+          document.body.removeChild(existingSuggestions);
+        }
+        // Also check parent node as fallback
+        else if (existingSuggestions.parentNode) {
+          existingSuggestions.parentNode.removeChild(existingSuggestions);
+        }
+      }, 300);
+    }
+  }
 
   // Functions
   function initCategoryFilter() {
@@ -269,6 +952,11 @@ document.addEventListener('DOMContentLoaded', function () {
         renderProducts();
         renderPagination();
         updateProductCount();
+
+        // Show search results review if there are results and search input is not empty
+        if (searchInput && searchInput.value.trim() !== '') {
+          showSearchResults();
+        }
       } catch (error) {
         console.error('Error during search processing:', error);
       } finally {
@@ -279,21 +967,119 @@ document.addEventListener('DOMContentLoaded', function () {
     }, 800);
   }
 
+  // Function to show search results review
+  function showSearchResults() {
+    // Remove any existing search results container
+    const existingResults = document.querySelector('.search-results-review');
+    if (existingResults) {
+      existingResults.remove();
+    }
+
+    // Create search results container
+    const searchResultsContainer = document.createElement('div');
+    searchResultsContainer.className = 'search-results-review';
+
+    // Style the container
+    Object.assign(searchResultsContainer.style, {
+      position: 'relative',
+      margin: '15px 0',
+      padding: '15px',
+      backgroundColor: 'rgba(249, 115, 22, 0.05)',
+      borderRadius: '8px',
+      borderLeft: '4px solid var(--product-primary)',
+      boxShadow: '0 2px 10px rgba(0, 0, 0, 0.05)',
+      transition: 'all 0.3s ease',
+      opacity: '0',
+      transform: 'translateY(10px)',
+    });
+
+    // Get search term and result count
+    const searchTerm = searchInput.value.trim();
+    const resultCount = filteredProducts.length;
+
+    // Create content
+    searchResultsContainer.innerHTML = `
+      <div style="display: flex; justify-content: space-between; align-items: center;">
+        <div>
+          <h3 style="margin: 0 0 5px 0; font-size: 1rem; color: var(--product-dark);">
+            <i class="fas fa-search" style="color: var(--product-primary); margin-right: 8px;"></i>
+            Kết quả tìm kiếm cho "<span style="color: var(--product-primary);">${searchTerm}</span>"
+          </h3>
+          <p style="margin: 0; font-size: 0.9rem; color: var(--product-text-light);">
+            Tìm thấy ${resultCount} sản phẩm phù hợp
+          </p>
+        </div>
+        <button class="close-search-results" style="background: none; border: none; cursor: pointer; color: var(--product-text-light); font-size: 1.2rem;">
+          <i class="fas fa-times"></i>
+        </button>
+      </div>
+    `;
+
+    // Insert after filter section
+    const filterSection = document.querySelector('.filter-section');
+    if (filterSection && filterSection.parentNode) {
+      filterSection.parentNode.insertBefore(
+        searchResultsContainer,
+        filterSection.nextSibling
+      );
+
+      // Add animation after a small delay to ensure DOM update
+      setTimeout(() => {
+        searchResultsContainer.style.opacity = '1';
+        searchResultsContainer.style.transform = 'translateY(0)';
+      }, 10);
+
+      // Add event listener to close button
+      const closeButton = searchResultsContainer.querySelector(
+        '.close-search-results'
+      );
+      if (closeButton) {
+        closeButton.addEventListener('click', () => {
+          searchResultsContainer.style.opacity = '0';
+          searchResultsContainer.style.transform = 'translateY(10px)';
+
+          setTimeout(() => {
+            searchResultsContainer.remove();
+          }, 300);
+        });
+      }
+    }
+  }
+
+  // Function to remove Vietnamese accents
+  function removeAccents(str) {
+    return str
+      .normalize('NFD')
+      .replace(/[\u0300-\u036f]/g, '')
+      .replace(/đ/g, 'd')
+      .replace(/Đ/g, 'D');
+  }
+
   function applyFilters() {
     const categoryValue = categoryFilter ? categoryFilter.value : 'all';
     const searchValue = searchInput
       ? searchInput.value.toLowerCase().trim()
       : '';
 
+    // Remove accents from search value for non-accented search
+    const normalizedSearchValue = removeAccents(searchValue);
+
     filteredProducts = products.filter((product) => {
       // Category filter
       const categoryMatch =
         categoryValue === 'all' || product.category === categoryValue;
 
-      // Search filter
+      // Search filter - support both accented and non-accented search
+      const normalizedName = removeAccents(product.name.toLowerCase());
+      const normalizedDescription = removeAccents(
+        product.description.toLowerCase()
+      );
+
       const searchMatch =
         product.name.toLowerCase().includes(searchValue) ||
-        product.description.toLowerCase().includes(searchValue);
+        product.description.toLowerCase().includes(searchValue) ||
+        normalizedName.includes(normalizedSearchValue) ||
+        normalizedDescription.includes(normalizedSearchValue);
 
       return categoryMatch && searchMatch;
     });
@@ -430,6 +1216,20 @@ document.addEventListener('DOMContentLoaded', function () {
       detailsLink.href = `product-details.html?id=${productId}`;
       detailsLink.className = 'product-details';
       detailsLink.innerHTML = 'Chi tiết <i class="fas fa-arrow-right"></i>';
+
+      // Add click event to show loading before navigation
+      detailsLink.addEventListener('click', function (e) {
+        e.preventDefault();
+
+        // Show loading effect
+        showLoading();
+
+        // Navigate after a short delay
+        setTimeout(() => {
+          window.location.href = this.href;
+        }, 300);
+      });
+
       actionDiv.appendChild(detailsLink);
 
       const dimensionsDiv = document.createElement('div');
@@ -444,7 +1244,13 @@ document.addEventListener('DOMContentLoaded', function () {
       card.addEventListener('click', function (e) {
         // Only navigate if the click wasn't on a button or link
         if (!e.target.closest('a') && !e.target.closest('button')) {
-          window.location.href = `product-details.html?id=${productId}`;
+          // Show loading effect before navigation
+          showLoading();
+
+          // Set a timeout to navigate after showing loading effect
+          setTimeout(() => {
+            window.location.href = `product-details.html?id=${productId}`;
+          }, 300);
         }
       });
 
@@ -776,26 +1582,64 @@ document.addEventListener('DOMContentLoaded', function () {
   function updateProductCount() {
     if (!productCountElement) return;
 
-    const totalProducts = filteredProducts.length;
-    const startIndex = (currentPage - 1) * productsPerPage + 1;
-    const endIndex = Math.min(startIndex + productsPerPage - 1, totalProducts);
+    // Lấy tổng số sản phẩm trong toàn bộ hệ thống
+    const totalAllProducts = products.length;
 
-    // Update text based on number of products
-    if (totalProducts === 0) {
-      productCountElement.textContent = '0';
-      productCountElement.parentElement.textContent = 'Không có sản phẩm nào';
+    // Lấy số lượng sản phẩm sau khi lọc
+    const totalFilteredProducts = filteredProducts.length;
+
+    // Tính toán số lượng sản phẩm trên trang hiện tại dựa trên phân trang
+    const start = (currentPage - 1) * productsPerPage + 1;
+    const end = Math.min(currentPage * productsPerPage, totalFilteredProducts);
+
+    // Lấy thông tin bộ lọc hiện tại
+    const categoryValue = categoryFilter ? categoryFilter.value : 'all';
+    const searchValue = searchInput ? searchInput.value.trim() : '';
+    const isFiltered = categoryValue !== 'all' || searchValue !== '';
+
+    // Cập nhật hiển thị dựa trên số lượng sản phẩm và trạng thái lọc
+    if (totalFilteredProducts === 0) {
+      // Không tìm thấy sản phẩm nào
+      productCountElement.innerHTML = 'Không tìm thấy sản phẩm nào';
+      productCountElement.className = 'product-count empty';
     } else {
-      productCountElement.textContent = totalProducts;
+      // Tìm thấy sản phẩm
+      productCountElement.classList.remove('empty');
 
-      // On mobile, show simplified count
+      // Trên mobile, hiển thị đơn giản hơn
       if (window.innerWidth <= 576) {
-        const countText = productCountElement.parentElement;
-        countText.innerHTML = `Hiển thị <span>${totalProducts}</span> sản phẩm`;
+        productCountElement.innerHTML = `Hiển thị <span>${totalFilteredProducts}</span> sản phẩm`;
       } else {
-        const countText = productCountElement.parentElement;
-        countText.innerHTML = `Hiển thị <span>${startIndex}-${endIndex}</span> của <span>${totalProducts}</span> sản phẩm`;
+        // Trên desktop
+        if (isFiltered) {
+          // Hiển thị chi tiết số lượng sản phẩm đã lọc trên desktop
+          let filterInfo = '';
+
+          if (categoryValue !== 'all') {
+            filterInfo += `danh mục "<span style="color: var(--product-primary);">${categoryValue}</span>"`;
+          }
+
+          if (searchValue !== '') {
+            if (filterInfo !== '') filterInfo += ' và ';
+            filterInfo += `từ khóa "<span style="color: var(--product-primary);">${searchValue}</span>"`;
+          }
+
+          if (filterInfo) {
+            productCountElement.innerHTML = `Hiển thị <span>${start} - ${end}</span> trên tổng số <span>${totalFilteredProducts}</span> sản phẩm phù hợp với ${filterInfo}`;
+          } else {
+            productCountElement.innerHTML = `Hiển thị <span>${start} - ${end}</span> trên tổng số <span>${totalFilteredProducts}</span> sản phẩm`;
+          }
+        } else {
+          // Hiển thị tiêu chuẩn trên desktop
+          productCountElement.innerHTML = `Hiển thị <span>${start} - ${end}</span> trên tổng số <span>${totalAllProducts}</span> sản phẩm`;
+        }
       }
     }
+
+    // Log để debug
+    console.log(
+      `Hiển thị ${start} - ${end} trên tổng số ${totalFilteredProducts} sản phẩm (Trang ${currentPage})`
+    );
   }
 
   // Expose functions to global scope with Safari compatibility

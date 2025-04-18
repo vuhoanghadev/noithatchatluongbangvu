@@ -149,753 +149,197 @@ const posts = [
       `,
     relatedProducts: [6, 7],
   },
+  {
+    id: 6,
+    title: 'Nội Thất Thông Minh Cho Nhà Nhỏ',
+    category: 'Xu hướng',
+    image:
+      'https://plus.unsplash.com/premium_photo-1661595245288-65d1430d0d13?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NXx8bGl2aW5nJTIwcm9vbXxlbnwwfHwwfHx8MA%3D%3D',
+    excerpt: 'Giải pháp nội thất thông minh cho không gian hạn chế.',
+    content: `
+        <p>Nội thất đa năng như giường gấp, bàn gấp đang rất được ưa chuộng...</p>
+      `,
+    relatedProducts: [6, 7],
+  },
+  {
+    id: 7,
+    title: 'Nội Thất Thông Minh Cho Nhà Nhỏ',
+    category: 'Xu hướng',
+    image:
+      'https://plus.unsplash.com/premium_photo-1661595245288-65d1430d0d13?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NXx8bGl2aW5nJTIwcm9vbXxlbnwwfHwwfHx8MA%3D%3D',
+    excerpt: 'Giải pháp nội thất thông minh cho không gian hạn chế.',
+    content: `
+        <p>Nội thất đa năng như giường gấp, bàn gấp đang rất được ưa chuộng...</p>
+      `,
+    relatedProducts: [6, 7],
+  },
+  {
+    id: 8,
+    title: 'Nội Thất Thông Minh Cho Nhà Nhỏ',
+    category: 'Xu hướng',
+    image:
+      'https://plus.unsplash.com/premium_photo-1661595245288-65d1430d0d13?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NXx8bGl2aW5nJTIwcm9vbXxlbnwwfHwwfHx8MA%3D%3D',
+    excerpt: 'Giải pháp nội thất thông minh cho không gian hạn chế.',
+    content: `
+        <p>Nội thất đa năng như giường gấp, bàn gấp đang rất được ưa chuộng...</p>
+      `,
+    relatedProducts: [6, 7],
+  },
+  {
+    id: 9,
+    title: 'Nội Thất Thông Minh Cho Nhà Nhỏ',
+    category: 'Xu hướng',
+    image:
+      'https://plus.unsplash.com/premium_photo-1661595245288-65d1430d0d13?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NXx8bGl2aW5nJTIwcm9vbXxlbnwwfHwwfHx8MA%3D%3D',
+    excerpt: 'Giải pháp nội thất thông minh cho không gian hạn chế.',
+    content: `
+        <p>Nội thất đa năng như giường gấp, bàn gấp đang rất được ưa chuộng...</p>
+      `,
+    relatedProducts: [6, 7],
+  },
+  {
+    id: 10,
+    title: 'Nội Thất Thông Minh Cho Nhà Nhỏ',
+    category: 'Xu hướng',
+    image:
+      'https://plus.unsplash.com/premium_photo-1661595245288-65d1430d0d13?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NXx8bGl2aW5nJTIwcm9vbXxlbnwwfHwwfHx8MA%3D%3D',
+    excerpt: 'Giải pháp nội thất thông minh cho không gian hạn chế.',
+    content: `
+        <p>Nội thất đa năng như giường gấp, bàn gấp đang rất được ưa chuộng...</p>
+      `,
+    relatedProducts: [6, 7],
+  },
 
   {
-    id: 1,
-    title: '5 Mẹo Chọn Tủ Quần Áo Phù Hợp',
-    category: 'Mẹo thiết kế',
-    image:
-      'https://images.unsplash.com/photo-1598928506311-c55ded91a20c?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Nnx8bGl2aW5nJTIwcm9vbXxlbnwwfHwwfHx8MA%3D%3D',
-    excerpt:
-      'Tìm hiểu cách chọn tủ quần áo phù hợp với không gian và nhu cầu của bạn.',
-    content: `
-            <p><strong>1. Đo đạc không gian:</strong> Hãy đảm bảo đo chính xác diện tích phòng trước khi mua.</p>
-            <p><strong>2. Chọn chất liệu bền:</strong> Gỗ MDF hoặc gỗ tự nhiên là lựa chọn tốt.</p>
-            <p><strong>3. Tối ưu thiết kế:</strong> Tủ có ngăn kéo hoặc kệ sẽ tiện lợi hơn.</p>
-            <img src="images/blog/post-1b.jpg" alt="Tủ quần áo" loading="lazy">
-            <p>Liên hệ với chúng tôi để được tư vấn chi tiết!</p>
-          `,
-    relatedProducts: [1, 2, 3],
-  },
-  {
-    id: 2,
-    title: 'Xu Hướng Nội Thất 2025',
-    category: 'Xu hướng',
-    image:
-      'https://images.unsplash.com/photo-1598928506311-c55ded91a20c?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Nnx8bGl2aW5nJTIwcm9vbXxlbnwwfHwwfHx8MA%3D%3D',
-    excerpt: 'Khám phá các xu hướng nội thất mới nhất cho năm 2025.',
-    content: `
-            <p>Năm 2025, nội thất tối giản và bền vững sẽ lên ngôi...</p>
-            <p><strong>Màu sắc:</strong> Tông màu trung tính kết hợp điểm nhấn cam.</p>
-          `,
-    relatedProducts: [4, 5],
-  },
-  {
-    id: 3,
-    title: 'Dự Án Phòng Ngủ Hiện Đại',
-    category: 'Dự án',
-    image:
-      'https://images.unsplash.com/photo-1598928506311-c55ded91a20c?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Nnx8bGl2aW5nJTIwcm9vbXxlbnwwfHwwfHx8MA%3D%3D',
-    excerpt: 'Xem dự án phòng ngủ chúng tôi đã thực hiện cho khách hàng.',
-    content: `
-            <p>Phòng ngủ này sử dụng giường gỗ tự nhiên và tủ quần áo đa năng...</p>
-            <img src="images/blog/post-3b.jpg" alt="Phòng ngủ" loading="lazy">
-          `,
-    relatedProducts: [8, 1],
-  },
-  {
-    id: 4,
-    title: 'Cách Bố Trí Tủ Bếp Tiết Kiệm Không Gian',
-    category: 'Mẹo thiết kế',
-    image:
-      'https://plus.unsplash.com/premium_photo-1661595245288-65d1430d0d13?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NXx8bGl2aW5nJTIwcm9vbXxlbnwwfHwwfHx8MA%3D%3D',
-    excerpt: 'Mẹo bố trí tủ bếp để tối ưu diện tích căn bếp nhỏ.',
-    content: `
-            <p><strong>1. Sử dụng tủ góc:</strong> Tận dụng góc bếp hiệu quả.</p>
-            <p><strong>2. Kệ treo:</strong> Tăng không gian lưu trữ.</p>
-          `,
-    relatedProducts: [2],
-  },
-  {
-    id: 5,
+    id: 11,
     title: 'Nội Thất Thông Minh Cho Nhà Nhỏ',
     category: 'Xu hướng',
     image:
       'https://plus.unsplash.com/premium_photo-1661595245288-65d1430d0d13?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NXx8bGl2aW5nJTIwcm9vbXxlbnwwfHwwfHx8MA%3D%3D',
     excerpt: 'Giải pháp nội thất thông minh cho không gian hạn chế.',
     content: `
-            <p>Nội thất đa năng như giường gấp, bàn gấp đang rất được ưa chuộng...</p>
-          `,
+        <p>Nội thất đa năng như giường gấp, bàn gấp đang rất được ưa chuộng...</p>
+      `,
     relatedProducts: [6, 7],
   },
   {
-    id: 1,
-    title: '5 Mẹo Chọn Tủ Quần Áo Phù Hợp',
-    category: 'Mẹo thiết kế',
-    image:
-      'https://images.unsplash.com/photo-1598928506311-c55ded91a20c?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Nnx8bGl2aW5nJTIwcm9vbXxlbnwwfHwwfHx8MA%3D%3D',
-    excerpt:
-      'Tìm hiểu cách chọn tủ quần áo phù hợp với không gian và nhu cầu của bạn.',
-    content: `
-            <p><strong>1. Đo đạc không gian:</strong> Hãy đảm bảo đo chính xác diện tích phòng trước khi mua.</p>
-            <p><strong>2. Chọn chất liệu bền:</strong> Gỗ MDF hoặc gỗ tự nhiên là lựa chọn tốt.</p>
-            <p><strong>3. Tối ưu thiết kế:</strong> Tủ có ngăn kéo hoặc kệ sẽ tiện lợi hơn.</p>
-            <img src="images/blog/post-1b.jpg" alt="Tủ quần áo" loading="lazy">
-            <p>Liên hệ với chúng tôi để được tư vấn chi tiết!</p>
-          `,
-    relatedProducts: [1, 2, 3],
-  },
-  {
-    id: 2,
-    title: 'Xu Hướng Nội Thất 2025',
-    category: 'Xu hướng',
-    image:
-      'https://images.unsplash.com/photo-1598928506311-c55ded91a20c?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Nnx8bGl2aW5nJTIwcm9vbXxlbnwwfHwwfHx8MA%3D%3D',
-    excerpt: 'Khám phá các xu hướng nội thất mới nhất cho năm 2025.',
-    content: `
-            <p>Năm 2025, nội thất tối giản và bền vững sẽ lên ngôi...</p>
-            <p><strong>Màu sắc:</strong> Tông màu trung tính kết hợp điểm nhấn cam.</p>
-          `,
-    relatedProducts: [4, 5],
-  },
-  {
-    id: 3,
-    title: 'Dự Án Phòng Ngủ Hiện Đại',
-    category: 'Dự án',
-    image:
-      'https://images.unsplash.com/photo-1598928506311-c55ded91a20c?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Nnx8bGl2aW5nJTIwcm9vbXxlbnwwfHwwfHx8MA%3D%3D',
-    excerpt: 'Xem dự án phòng ngủ chúng tôi đã thực hiện cho khách hàng.',
-    content: `
-            <p>Phòng ngủ này sử dụng giường gỗ tự nhiên và tủ quần áo đa năng...</p>
-            <img src="images/blog/post-3b.jpg" alt="Phòng ngủ" loading="lazy">
-          `,
-    relatedProducts: [8, 1],
-  },
-  {
-    id: 4,
-    title: 'Cách Bố Trí Tủ Bếp Tiết Kiệm Không Gian',
-    category: 'Mẹo thiết kế',
-    image:
-      'https://plus.unsplash.com/premium_photo-1661595245288-65d1430d0d13?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NXx8bGl2aW5nJTIwcm9vbXxlbnwwfHwwfHx8MA%3D%3D',
-    excerpt: 'Mẹo bố trí tủ bếp để tối ưu diện tích căn bếp nhỏ.',
-    content: `
-            <p><strong>1. Sử dụng tủ góc:</strong> Tận dụng góc bếp hiệu quả.</p>
-            <p><strong>2. Kệ treo:</strong> Tăng không gian lưu trữ.</p>
-          `,
-    relatedProducts: [2],
-  },
-  {
-    id: 5,
+    id: 12,
     title: 'Nội Thất Thông Minh Cho Nhà Nhỏ',
     category: 'Xu hướng',
     image:
       'https://plus.unsplash.com/premium_photo-1661595245288-65d1430d0d13?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NXx8bGl2aW5nJTIwcm9vbXxlbnwwfHwwfHx8MA%3D%3D',
     excerpt: 'Giải pháp nội thất thông minh cho không gian hạn chế.',
     content: `
-            <p>Nội thất đa năng như giường gấp, bàn gấp đang rất được ưa chuộng...</p>
-          `,
+        <p>Nội thất đa năng như giường gấp, bàn gấp đang rất được ưa chuộng...</p>
+      `,
     relatedProducts: [6, 7],
   },
   {
-    id: 1,
-    title: '5 Mẹo Chọn Tủ Quần Áo Phù Hợp',
-    category: 'Mẹo thiết kế',
-    image:
-      'https://images.unsplash.com/photo-1598928506311-c55ded91a20c?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Nnx8bGl2aW5nJTIwcm9vbXxlbnwwfHwwfHx8MA%3D%3D',
-    excerpt:
-      'Tìm hiểu cách chọn tủ quần áo phù hợp với không gian và nhu cầu của bạn.',
-    content: `
-            <p><strong>1. Đo đạc không gian:</strong> Hãy đảm bảo đo chính xác diện tích phòng trước khi mua.</p>
-            <p><strong>2. Chọn chất liệu bền:</strong> Gỗ MDF hoặc gỗ tự nhiên là lựa chọn tốt.</p>
-            <p><strong>3. Tối ưu thiết kế:</strong> Tủ có ngăn kéo hoặc kệ sẽ tiện lợi hơn.</p>
-            <img src="images/blog/post-1b.jpg" alt="Tủ quần áo" loading="lazy">
-            <p>Liên hệ với chúng tôi để được tư vấn chi tiết!</p>
-          `,
-    relatedProducts: [1, 2, 3],
-  },
-  {
-    id: 2,
-    title: 'Xu Hướng Nội Thất 2025',
-    category: 'Xu hướng',
-    image:
-      'https://images.unsplash.com/photo-1598928506311-c55ded91a20c?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Nnx8bGl2aW5nJTIwcm9vbXxlbnwwfHwwfHx8MA%3D%3D',
-    excerpt: 'Khám phá các xu hướng nội thất mới nhất cho năm 2025.',
-    content: `
-            <p>Năm 2025, nội thất tối giản và bền vững sẽ lên ngôi...</p>
-            <p><strong>Màu sắc:</strong> Tông màu trung tính kết hợp điểm nhấn cam.</p>
-          `,
-    relatedProducts: [4, 5],
-  },
-  {
-    id: 3,
-    title: 'Dự Án Phòng Ngủ Hiện Đại',
-    category: 'Dự án',
-    image:
-      'https://images.unsplash.com/photo-1598928506311-c55ded91a20c?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Nnx8bGl2aW5nJTIwcm9vbXxlbnwwfHwwfHx8MA%3D%3D',
-    excerpt: 'Xem dự án phòng ngủ chúng tôi đã thực hiện cho khách hàng.',
-    content: `
-            <p>Phòng ngủ này sử dụng giường gỗ tự nhiên và tủ quần áo đa năng...</p>
-            <img src="images/blog/post-3b.jpg" alt="Phòng ngủ" loading="lazy">
-          `,
-    relatedProducts: [8, 1],
-  },
-  {
-    id: 4,
-    title: 'Cách Bố Trí Tủ Bếp Tiết Kiệm Không Gian',
-    category: 'Mẹo thiết kế',
-    image:
-      'https://plus.unsplash.com/premium_photo-1661595245288-65d1430d0d13?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NXx8bGl2aW5nJTIwcm9vbXxlbnwwfHwwfHx8MA%3D%3D',
-    excerpt: 'Mẹo bố trí tủ bếp để tối ưu diện tích căn bếp nhỏ.',
-    content: `
-            <p><strong>1. Sử dụng tủ góc:</strong> Tận dụng góc bếp hiệu quả.</p>
-            <p><strong>2. Kệ treo:</strong> Tăng không gian lưu trữ.</p>
-          `,
-    relatedProducts: [2],
-  },
-  {
-    id: 5,
+    id: 13,
     title: 'Nội Thất Thông Minh Cho Nhà Nhỏ',
     category: 'Xu hướng',
     image:
       'https://plus.unsplash.com/premium_photo-1661595245288-65d1430d0d13?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NXx8bGl2aW5nJTIwcm9vbXxlbnwwfHwwfHx8MA%3D%3D',
     excerpt: 'Giải pháp nội thất thông minh cho không gian hạn chế.',
     content: `
-            <p>Nội thất đa năng như giường gấp, bàn gấp đang rất được ưa chuộng...</p>
-          `,
+        <p>Nội thất đa năng như giường gấp, bàn gấp đang rất được ưa chuộng...</p>
+      `,
     relatedProducts: [6, 7],
   },
   {
-    id: 1,
-    title: '5 Mẹo Chọn Tủ Quần Áo Phù Hợp',
-    category: 'Mẹo thiết kế',
-    image:
-      'https://images.unsplash.com/photo-1598928506311-c55ded91a20c?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Nnx8bGl2aW5nJTIwcm9vbXxlbnwwfHwwfHx8MA%3D%3D',
-    excerpt:
-      'Tìm hiểu cách chọn tủ quần áo phù hợp với không gian và nhu cầu của bạn.',
-    content: `
-            <p><strong>1. Đo đạc không gian:</strong> Hãy đảm bảo đo chính xác diện tích phòng trước khi mua.</p>
-            <p><strong>2. Chọn chất liệu bền:</strong> Gỗ MDF hoặc gỗ tự nhiên là lựa chọn tốt.</p>
-            <p><strong>3. Tối ưu thiết kế:</strong> Tủ có ngăn kéo hoặc kệ sẽ tiện lợi hơn.</p>
-            <img src="images/blog/post-1b.jpg" alt="Tủ quần áo" loading="lazy">
-            <p>Liên hệ với chúng tôi để được tư vấn chi tiết!</p>
-          `,
-    relatedProducts: [1, 2, 3],
-  },
-  {
-    id: 2,
-    title: 'Xu Hướng Nội Thất 2025',
-    category: 'Xu hướng',
-    image:
-      'https://images.unsplash.com/photo-1598928506311-c55ded91a20c?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Nnx8bGl2aW5nJTIwcm9vbXxlbnwwfHwwfHx8MA%3D%3D',
-    excerpt: 'Khám phá các xu hướng nội thất mới nhất cho năm 2025.',
-    content: `
-            <p>Năm 2025, nội thất tối giản và bền vững sẽ lên ngôi...</p>
-            <p><strong>Màu sắc:</strong> Tông màu trung tính kết hợp điểm nhấn cam.</p>
-          `,
-    relatedProducts: [4, 5],
-  },
-  {
-    id: 3,
-    title: 'Dự Án Phòng Ngủ Hiện Đại',
-    category: 'Dự án',
-    image:
-      'https://images.unsplash.com/photo-1598928506311-c55ded91a20c?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Nnx8bGl2aW5nJTIwcm9vbXxlbnwwfHwwfHx8MA%3D%3D',
-    excerpt: 'Xem dự án phòng ngủ chúng tôi đã thực hiện cho khách hàng.',
-    content: `
-            <p>Phòng ngủ này sử dụng giường gỗ tự nhiên và tủ quần áo đa năng...</p>
-            <img src="images/blog/post-3b.jpg" alt="Phòng ngủ" loading="lazy">
-          `,
-    relatedProducts: [8, 1],
-  },
-  {
-    id: 4,
-    title: 'Cách Bố Trí Tủ Bếp Tiết Kiệm Không Gian',
-    category: 'Mẹo thiết kế',
-    image:
-      'https://plus.unsplash.com/premium_photo-1661595245288-65d1430d0d13?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NXx8bGl2aW5nJTIwcm9vbXxlbnwwfHwwfHx8MA%3D%3D',
-    excerpt: 'Mẹo bố trí tủ bếp để tối ưu diện tích căn bếp nhỏ.',
-    content: `
-            <p><strong>1. Sử dụng tủ góc:</strong> Tận dụng góc bếp hiệu quả.</p>
-            <p><strong>2. Kệ treo:</strong> Tăng không gian lưu trữ.</p>
-          `,
-    relatedProducts: [2],
-  },
-  {
-    id: 5,
+    id: 14,
     title: 'Nội Thất Thông Minh Cho Nhà Nhỏ',
     category: 'Xu hướng',
     image:
       'https://plus.unsplash.com/premium_photo-1661595245288-65d1430d0d13?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NXx8bGl2aW5nJTIwcm9vbXxlbnwwfHwwfHx8MA%3D%3D',
     excerpt: 'Giải pháp nội thất thông minh cho không gian hạn chế.',
     content: `
-            <p>Nội thất đa năng như giường gấp, bàn gấp đang rất được ưa chuộng...</p>
-          `,
+        <p>Nội thất đa năng như giường gấp, bàn gấp đang rất được ưa chuộng...</p>
+      `,
     relatedProducts: [6, 7],
   },
   {
-    id: 1,
-    title: '5 Mẹo Chọn Tủ Quần Áo Phù Hợp',
-    category: 'Mẹo thiết kế',
-    image:
-      'https://images.unsplash.com/photo-1598928506311-c55ded91a20c?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Nnx8bGl2aW5nJTIwcm9vbXxlbnwwfHwwfHx8MA%3D%3D',
-    excerpt:
-      'Tìm hiểu cách chọn tủ quần áo phù hợp với không gian và nhu cầu của bạn.',
-    content: `
-            <p><strong>1. Đo đạc không gian:</strong> Hãy đảm bảo đo chính xác diện tích phòng trước khi mua.</p>
-            <p><strong>2. Chọn chất liệu bền:</strong> Gỗ MDF hoặc gỗ tự nhiên là lựa chọn tốt.</p>
-            <p><strong>3. Tối ưu thiết kế:</strong> Tủ có ngăn kéo hoặc kệ sẽ tiện lợi hơn.</p>
-            <img src="images/blog/post-1b.jpg" alt="Tủ quần áo" loading="lazy">
-            <p>Liên hệ với chúng tôi để được tư vấn chi tiết!</p>
-          `,
-    relatedProducts: [1, 2, 3],
-  },
-  {
-    id: 2,
-    title: 'Xu Hướng Nội Thất 2025',
-    category: 'Xu hướng',
-    image:
-      'https://images.unsplash.com/photo-1598928506311-c55ded91a20c?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Nnx8bGl2aW5nJTIwcm9vbXxlbnwwfHwwfHx8MA%3D%3D',
-    excerpt: 'Khám phá các xu hướng nội thất mới nhất cho năm 2025.',
-    content: `
-            <p>Năm 2025, nội thất tối giản và bền vững sẽ lên ngôi...</p>
-            <p><strong>Màu sắc:</strong> Tông màu trung tính kết hợp điểm nhấn cam.</p>
-          `,
-    relatedProducts: [4, 5],
-  },
-  {
-    id: 3,
-    title: 'Dự Án Phòng Ngủ Hiện Đại',
-    category: 'Dự án',
-    image:
-      'https://images.unsplash.com/photo-1598928506311-c55ded91a20c?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Nnx8bGl2aW5nJTIwcm9vbXxlbnwwfHwwfHx8MA%3D%3D',
-    excerpt: 'Xem dự án phòng ngủ chúng tôi đã thực hiện cho khách hàng.',
-    content: `
-            <p>Phòng ngủ này sử dụng giường gỗ tự nhiên và tủ quần áo đa năng...</p>
-            <img src="images/blog/post-3b.jpg" alt="Phòng ngủ" loading="lazy">
-          `,
-    relatedProducts: [8, 1],
-  },
-  {
-    id: 4,
-    title: 'Cách Bố Trí Tủ Bếp Tiết Kiệm Không Gian',
-    category: 'Mẹo thiết kế',
-    image:
-      'https://plus.unsplash.com/premium_photo-1661595245288-65d1430d0d13?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NXx8bGl2aW5nJTIwcm9vbXxlbnwwfHwwfHx8MA%3D%3D',
-    excerpt: 'Mẹo bố trí tủ bếp để tối ưu diện tích căn bếp nhỏ.',
-    content: `
-            <p><strong>1. Sử dụng tủ góc:</strong> Tận dụng góc bếp hiệu quả.</p>
-            <p><strong>2. Kệ treo:</strong> Tăng không gian lưu trữ.</p>
-          `,
-    relatedProducts: [2],
-  },
-  {
-    id: 5,
+    id: 15,
     title: 'Nội Thất Thông Minh Cho Nhà Nhỏ',
     category: 'Xu hướng',
     image:
       'https://plus.unsplash.com/premium_photo-1661595245288-65d1430d0d13?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NXx8bGl2aW5nJTIwcm9vbXxlbnwwfHwwfHx8MA%3D%3D',
     excerpt: 'Giải pháp nội thất thông minh cho không gian hạn chế.',
     content: `
-            <p>Nội thất đa năng như giường gấp, bàn gấp đang rất được ưa chuộng...</p>
-          `,
+        <p>Nội thất đa năng như giường gấp, bàn gấp đang rất được ưa chuộng...</p>
+      `,
     relatedProducts: [6, 7],
   },
   {
-    id: 1,
-    title: '5 Mẹo Chọn Tủ Quần Áo Phù Hợp',
-    category: 'Mẹo thiết kế',
-    image:
-      'https://images.unsplash.com/photo-1598928506311-c55ded91a20c?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Nnx8bGl2aW5nJTIwcm9vbXxlbnwwfHwwfHx8MA%3D%3D',
-    excerpt:
-      'Tìm hiểu cách chọn tủ quần áo phù hợp với không gian và nhu cầu của bạn.',
-    content: `
-            <p><strong>1. Đo đạc không gian:</strong> Hãy đảm bảo đo chính xác diện tích phòng trước khi mua.</p>
-            <p><strong>2. Chọn chất liệu bền:</strong> Gỗ MDF hoặc gỗ tự nhiên là lựa chọn tốt.</p>
-            <p><strong>3. Tối ưu thiết kế:</strong> Tủ có ngăn kéo hoặc kệ sẽ tiện lợi hơn.</p>
-            <img src="images/blog/post-1b.jpg" alt="Tủ quần áo" loading="lazy">
-            <p>Liên hệ với chúng tôi để được tư vấn chi tiết!</p>
-          `,
-    relatedProducts: [1, 2, 3],
-  },
-  {
-    id: 2,
-    title: 'Xu Hướng Nội Thất 2025',
-    category: 'Xu hướng',
-    image:
-      'https://images.unsplash.com/photo-1598928506311-c55ded91a20c?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Nnx8bGl2aW5nJTIwcm9vbXxlbnwwfHwwfHx8MA%3D%3D',
-    excerpt: 'Khám phá các xu hướng nội thất mới nhất cho năm 2025.',
-    content: `
-            <p>Năm 2025, nội thất tối giản và bền vững sẽ lên ngôi...</p>
-            <p><strong>Màu sắc:</strong> Tông màu trung tính kết hợp điểm nhấn cam.</p>
-          `,
-    relatedProducts: [4, 5],
-  },
-  {
-    id: 3,
-    title: 'Dự Án Phòng Ngủ Hiện Đại',
-    category: 'Dự án',
-    image:
-      'https://images.unsplash.com/photo-1598928506311-c55ded91a20c?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Nnx8bGl2aW5nJTIwcm9vbXxlbnwwfHwwfHx8MA%3D%3D',
-    excerpt: 'Xem dự án phòng ngủ chúng tôi đã thực hiện cho khách hàng.',
-    content: `
-            <p>Phòng ngủ này sử dụng giường gỗ tự nhiên và tủ quần áo đa năng...</p>
-            <img src="images/blog/post-3b.jpg" alt="Phòng ngủ" loading="lazy">
-          `,
-    relatedProducts: [8, 1],
-  },
-  {
-    id: 4,
-    title: 'Cách Bố Trí Tủ Bếp Tiết Kiệm Không Gian',
-    category: 'Mẹo thiết kế',
-    image:
-      'https://plus.unsplash.com/premium_photo-1661595245288-65d1430d0d13?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NXx8bGl2aW5nJTIwcm9vbXxlbnwwfHwwfHx8MA%3D%3D',
-    excerpt: 'Mẹo bố trí tủ bếp để tối ưu diện tích căn bếp nhỏ.',
-    content: `
-            <p><strong>1. Sử dụng tủ góc:</strong> Tận dụng góc bếp hiệu quả.</p>
-            <p><strong>2. Kệ treo:</strong> Tăng không gian lưu trữ.</p>
-          `,
-    relatedProducts: [2],
-  },
-  {
-    id: 5,
+    id: 16,
     title: 'Nội Thất Thông Minh Cho Nhà Nhỏ',
     category: 'Xu hướng',
     image:
       'https://plus.unsplash.com/premium_photo-1661595245288-65d1430d0d13?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NXx8bGl2aW5nJTIwcm9vbXxlbnwwfHwwfHx8MA%3D%3D',
     excerpt: 'Giải pháp nội thất thông minh cho không gian hạn chế.',
     content: `
-            <p>Nội thất đa năng như giường gấp, bàn gấp đang rất được ưa chuộng...</p>
-          `,
+        <p>Nội thất đa năng như giường gấp, bàn gấp đang rất được ưa chuộng...</p>
+      `,
     relatedProducts: [6, 7],
   },
   {
-    id: 1,
-    title: '5 Mẹo Chọn Tủ Quần Áo Phù Hợp',
-    category: 'Mẹo thiết kế',
-    image:
-      'https://images.unsplash.com/photo-1598928506311-c55ded91a20c?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Nnx8bGl2aW5nJTIwcm9vbXxlbnwwfHwwfHx8MA%3D%3D',
-    excerpt:
-      'Tìm hiểu cách chọn tủ quần áo phù hợp với không gian và nhu cầu của bạn.',
-    content: `
-            <p><strong>1. Đo đạc không gian:</strong> Hãy đảm bảo đo chính xác diện tích phòng trước khi mua.</p>
-            <p><strong>2. Chọn chất liệu bền:</strong> Gỗ MDF hoặc gỗ tự nhiên là lựa chọn tốt.</p>
-            <p><strong>3. Tối ưu thiết kế:</strong> Tủ có ngăn kéo hoặc kệ sẽ tiện lợi hơn.</p>
-            <img src="images/blog/post-1b.jpg" alt="Tủ quần áo" loading="lazy">
-            <p>Liên hệ với chúng tôi để được tư vấn chi tiết!</p>
-          `,
-    relatedProducts: [1, 2, 3],
-  },
-  {
-    id: 2,
-    title: 'Xu Hướng Nội Thất 2025',
-    category: 'Xu hướng',
-    image:
-      'https://images.unsplash.com/photo-1598928506311-c55ded91a20c?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Nnx8bGl2aW5nJTIwcm9vbXxlbnwwfHwwfHx8MA%3D%3D',
-    excerpt: 'Khám phá các xu hướng nội thất mới nhất cho năm 2025.',
-    content: `
-            <p>Năm 2025, nội thất tối giản và bền vững sẽ lên ngôi...</p>
-            <p><strong>Màu sắc:</strong> Tông màu trung tính kết hợp điểm nhấn cam.</p>
-          `,
-    relatedProducts: [4, 5],
-  },
-  {
-    id: 3,
-    title: 'Dự Án Phòng Ngủ Hiện Đại',
-    category: 'Dự án',
-    image:
-      'https://images.unsplash.com/photo-1598928506311-c55ded91a20c?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Nnx8bGl2aW5nJTIwcm9vbXxlbnwwfHwwfHx8MA%3D%3D',
-    excerpt: 'Xem dự án phòng ngủ chúng tôi đã thực hiện cho khách hàng.',
-    content: `
-            <p>Phòng ngủ này sử dụng giường gỗ tự nhiên và tủ quần áo đa năng...</p>
-            <img src="images/blog/post-3b.jpg" alt="Phòng ngủ" loading="lazy">
-          `,
-    relatedProducts: [8, 1],
-  },
-  {
-    id: 4,
-    title: 'Cách Bố Trí Tủ Bếp Tiết Kiệm Không Gian',
-    category: 'Mẹo thiết kế',
-    image:
-      'https://plus.unsplash.com/premium_photo-1661595245288-65d1430d0d13?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NXx8bGl2aW5nJTIwcm9vbXxlbnwwfHwwfHx8MA%3D%3D',
-    excerpt: 'Mẹo bố trí tủ bếp để tối ưu diện tích căn bếp nhỏ.',
-    content: `
-            <p><strong>1. Sử dụng tủ góc:</strong> Tận dụng góc bếp hiệu quả.</p>
-            <p><strong>2. Kệ treo:</strong> Tăng không gian lưu trữ.</p>
-          `,
-    relatedProducts: [2],
-  },
-  {
-    id: 5,
+    id: 17,
     title: 'Nội Thất Thông Minh Cho Nhà Nhỏ',
     category: 'Xu hướng',
     image:
       'https://plus.unsplash.com/premium_photo-1661595245288-65d1430d0d13?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NXx8bGl2aW5nJTIwcm9vbXxlbnwwfHwwfHx8MA%3D%3D',
     excerpt: 'Giải pháp nội thất thông minh cho không gian hạn chế.',
     content: `
-            <p>Nội thất đa năng như giường gấp, bàn gấp đang rất được ưa chuộng...</p>
-          `,
+        <p>Nội thất đa năng như giường gấp, bàn gấp đang rất được ưa chuộng...</p>
+      `,
     relatedProducts: [6, 7],
   },
   {
-    id: 1,
-    title: '5 Mẹo Chọn Tủ Quần Áo Phù Hợp',
-    category: 'Mẹo thiết kế',
-    image:
-      'https://images.unsplash.com/photo-1598928506311-c55ded91a20c?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Nnx8bGl2aW5nJTIwcm9vbXxlbnwwfHwwfHx8MA%3D%3D',
-    excerpt:
-      'Tìm hiểu cách chọn tủ quần áo phù hợp với không gian và nhu cầu của bạn.',
-    content: `
-            <p><strong>1. Đo đạc không gian:</strong> Hãy đảm bảo đo chính xác diện tích phòng trước khi mua.</p>
-            <p><strong>2. Chọn chất liệu bền:</strong> Gỗ MDF hoặc gỗ tự nhiên là lựa chọn tốt.</p>
-            <p><strong>3. Tối ưu thiết kế:</strong> Tủ có ngăn kéo hoặc kệ sẽ tiện lợi hơn.</p>
-            <img src="images/blog/post-1b.jpg" alt="Tủ quần áo" loading="lazy">
-            <p>Liên hệ với chúng tôi để được tư vấn chi tiết!</p>
-          `,
-    relatedProducts: [1, 2, 3],
-  },
-  {
-    id: 2,
-    title: 'Xu Hướng Nội Thất 2025',
-    category: 'Xu hướng',
-    image:
-      'https://images.unsplash.com/photo-1598928506311-c55ded91a20c?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Nnx8bGl2aW5nJTIwcm9vbXxlbnwwfHwwfHx8MA%3D%3D',
-    excerpt: 'Khám phá các xu hướng nội thất mới nhất cho năm 2025.',
-    content: `
-            <p>Năm 2025, nội thất tối giản và bền vững sẽ lên ngôi...</p>
-            <p><strong>Màu sắc:</strong> Tông màu trung tính kết hợp điểm nhấn cam.</p>
-          `,
-    relatedProducts: [4, 5],
-  },
-  {
-    id: 3,
-    title: 'Dự Án Phòng Ngủ Hiện Đại',
-    category: 'Dự án',
-    image:
-      'https://images.unsplash.com/photo-1598928506311-c55ded91a20c?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Nnx8bGl2aW5nJTIwcm9vbXxlbnwwfHwwfHx8MA%3D%3D',
-    excerpt: 'Xem dự án phòng ngủ chúng tôi đã thực hiện cho khách hàng.',
-    content: `
-            <p>Phòng ngủ này sử dụng giường gỗ tự nhiên và tủ quần áo đa năng...</p>
-            <img src="images/blog/post-3b.jpg" alt="Phòng ngủ" loading="lazy">
-          `,
-    relatedProducts: [8, 1],
-  },
-  {
-    id: 4,
-    title: 'Cách Bố Trí Tủ Bếp Tiết Kiệm Không Gian',
-    category: 'Mẹo thiết kế',
-    image:
-      'https://plus.unsplash.com/premium_photo-1661595245288-65d1430d0d13?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NXx8bGl2aW5nJTIwcm9vbXxlbnwwfHwwfHx8MA%3D%3D',
-    excerpt: 'Mẹo bố trí tủ bếp để tối ưu diện tích căn bếp nhỏ.',
-    content: `
-            <p><strong>1. Sử dụng tủ góc:</strong> Tận dụng góc bếp hiệu quả.</p>
-            <p><strong>2. Kệ treo:</strong> Tăng không gian lưu trữ.</p>
-          `,
-    relatedProducts: [2],
-  },
-  {
-    id: 5,
+    id: 18,
     title: 'Nội Thất Thông Minh Cho Nhà Nhỏ',
     category: 'Xu hướng',
     image:
       'https://plus.unsplash.com/premium_photo-1661595245288-65d1430d0d13?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NXx8bGl2aW5nJTIwcm9vbXxlbnwwfHwwfHx8MA%3D%3D',
     excerpt: 'Giải pháp nội thất thông minh cho không gian hạn chế.',
     content: `
-            <p>Nội thất đa năng như giường gấp, bàn gấp đang rất được ưa chuộng...</p>
-          `,
+        <p>Nội thất đa năng như giường gấp, bàn gấp đang rất được ưa chuộng...</p>
+      `,
     relatedProducts: [6, 7],
   },
   {
-    id: 1,
-    title: '5 Mẹo Chọn Tủ Quần Áo Phù Hợp',
-    category: 'Mẹo thiết kế',
-    image:
-      'https://images.unsplash.com/photo-1598928506311-c55ded91a20c?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Nnx8bGl2aW5nJTIwcm9vbXxlbnwwfHwwfHx8MA%3D%3D',
-    excerpt:
-      'Tìm hiểu cách chọn tủ quần áo phù hợp với không gian và nhu cầu của bạn.',
-    content: `
-            <p><strong>1. Đo đạc không gian:</strong> Hãy đảm bảo đo chính xác diện tích phòng trước khi mua.</p>
-            <p><strong>2. Chọn chất liệu bền:</strong> Gỗ MDF hoặc gỗ tự nhiên là lựa chọn tốt.</p>
-            <p><strong>3. Tối ưu thiết kế:</strong> Tủ có ngăn kéo hoặc kệ sẽ tiện lợi hơn.</p>
-            <img src="images/blog/post-1b.jpg" alt="Tủ quần áo" loading="lazy">
-            <p>Liên hệ với chúng tôi để được tư vấn chi tiết!</p>
-          `,
-    relatedProducts: [1, 2, 3],
-  },
-  {
-    id: 2,
-    title: 'Xu Hướng Nội Thất 2025',
-    category: 'Xu hướng',
-    image:
-      'https://images.unsplash.com/photo-1598928506311-c55ded91a20c?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Nnx8bGl2aW5nJTIwcm9vbXxlbnwwfHwwfHx8MA%3D%3D',
-    excerpt: 'Khám phá các xu hướng nội thất mới nhất cho năm 2025.',
-    content: `
-            <p>Năm 2025, nội thất tối giản và bền vững sẽ lên ngôi...</p>
-            <p><strong>Màu sắc:</strong> Tông màu trung tính kết hợp điểm nhấn cam.</p>
-          `,
-    relatedProducts: [4, 5],
-  },
-  {
-    id: 3,
-    title: 'Dự Án Phòng Ngủ Hiện Đại',
-    category: 'Dự án',
-    image:
-      'https://images.unsplash.com/photo-1598928506311-c55ded91a20c?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Nnx8bGl2aW5nJTIwcm9vbXxlbnwwfHwwfHx8MA%3D%3D',
-    excerpt: 'Xem dự án phòng ngủ chúng tôi đã thực hiện cho khách hàng.',
-    content: `
-            <p>Phòng ngủ này sử dụng giường gỗ tự nhiên và tủ quần áo đa năng...</p>
-            <img src="images/blog/post-3b.jpg" alt="Phòng ngủ" loading="lazy">
-          `,
-    relatedProducts: [8, 1],
-  },
-  {
-    id: 4,
-    title: 'Cách Bố Trí Tủ Bếp Tiết Kiệm Không Gian',
-    category: 'Mẹo thiết kế',
-    image:
-      'https://plus.unsplash.com/premium_photo-1661595245288-65d1430d0d13?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NXx8bGl2aW5nJTIwcm9vbXxlbnwwfHwwfHx8MA%3D%3D',
-    excerpt: 'Mẹo bố trí tủ bếp để tối ưu diện tích căn bếp nhỏ.',
-    content: `
-            <p><strong>1. Sử dụng tủ góc:</strong> Tận dụng góc bếp hiệu quả.</p>
-            <p><strong>2. Kệ treo:</strong> Tăng không gian lưu trữ.</p>
-          `,
-    relatedProducts: [2],
-  },
-  {
-    id: 5,
+    id: 19,
     title: 'Nội Thất Thông Minh Cho Nhà Nhỏ',
     category: 'Xu hướng',
     image:
       'https://plus.unsplash.com/premium_photo-1661595245288-65d1430d0d13?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NXx8bGl2aW5nJTIwcm9vbXxlbnwwfHwwfHx8MA%3D%3D',
     excerpt: 'Giải pháp nội thất thông minh cho không gian hạn chế.',
     content: `
-            <p>Nội thất đa năng như giường gấp, bàn gấp đang rất được ưa chuộng...</p>
-          `,
+        <p>Nội thất đa năng như giường gấp, bàn gấp đang rất được ưa chuộng...</p>
+      `,
     relatedProducts: [6, 7],
   },
   {
-    id: 1,
-    title: '5 Mẹo Chọn Tủ Quần Áo Phù Hợp',
-    category: 'Mẹo thiết kế',
-    image:
-      'https://images.unsplash.com/photo-1598928506311-c55ded91a20c?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Nnx8bGl2aW5nJTIwcm9vbXxlbnwwfHwwfHx8MA%3D%3D',
-    excerpt:
-      'Tìm hiểu cách chọn tủ quần áo phù hợp với không gian và nhu cầu của bạn.',
-    content: `
-            <p><strong>1. Đo đạc không gian:</strong> Hãy đảm bảo đo chính xác diện tích phòng trước khi mua.</p>
-            <p><strong>2. Chọn chất liệu bền:</strong> Gỗ MDF hoặc gỗ tự nhiên là lựa chọn tốt.</p>
-            <p><strong>3. Tối ưu thiết kế:</strong> Tủ có ngăn kéo hoặc kệ sẽ tiện lợi hơn.</p>
-            <img src="images/blog/post-1b.jpg" alt="Tủ quần áo" loading="lazy">
-            <p>Liên hệ với chúng tôi để được tư vấn chi tiết!</p>
-          `,
-    relatedProducts: [1, 2, 3],
-  },
-  {
-    id: 2,
-    title: 'Xu Hướng Nội Thất 2025',
-    category: 'Xu hướng',
-    image:
-      'https://images.unsplash.com/photo-1598928506311-c55ded91a20c?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Nnx8bGl2aW5nJTIwcm9vbXxlbnwwfHwwfHx8MA%3D%3D',
-    excerpt: 'Khám phá các xu hướng nội thất mới nhất cho năm 2025.',
-    content: `
-            <p>Năm 2025, nội thất tối giản và bền vững sẽ lên ngôi...</p>
-            <p><strong>Màu sắc:</strong> Tông màu trung tính kết hợp điểm nhấn cam.</p>
-          `,
-    relatedProducts: [4, 5],
-  },
-  {
-    id: 3,
-    title: 'Dự Án Phòng Ngủ Hiện Đại',
-    category: 'Dự án',
-    image:
-      'https://images.unsplash.com/photo-1598928506311-c55ded91a20c?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Nnx8bGl2aW5nJTIwcm9vbXxlbnwwfHwwfHx8MA%3D%3D',
-    excerpt: 'Xem dự án phòng ngủ chúng tôi đã thực hiện cho khách hàng.',
-    content: `
-            <p>Phòng ngủ này sử dụng giường gỗ tự nhiên và tủ quần áo đa năng...</p>
-            <img src="images/blog/post-3b.jpg" alt="Phòng ngủ" loading="lazy">
-          `,
-    relatedProducts: [8, 1],
-  },
-  {
-    id: 4,
-    title: 'Cách Bố Trí Tủ Bếp Tiết Kiệm Không Gian',
-    category: 'Mẹo thiết kế',
-    image:
-      'https://plus.unsplash.com/premium_photo-1661595245288-65d1430d0d13?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NXx8bGl2aW5nJTIwcm9vbXxlbnwwfHwwfHx8MA%3D%3D',
-    excerpt: 'Mẹo bố trí tủ bếp để tối ưu diện tích căn bếp nhỏ.',
-    content: `
-            <p><strong>1. Sử dụng tủ góc:</strong> Tận dụng góc bếp hiệu quả.</p>
-            <p><strong>2. Kệ treo:</strong> Tăng không gian lưu trữ.</p>
-          `,
-    relatedProducts: [2],
-  },
-  {
-    id: 5,
+    id: 20,
     title: 'Nội Thất Thông Minh Cho Nhà Nhỏ',
     category: 'Xu hướng',
     image:
       'https://plus.unsplash.com/premium_photo-1661595245288-65d1430d0d13?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NXx8bGl2aW5nJTIwcm9vbXxlbnwwfHwwfHx8MA%3D%3D',
     excerpt: 'Giải pháp nội thất thông minh cho không gian hạn chế.',
     content: `
-            <p>Nội thất đa năng như giường gấp, bàn gấp đang rất được ưa chuộng...</p>
-          `,
+        <p>Nội thất đa năng như giường gấp, bàn gấp đang rất được ưa chuộng...</p>
+      `,
     relatedProducts: [6, 7],
   },
   {
-    id: 1,
-    title: '5 Mẹo Chọn Tủ Quần Áo Phù Hợp',
-    category: 'Mẹo thiết kế',
-    image:
-      'https://images.unsplash.com/photo-1598928506311-c55ded91a20c?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Nnx8bGl2aW5nJTIwcm9vbXxlbnwwfHwwfHx8MA%3D%3D',
-    excerpt:
-      'Tìm hiểu cách chọn tủ quần áo phù hợp với không gian và nhu cầu của bạn.',
-    content: `
-            <p><strong>1. Đo đạc không gian:</strong> Hãy đảm bảo đo chính xác diện tích phòng trước khi mua.</p>
-            <p><strong>2. Chọn chất liệu bền:</strong> Gỗ MDF hoặc gỗ tự nhiên là lựa chọn tốt.</p>
-            <p><strong>3. Tối ưu thiết kế:</strong> Tủ có ngăn kéo hoặc kệ sẽ tiện lợi hơn.</p>
-            <img src="images/blog/post-1b.jpg" alt="Tủ quần áo" loading="lazy">
-            <p>Liên hệ với chúng tôi để được tư vấn chi tiết!</p>
-          `,
-    relatedProducts: [1, 2, 3],
-  },
-  {
-    id: 2,
-    title: 'Xu Hướng Nội Thất 2025',
-    category: 'Xu hướng',
-    image:
-      'https://images.unsplash.com/photo-1598928506311-c55ded91a20c?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Nnx8bGl2aW5nJTIwcm9vbXxlbnwwfHwwfHx8MA%3D%3D',
-    excerpt: 'Khám phá các xu hướng nội thất mới nhất cho năm 2025.',
-    content: `
-            <p>Năm 2025, nội thất tối giản và bền vững sẽ lên ngôi...</p>
-            <p><strong>Màu sắc:</strong> Tông màu trung tính kết hợp điểm nhấn cam.</p>
-          `,
-    relatedProducts: [4, 5],
-  },
-  {
-    id: 3,
-    title: 'Dự Án Phòng Ngủ Hiện Đại',
-    category: 'Dự án',
-    image:
-      'https://images.unsplash.com/photo-1598928506311-c55ded91a20c?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Nnx8bGl2aW5nJTIwcm9vbXxlbnwwfHwwfHx8MA%3D%3D',
-    excerpt: 'Xem dự án phòng ngủ chúng tôi đã thực hiện cho khách hàng.',
-    content: `
-            <p>Phòng ngủ này sử dụng giường gỗ tự nhiên và tủ quần áo đa năng...</p>
-            <img src="images/blog/post-3b.jpg" alt="Phòng ngủ" loading="lazy">
-          `,
-    relatedProducts: [8, 1],
-  },
-  {
-    id: 4,
-    title: 'Cách Bố Trí Tủ Bếp Tiết Kiệm Không Gian',
-    category: 'Mẹo thiết kế',
-    image:
-      'https://plus.unsplash.com/premium_photo-1661595245288-65d1430d0d13?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NXx8bGl2aW5nJTIwcm9vbXxlbnwwfHwwfHx8MA%3D%3D',
-    excerpt: 'Mẹo bố trí tủ bếp để tối ưu diện tích căn bếp nhỏ.',
-    content: `
-            <p><strong>1. Sử dụng tủ góc:</strong> Tận dụng góc bếp hiệu quả.</p>
-            <p><strong>2. Kệ treo:</strong> Tăng không gian lưu trữ.</p>
-          `,
-    relatedProducts: [2],
-  },
-  {
-    id: 5,
+    id: 21,
     title: 'Nội Thất Thông Minh Cho Nhà Nhỏ',
     category: 'Xu hướng',
     image:
       'https://plus.unsplash.com/premium_photo-1661595245288-65d1430d0d13?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NXx8bGl2aW5nJTIwcm9vbXxlbnwwfHwwfHx8MA%3D%3D',
     excerpt: 'Giải pháp nội thất thông minh cho không gian hạn chế.',
     content: `
-            <p>Nội thất đa năng như giường gấp, bàn gấp đang rất được ưa chuộng...</p>
-          `,
+        <p>Nội thất đa năng như giường gấp, bàn gấp đang rất được ưa chuộng...</p>
+      `,
     relatedProducts: [6, 7],
   },
 ];
