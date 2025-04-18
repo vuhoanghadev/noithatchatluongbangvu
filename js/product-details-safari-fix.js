@@ -53,33 +53,33 @@
       shineEffect.className = 'safari-shine-effect';
       transitionContainer.appendChild(shineEffect);
 
-      // Start the beautiful transition sequence
-      // First, show the overlay
+      // Start the beautiful transition sequence with faster timing
+      // First, show the overlay immediately
       setTimeout(() => {
         overlay.classList.add('active');
-      }, 10);
+      }, 5);
 
-      // Then fade in the new image
+      // Then fade in the new image quickly
       setTimeout(() => {
         newImage.classList.add('fade-in');
-      }, 150);
+      }, 50);
 
       // Add the shine effect
       setTimeout(() => {
         shineEffect.classList.add('active');
-      }, 300);
+      }, 150);
 
-      // After fade completes, update the main image and clean up
+      // After fade completes (0.3s), update the main image and clean up
       setTimeout(() => {
         mainImage.src = imageSrc;
         transitionContainer.innerHTML = '';
-      }, 800);
+      }, 350);
 
-      // Add a subtle pulse to the container
+      // Add a subtle pulse to the container with faster timing
       mainImageContainer.classList.add('safari-subtle-pulse');
       setTimeout(() => {
         mainImageContainer.classList.remove('safari-subtle-pulse');
-      }, 800);
+      }, 350);
 
       // Update active thumbnail with elegant effect
       const thumbnails = document.querySelectorAll('.thumbnails img');
@@ -95,12 +95,12 @@
       highlightEffect.className = 'safari-thumbnail-highlight';
       thumbnail.appendChild(highlightEffect);
 
-      // Remove the highlight effect after animation
+      // Remove the highlight effect after animation with faster timing
       setTimeout(() => {
         if (thumbnail.contains(highlightEffect)) {
           thumbnail.removeChild(highlightEffect);
         }
-      }, 800);
+      }, 350);
     };
 
     // Add beautiful fade effect Safari-specific CSS
