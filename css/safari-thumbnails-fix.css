@@ -1,0 +1,35 @@
+/* Safari-specific thumbnail fixes */
+
+/* Detect Safari browser */
+@supports (-webkit-hyphens:none) and (not (-ms-ime-align:auto)) and (not (-moz-appearance:none)) {
+    /* Safari-specific styles for thumbnails */
+    .thumbnails {
+        /* Disable transform transition for Safari to avoid flickering */
+        transition: none !important;
+    }
+    
+    /* Use opacity transition instead for smoother experience on Safari */
+    .main-image-container img {
+        transition: opacity 0.3s ease !important;
+    }
+    
+    /* Special class for Safari image transitions */
+    .safari-image-transition {
+        opacity: 0;
+    }
+    
+    /* Ensure Safari renders thumbnails correctly */
+    .thumbnails img {
+        -webkit-transform: translateZ(0);
+        transform: translateZ(0);
+        -webkit-backface-visibility: hidden;
+        backface-visibility: hidden;
+        -webkit-perspective: 1000px;
+        perspective: 1000px;
+    }
+    
+    /* Improve Safari thumbnail click response */
+    .thumbnails img:active {
+        opacity: 0.7;
+    }
+}

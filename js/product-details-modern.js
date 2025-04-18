@@ -371,101 +371,80 @@ function changeMainImage(thumbnail, imageSrc) {
   // Update main image with animation
   const mainImage = document.getElementById('main-image');
   if (mainImage) {
-    // Fix for Safari: Preload the image before showing it
-    const preloadImg = new Image();
+    // Create a new image element for smooth transition
+    const newImage = document.createElement('img');
+    newImage.src = imageSrc;
+    newImage.alt = mainImage.alt;
+    newImage.id = 'main-image-new';
+    newImage.style.position = 'absolute';
+    newImage.style.top = '0';
+    newImage.style.left = '0';
+    newImage.style.width = '100%';
+    newImage.style.height = '100%';
+    newImage.style.objectFit = 'cover';
+    newImage.style.opacity = '0';
+    newImage.style.zIndex = '2';
 
-    // Set up event handler for when image is loaded
-    preloadImg.onload = function () {
-      // Update active thumbnail with ripple effect first
-      const thumbnails = document.querySelectorAll('.thumbnails img');
-      thumbnails.forEach((thumb) => {
-        thumb.classList.remove('active');
-        // Remove any existing ripple effects
-        const ripple = thumb.querySelector('.ripple');
-        if (ripple) {
-          thumb.removeChild(ripple);
-        }
-      });
+    // Add fade-out class to current image
+    mainImage.classList.add('fade-out');
 
-      // Add active class to clicked thumbnail
-      thumbnail.classList.add('active');
+    // Add the new image to container
+    const container = mainImage.parentElement;
+    container.appendChild(newImage);
 
-      // Add ripple effect to clicked thumbnail
-      const ripple = document.createElement('span');
-      ripple.className = 'ripple';
-      thumbnail.appendChild(ripple);
+    // Trigger reflow for animation to work
+    void newImage.offsetWidth;
 
-      // Position the ripple at center of thumbnail
-      const rect = thumbnail.getBoundingClientRect();
-      const size = Math.max(rect.width, rect.height);
-      ripple.style.width = ripple.style.height = size + 'px';
-      ripple.style.left = '50%';
-      ripple.style.top = '50%';
-      ripple.style.transform = 'translate(-50%, -50%) scale(0)';
+    // Add fade-in class to new image
+    newImage.classList.add('fade-in');
 
-      // Animate the ripple
-      setTimeout(() => {
-        ripple.style.transform = 'translate(-50%, -50%) scale(1.5)';
-        ripple.style.opacity = '0';
-      }, 10);
-
-      // Remove ripple after animation
-      setTimeout(() => {
-        if (thumbnail.contains(ripple)) {
-          thumbnail.removeChild(ripple);
-        }
-      }, 500);
-
-      // Now handle the main image change
-      // Create a new image element for smooth transition
-      const newImage = document.createElement('img');
-      newImage.src = imageSrc; // Use the preloaded image source
-      newImage.alt = mainImage.alt;
-      newImage.id = 'main-image-new';
-      newImage.style.position = 'absolute';
-      newImage.style.top = '0';
-      newImage.style.left = '0';
-      newImage.style.width = '100%';
-      newImage.style.height = '100%';
-      newImage.style.objectFit = 'cover';
-      newImage.style.opacity = '0';
-      newImage.style.zIndex = '2';
-
-      // Add fade-out class to current image
-      mainImage.classList.add('fade-out');
-
-      // Add the new image to container
-      const container = mainImage.parentElement;
-      container.appendChild(newImage);
-
-      // Trigger reflow for animation to work
-      void newImage.offsetWidth;
-
-      // Add fade-in class to new image
-      newImage.classList.add('fade-in');
-
-      // After animation completes, replace the old image
-      setTimeout(() => {
-        // Update the src of the main image
-        mainImage.src = imageSrc;
-        mainImage.classList.remove('fade-out');
-
-        // Remove the temporary image
-        if (container.contains(newImage)) {
-          container.removeChild(newImage);
-        }
-      }, 300); // Reduced from 500ms to 300ms for better responsiveness
-    };
-
-    // Start loading the image
-    preloadImg.src = imageSrc;
-
-    // If the image is already cached, the onload event might not fire
-    // In that case, we need to check if the image is complete
-    if (preloadImg.complete) {
-      preloadImg.onload();
-    }
+    // After animation completes, replace the old image
+    setTimeout(() => {
+      mainImage.src = imageSrc;
+      mainImage.classList.remove('fade-out');
+      container.removeChild(newImage);
+    }, 500); // Match this with the CSS animation duration
   }
+
+  // Update active thumbnail with ripple effect
+  const thumbnails = document.querySelectorAll('.thumbnails img');
+  thumbnails.forEach((thumb) => {
+    thumb.classList.remove('active');
+    // Remove any existing ripple effects
+    const ripple = thumb.querySelector('.ripple');
+    if (ripple) {
+      thumb.removeChild(ripple);
+    }
+  });
+
+  // Add active class to clicked thumbnail
+  thumbnail.classList.add('active');
+
+  // Add ripple effect to clicked thumbnail
+  const ripple = document.createElement('span');
+  ripple.className = 'ripple';
+  thumbnail.appendChild(ripple);
+
+  // Position the ripple at center of thumbnail
+  const rect = thumbnail.getBoundingClientRect();
+  const size = Math.max(rect.width, rect.height);
+  ripple.style.width = ripple.style.height = size + 'px';
+  ripple.style.left = '50%';
+  ripple.style.top = '50%';
+  ripple.style.transform = 'translate(-50%, -50%) scale(0)';
+
+  // Animate the ripple
+  setTimeout(() => {
+    ripple.style.transform = 'translate(-50%, -50%) scale(1.5)';
+    ripple.style.opacity = '0';
+  }, 10);
+
+  // Remove ripple after animation
+  setTimeout(() => {
+    if (thumbnail.contains(ripple)) {
+      thumbnail.removeChild(ripple);
+    }
+  }, 500);
 }
 
 function shareProduct() {
