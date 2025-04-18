@@ -144,8 +144,8 @@ document.addEventListener('DOMContentLoaded', function () {
                 <a href="https://zalo.me/123456789" class="btn-contact">
                     <i class="fas fa-comment"></i> Liên hệ tư vấn
                 </a>
-                <button class="btn-share" onclick="shareProduct()">
-                    <i class="fas fa-share-alt"></i> Chia sẻ
+                <button class="btn-order" onclick="openOrderModal(product.name)">
+                    <i class="fas fa-shopping-cart"></i> Đặt hàng
                 </button>
             </div>
 
