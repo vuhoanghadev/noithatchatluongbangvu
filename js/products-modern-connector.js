@@ -319,65 +319,9 @@ document.addEventListener('DOMContentLoaded', function () {
     const suggestionsContainer = document.createElement('div');
     suggestionsContainer.className = 'search-suggestions';
 
-    // Style the container
-    Object.assign(suggestionsContainer.style, {
-      position: 'absolute',
-      top: '100%',
-      left: '0',
-      right: '0',
-      zIndex: '9999', // Increased z-index to ensure it's above other elements
-      backgroundColor: '#fff',
-      borderRadius: '8px',
-      boxShadow:
-        '0 6px 16px rgba(0, 0, 0, 0.12), 0 3px 6px rgba(0, 0, 0, 0.08)',
-      maxHeight: '350px',
-      overflowY: 'auto',
-      marginTop: '8px',
-      border: 'none',
-      opacity: '0',
-      transform: 'translateY(-8px) scale(0.98)',
-      transition: 'all 0.25s cubic-bezier(0.165, 0.84, 0.44, 1)',
-      backdropFilter: 'blur(8px)',
-    });
-
-    // Add custom scrollbar
-    suggestionsContainer.style.scrollbarWidth = 'thin';
-    suggestionsContainer.style.scrollbarColor =
-      'rgba(249, 115, 22, 0.3) rgba(0, 0, 0, 0.05)';
-
-    // Add webkit scrollbar styles
-    const scrollbarStyle = document.createElement('style');
-    scrollbarStyle.textContent = `
-      .search-suggestions::-webkit-scrollbar {
-        width: 6px;
-      }
-      .search-suggestions::-webkit-scrollbar-track {
-        background: rgba(0, 0, 0, 0.05);
-        border-radius: 8px;
-      }
-      .search-suggestions::-webkit-scrollbar-thumb {
-        background-color: rgba(249, 115, 22, 0.3);
-        border-radius: 8px;
-      }
-      .search-suggestions::-webkit-scrollbar-thumb:hover {
-        background-color: rgba(249, 115, 22, 0.5);
-      }
-    `;
-    document.head.appendChild(scrollbarStyle);
-
     // Create header
     const header = document.createElement('div');
-    Object.assign(header.style, {
-      padding: '12px 16px',
-      borderBottom: '1px solid rgba(0, 0, 0, 0.05)',
-      fontSize: '0.9rem',
-      color: 'var(--product-text-light)',
-      fontWeight: '500',
-      display: 'flex',
-      alignItems: 'center',
-      background: 'rgba(249, 115, 22, 0.03)',
-      borderRadius: '8px 8px 0 0',
-    });
+    header.className = 'search-suggestions-header';
 
     // Add search icon with animation
     const searchIcon = document.createElement('i');
@@ -388,17 +332,6 @@ document.addEventListener('DOMContentLoaded', function () {
       fontSize: '0.9rem',
       animation: 'pulse 1.5s infinite',
     });
-
-    // Add animation keyframes
-    const pulseAnimation = document.createElement('style');
-    pulseAnimation.textContent = `
-      @keyframes pulse {
-        0% { opacity: 0.7; transform: scale(1); }
-        50% { opacity: 1; transform: scale(1.1); }
-        100% { opacity: 0.7; transform: scale(1); }
-      }
-    `;
-    document.head.appendChild(pulseAnimation);
 
     header.appendChild(searchIcon);
     header.appendChild(document.createTextNode(`Kết quả tìm kiếm cho `));
@@ -415,25 +348,14 @@ document.addEventListener('DOMContentLoaded', function () {
     header.appendChild(searchTermSpan);
     header.appendChild(document.createTextNode(':'));
 
-    suggestionsContainer.appendChild(header);
+    // Create content container for scrollable items
+    const contentContainer = document.createElement('div');
+    contentContainer.className = 'search-suggestions-content';
 
     // Create suggestions list
     matchingProducts.forEach((product) => {
       const item = document.createElement('div');
       item.className = 'search-suggestion-item';
-
-      // Style the item
-      Object.assign(item.style, {
-        padding: '12px 16px',
-        display: 'flex',
-        alignItems: 'center',
-        gap: '12px',
-        cursor: 'pointer',
-        transition: 'all 0.2s ease',
-        borderBottom: '1px solid rgba(0, 0, 0, 0.05)',
-        position: 'relative',
-        overflow: 'hidden',
-      });
 
       // Add hover effect
       item.addEventListener('mouseenter', () => {
@@ -457,12 +379,6 @@ document.addEventListener('DOMContentLoaded', function () {
         ripple.style.width = ripple.style.height = `${size}px`;
         ripple.style.left = `${e.clientX - rect.left - size / 2}px`;
         ripple.style.top = `${e.clientY - rect.top - size / 2}px`;
-        ripple.style.position = 'absolute';
-        ripple.style.borderRadius = '50%';
-        ripple.style.backgroundColor = 'rgba(249, 115, 22, 0.2)';
-        ripple.style.transform = 'scale(0)';
-        ripple.style.animation = 'ripple 0.6s linear';
-        ripple.style.pointerEvents = 'none';
 
         item.appendChild(ripple);
 
@@ -471,44 +387,25 @@ document.addEventListener('DOMContentLoaded', function () {
         }, 600);
       });
 
-      // Add ripple animation if not already added
-      if (!document.querySelector('style[data-ripple]')) {
-        const rippleStyle = document.createElement('style');
-        rippleStyle.setAttribute('data-ripple', 'true');
-        rippleStyle.textContent = `
-          @keyframes ripple {
-            to {
-              transform: scale(2);
-              opacity: 0;
-            }
-          }
-        `;
-        document.head.appendChild(rippleStyle);
-      }
-
       // Create thumbnail with enhanced styling
       const thumbnail = document.createElement('div');
-      Object.assign(thumbnail.style, {
-        width: '48px',
-        height: '48px',
-        flexShrink: '0',
-        borderRadius: '6px',
-        overflow: 'hidden',
-        backgroundColor: 'rgba(0, 0, 0, 0.03)',
-        boxShadow: '0 2px 6px rgba(0, 0, 0, 0.08)',
-        transition: 'transform 0.3s ease',
-        position: 'relative',
-      });
+      thumbnail.style.width = '48px';
+      thumbnail.style.height = '48px';
+      thumbnail.style.flexShrink = '0';
+      thumbnail.style.borderRadius = '6px';
+      thumbnail.style.overflow = 'hidden';
+      thumbnail.style.backgroundColor = 'rgba(0, 0, 0, 0.03)';
+      thumbnail.style.boxShadow = '0 2px 6px rgba(0, 0, 0, 0.08)';
+      thumbnail.style.transition = 'transform 0.3s ease';
+      thumbnail.style.position = 'relative';
 
       const img = document.createElement('img');
       img.src = product.image || 'images/products/placeholder.jpg';
       img.alt = product.name;
-      Object.assign(img.style, {
-        width: '100%',
-        height: '100%',
-        objectFit: 'cover',
-        transition: 'transform 0.3s ease',
-      });
+      img.style.width = '100%';
+      img.style.height = '100%';
+      img.style.objectFit = 'cover';
+      img.style.transition = 'transform 0.3s ease';
 
       img.onerror = function () {
         this.src = 'images/products/placeholder.jpg';
@@ -528,25 +425,21 @@ document.addEventListener('DOMContentLoaded', function () {
 
       // Create content with enhanced styling
       const content = document.createElement('div');
-      Object.assign(content.style, {
-        flex: '1',
-        minWidth: '0',
-        display: 'flex',
-        flexDirection: 'column',
-        justifyContent: 'center',
-      });
+      content.style.flex = '1';
+      content.style.minWidth = '0';
+      content.style.display = 'flex';
+      content.style.flexDirection = 'column';
+      content.style.justifyContent = 'center';
 
       const name = document.createElement('div');
-      Object.assign(name.style, {
-        fontWeight: '600',
-        marginBottom: '4px',
-        whiteSpace: 'nowrap',
-        overflow: 'hidden',
-        textOverflow: 'ellipsis',
-        color: '#1c2332',
-        fontSize: '0.95rem',
-        transition: 'color 0.2s ease',
-      });
+      name.style.fontWeight = '600';
+      name.style.marginBottom = '4px';
+      name.style.whiteSpace = 'nowrap';
+      name.style.overflow = 'hidden';
+      name.style.textOverflow = 'ellipsis';
+      name.style.color = '#1c2332';
+      name.style.fontSize = '0.95rem';
+      name.style.transition = 'color 0.2s ease';
       name.textContent = product.name;
       content.appendChild(name);
 
@@ -561,20 +454,16 @@ document.addEventListener('DOMContentLoaded', function () {
 
       // Create flex container for category and price (if available)
       const metaContainer = document.createElement('div');
-      Object.assign(metaContainer.style, {
-        display: 'flex',
-        alignItems: 'center',
-        gap: '12px',
-      });
+      metaContainer.style.display = 'flex';
+      metaContainer.style.alignItems = 'center';
+      metaContainer.style.gap = '12px';
 
       const category = document.createElement('div');
-      Object.assign(category.style, {
-        fontSize: '0.8rem',
-        color: 'var(--product-text-light)',
-        display: 'flex',
-        alignItems: 'center',
-        gap: '5px',
-      });
+      category.style.fontSize = '0.8rem';
+      category.style.color = 'var(--product-text-light)';
+      category.style.display = 'flex';
+      category.style.alignItems = 'center';
+      category.style.gap = '5px';
 
       const tagIcon = document.createElement('i');
       tagIcon.className = 'fas fa-tag';
@@ -589,14 +478,12 @@ document.addEventListener('DOMContentLoaded', function () {
       const priceMatch = product.description.match(/giá[:\s]*([\d.,]+)/i);
       if (priceMatch && priceMatch[1]) {
         const price = document.createElement('div');
-        Object.assign(price.style, {
-          fontSize: '0.8rem',
-          fontWeight: '600',
-          color: 'var(--product-primary)',
-          display: 'flex',
-          alignItems: 'center',
-          gap: '5px',
-        });
+        price.style.fontSize = '0.8rem';
+        price.style.fontWeight = '600';
+        price.style.color = 'var(--product-primary)';
+        price.style.display = 'flex';
+        price.style.alignItems = 'center';
+        price.style.gap = '5px';
 
         const priceIcon = document.createElement('i');
         priceIcon.className = 'fas fa-tag';
@@ -621,35 +508,16 @@ document.addEventListener('DOMContentLoaded', function () {
         }, 300);
       });
 
-      suggestionsContainer.appendChild(item);
+      contentContainer.appendChild(item);
     });
 
     // Add "View all results" button
     const viewAllButton = document.createElement('div');
     viewAllButton.className = 'view-all-results';
 
-    // Style the button
-    Object.assign(viewAllButton.style, {
-      padding: '14px 16px',
-      textAlign: 'center',
-      backgroundColor: 'rgba(249, 115, 22, 0.05)',
-      color: 'var(--product-primary)',
-      fontWeight: '600',
-      cursor: 'pointer',
-      transition: 'all 0.25s cubic-bezier(0.165, 0.84, 0.44, 1)',
-      borderRadius: '0 0 8px 8px',
-      position: 'relative',
-      overflow: 'hidden',
-      display: 'flex',
-      alignItems: 'center',
-      justifyContent: 'center',
-      gap: '8px',
-    });
-
     // Create icon
     const searchAllIcon = document.createElement('i');
     searchAllIcon.className = 'fas fa-search-plus';
-    searchAllIcon.style.transition = 'transform 0.3s ease';
 
     // Create text span
     const textSpan = document.createElement('span');
@@ -671,7 +539,7 @@ document.addEventListener('DOMContentLoaded', function () {
       searchAllIcon.style.transform = 'scale(1)';
     });
 
-    // Add ripple effect on click (similar to item ripple)
+    // Add ripple effect on click
     viewAllButton.addEventListener('mousedown', (e) => {
       const ripple = document.createElement('span');
       ripple.className = 'search-ripple-effect';
@@ -682,12 +550,6 @@ document.addEventListener('DOMContentLoaded', function () {
       ripple.style.width = ripple.style.height = `${size}px`;
       ripple.style.left = `${e.clientX - rect.left - size / 2}px`;
       ripple.style.top = `${e.clientY - rect.top - size / 2}px`;
-      ripple.style.position = 'absolute';
-      ripple.style.borderRadius = '50%';
-      ripple.style.backgroundColor = 'rgba(249, 115, 22, 0.2)';
-      ripple.style.transform = 'scale(0)';
-      ripple.style.animation = 'ripple 0.6s linear';
-      ripple.style.pointerEvents = 'none';
 
       viewAllButton.appendChild(ripple);
 
@@ -710,6 +572,9 @@ document.addEventListener('DOMContentLoaded', function () {
       hideSearchSuggestions();
     });
 
+    // Assemble the container
+    suggestionsContainer.appendChild(header);
+    suggestionsContainer.appendChild(contentContainer);
     suggestionsContainer.appendChild(viewAllButton);
 
     // Add to DOM
@@ -803,36 +668,53 @@ document.addEventListener('DOMContentLoaded', function () {
     });
   }
 
+  // Biến để theo dõi trạng thái loading
+  let isLoading = false;
+  let spinnerOverlay = null;
+
   // Show loading spinner
   function showLoading() {
-    // Create spinner overlay if it doesn't exist
-    let spinnerOverlay = document.querySelector('.spinner-overlay');
+    // Nếu đang loading, không làm gì thêm
+    if (isLoading) return;
+
+    // Đánh dấu đang loading
+    isLoading = true;
+
+    // Tạo spinner overlay nếu chưa tồn tại
     if (!spinnerOverlay) {
       spinnerOverlay = document.createElement('div');
       spinnerOverlay.className = 'spinner-overlay';
       spinnerOverlay.innerHTML = `
-        <div class="spinner"></div>
-        <div class="loading-text">Đang tải sản phẩm...</div>
+        <div class="spinner-container">
+          <div class="spinner"></div>
+          <div class="loading-text">Đang tải sản phẩm...</div>
+        </div>
       `;
       document.body.appendChild(spinnerOverlay);
-    } else {
-      // Reset any inline styles that might be preventing display
-      spinnerOverlay.style.display = '';
     }
 
-    // Show the spinner - use a small delay to ensure DOM updates
-    setTimeout(() => {
-      spinnerOverlay.classList.add('active');
-    }, 10);
+    // Xóa các style inline cũ và reset trạng thái
+    spinnerOverlay.style.display = 'block';
+    spinnerOverlay.style.opacity = '0';
+    spinnerOverlay.style.transition = 'opacity 0.3s ease';
 
-    // Add loading effect to category filter
+    // Force reflow để đảm bảo transition hoạt động
+    void spinnerOverlay.offsetWidth;
+
+    // Hiển thị spinner với hiệu ứng fade in
+    requestAnimationFrame(() => {
+      spinnerOverlay.style.opacity = '1';
+      spinnerOverlay.classList.add('active');
+    });
+
+    // Thêm hiệu ứng loading cho category filter
     if (categoryFilter) {
       categoryFilter.classList.add('loading');
     }
 
-    // Add loading effect to search button while preserving its position
+    // Thêm hiệu ứng loading cho search button
     if (searchButton) {
-      // Store original position values if needed
+      // Lưu giá trị vị trí gốc nếu cần
       if (!searchButton.dataset.originalPosition) {
         const computedStyle = window.getComputedStyle(searchButton);
         searchButton.dataset.originalPosition = JSON.stringify({
@@ -844,64 +726,65 @@ document.addEventListener('DOMContentLoaded', function () {
         });
       }
 
-      // Add loading class
+      // Thêm class loading
       searchButton.classList.add('loading');
     }
 
-    // Add loading state to product grid
+    // Thêm trạng thái loading cho product grid
     if (productGrid) {
       productGrid.classList.add('loading');
     }
 
-    // Log for debugging
+    // Log để debug
     console.log('Loading shown at:', new Date().toISOString());
   }
 
   // Hide loading spinner
   function hideLoading() {
-    const spinnerOverlay = document.querySelector('.spinner-overlay');
-    if (spinnerOverlay) {
-      spinnerOverlay.classList.remove('active');
+    // Nếu không đang loading hoặc không có spinner, không làm gì
+    if (!isLoading || !spinnerOverlay) return;
 
-      // Force removal after transition completes
-      setTimeout(() => {
-        if (spinnerOverlay.parentNode) {
-          spinnerOverlay.style.display = 'none';
-          // Reset display after a brief moment to allow future showings
-          setTimeout(() => {
-            spinnerOverlay.style.display = '';
-          }, 100);
-        }
-      }, 300); // Match the transition duration in CSS
-    }
+    // Đánh dấu không còn loading
+    isLoading = false;
 
-    // Remove loading effect from category filter
+    // Fade out spinner
+    spinnerOverlay.style.opacity = '0';
+    spinnerOverlay.classList.remove('active');
+
+    // Xóa spinner sau khi animation hoàn tất
+    setTimeout(() => {
+      if (spinnerOverlay) {
+        spinnerOverlay.style.display = 'none';
+      }
+    }, 300);
+
+    // Xóa hiệu ứng loading từ category filter
     if (categoryFilter) {
       categoryFilter.classList.remove('loading');
     }
 
-    // Remove loading effect from search button while preserving its position
+    // Xóa hiệu ứng loading từ search button
     if (searchButton) {
       searchButton.classList.remove('loading');
 
-      // Restore original position if needed
+      // Khôi phục vị trí gốc nếu cần
       if (searchButton.dataset.originalPosition) {
         const originalPosition = JSON.parse(
           searchButton.dataset.originalPosition
         );
-        // Only apply if needed
+        // Chỉ áp dụng nếu cần
         if (searchButton.style.position !== originalPosition.position) {
           Object.assign(searchButton.style, originalPosition);
         }
       }
     }
 
-    // Remove loading state from product grid
+    // Xóa trạng thái loading từ product grid
     if (productGrid) {
       productGrid.classList.remove('loading');
     }
 
-    // Log for debugging
+    // Log để debug
     console.log('Loading hidden at:', new Date().toISOString());
   }
 
