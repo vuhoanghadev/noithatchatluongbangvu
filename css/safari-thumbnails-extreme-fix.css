@@ -1,13 +1,53 @@
 /* Safari Thumbnails Extreme Fix - Complete Replacement */
 
-/* Hide original thumbnails on Safari */
+/* Original thumbnails on Safari - keep but simplify */
 .safari-browser .thumbnails {
-    display: none !important;
+    display: flex;
+    gap: 10px;
+    padding-top: 5px;
+    padding-bottom: 10px;
+    width: 100%;
+    overflow-x: auto;
+    scroll-behavior: smooth;
+    /* Simplify transitions */
+    transition: none;
+    transform: none;
 }
 
-/* Hide thumbnails navigation on Safari */
+/* Keep thumbnails navigation on Safari but simplify */
 .safari-browser .thumbnails-nav {
-    display: none !important;
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 30px;
+    height: 30px;
+    background: #ffffff;
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    color: #333333;
+    font-size: 0.9rem;
+    z-index: 2;
+    transition: background-color 0.3s ease, color 0.3s ease;
+    opacity: 0.8;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.safari-browser .thumbnails-nav:hover {
+    background: #f97316;
+    color: #ffffff;
+    opacity: 1;
+}
+
+.safari-browser .thumbnails-nav.prev {
+    left: -15px;
+}
+
+.safari-browser .thumbnails-nav.next {
+    right: -15px;
 }
 
 /* Safari-specific main image container */
@@ -40,29 +80,31 @@
     transform: none !important;
 }
 
-/* Safari simple thumbnails container */
-.safari-simple-thumbnails-container {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 10px;
-    margin-top: 15px;
-    justify-content: center;
-}
-
-/* Safari simple thumbnails */
-.safari-simple-thumbnails-container img {
-    width: 60px;
-    height: 60px;
+/* Safari thumbnails styles */
+.safari-browser .thumbnails img {
+    width: 80px;
+    height: 80px;
     object-fit: cover;
-    border-radius: 4px;
+    border-radius: 8px;
     cursor: pointer;
     border: 2px solid transparent;
-    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-    transition: border-color 0.3s ease !important;
+    position: relative;
+    overflow: hidden;
+    margin-right: 10px;
+    flex-shrink: 0;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    /* Simplify transitions */
+    transition: border-color 0.3s ease;
+    transform: none !important;
 }
 
-.safari-simple-thumbnails-container img:hover {
+.safari-browser .thumbnails img:hover {
     border-color: rgba(249, 115, 22, 0.5);
+}
+
+.safari-browser .thumbnails img.active {
+    border-color: #f97316;
+    box-shadow: 0 5px 15px rgba(249, 115, 22, 0.2);
 }
 
 /* Disable all problematic animations on Safari */
