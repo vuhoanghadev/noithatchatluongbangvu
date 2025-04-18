@@ -18,6 +18,12 @@ document.addEventListener('DOMContentLoaded', function () {
   const paginationContainer = document.querySelector('.pagination');
   const productCountElement = document.querySelector('.product-count span');
 
+  // Create scroll to top button
+  const scrollToTopButton = document.createElement('div');
+  scrollToTopButton.className = 'scroll-to-top';
+  scrollToTopButton.innerHTML = '<i class="fas fa-arrow-up"></i>';
+  document.body.appendChild(scrollToTopButton);
+
   // Variables
   let currentPage = 1;
   const productsPerPage = 12;
@@ -56,6 +62,42 @@ document.addEventListener('DOMContentLoaded', function () {
     });
   }
 
+  // Scroll to top button event listener
+  scrollToTopButton.addEventListener('click', function () {
+    // Show loading effect
+    showLoading();
+
+    // Scroll to top of products
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+
+    // Clear any existing timeouts
+    if (window.loadingTimeout) {
+      clearTimeout(window.loadingTimeout);
+    }
+
+    // Apply changes after loading time
+    window.loadingTimeout = setTimeout(() => {
+      try {
+        // No need to re-render, just hide loading
+        hideLoading();
+        window.loadingTimeout = null;
+      } catch (error) {
+        console.error('Error during scroll to top:', error);
+        hideLoading();
+        window.loadingTimeout = null;
+      }
+    }, 800);
+  });
+
+  // Show/hide scroll to top button based on scroll position
+  window.addEventListener('scroll', function () {
+    if (window.pageYOffset > 300) {
+      scrollToTopButton.classList.add('visible');
+    } else {
+      scrollToTopButton.classList.remove('visible');
+    }
+  });
+
   // Functions
   function initCategoryFilter() {
     if (!categoryFilter) return;
@@ -79,20 +121,162 @@ document.addEventListener('DOMContentLoaded', function () {
     });
   }
 
+  // Show loading spinner
+  function showLoading() {
+    // Create spinner overlay if it doesn't exist
+    let spinnerOverlay = document.querySelector('.spinner-overlay');
+    if (!spinnerOverlay) {
+      spinnerOverlay = document.createElement('div');
+      spinnerOverlay.className = 'spinner-overlay';
+      spinnerOverlay.innerHTML = `
+        <div class="spinner"></div>
+        <div class="loading-text">Đang tải sản phẩm...</div>
+      `;
+      document.body.appendChild(spinnerOverlay);
+    } else {
+      // Reset any inline styles that might be preventing display
+      spinnerOverlay.style.display = '';
+    }
+
+    // Show the spinner - use a small delay to ensure DOM updates
+    setTimeout(() => {
+      spinnerOverlay.classList.add('active');
+    }, 10);
+
+    // Add loading effect to category filter
+    if (categoryFilter) {
+      categoryFilter.classList.add('loading');
+    }
+
+    // Add loading effect to search button while preserving its position
+    if (searchButton) {
+      // Store original position values if needed
+      if (!searchButton.dataset.originalPosition) {
+        const computedStyle = window.getComputedStyle(searchButton);
+        searchButton.dataset.originalPosition = JSON.stringify({
+          position: computedStyle.position,
+          right: computedStyle.right,
+          top: computedStyle.top,
+          bottom: computedStyle.bottom,
+          width: computedStyle.width,
+        });
+      }
+
+      // Add loading class
+      searchButton.classList.add('loading');
+    }
+
+    // Add loading state to product grid
+    if (productGrid) {
+      productGrid.classList.add('loading');
+    }
+
+    // Log for debugging
+    console.log('Loading shown at:', new Date().toISOString());
+  }
+
+  // Hide loading spinner
+  function hideLoading() {
+    const spinnerOverlay = document.querySelector('.spinner-overlay');
+    if (spinnerOverlay) {
+      spinnerOverlay.classList.remove('active');
+
+      // Force removal after transition completes
+      setTimeout(() => {
+        if (spinnerOverlay.parentNode) {
+          spinnerOverlay.style.display = 'none';
+          // Reset display after a brief moment to allow future showings
+          setTimeout(() => {
+            spinnerOverlay.style.display = '';
+          }, 100);
+        }
+      }, 300); // Match the transition duration in CSS
+    }
+
+    // Remove loading effect from category filter
+    if (categoryFilter) {
+      categoryFilter.classList.remove('loading');
+    }
+
+    // Remove loading effect from search button while preserving its position
+    if (searchButton) {
+      searchButton.classList.remove('loading');
+
+      // Restore original position if needed
+      if (searchButton.dataset.originalPosition) {
+        const originalPosition = JSON.parse(
+          searchButton.dataset.originalPosition
+        );
+        // Only apply if needed
+        if (searchButton.style.position !== originalPosition.position) {
+          Object.assign(searchButton.style, originalPosition);
+        }
+      }
+    }
+
+    // Remove loading state from product grid
+    if (productGrid) {
+      productGrid.classList.remove('loading');
+    }
+
+    // Log for debugging
+    console.log('Loading hidden at:', new Date().toISOString());
+  }
+
   function handleFilter() {
     currentPage = 1;
-    applyFilters();
-    renderProducts();
-    renderPagination();
-    updateProductCount();
+
+    // Clear any existing timeouts
+    if (window.loadingTimeout) {
+      clearTimeout(window.loadingTimeout);
+    }
+
+    // Show loading effect
+    showLoading();
+
+    // Apply filters and render after exactly 800ms
+    window.loadingTimeout = setTimeout(() => {
+      try {
+        applyFilters();
+        renderProducts();
+        renderPagination();
+        updateProductCount();
+      } catch (error) {
+        console.error('Error during filter processing:', error);
+      } finally {
+        // Always hide loading, even if there was an error
+        hideLoading();
+        window.loadingTimeout = null;
+      }
+    }, 800);
   }
 
   function handleSearch() {
     currentPage = 1;
-    applyFilters();
-    renderProducts();
-    renderPagination();
-    updateProductCount();
+
+    // Clear any existing timeouts
+    if (window.loadingTimeout) {
+      clearTimeout(window.loadingTimeout);
+    }
+
+    // Show loading effect
+    showLoading();
+
+    // Apply filters and render after exactly 800ms
+    window.loadingTimeout = setTimeout(() => {
+      try {
+        applyFilters();
+        renderProducts();
+        renderPagination();
+        updateProductCount();
+      } catch (error) {
+        console.error('Error during search processing:', error);
+      } finally {
+        // Always hide loading, even if there was an error
+        hideLoading();
+        window.loadingTimeout = null;
+      }
+    }, 800);
   }
 
   function applyFilters() {
@@ -144,21 +328,24 @@ document.addEventListener('DOMContentLoaded', function () {
       // Render products
       paginatedProducts.forEach((product) => {
         const productCard = createProductCard(product);
+        // Hide cards initially
+        productCard.style.opacity = '0';
+        productCard.style.transform = 'translateY(20px)';
         fragment.appendChild(productCard);
       });
 
       // Append all cards at once
       productGrid.appendChild(fragment);
 
-      // Add fade-in animation with a slight delay for Safari
-      setTimeout(() => {
-        const productCards = document.querySelectorAll('.product-card');
-        productCards.forEach((card, index) => {
-          setTimeout(() => {
-            card.classList.add('fade-in');
-          }, index * 50); // Reduced delay for better performance
-        });
-      }, 10);
+      // Add fade-in animation with synchronized timing
+      const productCards = document.querySelectorAll('.product-card');
+      productCards.forEach((card, index) => {
+        setTimeout(() => {
+          card.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
+          card.style.opacity = '1';
+          card.style.transform = 'translateY(0)';
+        }, index * 50); // Staggered animation for each card
+      });
     } catch (error) {
       console.error('Error rendering products:', error);
     }
@@ -326,12 +513,34 @@ document.addEventListener('DOMContentLoaded', function () {
     prevButton.addEventListener('click', () => {
       if (currentPage > 1) {
         currentPage--;
-        renderProducts();
-        renderPagination();
+
+        // Show loading effect
+        showLoading();
+
         // Scroll to top of products
         document
           .querySelector('.products-section')
           .scrollIntoView({ behavior: 'smooth', block: 'start' });
+
+        // Clear any existing timeouts
+        if (window.loadingTimeout) {
+          clearTimeout(window.loadingTimeout);
+        }
+
+        // Apply changes after loading time
+        window.loadingTimeout = setTimeout(() => {
+          try {
+            renderProducts();
+            renderPagination();
+            updateProductCount();
+          } catch (error) {
+            console.error('Error during pagination processing:', error);
+          } finally {
+            // Always hide loading, even if there was an error
+            hideLoading();
+            window.loadingTimeout = null;
+          }
+        }, 800);
       }
     });
     paginationContainer.appendChild(prevButton);
@@ -346,15 +555,33 @@ document.addEventListener('DOMContentLoaded', function () {
       startPage = Math.max(1, endPage - maxVisiblePages + 1);
     }
 
-    // For mobile, simplify pagination
-    if (isMobile && totalPages > 3) {
-      // On mobile, show only: prev, first, current (or closest), last, next
-      startPage = currentPage;
-      endPage = currentPage;
+    // For mobile, adjust pagination to show consecutive pages
+    if (isMobile) {
+      // On mobile, show a window of consecutive pages
+      if (totalPages <= 5) {
+        // If 5 or fewer pages, show all pages
+        startPage = 1;
+        endPage = totalPages;
+      } else {
+        // If more than 5 pages, show a window of 3 pages centered on current page
+        if (currentPage <= 2) {
+          // Near the start
+          startPage = 1;
+          endPage = 3;
+        } else if (currentPage >= totalPages - 1) {
+          // Near the end
+          startPage = totalPages - 2;
+          endPage = totalPages;
+        } else {
+          // In the middle
+          startPage = currentPage - 1;
+          endPage = currentPage + 1;
+        }
+      }
     }
 
-    // First page
-    if (startPage > 1 || isMobile) {
+    // First page - only add separately if not included in the range
+    if (startPage > 1) {
       const firstPageButton = document.createElement('button');
       firstPageButton.textContent = '1';
       if (currentPage === 1) {
@@ -362,28 +589,56 @@ document.addEventListener('DOMContentLoaded', function () {
       }
       firstPageButton.addEventListener('click', () => {
         currentPage = 1;
-        renderProducts();
-        renderPagination();
+
+        // Show loading effect
+        showLoading();
+
+        // Scroll to top of products
+        document
+          .querySelector('.products-section')
+          .scrollIntoView({ behavior: 'smooth', block: 'start' });
+
+        // Clear any existing timeouts
+        if (window.loadingTimeout) {
+          clearTimeout(window.loadingTimeout);
+        }
+
+        // Apply changes after loading time
+        window.loadingTimeout = setTimeout(() => {
+          try {
+            renderProducts();
+            renderPagination();
+            updateProductCount();
+          } catch (error) {
+            console.error('Error during pagination processing:', error);
+          } finally {
+            // Always hide loading, even if there was an error
+            hideLoading();
+            window.loadingTimeout = null;
+          }
+        }, 800);
       });
       paginationContainer.appendChild(firstPageButton);
 
-      // Ellipsis if needed and not on mobile
-      if (startPage > 2 && !isMobile) {
+      // Ellipsis if needed
+      if (startPage > 2) {
         const ellipsis = document.createElement('div');
         ellipsis.className = 'ellipsis';
         ellipsis.textContent = '...';
         paginationContainer.appendChild(ellipsis);
-      } else if (isMobile && currentPage > 2) {
-        // On mobile, add a compact ellipsis
-        const ellipsis = document.createElement('div');
-        ellipsis.className = 'ellipsis';
-        ellipsis.textContent = '·';
-        paginationContainer.appendChild(ellipsis);
       }
     }
 
-    // Page buttons
+    // Page buttons for the range
     for (let i = startPage; i <= endPage; i++) {
+      // Skip if this is page 1 or the last page and they're already added separately
+      if (
+        (i === 1 && startPage > 1) ||
+        (i === totalPages && endPage < totalPages)
+      ) {
+        continue;
+      }
+
       const pageButton = document.createElement('button');
       pageButton.textContent = i;
       if (i === currentPage) {
@@ -391,25 +646,45 @@ document.addEventListener('DOMContentLoaded', function () {
       }
       pageButton.addEventListener('click', () => {
         currentPage = i;
-        renderProducts();
-        renderPagination();
+
+        // Show loading effect
+        showLoading();
+
+        // Scroll to top of products
+        document
+          .querySelector('.products-section')
+          .scrollIntoView({ behavior: 'smooth', block: 'start' });
+
+        // Clear any existing timeouts
+        if (window.loadingTimeout) {
+          clearTimeout(window.loadingTimeout);
+        }
+
+        // Apply changes after loading time
+        window.loadingTimeout = setTimeout(() => {
+          try {
+            renderProducts();
+            renderPagination();
+            updateProductCount();
+          } catch (error) {
+            console.error('Error during pagination processing:', error);
+          } finally {
+            // Always hide loading, even if there was an error
+            hideLoading();
+            window.loadingTimeout = null;
+          }
+        }, 800);
       });
       paginationContainer.appendChild(pageButton);
     }
 
-    // Last page
-    if (endPage < totalPages || isMobile) {
-      // Ellipsis if needed and not on mobile
-      if (endPage < totalPages - 1 && !isMobile) {
+    // Last page - only add separately if not included in the range
+    if (endPage < totalPages) {
+      // Ellipsis if needed
+      if (endPage < totalPages - 1) {
         const ellipsis = document.createElement('div');
         ellipsis.className = 'ellipsis';
         ellipsis.textContent = '...';
-        paginationContainer.appendChild(ellipsis);
-      } else if (isMobile && currentPage < totalPages - 1) {
-        // On mobile, add a compact ellipsis
-        const ellipsis = document.createElement('div');
-        ellipsis.className = 'ellipsis';
-        ellipsis.textContent = '·';
         paginationContainer.appendChild(ellipsis);
       }
 
@@ -420,8 +695,34 @@ document.addEventListener('DOMContentLoaded', function () {
       }
       lastPageButton.addEventListener('click', () => {
         currentPage = totalPages;
-        renderProducts();
-        renderPagination();
+
+        // Show loading effect
+        showLoading();
+
+        // Scroll to top of products
+        document
+          .querySelector('.products-section')
+          .scrollIntoView({ behavior: 'smooth', block: 'start' });
+
+        // Clear any existing timeouts
+        if (window.loadingTimeout) {
+          clearTimeout(window.loadingTimeout);
+        }
+
+        // Apply changes after loading time
+        window.loadingTimeout = setTimeout(() => {
+          try {
+            renderProducts();
+            renderPagination();
+            updateProductCount();
+          } catch (error) {
+            console.error('Error during pagination processing:', error);
+          } finally {
+            // Always hide loading, even if there was an error
+            hideLoading();
+            window.loadingTimeout = null;
+          }
+        }, 800);
       });
       paginationContainer.appendChild(lastPageButton);
     }
@@ -439,12 +740,34 @@ document.addEventListener('DOMContentLoaded', function () {
     nextButton.addEventListener('click', () => {
       if (currentPage < totalPages) {
         currentPage++;
-        renderProducts();
-        renderPagination();
+
+        // Show loading effect
+        showLoading();
+
         // Scroll to top of products
         document
           .querySelector('.products-section')
           .scrollIntoView({ behavior: 'smooth', block: 'start' });
+
+        // Clear any existing timeouts
+        if (window.loadingTimeout) {
+          clearTimeout(window.loadingTimeout);
+        }
+
+        // Apply changes after loading time
+        window.loadingTimeout = setTimeout(() => {
+          try {
+            renderProducts();
+            renderPagination();
+            updateProductCount();
+          } catch (error) {
+            console.error('Error during pagination processing:', error);
+          } finally {
+            // Always hide loading, even if there was an error
+            hideLoading();
+            window.loadingTimeout = null;
+          }
+        }, 800);
       }
     });
     paginationContainer.appendChild(nextButton);
@@ -484,12 +807,28 @@ document.addEventListener('DOMContentLoaded', function () {
       currentPage = 1;
       filteredProducts = Array.isArray(products) ? [...products] : [];
 
-      // Use setTimeout to avoid potential Safari issues
-      setTimeout(function () {
-        renderProducts();
-        renderPagination();
-        updateProductCount();
-      }, 10);
+      // Clear any existing timeouts
+      if (window.loadingTimeout) {
+        clearTimeout(window.loadingTimeout);
+      }
+
+      // Show loading when resetting filters
+      showLoading();
+
+      // Use setTimeout to avoid potential Safari issues and show loading effect
+      window.loadingTimeout = setTimeout(function () {
+        try {
+          renderProducts();
+          renderPagination();
+          updateProductCount();
+        } catch (error) {
+          console.error('Error during reset processing:', error);
+        } finally {
+          // Always hide loading, even if there was an error
+          hideLoading();
+          window.loadingTimeout = null;
+        }
+      }, 800);
     } catch (error) {
       console.error('Error resetting filters:', error);
       // Attempt recovery
