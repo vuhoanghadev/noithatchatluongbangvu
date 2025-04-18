@@ -28,7 +28,7 @@ const products = [
     category: 'Tủ Bếp',
     image: 'images/products/product2.png',
     description: 'Tủ bếp gỗ công nghiệp, kích thước 200x60x80cm, bền đẹp.',
-    promotion: 'sale 10%',
+    promotion: 'giảm 10%',
     gallery: ['images/products/product2.png', 'images/products/product2.png'],
   },
   {

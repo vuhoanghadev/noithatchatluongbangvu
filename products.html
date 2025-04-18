@@ -33,7 +33,7 @@
         rel="stylesheet">
     <!-- Stylesheets -->
     <link rel="stylesheet" href="css/main.css">
-    <link rel="stylesheet" href="css/products-modern.css">
+    <link rel="stylesheet" href="css/products-premium.css">
     <link rel="stylesheet" href="css/spinner.css">
     <link rel="stylesheet" href="css/search-suggestions.css">
     <link rel="stylesheet" href="css/loading.css">
@@ -42,6 +42,7 @@
     <link rel="stylesheet" href="css/footer-modern.css">
     <link rel="stylesheet" href="css/floating-contact.css">
     <link rel="stylesheet" href="css/back-to-top.css">
+    <link rel="stylesheet" href="css/promo-badge-modern.css">
     <!-- Font Awesome Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css"
         integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA=="
@@ -190,6 +191,23 @@
                         <div class="search-container">
                             <input type="text" id="search-input" placeholder="Nhập tên sản phẩm...">
                             <button class="search-button"><i class="fas fa-search"></i></button>
+                        </div>
+                    </div>
+
+                    <div class="product-count">
+                        <div class="product-count-info">
+                            <i class="fas fa-info-circle"></i>
+                            <span>Hiển thị <strong id="product-count-number">0</strong> của <strong
+                                    id="product-total-number">0</strong> sản phẩm</span>
+                        </div>
+                        <div class="product-count-view">
+                            <label for="products-per-page">Sản phẩm mỗi trang:</label>
+                            <select id="products-per-page">
+                                <option value="12">12</option>
+                                <option value="24">24</option>
+                                <option value="36">36</option>
+                                <option value="48">48</option>
+                            </select>
                         </div>
                     </div>
                 </div>

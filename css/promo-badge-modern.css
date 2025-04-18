@@ -1,0 +1,130 @@
+/* Modern Promotion Badge Styles */
+:root {
+    --promo-primary: #f97316;
+    /* Màu cam chính */
+    --promo-secondary: #fb923c;
+    /* Màu cam nhạt hơn */
+    --promo-gradient: linear-gradient(135deg, var(--promo-primary), var(--promo-secondary));
+    --promo-text: #ffffff;
+    --promo-shadow: 0 3px 10px rgba(249, 115, 22, 0.3);
+    --promo-transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+    --promo-border-radius: 6px;
+}
+
+/* Base Promotion Badge */
+.promo-badge {
+    position: absolute;
+    top: 12px;
+    right: 12px;
+    background: var(--promo-gradient);
+    color: var(--promo-text);
+    padding: 6px 12px;
+    border-radius: var(--promo-border-radius);
+    font-size: 0.8rem;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+    z-index: 10;
+    box-shadow: var(--promo-shadow);
+    transition: var(--promo-transition);
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    text-transform: uppercase;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    backdrop-filter: blur(5px);
+}
+
+.promo-badge i {
+    font-size: 0.75rem;
+}
+
+/* Hover effect */
+.promo-badge:hover {
+    transform: translateY(-3px) scale(1.05);
+    box-shadow: 0 5px 15px rgba(249, 115, 22, 0.4);
+}
+
+/* Ribbon style promotion badge */
+.promo-badge.ribbon {
+    right: -5px;
+    border-top-left-radius: var(--promo-border-radius);
+    border-bottom-left-radius: var(--promo-border-radius);
+    border-top-right-radius: 0;
+    border-bottom-right-radius: 0;
+    padding-right: 15px;
+}
+
+.promo-badge.ribbon::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    right: -10px;
+    width: 0;
+    height: 0;
+    border-style: solid;
+    border-width: 13px 10px 13px 0;
+    border-color: transparent var(--promo-primary) transparent transparent;
+    transform: rotate(180deg);
+}
+
+/* Sale badge specific style */
+.promo-badge.sale {
+    background: linear-gradient(135deg, #f97316, #fdba74);
+    box-shadow: 0 3px 10px rgba(249, 115, 22, 0.3);
+}
+
+.promo-badge.sale:hover {
+    box-shadow: 0 5px 15px rgba(249, 115, 22, 0.4);
+}
+
+/* New badge specific style */
+.promo-badge.new {
+    background: linear-gradient(135deg, #f97316, #fb923c);
+    box-shadow: 0 3px 10px rgba(249, 115, 22, 0.3);
+}
+
+.promo-badge.new:hover {
+    box-shadow: 0 5px 15px rgba(249, 115, 22, 0.4);
+}
+
+/* Special offer badge specific style */
+.promo-badge.special {
+    background: linear-gradient(135deg, #ea580c, #f97316);
+    box-shadow: 0 3px 10px rgba(234, 88, 12, 0.3);
+}
+
+.promo-badge.special:hover {
+    box-shadow: 0 5px 15px rgba(234, 88, 12, 0.4);
+}
+
+/* Pulse animation for important promotions */
+@keyframes pulse {
+    0% {
+        transform: scale(1);
+    }
+
+    50% {
+        transform: scale(1.05);
+    }
+
+    100% {
+        transform: scale(1);
+    }
+}
+
+.promo-badge.pulse {
+    animation: pulse 2s infinite;
+}
+
+.promo-badge.pulse:hover {
+    animation: none;
+    transform: translateY(-3px) scale(1.05);
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .promo-badge {
+        padding: 5px 10px;
+        font-size: 0.75rem;
+    }
+}

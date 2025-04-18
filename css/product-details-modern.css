@@ -109,6 +109,37 @@ body {
     transform: translateZ(0);
     backface-visibility: hidden;
     will-change: transform;
+    cursor: zoom-in;
+    /* Thêm con trỏ zoom-in để chỉ ra rằng ảnh có thể phóng to */
+}
+
+/* Nút hướng dẫn phóng to ảnh */
+.zoom-hint {
+    position: absolute;
+    bottom: 15px;
+    right: 15px;
+    background-color: rgba(0, 0, 0, 0.6);
+    color: white;
+    padding: 8px 12px;
+    border-radius: 20px;
+    font-size: 0.8rem;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    z-index: 5;
+    transition: all 0.3s ease;
+    opacity: 0.8;
+    pointer-events: none;
+    /* Để không cản trở việc click vào ảnh */
+}
+
+.zoom-hint i {
+    font-size: 0.9rem;
+}
+
+.main-image-container:hover .zoom-hint {
+    opacity: 1;
+    transform: translateY(-3px);
 }
 
 .main-image-container img {
@@ -241,8 +272,7 @@ body {
 
 .thumbnails img:hover {
     border-color: var(--product-primary);
-    transform: translateY(-3px);
-    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
 }
 
 .thumbnails img.active {

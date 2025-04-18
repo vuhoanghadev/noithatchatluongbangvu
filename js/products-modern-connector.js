@@ -21,8 +21,28 @@ document.addEventListener('DOMContentLoaded', function () {
 
   // Variables
   let currentPage = 1;
-  const productsPerPage = 12;
+  let productsPerPage = 12;
   let filteredProducts = [...products]; // Use existing products array from products.js
+
+  // Products per page selector
+  const productsPerPageSelect = document.getElementById('products-per-page');
+  if (productsPerPageSelect) {
+    productsPerPageSelect.addEventListener('change', function () {
+      productsPerPage = parseInt(this.value);
+      currentPage = 1; // Reset to first page when changing items per page
+
+      // Show loading effect
+      showLoading();
+
+      // Apply changes after loading time
+      setTimeout(() => {
+        renderProducts();
+        renderPagination();
+        updateProductCount();
+        hideLoading();
+      }, 500);
+    });
+  }
 
   // Initialize with a slight delay for Safari
   setTimeout(
@@ -31,7 +51,7 @@ document.addEventListener('DOMContentLoaded', function () {
         initCategoryFilter();
         renderProducts();
         renderPagination();
-        // updateProductCount(); // Đã bị xóa
+        updateProductCount();
         console.log('Products initialized successfully');
       } catch (error) {
         console.error('Error initializing products:', error);
@@ -1063,8 +1083,46 @@ document.addEventListener('DOMContentLoaded', function () {
 
       if (product.promotion) {
         const badge = document.createElement('div');
-        badge.className = 'product-badge';
-        badge.textContent = product.promotion;
+
+        // Determine badge type based on promotion text
+        let badgeClass = 'promo-badge';
+        let badgeIcon = '';
+
+        if (
+          product.promotion.toLowerCase().includes('sale') ||
+          product.promotion.toLowerCase().includes('giảm')
+        ) {
+          badgeClass += ' sale';
+          badgeIcon = '<i class="fas fa-percent"></i>';
+        } else if (product.promotion.toLowerCase().includes('mới')) {
+          badgeClass += ' new';
+          badgeIcon = '<i class="fas fa-star"></i>';
+        } else if (
+          product.promotion.toLowerCase().includes('đặc biệt') ||
+          product.promotion.toLowerCase().includes('ưu đãi')
+        ) {
+          badgeClass += ' special';
+          badgeIcon = '<i class="fas fa-gift"></i>';
+        } else {
+          badgeIcon = '<i class="fas fa-tag"></i>';
+        }
+
+        // Add ribbon style for longer promotions
+        if (product.promotion.length > 10) {
+          badgeClass += ' ribbon';
+        }
+
+        // Add pulse animation for important promotions
+        if (
+          product.promotion.toLowerCase().includes('hot') ||
+          product.promotion.toLowerCase().includes('đặc biệt') ||
+          product.promotion.toLowerCase().includes('20%')
+        ) {
+          badgeClass += ' pulse';
+        }
+
+        badge.className = badgeClass;
+        badge.innerHTML = badgeIcon + ' ' + product.promotion;
         imageDiv.appendChild(badge);
       }
 
@@ -1220,7 +1278,7 @@ document.addEventListener('DOMContentLoaded', function () {
           try {
             renderProducts();
             renderPagination();
-            // updateProductCount(); // Đã bị xóa
+            updateProductCount();
           } catch (error) {
             console.error('Error during pagination processing:', error);
           } finally {
@@ -1296,7 +1354,7 @@ document.addEventListener('DOMContentLoaded', function () {
           try {
             renderProducts();
             renderPagination();
-            // updateProductCount(); // Đã bị xóa
+            updateProductCount();
           } catch (error) {
             console.error('Error during pagination processing:', error);
           } finally {
@@ -1402,7 +1460,7 @@ document.addEventListener('DOMContentLoaded', function () {
           try {
             renderProducts();
             renderPagination();
-            // updateProductCount(); // Đã bị xóa
+            updateProductCount();
           } catch (error) {
             console.error('Error during pagination processing:', error);
           } finally {
@@ -1462,8 +1520,19 @@ document.addEventListener('DOMContentLoaded', function () {
   }
 
   function updateProductCount() {
-    // Hàm này đã bị xóa
-    return;
+    const productCountElement = document.getElementById('product-count-number');
+    const productTotalElement = document.getElementById('product-total-number');
+
+    if (productCountElement) {
+      const visibleProducts = document.querySelectorAll(
+        '.product-card:not(.hidden)'
+      );
+      productCountElement.textContent = visibleProducts.length;
+    }
+
+    if (productTotalElement) {
+      productTotalElement.textContent = products.length;
+    }
   }
 
   // Expose functions to global scope with Safari compatibility

@@ -48,6 +48,9 @@ document.addEventListener('DOMContentLoaded', function () {
     let galleryHTML = `
             <div class="main-image-container">
                 <img src="${product.image}" alt="${product.name}" id="main-image">
+                <div class="zoom-hint">
+                    <i class="fas fa-search-plus"></i> Click để phóng to
+                </div>
             </div>
             <div class="thumbnails-container">
                 <div class="thumbnails-nav prev" onclick="slideThumbnails('prev')"><i class="fas fa-chevron-left"></i></div>
