@@ -5,9 +5,10 @@
     -webkit-transform: translateZ(0);
     -webkit-backface-visibility: hidden;
     overflow: hidden;
-    transition: box-shadow 0.8s cubic-bezier(0.19, 1, 0.22, 1), transform 0.5s cubic-bezier(0.19, 1, 0.22, 1);
-    -webkit-transition: box-shadow 0.8s cubic-bezier(0.19, 1, 0.22, 1), -webkit-transform 0.5s cubic-bezier(0.19, 1, 0.22, 1);
+    transition: box-shadow 0.3s cubic-bezier(0.19, 1, 0.22, 1), transform 0.3s cubic-bezier(0.19, 1, 0.22, 1);
+    -webkit-transition: box-shadow 0.3s cubic-bezier(0.19, 1, 0.22, 1), -webkit-transform 0.3s cubic-bezier(0.19, 1, 0.22, 1);
     box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+    will-change: transform, box-shadow;
 }
 
 /* Luxury shadow effect for main container */
@@ -76,17 +77,18 @@
     transform: scale(1);
     filter: blur(0);
     -webkit-filter: blur(0);
-    transition: all 0.6s cubic-bezier(0.19, 1, 0.22, 1);
-    -webkit-transition: all 0.6s cubic-bezier(0.19, 1, 0.22, 1);
+    transition: all 0.3s cubic-bezier(0.19, 1, 0.22, 1);
+    -webkit-transition: all 0.3s cubic-bezier(0.19, 1, 0.22, 1);
     z-index: 1;
+    will-change: transform, opacity, filter;
 }
 
 .safari-zoom-blur-container.active {
     opacity: 0;
-    transform: scale(1.1);
-    -webkit-transform: scale(1.1);
-    filter: blur(10px);
-    -webkit-filter: blur(10px);
+    transform: scale(1.05);
+    -webkit-transform: scale(1.05);
+    filter: blur(5px);
+    -webkit-filter: blur(5px);
 }
 
 /* Elegant gradient overlay */
@@ -96,11 +98,12 @@
     left: 0;
     width: 100%;
     height: 100%;
-    background: linear-gradient(135deg, rgba(249, 115, 22, 0.2) 0%, rgba(0, 88, 221, 0.1) 100%);
+    background: linear-gradient(135deg, rgba(249, 115, 22, 0.1) 0%, rgba(0, 88, 221, 0.05) 100%);
     opacity: 0;
-    transition: opacity 0.6s cubic-bezier(0.19, 1, 0.22, 1);
-    -webkit-transition: opacity 0.6s cubic-bezier(0.19, 1, 0.22, 1);
+    transition: opacity 0.3s cubic-bezier(0.19, 1, 0.22, 1);
+    -webkit-transition: opacity 0.3s cubic-bezier(0.19, 1, 0.22, 1);
     z-index: 2;
+    will-change: opacity;
 }
 
 .safari-gradient-overlay.active {
@@ -139,13 +142,14 @@
     height: 100%;
     object-fit: cover;
     opacity: 0;
-    transform: scale(1.05);
-    -webkit-transform: scale(1.05);
-    filter: brightness(1.05) contrast(1.05) saturate(1.05);
-    -webkit-filter: brightness(1.05) contrast(1.05) saturate(1.05);
-    transition: all 0.8s cubic-bezier(0.19, 1, 0.22, 1);
-    -webkit-transition: all 0.8s cubic-bezier(0.19, 1, 0.22, 1);
+    transform: scale(1.02);
+    -webkit-transform: scale(1.02);
+    filter: brightness(1.02) contrast(1.02) saturate(1.02);
+    -webkit-filter: brightness(1.02) contrast(1.02) saturate(1.02);
+    transition: all 0.3s cubic-bezier(0.19, 1, 0.22, 1);
+    -webkit-transition: all 0.3s cubic-bezier(0.19, 1, 0.22, 1);
     z-index: 4;
+    will-change: transform, opacity;
 }
 
 .safari-luxury-image.active {
