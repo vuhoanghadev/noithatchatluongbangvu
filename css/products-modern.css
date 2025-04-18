@@ -498,8 +498,61 @@
     box-shadow: var(--product-shadow);
     margin: 40px auto;
     max-width: 600px;
-    overflow: hidden;
-    /* Xóa thanh cuộn dọc */
+}
+
+/* Safari-specific styles */
+.safari-browser .product-grid {
+    display: grid !important;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)) !important;
+    gap: 30px !important;
+    margin-bottom: 50px !important;
+    overflow: visible !important;
+}
+
+.safari-browser .product-card {
+    display: flex !important;
+    flex-direction: column !important;
+    height: 100% !important;
+    transform: translateZ(0) !important;
+    backface-visibility: hidden !important;
+    -webkit-backface-visibility: hidden !important;
+    -webkit-transform: translateZ(0) !important;
+    will-change: transform !important;
+}
+
+.safari-browser .product-image {
+    flex: 0 0 auto !important;
+    position: relative !important;
+    overflow: hidden !important;
+    aspect-ratio: 1/1 !important;
+    padding-top: 100% !important;
+}
+
+.safari-browser .product-content {
+    flex: 1 1 auto !important;
+    display: flex !important;
+    flex-direction: column !important;
+    padding: 20px !important;
+}
+
+.safari-browser .product-action {
+    margin-top: auto !important;
+}
+
+/* Error recovery styles */
+.error-card {
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    background-color: #f8d7da !important;
+    color: #721c24 !important;
+    padding: 20px !important;
+    text-align: center !important;
+    font-weight: bold !important;
+}
+
+overflow: hidden;
+/* Xóa thanh cuộn dọc */
 }
 
 .empty-state i {

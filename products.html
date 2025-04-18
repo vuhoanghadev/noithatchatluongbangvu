@@ -308,6 +308,9 @@
 
 
     <!-- Scripts -->
+    <!-- Safari Fix Script - Load first -->
+    <script src="js/safari-fix.js"></script>
+
     <script src="js/main.js"></script>
     <script src="js/header.js"></script>
     <script src="js/header-scroll.js"></script>
@@ -317,6 +320,22 @@
     <script src="js/products-modern-connector.js"></script>
     <script src="js/floating-contact.js"></script>
     <script src="js/back-to-top.js"></script>
+
+    <!-- Fallback script for Safari -->
+    <script>
+        // Check if page loaded correctly
+        window.addEventListener('load', function () {
+            setTimeout(function () {
+                const productGrid = document.querySelector('.product-grid');
+                if (productGrid && productGrid.children.length === 0) {
+                    console.log('Products not loaded correctly, attempting recovery...');
+                    if (typeof window.recoverProductsPage === 'function') {
+                        window.recoverProductsPage();
+                    }
+                }
+            }, 1000);
+        });
+    </script>
 </body>
 
 </html>
