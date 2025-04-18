@@ -14,7 +14,7 @@
     // Override the global changeMainImage function for Safari
     window.originalChangeMainImage = window.changeMainImage;
 
-    // Beautiful fade effect for Safari version of changeMainImage
+    // Premium image display effect for Safari version of changeMainImage
     window.changeMainImage = function (thumbnail, imageSrc) {
       // Get the main image element
       const mainImage = document.getElementById('main-image');
@@ -36,77 +36,138 @@
       // Clear any existing content
       transitionContainer.innerHTML = '';
 
-      // Create a subtle overlay for the elegant fade effect
-      const overlay = document.createElement('div');
-      overlay.className = 'safari-fade-overlay';
-      transitionContainer.appendChild(overlay);
+      // Create a backdrop blur overlay for depth effect
+      const blurOverlay = document.createElement('div');
+      blurOverlay.className = 'safari-blur-overlay';
+      transitionContainer.appendChild(blurOverlay);
 
-      // Create a new image for the beautiful fade transition
+      // Create a gradient overlay for premium look
+      const gradientOverlay = document.createElement('div');
+      gradientOverlay.className = 'safari-gradient-overlay';
+      transitionContainer.appendChild(gradientOverlay);
+
+      // Create particles container for luxury effect
+      const particlesContainer = document.createElement('div');
+      particlesContainer.className = 'safari-particles-container';
+      transitionContainer.appendChild(particlesContainer);
+
+      // Add particles
+      for (let i = 0; i < 15; i++) {
+        const particle = document.createElement('div');
+        particle.className = 'safari-particle';
+        particle.style.left = `${Math.random() * 100}%`;
+        particle.style.top = `${Math.random() * 100}%`;
+        particle.style.animationDelay = `${Math.random() * 0.5}s`;
+        particle.style.animationDuration = `${0.5 + Math.random() * 0.5}s`;
+        particlesContainer.appendChild(particle);
+      }
+
+      // Create a new image for the premium transition
       const newImage = document.createElement('img');
       newImage.src = imageSrc;
       newImage.alt = mainImage.alt;
-      newImage.className = 'safari-fade-image';
+      newImage.className = 'safari-premium-image';
       transitionContainer.appendChild(newImage);
 
-      // Add a subtle shine effect element
-      const shineEffect = document.createElement('div');
-      shineEffect.className = 'safari-shine-effect';
-      transitionContainer.appendChild(shineEffect);
+      // Create a vignette overlay for depth
+      const vignetteOverlay = document.createElement('div');
+      vignetteOverlay.className = 'safari-vignette-overlay';
+      transitionContainer.appendChild(vignetteOverlay);
 
-      // Start the beautiful transition sequence with faster timing
-      // First, show the overlay immediately
-      setTimeout(() => {
-        overlay.classList.add('active');
-      }, 5);
+      // Add a shine sweep effect element
+      const shineSweep = document.createElement('div');
+      shineSweep.className = 'safari-shine-sweep';
+      transitionContainer.appendChild(shineSweep);
 
-      // Then fade in the new image quickly
-      setTimeout(() => {
-        newImage.classList.add('fade-in');
-      }, 50);
+      // Add a subtle glow effect
+      const glowEffect = document.createElement('div');
+      glowEffect.className = 'safari-glow-effect';
+      transitionContainer.appendChild(glowEffect);
 
-      // Add the shine effect
+      // Start the premium transition sequence
+      // First, show the blur overlay
       setTimeout(() => {
-        shineEffect.classList.add('active');
+        blurOverlay.classList.add('active');
+      }, 10);
+
+      // Then show the gradient overlay
+      setTimeout(() => {
+        gradientOverlay.classList.add('active');
+      }, 100);
+
+      // Activate particles
+      setTimeout(() => {
+        particlesContainer.classList.add('active');
       }, 150);
 
-      // After fade completes (0.3s), update the main image and clean up
+      // Fade in the new image with scale effect
+      setTimeout(() => {
+        newImage.classList.add('active');
+      }, 200);
+
+      // Add the vignette effect
+      setTimeout(() => {
+        vignetteOverlay.classList.add('active');
+      }, 300);
+
+      // Add the shine sweep effect
+      setTimeout(() => {
+        shineSweep.classList.add('active');
+      }, 400);
+
+      // Add the glow effect
+      setTimeout(() => {
+        glowEffect.classList.add('active');
+      }, 500);
+
+      // After all effects complete, update the main image and clean up
       setTimeout(() => {
         mainImage.src = imageSrc;
         transitionContainer.innerHTML = '';
-      }, 350);
+      }, 1200);
 
-      // Add a subtle pulse to the container with faster timing
-      mainImageContainer.classList.add('safari-subtle-pulse');
+      // Add a premium animation to the container
+      mainImageContainer.classList.add('safari-premium-animation');
       setTimeout(() => {
-        mainImageContainer.classList.remove('safari-subtle-pulse');
-      }, 350);
+        mainImageContainer.classList.remove('safari-premium-animation');
+      }, 1200);
 
-      // Update active thumbnail with elegant effect
+      // Update active thumbnail with premium effect
       const thumbnails = document.querySelectorAll('.thumbnails img');
       thumbnails.forEach((thumb) => {
         thumb.classList.remove('active');
+        thumb.classList.remove('premium-active');
       });
 
-      // Add active class to clicked thumbnail with beautiful effect
+      // Add active class to clicked thumbnail with premium effect
       thumbnail.classList.add('active');
+      thumbnail.classList.add('premium-active');
 
-      // Add a subtle highlight effect to the thumbnail
-      const highlightEffect = document.createElement('div');
-      highlightEffect.className = 'safari-thumbnail-highlight';
-      thumbnail.appendChild(highlightEffect);
+      // Add a premium highlight effect to the thumbnail
+      const thumbnailGlow = document.createElement('div');
+      thumbnailGlow.className = 'safari-thumbnail-glow';
+      thumbnail.appendChild(thumbnailGlow);
 
-      // Remove the highlight effect after animation with faster timing
+      // Add a ripple effect to the thumbnail
+      const rippleEffect = document.createElement('div');
+      rippleEffect.className = 'safari-ripple-effect';
+      thumbnail.appendChild(rippleEffect);
+
+      // Remove the effects after animation
       setTimeout(() => {
-        if (thumbnail.contains(highlightEffect)) {
-          thumbnail.removeChild(highlightEffect);
+        if (thumbnail.contains(thumbnailGlow)) {
+          thumbnail.removeChild(thumbnailGlow);
         }
-      }, 350);
+        if (thumbnail.contains(rippleEffect)) {
+          thumbnail.removeChild(rippleEffect);
+        }
+      }, 1000);
     };
 
-    // Add beautiful fade effect Safari-specific CSS
+    // Add premium image display effect Safari-specific CSS
     const safariStyles = document.createElement('style');
     safariStyles.textContent = `
-            /* Safari-specific styles for product gallery */
+            /* Safari-specific styles for premium product gallery */
             .safari-browser .main-image-container {
                 transform: translateZ(0);
                 -webkit-transform: translateZ(0);
@@ -114,13 +175,15 @@
                 -webkit-backface-visibility: hidden;
                 will-change: transform;
                 overflow: hidden;
-                transition: box-shadow 0.5s ease;
-                -webkit-transition: box-shadow 0.5s ease;
+                transition: box-shadow 0.6s cubic-bezier(0.19, 1, 0.22, 1), transform 0.6s cubic-bezier(0.19, 1, 0.22, 1);
+                -webkit-transition: box-shadow 0.6s cubic-bezier(0.19, 1, 0.22, 1), -webkit-transform 0.6s cubic-bezier(0.19, 1, 0.22, 1);
             }
 
-            /* Subtle pulse effect for main container */
-            .safari-browser .main-image-container.safari-subtle-pulse {
-                box-shadow: 0 8px 25px rgba(249, 115, 22, 0.25);
+            /* Premium animation for main container */
+            .safari-browser .main-image-container.safari-premium-animation {
+                box-shadow: 0 15px 35px rgba(249, 115, 22, 0.3);
+                transform: scale(1.01);
+                -webkit-transform: scale(1.01);
             }
 
             .safari-browser .main-image-container img {
@@ -131,7 +194,7 @@
                 will-change: transform;
             }
 
-            /* Beautiful transition container */
+            /* Premium transition container */
             .safari-image-transition-container {
                 position: absolute;
                 top: 0;
@@ -144,26 +207,88 @@
                 border-radius: var(--product-card-radius);
             }
 
-            /* Elegant overlay for fade effect */
-            .safari-fade-overlay {
+            /* Blur overlay for depth effect */
+            .safari-blur-overlay {
                 position: absolute;
                 top: 0;
                 left: 0;
                 width: 100%;
                 height: 100%;
-                background: linear-gradient(135deg, rgba(249, 115, 22, 0.1) 0%, rgba(249, 115, 22, 0.05) 100%);
+                backdrop-filter: blur(0px);
+                -webkit-backdrop-filter: blur(0px);
                 opacity: 0;
-                transition: opacity 0.4s ease;
-                -webkit-transition: opacity 0.4s ease;
+                transition: opacity 0.4s ease, backdrop-filter 0.4s ease;
+                -webkit-transition: opacity 0.4s ease, -webkit-backdrop-filter 0.4s ease;
                 z-index: 1;
             }
 
-            .safari-fade-overlay.active {
+            .safari-blur-overlay.active {
+                opacity: 1;
+                backdrop-filter: blur(10px);
+                -webkit-backdrop-filter: blur(10px);
+            }
+
+            /* Gradient overlay for premium look */
+            .safari-gradient-overlay {
+                position: absolute;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                background: linear-gradient(135deg, rgba(249, 115, 22, 0.2) 0%, rgba(0, 88, 221, 0.1) 100%);
+                opacity: 0;
+                transition: opacity 0.5s ease;
+                -webkit-transition: opacity 0.5s ease;
+                z-index: 2;
+            }
+
+            .safari-gradient-overlay.active {
                 opacity: 1;
             }
 
-            /* Beautiful fade image transition */
-            .safari-fade-image {
+            /* Particles container for luxury effect */
+            .safari-particles-container {
+                position: absolute;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                z-index: 3;
+                opacity: 0;
+                transition: opacity 0.3s ease;
+                -webkit-transition: opacity 0.3s ease;
+            }
+
+            .safari-particles-container.active {
+                opacity: 1;
+            }
+
+            /* Individual particles */
+            .safari-particle {
+                position: absolute;
+                width: 8px;
+                height: 8px;
+                background: rgba(255, 255, 255, 0.6);
+                border-radius: 50%;
+                opacity: 0;
+                animation: safari-particle-fade 0.8s ease forwards;
+                -webkit-animation: safari-particle-fade 0.8s ease forwards;
+            }
+
+            @keyframes safari-particle-fade {
+                0% { opacity: 0; transform: scale(0); }
+                50% { opacity: 0.8; transform: scale(1); }
+                100% { opacity: 0; transform: scale(1.5); }
+            }
+
+            @-webkit-keyframes safari-particle-fade {
+                0% { opacity: 0; -webkit-transform: scale(0); }
+                50% { opacity: 0.8; -webkit-transform: scale(1); }
+                100% { opacity: 0; -webkit-transform: scale(1.5); }
+            }
+
+            /* Premium image transition */
+            .safari-premium-image {
                 position: absolute;
                 top: 0;
                 left: 0;
@@ -171,19 +296,41 @@
                 height: 100%;
                 object-fit: cover;
                 opacity: 0;
-                filter: brightness(1.03);
-                -webkit-filter: brightness(1.03);
-                transition: opacity 0.6s ease;
-                -webkit-transition: opacity 0.6s ease;
-                z-index: 2;
+                transform: scale(1.05);
+                -webkit-transform: scale(1.05);
+                filter: brightness(1.05) contrast(1.05) saturate(1.05);
+                -webkit-filter: brightness(1.05) contrast(1.05) saturate(1.05);
+                transition: opacity 0.8s cubic-bezier(0.19, 1, 0.22, 1), transform 0.8s cubic-bezier(0.19, 1, 0.22, 1);
+                -webkit-transition: opacity 0.8s cubic-bezier(0.19, 1, 0.22, 1), -webkit-transform 0.8s cubic-bezier(0.19, 1, 0.22, 1);
+                z-index: 4;
             }
 
-            .safari-fade-image.fade-in {
+            .safari-premium-image.active {
+                opacity: 1;
+                transform: scale(1);
+                -webkit-transform: scale(1);
+            }
+
+            /* Vignette overlay for depth */
+            .safari-vignette-overlay {
+                position: absolute;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                background: radial-gradient(circle, transparent 60%, rgba(0, 0, 0, 0.2) 100%);
+                opacity: 0;
+                transition: opacity 0.6s ease;
+                -webkit-transition: opacity 0.6s ease;
+                z-index: 5;
+            }
+
+            .safari-vignette-overlay.active {
                 opacity: 1;
             }
 
-            /* Elegant shine effect */
-            .safari-shine-effect {
+            /* Shine sweep effect */
+            .safari-shine-sweep {
                 position: absolute;
                 top: -100%;
                 left: -100%;
@@ -193,22 +340,41 @@
                 transform: rotate(45deg);
                 -webkit-transform: rotate(45deg);
                 opacity: 0;
-                transition: opacity 0.4s ease, transform 1.2s ease;
-                -webkit-transition: opacity 0.4s ease, -webkit-transform 1.2s ease;
-                z-index: 3;
+                transition: opacity 0.4s ease, transform 1.5s cubic-bezier(0.19, 1, 0.22, 1);
+                -webkit-transition: opacity 0.4s ease, -webkit-transform 1.5s cubic-bezier(0.19, 1, 0.22, 1);
+                z-index: 6;
                 pointer-events: none;
             }
 
-            .safari-shine-effect.active {
-                opacity: 0.6;
+            .safari-shine-sweep.active {
+                opacity: 0.7;
                 transform: rotate(45deg) translate(100%, 100%);
                 -webkit-transform: rotate(45deg) translate(100%, 100%);
             }
 
-            /* Beautiful thumbnail effects */
+            /* Glow effect */
+            .safari-glow-effect {
+                position: absolute;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                box-shadow: inset 0 0 30px rgba(249, 115, 22, 0.3);
+                border-radius: var(--product-card-radius);
+                opacity: 0;
+                transition: opacity 0.6s ease;
+                -webkit-transition: opacity 0.6s ease;
+                z-index: 7;
+            }
+
+            .safari-glow-effect.active {
+                opacity: 1;
+            }
+
+            /* Premium thumbnail effects */
             .safari-browser .thumbnails img {
-                transition: all 0.4s ease;
-                -webkit-transition: all 0.4s ease;
+                transition: all 0.5s cubic-bezier(0.19, 1, 0.22, 1);
+                -webkit-transition: all 0.5s cubic-bezier(0.19, 1, 0.22, 1);
                 border: 2px solid transparent;
                 position: relative;
                 overflow: hidden;
@@ -216,44 +382,85 @@
 
             .safari-browser .thumbnails img:hover {
                 border-color: rgba(249, 115, 22, 0.5);
-                transform: translateY(-2px);
-                -webkit-transform: translateY(-2px);
-                box-shadow: 0 4px 10px rgba(249, 115, 22, 0.2);
+                transform: translateY(-3px) scale(1.05);
+                -webkit-transform: translateY(-3px) scale(1.05);
+                box-shadow: 0 8px 15px rgba(249, 115, 22, 0.2);
             }
 
             .safari-browser .thumbnails img.active {
                 border-color: var(--product-primary);
-                transform: translateY(-4px);
-                -webkit-transform: translateY(-4px);
-                box-shadow: 0 6px 15px rgba(249, 115, 22, 0.3);
+                transform: translateY(-5px) scale(1.08);
+                -webkit-transform: translateY(-5px) scale(1.08);
+                box-shadow: 0 10px 20px rgba(249, 115, 22, 0.3);
             }
 
-            /* Subtle highlight effect for thumbnails */
-            .safari-thumbnail-highlight {
+            .safari-browser .thumbnails img.premium-active {
+                animation: safari-thumbnail-pulse 1.5s infinite alternate;
+                -webkit-animation: safari-thumbnail-pulse 1.5s infinite alternate;
+            }
+
+            @keyframes safari-thumbnail-pulse {
+                0% { box-shadow: 0 10px 20px rgba(249, 115, 22, 0.3); }
+                100% { box-shadow: 0 10px 25px rgba(249, 115, 22, 0.5); }
+            }
+
+            @-webkit-keyframes safari-thumbnail-pulse {
+                0% { box-shadow: 0 10px 20px rgba(249, 115, 22, 0.3); }
+                100% { box-shadow: 0 10px 25px rgba(249, 115, 22, 0.5); }
+            }
+
+            /* Thumbnail glow effect */
+            .safari-thumbnail-glow {
                 position: absolute;
                 top: 0;
                 left: 0;
                 width: 100%;
                 height: 100%;
-                background: radial-gradient(circle, rgba(249, 115, 22, 0.3) 0%, rgba(249, 115, 22, 0) 70%);
+                background: radial-gradient(circle, rgba(249, 115, 22, 0.5) 0%, rgba(249, 115, 22, 0) 70%);
                 opacity: 0;
-                animation: safari-thumbnail-highlight 0.8s ease;
-                -webkit-animation: safari-thumbnail-highlight 0.8s ease;
+                animation: safari-thumbnail-glow 1s cubic-bezier(0.19, 1, 0.22, 1);
+                -webkit-animation: safari-thumbnail-glow 1s cubic-bezier(0.19, 1, 0.22, 1);
                 pointer-events: none;
                 z-index: 2;
                 border-radius: 6px;
             }
 
-            @keyframes safari-thumbnail-highlight {
-                0% { opacity: 0; }
-                40% { opacity: 0.7; }
-                100% { opacity: 0; }
+            @keyframes safari-thumbnail-glow {
+                0% { opacity: 0; transform: scale(0.5); }
+                50% { opacity: 0.9; transform: scale(1.1); }
+                100% { opacity: 0; transform: scale(1.5); }
             }
 
-            @-webkit-keyframes safari-thumbnail-highlight {
-                0% { opacity: 0; }
-                40% { opacity: 0.7; }
-                100% { opacity: 0; }
+            @-webkit-keyframes safari-thumbnail-glow {
+                0% { opacity: 0; -webkit-transform: scale(0.5); }
+                50% { opacity: 0.9; -webkit-transform: scale(1.1); }
+                100% { opacity: 0; -webkit-transform: scale(1.5); }
+            }
+
+            /* Ripple effect for thumbnails */
+            .safari-ripple-effect {
+                position: absolute;
+                top: 50%;
+                left: 50%;
+                width: 0;
+                height: 0;
+                background: rgba(249, 115, 22, 0.3);
+                border-radius: 50%;
+                transform: translate(-50%, -50%);
+                -webkit-transform: translate(-50%, -50%);
+                animation: safari-ripple 0.8s ease-out;
+                -webkit-animation: safari-ripple 0.8s ease-out;
+                z-index: 1;
+            }
+
+            @keyframes safari-ripple {
+                0% { width: 0; height: 0; opacity: 0.5; }
+                100% { width: 200%; height: 200%; opacity: 0; }
+            }
+
+            @-webkit-keyframes safari-ripple {
+                0% { width: 0; height: 0; opacity: 0.5; }
+                100% { width: 200%; height: 200%; opacity: 0; }
             }
 
             /* Disable problematic animations on Safari */
