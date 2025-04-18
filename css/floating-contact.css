@@ -395,6 +395,44 @@
     }
 }
 
+/* Touch-specific styles */
+.floating-contact-button.touch-active {
+    transform: scale(0.95);
+    transition: transform 0.1s;
+}
+
+/* Ensure animations work on all mobile devices */
+@media (max-width: 1024px) {
+
+    /* Force animations to work on mobile */
+    .floating-contact-phone i,
+    .floating-contact-zalo img,
+    .floating-contact-messenger i {
+        animation-play-state: running !important;
+        will-change: transform;
+        transform: translateZ(0);
+        backface-visibility: hidden;
+        -webkit-animation-play-state: running !important;
+        -webkit-backface-visibility: hidden;
+    }
+
+    /* Class added via JS when mobile animations are applied */
+    .floating-contact.mobile-animations-applied .floating-contact-phone i {
+        animation: shake-mobile 6s ease-in-out infinite !important;
+        -webkit-animation: shake-mobile 6s ease-in-out infinite !important;
+    }
+
+    .floating-contact.mobile-animations-applied .floating-contact-zalo img {
+        animation: bounce-mobile 6s ease-in-out infinite 2s !important;
+        -webkit-animation: bounce-mobile 6s ease-in-out infinite 2s !important;
+    }
+
+    .floating-contact.mobile-animations-applied .floating-contact-messenger i {
+        animation: spin-mobile 6s ease-in-out infinite 4s !important;
+        -webkit-animation: spin-mobile 6s ease-in-out infinite 4s !important;
+    }
+}
+
 /* Responsive */
 @media (max-width: 768px) {
     .floating-contact {
@@ -420,6 +458,184 @@
 
     .floating-contact-label {
         display: none;
+    }
+
+    /* Mobile-specific animations */
+    .floating-contact-button::after {
+        animation: pulse-mobile 2s infinite;
+    }
+
+    .floating-contact-phone::after {
+        animation: pulse-mobile 2s infinite;
+    }
+
+    .floating-contact-zalo::after {
+        animation: pulse-mobile 2s infinite 0.7s;
+    }
+
+    .floating-contact-messenger::after {
+        animation: pulse-mobile 2s infinite 1.4s;
+    }
+
+    @keyframes pulse-mobile {
+        0% {
+            transform: scale(1);
+            opacity: 0.3;
+        }
+
+        50% {
+            transform: scale(1.15);
+            opacity: 0.1;
+        }
+
+        100% {
+            transform: scale(1);
+            opacity: 0.3;
+        }
+    }
+
+    /* Mobile-specific icon animations */
+    .floating-contact-phone i {
+        animation: shake-mobile 6s ease-in-out infinite;
+    }
+
+    .floating-contact-zalo img {
+        animation: bounce-mobile 6s ease-in-out infinite 2s;
+    }
+
+    .floating-contact-messenger i {
+        animation: spin-mobile 6s ease-in-out infinite 4s;
+    }
+
+    /* Touch-specific ripple effect */
+    .contact-ripple {
+        background: rgba(255, 255, 255, 0.5);
+        animation: ripple-mobile 0.8s ease-out;
+    }
+
+    @keyframes ripple-mobile {
+        to {
+            transform: scale(2.2);
+            opacity: 0;
+        }
+    }
+
+    @keyframes shake-mobile {
+
+        0%,
+        100% {
+            transform: rotate(0);
+        }
+
+        2%,
+        4% {
+            transform: rotate(-8deg);
+        }
+
+        3%,
+        5% {
+            transform: rotate(8deg);
+        }
+
+        6% {
+            transform: rotate(0);
+        }
+    }
+
+    @-webkit-keyframes shake-mobile {
+
+        0%,
+        100% {
+            -webkit-transform: rotate(0);
+        }
+
+        2%,
+        4% {
+            -webkit-transform: rotate(-8deg);
+        }
+
+        3%,
+        5% {
+            -webkit-transform: rotate(8deg);
+        }
+
+        6% {
+            -webkit-transform: rotate(0);
+        }
+    }
+
+    @keyframes bounce-mobile {
+
+        0%,
+        100% {
+            transform: translateY(0);
+        }
+
+        2% {
+            transform: translateY(-6px);
+        }
+
+        4% {
+            transform: translateY(0);
+        }
+
+        6% {
+            transform: translateY(-3px);
+        }
+
+        8% {
+            transform: translateY(0);
+        }
+    }
+
+    @-webkit-keyframes bounce-mobile {
+
+        0%,
+        100% {
+            -webkit-transform: translateY(0);
+        }
+
+        2% {
+            -webkit-transform: translateY(-6px);
+        }
+
+        4% {
+            -webkit-transform: translateY(0);
+        }
+
+        6% {
+            -webkit-transform: translateY(-3px);
+        }
+
+        8% {
+            -webkit-transform: translateY(0);
+        }
+    }
+
+    @keyframes spin-mobile {
+
+        0%,
+        100% {
+            transform: rotate(0);
+        }
+
+        2%,
+        6% {
+            transform: rotate(360deg);
+        }
+    }
+
+    @-webkit-keyframes spin-mobile {
+
+        0%,
+        100% {
+            -webkit-transform: rotate(0);
+        }
+
+        2%,
+        6% {
+            -webkit-transform: rotate(360deg);
+        }
     }
 }
 
@@ -448,20 +664,36 @@
         height: 22px;
     }
 
-    /* Reduce animation intensity on mobile */
-    .floating-contact-button::after {
-        animation: none;
-    }
-
-    .floating-contact-phone i,
-    .floating-contact-zalo img,
-    .floating-contact-messenger i {
-        animation: none;
-    }
-
     /* Improve touch target */
     .floating-contact-button:active {
         transform: scale(0.95);
         transition: transform 0.1s;
+    }
+
+    /* Ensure animations work on small mobile devices too */
+    .floating-contact-phone i {
+        animation: shake-mobile 6s ease-in-out infinite !important;
+        -webkit-animation: shake-mobile 6s ease-in-out infinite !important;
+    }
+
+    .floating-contact-zalo img {
+        animation: bounce-mobile 6s ease-in-out infinite 2s !important;
+        -webkit-animation: bounce-mobile 6s ease-in-out infinite 2s !important;
+    }
+
+    .floating-contact-messenger i {
+        animation: spin-mobile 6s ease-in-out infinite 4s !important;
+        -webkit-animation: spin-mobile 6s ease-in-out infinite 4s !important;
+    }
+
+    /* Force hardware acceleration */
+    .floating-contact-button i,
+    .floating-contact-button img {
+        transform: translateZ(0);
+        -webkit-transform: translateZ(0);
+        backface-visibility: hidden;
+        -webkit-backface-visibility: hidden;
+        perspective: 1000px;
+        -webkit-perspective: 1000px;
     }
 }
