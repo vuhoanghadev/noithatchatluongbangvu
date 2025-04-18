@@ -94,7 +94,7 @@
     flex-shrink: 0;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
     /* Simplify transitions */
-    transition: border-color 0.3s ease;
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
     transform: none !important;
 }
 
@@ -105,6 +105,17 @@
 .safari-browser .thumbnails img.active {
     border-color: #f97316;
     box-shadow: 0 5px 15px rgba(249, 115, 22, 0.2);
+}
+
+/* Ensure active state is very clear */
+.safari-browser .thumbnails img.active::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 3px;
+    background-color: #f97316;
 }
 
 /* Disable all problematic animations on Safari */
