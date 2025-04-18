@@ -73,25 +73,26 @@
       window.originalChangeMainImage = window.changeMainImage;
 
       // Safari-specific version of changeMainImage - simplified
-      window.changeMainImage = function (thumbnail, imageSrc) {
+      window.changeMainImage = function (_, imageSrc) {
         // Simply change the src attribute directly
         if (mainImage) {
           mainImage.src = imageSrc;
         }
 
-        // Update active thumbnail
-        thumbnails.forEach((thumb) => {
-          thumb.classList.remove('active');
-        });
-
-        // Add active class to clicked thumbnail
-        thumbnail.classList.add('active');
+        // Note: We don't update active class here anymore
+        // This is now handled directly in the click handler
       };
 
+      // Create a collection to store all new thumbnails
+      const newThumbnails = [];
+
       // Simplify thumbnail click handlers
-      thumbnails.forEach((thumb, index) => {
+      thumbnails.forEach((thumb) => {
         // Clone and replace to remove all event listeners
         const newThumb = thumb.cloneNode(true);
+
+        // Store in our collection
+        newThumbnails.push(newThumb);
 
         // Add simple click handler
         newThumb.addEventListener('click', function () {
@@ -104,16 +105,30 @@
               imageSrc = match[1];
             }
           }
-          changeMainImage(this, imageSrc);
+
+          // Remove active class from all thumbnails first
+          newThumbnails.forEach((t) => t.classList.remove('active'));
+
+          // Add active class to this thumbnail
+          this.classList.add('active');
+
+          // Change main image
+          if (mainImage) {
+            mainImage.src = imageSrc;
+          }
         });
 
-        // Set active class for first thumbnail by default
-        if (index === 0) {
-          newThumb.classList.add('active');
-        }
-
+        // Replace the original thumbnail
         thumb.parentNode.replaceChild(newThumb, thumb);
       });
+
+      // Set active class for first thumbnail by default
+      if (newThumbnails.length > 0) {
+        // Remove active class from all thumbnails first
+        newThumbnails.forEach((t) => t.classList.remove('active'));
+        // Add active class to first thumbnail
+        newThumbnails[0].classList.add('active');
+      }
 
       // Ensure first thumbnail is active if none are active
       const activeThumb = thumbnailsSlider.querySelector('img.active');
