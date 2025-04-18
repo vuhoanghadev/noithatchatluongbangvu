@@ -1,186 +1,162 @@
 /**
  * Safari Content Visibility Fix
- *
- * Script này sửa lỗi hiển thị nội dung trên Safari, nơi nội dung chỉ xuất hiện
- * trong thời gian ngắn rồi biến mất hoặc chỉ hiển thị khi cuộn trang.
+ * 
+ * Este script corrige um problema específico no Safari onde o conteúdo da página
+ * product-details.html não é exibido até que o usuário role a página.
  */
-(function () {
-  // Phát hiện Safari
-  const isSafari = /^((?!chrome|android).)*safari/i.test(navigator.userAgent);
-
-  if (isSafari) {
-    console.log(
-      'Safari được phát hiện, đang áp dụng sửa lỗi hiển thị nội dung...'
-    );
-
-    // Vô hiệu hóa tất cả các animation có thể gây ra vấn đề
-    const disableAnimations = function () {
-      // Tạo style để vô hiệu hóa tất cả các animation
-      const styleOverride = document.createElement('style');
-      styleOverride.id = 'safari-animation-fix';
-      styleOverride.textContent = `
-                * {
+(function() {
+    // Detectar Safari
+    const isSafari = /^((?!chrome|android).)*safari/i.test(navigator.userAgent);
+    
+    if (isSafari) {
+        console.log('Safari detectado, aplicando correções para visibilidade de conteúdo...');
+        
+        // Adicionar classe ao body para estilos específicos do Safari
+        document.documentElement.classList.add('safari-browser');
+        
+        // Desativar animações problemáticas no Safari
+        const disableProblemAnimations = function() {
+            // Adicionar estilos inline para sobrescrever animações
+            const style = document.createElement('style');
+            style.textContent = `
+                /* Desativar animações problemáticas no Safari */
+                .product-card {
+                    opacity: 1 !important;
+                    transform: translateY(0) !important;
+                    -webkit-transform: translateY(0) !important;
                     animation: none !important;
-                    transition: none !important;
-                    opacity: 1 !important;
-                    visibility: visible !important;
+                    -webkit-animation: none !important;
+                    transition: box-shadow 0.3s ease !important;
+                    -webkit-transition: box-shadow 0.3s ease !important;
                 }
-
-                .product-card, .fade-in, .fade-out {
+                
+                .product-card.fade-in {
                     opacity: 1 !important;
-                    transform: none !important;
+                    transform: translateY(0) !important;
+                    -webkit-transform: translateY(0) !important;
                     animation: none !important;
-                    transition: none !important;
+                    -webkit-animation: none !important;
                 }
-
-                .product-container, .product-gallery, .product-info,
-                .related-products, .customers-also-liked {
+                
+                /* Garantir que o conteúdo principal seja visível */
+                .product-container,
+                .product-gallery,
+                .product-info,
+                .related-products,
+                .customers-also-liked,
+                .product-grid {
                     opacity: 1 !important;
                     visibility: visible !important;
-                    display: block !important;
-                }
-
-                .main-image-container img {
-                    opacity: 1 !important;
                     transform: none !important;
-                    transition: none !important;
+                    -webkit-transform: none !important;
+                    animation: none !important;
+                    -webkit-animation: none !important;
                 }
-
-                /* Đảm bảo tất cả các phần tử đều hiển thị */
-                html, body, .product-details-section, .container {
-                    height: auto !important;
-                    min-height: 100% !important;
-                    visibility: visible !important;
+                
+                /* Corrigir problema de visibilidade no Safari */
+                .product-details-section {
                     opacity: 1 !important;
+                    visibility: visible !important;
+                }
+                
+                /* Melhorar desempenho de renderização */
+                .main-image-container,
+                .thumbnails,
+                .product-card,
+                .product-grid {
+                    transform: translateZ(0);
+                    -webkit-transform: translateZ(0);
+                    backface-visibility: hidden;
+                    -webkit-backface-visibility: hidden;
+                    will-change: transform;
                 }
             `;
-      document.head.appendChild(styleOverride);
-    };
-
-    // Ghi đè các hàm JavaScript có thể gây ra vấn đề
-    const overrideProblemFunctions = function () {
-      // Ghi đè hàm changeMainImage để không có animation
-      if (typeof window.changeMainImage === 'function') {
-        const originalChangeMainImage = window.changeMainImage;
-        window.changeMainImage = function (thumbnail, imageSrc) {
-          // Thay đổi hình ảnh trực tiếp không có animation
-          const mainImage = document.getElementById('main-image');
-          if (mainImage) {
-            mainImage.src = imageSrc;
-          }
-
-          // Cập nhật thumbnail active
-          const thumbnails = document.querySelectorAll('.thumbnails img');
-          thumbnails.forEach((thumb) => {
-            thumb.classList.remove('active');
-          });
-          thumbnail.classList.add('active');
+            document.head.appendChild(style);
         };
-      }
-
-      // Ghi đè các hàm setTimeout liên quan đến animation
-      const originalSetTimeout = window.setTimeout;
-      window.setTimeout = function (callback, delay, ...args) {
-        // Nếu delay nhỏ và có thể là animation, thực thi ngay lập tức
-        if (delay < 600 && typeof callback === 'function') {
-          try {
-            callback(...args);
-            return 0; // Trả về ID giả
-          } catch (e) {
-            console.error('Error executing immediate callback:', e);
-          }
+        
+        // Forçar reflow/repaint para garantir que o conteúdo seja exibido
+        const forceRepaint = function() {
+            // Elementos principais que precisam ser visíveis
+            const criticalElements = [
+                '.product-container',
+                '.product-gallery',
+                '.product-info',
+                '.related-products',
+                '.customers-also-liked',
+                '.product-grid'
+            ];
+            
+            // Aplicar correções para cada elemento
+            criticalElements.forEach(selector => {
+                const elements = document.querySelectorAll(selector);
+                elements.forEach(el => {
+                    if (el) {
+                        // Forçar reflow/repaint
+                        el.style.display = 'none';
+                        void el.offsetHeight; // Trigger reflow
+                        el.style.display = '';
+                        
+                        // Garantir visibilidade
+                        el.style.opacity = '1';
+                        el.style.visibility = 'visible';
+                    }
+                });
+            });
+            
+            // Forçar reflow geral
+            document.body.style.zoom = '0.99999';
+            void document.body.offsetHeight;
+            document.body.style.zoom = '1';
+        };
+        
+        // Corrigir problema de fade-in nos cards de produto
+        const fixProductCards = function() {
+            const productCards = document.querySelectorAll('.product-card');
+            productCards.forEach(card => {
+                card.style.opacity = '1';
+                card.style.transform = 'translateY(0)';
+                card.classList.add('fade-in');
+            });
+        };
+        
+        // Aplicar todas as correções
+        const applyAllFixes = function() {
+            disableProblemAnimations();
+            forceRepaint();
+            fixProductCards();
+            
+            // Adicionar classe para efeito sutil após carregamento
+            setTimeout(() => {
+                const mainImageContainer = document.querySelector('.main-image-container');
+                if (mainImageContainer) {
+                    mainImageContainer.classList.add('safari-subtle-pulse');
+                }
+            }, 500);
+        };
+        
+        // Aplicar correções em diferentes momentos para garantir que funcionem
+        
+        // 1. Imediatamente
+        applyAllFixes();
+        
+        // 2. Quando o DOM estiver pronto
+        if (document.readyState === 'loading') {
+            document.addEventListener('DOMContentLoaded', applyAllFixes);
         }
-        return originalSetTimeout(callback, delay, ...args);
-      };
-    };
-
-    // Sửa lỗi hiển thị nội dung
-    const fixContentVisibility = function () {
-      // Đảm bảo tất cả các phần tử đều hiển thị
-      const elementsToFix = [
-        document.querySelector('.product-container'),
-        document.querySelector('.product-gallery'),
-        document.querySelector('.product-info'),
-        document.querySelector('.related-products'),
-        document.querySelector('.customers-also-liked'),
-        document.querySelector('.product-details-section'),
-        document.querySelector('.container'),
-      ];
-
-      elementsToFix.forEach((element) => {
-        if (element) {
-          element.style.display = 'block';
-          element.style.visibility = 'visible';
-          element.style.opacity = '1';
-          element.style.transform = 'none';
-          element.style.height = 'auto';
-          element.style.minHeight = element.scrollHeight + 'px';
-
-          // Buộc trình duyệt phải vẽ lại
-          void element.offsetHeight;
-        }
-      });
-
-      // Sửa lỗi cho các product card
-      const productCards = document.querySelectorAll('.product-card');
-      productCards.forEach((card) => {
-        card.style.opacity = '1';
-        card.style.transform = 'none';
-        card.style.visibility = 'visible';
-        card.classList.add('fade-in'); // Thêm class này để đảm bảo nó hiển thị
-      });
-
-      // Sửa lỗi cho hình ảnh
-      const images = document.querySelectorAll('img');
-      images.forEach((img) => {
-        img.style.opacity = '1';
-        img.style.visibility = 'visible';
-      });
-
-      // Buộc body phải vẽ lại
-      document.body.style.display = 'block';
-      document.body.style.visibility = 'visible';
-      document.body.style.opacity = '1';
-      document.body.style.height = 'auto';
-      document.body.style.minHeight = '100vh';
-      void document.body.offsetHeight;
-    };
-
-    // Thực thi các sửa lỗi
-    const applyAllFixes = function () {
-      disableAnimations();
-      overrideProblemFunctions();
-      fixContentVisibility();
-
-      // Đảm bảo rằng các sửa lỗi được áp dụng sau khi tất cả nội dung đã tải
-      document.body.style.display = 'block';
-      document.documentElement.style.display = 'block';
-    };
-
-    // Áp dụng sửa lỗi ngay lập tức
-    applyAllFixes();
-
-    // Áp dụng lại sau khi DOM đã sẵn sàng
-    if (document.readyState === 'loading') {
-      document.addEventListener('DOMContentLoaded', applyAllFixes);
+        
+        // 3. Após o carregamento completo da página
+        window.addEventListener('load', applyAllFixes);
+        
+        // 4. Com pequenos atrasos para garantir que as correções sejam aplicadas
+        setTimeout(applyAllFixes, 0);
+        setTimeout(applyAllFixes, 100);
+        setTimeout(applyAllFixes, 500);
+        
+        // 5. Após o scroll (caso o usuário role a página)
+        window.addEventListener('scroll', function safariScrollFix() {
+            applyAllFixes();
+            // Remover este listener após a primeira execução
+            window.removeEventListener('scroll', safariScrollFix);
+        }, { passive: true });
     }
-
-    // Áp dụng lại sau khi trang đã tải hoàn toàn
-    window.addEventListener('load', applyAllFixes);
-
-    // Áp dụng lại sau một khoảng thời gian để đảm bảo
-    setTimeout(applyAllFixes, 0);
-    setTimeout(applyAllFixes, 100);
-    setTimeout(applyAllFixes, 500);
-    setTimeout(applyAllFixes, 1000);
-
-    // Áp dụng lại khi cuộn trang (phòng trường hợp nội dung bị ẩn sau khi cuộn)
-    window.addEventListener(
-      'scroll',
-      function () {
-        fixContentVisibility();
-      },
-      { passive: true }
-    );
-  }
 })();

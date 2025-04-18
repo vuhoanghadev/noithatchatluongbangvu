@@ -1,0 +1,101 @@
+/* Safari-specific fixes for product-details.html */
+
+/* Ensure content is visible immediately */
+.safari-browser .product-details-section,
+.safari-browser .product-container,
+.safari-browser .product-gallery,
+.safari-browser .product-info,
+.safari-browser .related-products,
+.safari-browser .customers-also-liked,
+.safari-browser .product-grid {
+    opacity: 1 !important;
+    visibility: visible !important;
+    transform: none !important;
+    -webkit-transform: none !important;
+}
+
+/* Fix product cards */
+.safari-browser .product-card {
+    opacity: 1 !important;
+    transform: translateY(0) !important;
+    -webkit-transform: translateY(0) !important;
+    animation: none !important;
+    -webkit-animation: none !important;
+}
+
+/* Fix fade-in animations */
+.safari-browser .fade-in,
+.safari-browser .product-card.fade-in {
+    opacity: 1 !important;
+    transform: translateY(0) !important;
+    -webkit-transform: translateY(0) !important;
+    animation: none !important;
+    -webkit-animation: none !important;
+}
+
+/* Improve rendering performance */
+.safari-browser .main-image-container,
+.safari-browser .thumbnails,
+.safari-browser .product-card,
+.safari-browser .product-grid {
+    transform: translateZ(0);
+    -webkit-transform: translateZ(0);
+    backface-visibility: hidden;
+    -webkit-backface-visibility: hidden;
+    will-change: transform;
+}
+
+/* Fix main image container */
+.safari-browser .main-image-container {
+    opacity: 1 !important;
+    visibility: visible !important;
+}
+
+/* Fix main image */
+.safari-browser .main-image-container img {
+    opacity: 1 !important;
+    visibility: visible !important;
+    transform: translateZ(0);
+    -webkit-transform: translateZ(0);
+}
+
+/* Fix thumbnails */
+.safari-browser .thumbnails img {
+    opacity: 1 !important;
+    visibility: visible !important;
+}
+
+/* Fix product info */
+.safari-browser .product-info h1,
+.safari-browser .product-description,
+.safari-browser .product-category,
+.safari-browser .product-specs,
+.safari-browser .product-actions {
+    opacity: 1 !important;
+    visibility: visible !important;
+}
+
+/* Fix related products */
+.safari-browser .related-products h2,
+.safari-browser .section-intro,
+.safari-browser .customers-also-liked h3 {
+    opacity: 1 !important;
+    visibility: visible !important;
+}
+
+/* Disable problematic animations */
+@media not all and (min-resolution:.001dpcm) {
+    @supports (-webkit-appearance:none) {
+        .product-card {
+            opacity: 1 !important;
+            transform: translateY(0) !important;
+            -webkit-transform: translateY(0) !important;
+        }
+        
+        .fade-in {
+            opacity: 1 !important;
+            transform: translateY(0) !important;
+            -webkit-transform: translateY(0) !important;
+        }
+    }
+}
