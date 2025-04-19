@@ -87,6 +87,47 @@ document.addEventListener('DOMContentLoaded', function () {
                 <div class="thumbnails-nav next" onclick="slideThumbnails('next')"><i class="fas fa-chevron-right"></i></div>
             </div>`;
 
+    // Thêm phần free-consultation vào gallery (sẽ chỉ hiển thị trên desktop)
+    galleryHTML += `
+            <!-- Free Consultation Section (Desktop Only) -->
+            <div class="free-consultation">
+                <div class="consultation-header">
+                    <i class="fas fa-headset"></i>
+                    <div>
+                        <h3 class="consultation-title">Tư vấn miễn phí</h3>
+                        <p class="consultation-subtitle">Chúng tôi luôn sẵn sàng hỗ trợ bạn</p>
+                    </div>
+                </div>
+
+                <div class="consultation-options">
+                    <div class="consultation-call">
+                        <div class="consultation-call-title">
+                            <i class="fas fa-phone-alt"></i> Gọi ngay
+                        </div>
+                        <p>Gọi điện thoại trực tiếp để được tư vấn ngay</p>
+                        <a href="tel:0972774646" class="phone-number">097.277.4646</a>
+                    </div>
+
+                    <div class="consultation-callback">
+                        <div class="consultation-callback-title">
+                            <i class="fas fa-reply"></i> Yêu cầu gọi lại
+                        </div>
+                        <p>Để lại số điện thoại, Bàng Vũ sẽ gọi lại cho bạn</p>
+                        <input type="tel" class="phone-input" id="callback-phone-gallery" placeholder="Nhập số điện thoại của bạn">
+                        <button class="submit-consultation" id="submit-consultation-gallery">
+                            <i class="fas fa-paper-plane"></i> Gửi yêu cầu tư vấn
+                        </button>
+                    </div>
+                </div>
+
+                <p class="consultation-note">* Chúng tôi cam kết bảo mật thông tin của bạn</p>
+
+                <div class="consultation-success" id="consultation-success-gallery">
+                    <i class="fas fa-check-circle"></i> Cảm ơn bạn đã để lại thông tin. Chúng tôi sẽ liên hệ lại với bạn trong thời gian sớm nhất!
+                </div>
+            </div>
+    `;
+
     // Set gallery HTML
     productGallery.innerHTML = galleryHTML;
   }
@@ -106,10 +147,52 @@ document.addEventListener('DOMContentLoaded', function () {
     }
 
     // Create info HTML - Sắp xếp theo thứ tự yêu cầu
-    let infoHTML = `
-            <h1>${product.name}</h1>
-            <div class="product-category">${product.category}</div>
-        `;
+    let infoHTML = '';
+
+    // 1. Thêm tag sản phẩm (nếu có)
+    if (product.tag) {
+      infoHTML += `<div class="product-tag"><span>${product.tag}</span></div>`;
+    }
+
+    // 2. Thêm tiêu đề sản phẩm
+    infoHTML += `<h1>${product.name}</h1>`;
+
+    // 3. Thêm đánh giá và lượt xem
+    const rating = product.rating || 0;
+    const views = product.views || 0;
+    const fullStars = Math.floor(rating);
+    const hasHalfStar = rating % 1 >= 0.5;
+
+    let starsHTML = '';
+
+    // Tạo các sao đầy
+    for (let i = 0; i < fullStars; i++) {
+      starsHTML += '<i class="fas fa-star"></i>';
+    }
+
+    // Thêm nửa sao nếu cần
+    if (hasHalfStar) {
+      starsHTML += '<i class="fas fa-star-half-alt"></i>';
+    }
+
+    // Thêm các sao trống
+    const emptyStars = 5 - fullStars - (hasHalfStar ? 1 : 0);
+    for (let i = 0; i < emptyStars; i++) {
+      starsHTML += '<i class="far fa-star"></i>';
+    }
+
+    infoHTML += `
+      <div class="product-ratings-views">
+        <div class="product-ratings">
+          ${starsHTML}
+          <span class="rating-value">${rating.toFixed(1)}</span>
+        </div>
+        <div class="product-views">
+          <i class="fas fa-eye"></i> ${views.toLocaleString('vi-VN')} lượt xem
+        </div>
+      </div>
+      <div class="product-category">${product.category}</div>
+    `;
 
     // 3. Thêm flashsale nếu có và đang hoạt động
     if (product.flashsale && product.flashsale.active) {
@@ -171,14 +254,17 @@ document.addEventListener('DOMContentLoaded', function () {
         infoHTML += `
                 <div class="flashsale-info">
                     <div class="flashsale-header">
-                        <i class="fas fa-bolt"></i> FLASH SALE ${
-                          flashsale.discountPercent
-                        }%
-                        ${
-                          flashsaleType === 'daily'
-                            ? '<span class="daily-badge">CHỈ HÔM NAY</span>'
-                            : ''
-                        }
+                        <i class="fas fa-bolt"></i>
+                        <div class="flashsale-header-text">
+                            FLASH SALE <span class="flashsale-discount">${
+                              flashsale.discountPercent
+                            }%</span>
+                            ${
+                              flashsaleType === 'daily'
+                                ? '<span class="daily-badge">CHỈ HÔM NAY</span>'
+                                : ''
+                            }
+                        </div>
                     </div>
                     ${priceHTML}
                     <div class="flashsale-countdown" id="flashsaleCountdown"
@@ -237,6 +323,10 @@ document.addEventListener('DOMContentLoaded', function () {
                     <div class="spec-item">
                         <i class="fas fa-shield-alt"></i>
                         <span>Bảo hành: ${product.warranty || '10 năm'}</span>
+                    </div>
+                    <div class="spec-item">
+                        <i class="fas fa-barcode"></i>
+                        <span>Mã sản phẩm: ${generateSKU(product)}</span>
                     </div>
                 </div>
             </div>
@@ -580,12 +670,24 @@ function initFlashsaleCountdown() {
     const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
     const seconds = Math.floor((distance % (1000 * 60)) / 1000);
 
+    // Format time units with spans for styling
+    const formatTimeUnit = (value, unit) => {
+      return `<span class="countdown-unit">${value}</span> ${unit}`;
+    };
+
     // Update the countdown text based on flashsale type
     if (flashsaleType === 'fixed') {
-      countdownTextElement.textContent = `Kết thúc sau: ${days} ngày ${hours} giờ ${minutes} phút ${seconds} giây`;
+      countdownTextElement.innerHTML = `Kết thúc sau:
+        ${formatTimeUnit(days, 'ngày')}
+        ${formatTimeUnit(hours, 'giờ')}
+        ${formatTimeUnit(minutes, 'phút')}
+        ${formatTimeUnit(seconds, 'giây')}`;
     } else {
       // daily
-      countdownTextElement.textContent = `Kết thúc sau: ${hours} giờ ${minutes} phút ${seconds} giây`;
+      countdownTextElement.innerHTML = `Kết thúc sau:
+        ${formatTimeUnit(hours, 'giờ')}
+        ${formatTimeUnit(minutes, 'phút')}
+        ${formatTimeUnit(seconds, 'giây')}`;
     }
   };
 
@@ -594,6 +696,46 @@ function initFlashsaleCountdown() {
 
   // Then update every second
   setInterval(updateTimer, 1000);
+}
+
+// Function to generate SKU from product data
+function generateSKU(product) {
+  // If product already has a custom SKU, use it
+  if (product.sku) {
+    return product.sku;
+  }
+
+  // Otherwise, generate SKU from product name
+  // Extract first letters of main words and add product ID
+  const prefix = 'NTBV-';
+
+  // Extract category code (first letter of each word)
+  let categoryCode = '';
+  if (product.category) {
+    categoryCode = product.category
+      .split(' ')
+      .map((word) => word.charAt(0).toUpperCase())
+      .join('');
+  }
+
+  // Extract product name code
+  let nameCode = '';
+  if (product.name) {
+    // Extract first part of name (before first dash if exists)
+    const nameParts = product.name.split('-')[0].trim();
+
+    // Get any numbers from the name
+    const numbers = nameParts.match(/\d+/g);
+    if (numbers && numbers.length > 0) {
+      nameCode = numbers[0];
+    } else {
+      // If no numbers, use first 3 letters
+      nameCode = nameParts.substring(0, 3).toUpperCase();
+    }
+  }
+
+  // Combine parts with product ID as fallback
+  return prefix + (categoryCode || '') + (nameCode || product.id);
 }
 
 // Global functions

@@ -1,0 +1,99 @@
+/* Product Actions Styles */
+
+.product-actions {
+    display: flex;
+    width: 100%;
+    margin-top: -10px;
+    gap: 15px;
+}
+
+/* Buttons in product-actions */
+.product-actions .btn-contact,
+.product-actions .btn-order {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 12px 15px;
+    border-radius: 8px;
+    font-size: 1rem;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    white-space: nowrap;
+    text-align: center;
+    min-width: 0;
+    /* Prevent buttons from overflowing */
+}
+
+.product-actions .btn-contact {
+    background: var(--product-primary);
+    color: var(--product-white);
+    text-decoration: none;
+}
+
+.product-actions .btn-order {
+    background: var(--product-secondary);
+    color: var(--product-white);
+    border: none;
+    cursor: pointer;
+}
+
+.product-actions .btn-contact:hover,
+.product-actions .btn-order:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+}
+
+.product-actions .btn-contact:hover {
+    background: #e86207;
+}
+
+.product-actions .btn-order:hover {
+    background: #0046b8;
+}
+
+.product-actions .btn-contact i,
+.product-actions .btn-order i {
+    margin-right: 8px;
+    font-size: 1rem;
+}
+
+/* Desktop styles (2 columns) */
+@media (min-width: 992px) {
+    .product-actions {
+        flex-wrap: nowrap;
+    }
+
+    .product-actions .btn-contact,
+    .product-actions .btn-order {
+        flex: 1;
+        min-width: 0;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+}
+
+/* Mobile styles (1 column) */
+@media (max-width: 991px) {
+    .product-actions {
+        flex-direction: column;
+    }
+
+    .product-actions .btn-contact,
+    .product-actions .btn-order {
+        width: 100%;
+    }
+}
+
+/* Override the default styles in product-details-modern.css */
+@media (max-width: 576px) {
+    .product-actions {
+        flex-direction: column;
+    }
+
+    .btn-contact,
+    .btn-order {
+        width: 100%;
+        margin-bottom: 10px;
+    }
+}

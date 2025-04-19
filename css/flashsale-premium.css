@@ -1,0 +1,412 @@
+/* Premium Flashsale Styles */
+:root {
+    --flashsale-primary: #ff3a3a;
+    --flashsale-secondary: #f97316;
+    --flashsale-gradient: linear-gradient(135deg, var(--flashsale-primary), var(--flashsale-secondary));
+    --flashsale-text: #ffffff;
+    --flashsale-dark: #1c2332;
+    --flashsale-light: #fff8f0;
+    --flashsale-border: rgba(249, 115, 22, 0.3);
+    --flashsale-shadow: 0 10px 25px rgba(249, 115, 22, 0.25);
+    --flashsale-transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+}
+
+/* Main flashsale container */
+.flashsale-info {
+    position: relative;
+    background: var(--flashsale-light);
+    border-radius: 16px;
+    padding: 20px;
+    margin: 25px 0;
+    box-shadow: var(--flashsale-shadow);
+    overflow: hidden;
+    border: 2px solid var(--flashsale-secondary);
+    transform: translateZ(0);
+}
+
+/* Animated background effect */
+.flashsale-info::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: repeating-linear-gradient(45deg,
+            transparent,
+            transparent 10px,
+            rgba(249, 115, 22, 0.05) 10px,
+            rgba(249, 115, 22, 0.05) 20px);
+    animation: flashsaleBgMove 20s linear infinite;
+    z-index: 0;
+    pointer-events: none;
+}
+
+/* Corner ribbon */
+.flashsale-info::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 100px;
+    height: 100px;
+    background: var(--flashsale-secondary);
+    transform: rotate(45deg) translate(30px, -60px);
+    z-index: 1;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+}
+
+/* Flashsale header */
+.flashsale-header {
+    position: relative;
+    display: flex;
+    align-items: center;
+    margin-bottom: 20px;
+    z-index: 2;
+}
+
+.flashsale-header i {
+    font-size: 1.8rem;
+    color: var(--flashsale-primary);
+    margin-right: 15px;
+    animation: flashBolt 1.5s infinite;
+    filter: drop-shadow(0 0 5px rgba(255, 58, 58, 0.5));
+}
+
+.flashsale-header-text {
+    font-size: 1.5rem;
+    font-weight: 800;
+    color: var(--flashsale-primary);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    text-shadow: 1px 1px 0 rgba(0, 0, 0, 0.1);
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+.flashsale-discount {
+    background: var(--flashsale-gradient);
+    color: var(--flashsale-text);
+    padding: 5px 12px;
+    border-radius: 20px;
+    font-size: 1.2rem;
+    font-weight: 700;
+    display: inline-block;
+    box-shadow: 0 4px 10px rgba(249, 115, 22, 0.3);
+    animation: pulseDiscount 2s infinite;
+}
+
+/* Daily badge */
+.daily-badge {
+    position: relative;
+    background: var(--flashsale-primary);
+    color: var(--flashsale-text);
+    font-size: 0.8rem;
+    font-weight: 700;
+    padding: 5px 10px;
+    border-radius: 4px;
+    margin-left: 10px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    box-shadow: 0 4px 8px rgba(255, 58, 58, 0.3);
+    animation: pulseToday 2s infinite;
+    overflow: hidden;
+}
+
+.daily-badge::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.4), transparent);
+    animation: shineEffect 2s infinite;
+}
+
+/* Prices section */
+.flashsale-prices {
+    position: relative;
+    display: flex;
+    align-items: center;
+    margin: 20px 0;
+    z-index: 2;
+    gap: 20px;
+}
+
+.old-price {
+    font-size: 1.2rem;
+    color: var(--flashsale-dark);
+    text-decoration: line-through;
+    opacity: 0.6;
+    position: relative;
+}
+
+.old-price::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: -5%;
+    width: 110%;
+    height: 2px;
+    background-color: rgba(255, 58, 58, 0.7);
+    transform: rotate(-5deg);
+}
+
+.new-price {
+    font-size: 2rem;
+    font-weight: 800;
+    color: var(--flashsale-primary);
+    text-shadow: 1px 1px 0 rgba(0, 0, 0, 0.1);
+    position: relative;
+    display: inline-block;
+}
+
+.new-price::before {
+    content: 'SALE';
+    position: absolute;
+    top: -15px;
+    right: -15px;
+    background: var(--flashsale-primary);
+    color: white;
+    font-size: 0.7rem;
+    padding: 3px 6px;
+    border-radius: 3px;
+    transform: rotate(15deg);
+    animation: rotateSale 3s infinite;
+}
+
+/* Countdown section */
+.flashsale-countdown {
+    position: relative;
+    background: var(--flashsale-dark);
+    color: var(--flashsale-text);
+    padding: 12px 20px;
+    border-radius: 8px;
+    font-size: 1rem;
+    font-weight: 600;
+    display: inline-flex;
+    align-items: center;
+    margin-top: 10px;
+    z-index: 2;
+    box-shadow: 0 5px 15px rgba(28, 35, 50, 0.2);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.flashsale-countdown i {
+    margin-right: 10px;
+    font-size: 1.2rem;
+    color: var(--flashsale-primary);
+    animation: pulseClock 1s infinite;
+}
+
+#countdownText {
+    position: relative;
+}
+
+/* Time units styling */
+.countdown-unit {
+    display: inline-block;
+    background: rgba(255, 255, 255, 0.1);
+    padding: 3px 6px;
+    border-radius: 4px;
+    margin: 0 2px;
+    min-width: 30px;
+    text-align: center;
+}
+
+/* Animations */
+@keyframes flashBolt {
+
+    0%,
+    100% {
+        opacity: 1;
+        transform: scale(1);
+    }
+
+    50% {
+        opacity: 0.7;
+        transform: scale(1.2);
+    }
+}
+
+@keyframes pulseDiscount {
+
+    0%,
+    100% {
+        transform: scale(1);
+        box-shadow: 0 4px 10px rgba(249, 115, 22, 0.3);
+    }
+
+    50% {
+        transform: scale(1.05);
+        box-shadow: 0 6px 15px rgba(249, 115, 22, 0.5);
+    }
+}
+
+@keyframes pulseToday {
+
+    0%,
+    100% {
+        transform: scale(1);
+    }
+
+    50% {
+        transform: scale(1.1);
+    }
+}
+
+@keyframes pulseClock {
+
+    0%,
+    100% {
+        transform: scale(1);
+    }
+
+    50% {
+        transform: scale(1.1);
+    }
+}
+
+@keyframes shineEffect {
+    0% {
+        left: -100%;
+    }
+
+    20%,
+    100% {
+        left: 100%;
+    }
+}
+
+@keyframes flashsaleBgMove {
+    0% {
+        transform: translate(0, 0);
+    }
+
+    100% {
+        transform: translate(-50px, 50px);
+    }
+}
+
+@keyframes rotateSale {
+
+    0%,
+    100% {
+        transform: rotate(15deg);
+    }
+
+    50% {
+        transform: rotate(-5deg);
+    }
+}
+
+/* Responsive styles */
+@media (max-width: 992px) {
+    .flashsale-info {
+        padding: 15px;
+    }
+
+    .flashsale-header i {
+        font-size: 1.5rem;
+    }
+
+    .flashsale-header-text {
+        font-size: 1.3rem;
+    }
+
+    .flashsale-discount {
+        font-size: 1.1rem;
+    }
+
+    .new-price {
+        font-size: 1.8rem;
+    }
+}
+
+@media (max-width: 768px) {
+    .flashsale-info {
+        padding: 15px;
+        margin: 20px 0;
+    }
+
+    .flashsale-header {
+        margin-bottom: 15px;
+    }
+
+    .flashsale-header i {
+        font-size: 1.3rem;
+        margin-right: 10px;
+    }
+
+    .flashsale-header-text {
+        font-size: 1.1rem;
+    }
+
+    .flashsale-discount {
+        font-size: 1rem;
+        padding: 4px 10px;
+    }
+
+    .daily-badge {
+        font-size: 0.7rem;
+        padding: 3px 8px;
+    }
+
+    .old-price {
+        font-size: 1rem;
+    }
+
+    .new-price {
+        font-size: 1.5rem;
+    }
+
+    .flashsale-countdown {
+        padding: 10px 15px;
+        font-size: 0.9rem;
+    }
+
+    .flashsale-countdown i {
+        font-size: 1rem;
+    }
+}
+
+@media (max-width: 576px) {
+    .flashsale-info {
+        padding: 12px;
+        margin: 15px 0;
+    }
+
+    .flashsale-header i {
+        font-size: 1.2rem;
+    }
+
+    .flashsale-header-text {
+        font-size: 1rem;
+    }
+
+    .flashsale-discount {
+        font-size: 0.9rem;
+        padding: 3px 8px;
+    }
+
+    .daily-badge {
+        font-size: 0.6rem;
+        padding: 2px 6px;
+    }
+
+    .old-price {
+        font-size: 0.9rem;
+    }
+
+    .new-price {
+        font-size: 1.3rem;
+    }
+
+    .flashsale-countdown {
+        padding: 8px 12px;
+        font-size: 0.8rem;
+    }
+}

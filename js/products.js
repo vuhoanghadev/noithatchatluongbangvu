@@ -11,6 +11,10 @@ const products = [
     price: 'Liên Hệ',
     material: 'Nhựa Đài Loan Cao Cấp',
     promotion: null,
+    tag: 'bán chạy',
+    rating: 4.9,
+    views: 1250,
+    sku: 'NTBV-QA205', // SKU tự đặt, muốn tự động thì có thể thêm 'true'
     flashsale: {
       active: true,
       discountPercent: 30,
@@ -47,6 +51,10 @@ const products = [
     price: 'Liên hệ',
     material: 'Gỗ MDF phủ melamine vân gỗ sồi',
     promotion: 'giảm 10%',
+    tag: 'Mới',
+    rating: 4.5,
+    views: 980,
+    sku: 'NTBV-TB120', // SKU tự đặt
     gallery: ['images/products/product2.png', 'images/products/product2.png'],
   },
   {

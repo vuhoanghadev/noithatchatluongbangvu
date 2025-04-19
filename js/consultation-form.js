@@ -7,9 +7,25 @@ document.addEventListener('DOMContentLoaded', function () {
 });
 
 function initConsultationForm() {
-  const submitButton = document.getElementById('submit-consultation');
-  const phoneInput = document.getElementById('callback-phone');
-  const successMessage = document.getElementById('consultation-success');
+  // Khởi tạo form trong product-info (mobile)
+  setupConsultationForm(
+    'submit-consultation',
+    'callback-phone',
+    'consultation-success'
+  );
+
+  // Khởi tạo form trong product-gallery (desktop)
+  setupConsultationForm(
+    'submit-consultation-gallery',
+    'callback-phone-gallery',
+    'consultation-success-gallery'
+  );
+}
+
+function setupConsultationForm(submitButtonId, phoneInputId, successMessageId) {
+  const submitButton = document.getElementById(submitButtonId);
+  const phoneInput = document.getElementById(phoneInputId);
+  const successMessage = document.getElementById(successMessageId);
 
   if (!submitButton || !phoneInput || !successMessage) return;
 
@@ -29,7 +45,7 @@ function initConsultationForm() {
       '<i class="fas fa-spinner fa-spin"></i> Đang gửi...';
 
     // Add loading class to parent for visual feedback
-    const callbackContainer = document.querySelector('.consultation-callback');
+    const callbackContainer = submitButton.closest('.consultation-callback');
     if (callbackContainer) {
       callbackContainer.classList.add('loading');
     }
