@@ -1,0 +1,55 @@
+/* Price info styles */
+.price-info {
+    background-color: #f8f9fa;
+    border-radius: 8px;
+    padding: 15px;
+    margin-bottom: 20px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+    border-left: 4px solid #f97316;
+}
+
+.price-header {
+    font-size: 1.1rem;
+    font-weight: 600;
+    margin-bottom: 10px;
+    color: #1c2332;
+}
+
+.price-header i {
+    color: #f97316;
+    margin-right: 8px;
+}
+
+.price-value {
+    margin-bottom: 10px;
+}
+
+.contact-price {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: #f97316;
+    display: block;
+    margin-bottom: 5px;
+}
+
+.price-note {
+    font-size: 0.9rem;
+    color: #666;
+    font-style: italic;
+}
+
+.price-note i {
+    color: #0058dd;
+    margin-right: 5px;
+}
+
+/* Responsive styles */
+@media (max-width: 768px) {
+    .price-info {
+        padding: 12px;
+    }
+    
+    .contact-price {
+        font-size: 1.3rem;
+    }
+}

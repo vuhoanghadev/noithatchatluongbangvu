@@ -94,18 +94,129 @@ document.addEventListener('DOMContentLoaded', function () {
   function renderProductInfo(product) {
     if (!productInfo) return;
 
-    // Extract dimensions from description if available
-    const dimensionsMatch = product.description.match(/kích thước ([^,]+)/i);
-    const dimensions = dimensionsMatch ? dimensionsMatch[1] : 'Đang cập nhật';
+    // Get dimensions from size field or extract from description if not available
+    let dimensions = 'Đang cập nhật';
+    if (product.size) {
+      dimensions = product.size;
+    } else {
+      const dimensionsMatch = product.description.match(/kích thước ([^,]+)/i);
+      if (dimensionsMatch && dimensionsMatch[1]) {
+        dimensions = dimensionsMatch[1];
+      }
+    }
 
-    // Create info HTML
+    // Create info HTML - Sắp xếp theo thứ tự yêu cầu
     let infoHTML = `
             <h1>${product.name}</h1>
             <div class="product-category">${product.category}</div>
-            <div class="product-description">
-                ${product.description}
-            </div>
+        `;
 
+    // 3. Thêm flashsale nếu có và đang hoạt động
+    if (product.flashsale && product.flashsale.active) {
+      const flashsale = product.flashsale;
+      let isActive = false;
+      let endTime = null;
+      let flashsaleType = '';
+
+      // Format prices with commas
+      const formattedOldPrice = flashsale.oldPrice.toLocaleString('vi-VN');
+      const formattedNewPrice = flashsale.newPrice.toLocaleString('vi-VN');
+
+      const now = new Date();
+
+      // Check flashsale type and determine if it's active
+      if (flashsale.type === 'fixed') {
+        // Fixed-time flashsale
+        endTime = new Date(flashsale.endsAt);
+        isActive = endTime > now;
+        flashsaleType = 'fixed';
+      } else if (flashsale.type === 'daily') {
+        // Daily flashsale - resets at specified time each day
+        isActive = true; // Always active
+        flashsaleType = 'daily';
+
+        // Calculate time until end of today's flashsale
+        endTime = new Date(now);
+        endTime.setHours(
+          flashsale.dailyEndHour || 23,
+          flashsale.dailyEndMinute || 59,
+          flashsale.dailyEndSecond || 59,
+          0
+        );
+
+        // If current time is past today's end time, set end time to tomorrow
+        if (now > endTime) {
+          endTime.setDate(endTime.getDate() + 1);
+        }
+      }
+
+      // Display flashsale info if active
+      if (isActive) {
+        // Generate initial countdown text (will be updated by JS)
+        const initialCountdownText = 'Đang tính thời gian...';
+
+        // Check if price should be hidden
+        const hidePrice = flashsale.hidePrice === true;
+
+        // Price HTML section
+        const priceHTML = hidePrice
+          ? ''
+          : `
+                    <div class="flashsale-prices">
+                        <span class="old-price">${formattedOldPrice}đ</span>
+                        <span class="new-price">${formattedNewPrice}đ</span>
+                    </div>
+                `;
+
+        infoHTML += `
+                <div class="flashsale-info">
+                    <div class="flashsale-header">
+                        <i class="fas fa-bolt"></i> FLASH SALE ${
+                          flashsale.discountPercent
+                        }%
+                        ${
+                          flashsaleType === 'daily'
+                            ? '<span class="daily-badge">CHỈ HÔM NAY</span>'
+                            : ''
+                        }
+                    </div>
+                    ${priceHTML}
+                    <div class="flashsale-countdown" id="flashsaleCountdown"
+                         data-end-time="${endTime.getTime()}"
+                         data-type="${flashsaleType}">
+                        <i class="far fa-clock"></i> <span id="countdownText">${initialCountdownText}</span>
+                    </div>
+                </div>
+            `;
+      }
+    }
+
+    // 4. Thêm khuyến mãi nếu có
+    if (product.promotion) {
+      infoHTML += `
+                <div class="promo-info">
+                    <i class="fas fa-gift"></i> Khuyến mãi: ${product.promotion}
+                </div>
+            `;
+    }
+
+    // 5. Thêm thông tin giá bán
+    infoHTML += `
+        <div class="price-info">
+            <div class="price-header">
+                <i class="fas fa-tag"></i> GIÁ BÁN
+            </div>
+            <div class="price-value">
+                <span class="contact-price">${product.price || 'Liên hệ'}</span>
+            </div>
+            <div class="price-note">
+                <i class="fas fa-info-circle"></i> Liên hệ để được tư vấn về kích thước và màu sắc
+            </div>
+        </div>
+    `;
+
+    // 6. Thêm thông số kỹ thuật
+    infoHTML += `
             <div class="product-specs">
                 <h3>Thông số kỹ thuật</h3>
                 <div class="specs-list">
@@ -118,27 +229,29 @@ document.addEventListener('DOMContentLoaded', function () {
                         <span>Danh mục: ${product.category}</span>
                     </div>
                     <div class="spec-item">
-                        <i class="fas fa-palette"></i>
-                        <span>Màu sắc: Theo hình</span>
+                        <i class="fas fa-hammer"></i>
+                        <span>Vật liệu: ${
+                          product.material || 'Theo mô tả'
+                        }</span>
                     </div>
                     <div class="spec-item">
-                        <i class="fas fa-box"></i>
-                        <span>Tình trạng: Còn hàng</span>
+                        <i class="fas fa-shield-alt"></i>
+                        <span>Bảo hành: ${product.warranty || '10 năm'}</span>
                     </div>
                 </div>
             </div>
-        `;
+    `;
 
-    // Add promotion if available
-    if (product.promotion) {
-      infoHTML += `
-                <div class="promo-info">
-                    <i class="fas fa-gift"></i> Khuyến mãi: ${product.promotion}
-                </div>
-            `;
-    }
+    // 7. Thêm mô tả sản phẩm
+    infoHTML += `
+            <div class="product-description collapsed">
+                ${product.description}
+            </div>
+            <div class="product-description-toggle" id="description-toggle">Xem thêm</div>
+            <div style="clear: both;"></div>
+    `;
 
-    // Add action buttons
+    // 8. Thêm các nút button liên hệ tư vấn và đặt hàng
     infoHTML += `
             <div class="product-actions">
                 <a href="https://zalo.me/123456789" class="btn-contact">
@@ -149,35 +262,41 @@ document.addEventListener('DOMContentLoaded', function () {
                 </button>
             </div>
 
-            <div class="social-share">
-                <p>Chia sẻ sản phẩm:</p>
-                <div class="social-icons">
-                    <a href="https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(
-                      window.location.href
-                    )}" target="_blank" class="facebook">
-                        <i class="fab fa-facebook-f"></i>
-                    </a>
-                    <a href="https://twitter.com/intent/tweet?url=${encodeURIComponent(
-                      window.location.href
-                    )}&text=${encodeURIComponent(
-      product.name
-    )}" target="_blank" class="twitter">
-                        <i class="fab fa-twitter"></i>
-                    </a>
-                    <a href="https://pinterest.com/pin/create/button/?url=${encodeURIComponent(
-                      window.location.href
-                    )}&media=${encodeURIComponent(
-      product.image
-    )}&description=${encodeURIComponent(
-      product.name
-    )}" target="_blank" class="pinterest">
-                        <i class="fab fa-pinterest-p"></i>
-                    </a>
-                    <a href="https://api.whatsapp.com/send?text=${encodeURIComponent(
-                      product.name + ' - ' + window.location.href
-                    )}" target="_blank" class="whatsapp">
-                        <i class="fab fa-whatsapp"></i>
-                    </a>
+            <!-- Free Consultation Section -->
+            <div class="free-consultation">
+                <div class="consultation-header">
+                    <i class="fas fa-headset"></i>
+                    <div>
+                        <h3 class="consultation-title">Tư vấn miễn phí</h3>
+                        <p class="consultation-subtitle">Chúng tôi luôn sẵn sàng hỗ trợ bạn</p>
+                    </div>
+                </div>
+
+                <div class="consultation-options">
+                    <div class="consultation-call">
+                        <div class="consultation-call-title">
+                            <i class="fas fa-phone-alt"></i> Gọi ngay
+                        </div>
+                        <p>Gọi điện thoại trực tiếp để được tư vấn ngay</p>
+                        <a href="tel:0972774646" class="phone-number">097.277.4646</a>
+                    </div>
+
+                    <div class="consultation-callback">
+                        <div class="consultation-callback-title">
+                            <i class="fas fa-reply"></i> Yêu cầu gọi lại
+                        </div>
+                        <p>Để lại số điện thoại, Bàng Vũ sẽ gọi lại cho bạn</p>
+                        <input type="tel" class="phone-input" id="callback-phone" placeholder="Nhập số điện thoại của bạn">
+                        <button class="submit-consultation" id="submit-consultation">
+                            <i class="fas fa-paper-plane"></i> Gửi yêu cầu tư vấn
+                        </button>
+                    </div>
+                </div>
+
+                <p class="consultation-note">* Chúng tôi cam kết bảo mật thông tin của bạn</p>
+
+                <div class="consultation-success" id="consultation-success">
+                    <i class="fas fa-check-circle"></i> Cảm ơn bạn đã để lại thông tin. Chúng tôi sẽ liên hệ lại với bạn trong thời gian sớm nhất!
                 </div>
             </div>
         `;
@@ -254,9 +373,16 @@ document.addEventListener('DOMContentLoaded', function () {
       ? `<div class="product-badge">${product.promotion}</div>`
       : '';
 
-    // Extract dimensions from description if available
-    const dimensionsMatch = product.description.match(/kích thước ([^,]+)/i);
-    const dimensions = dimensionsMatch ? dimensionsMatch[1] : 'Đang cập nhật';
+    // Get dimensions from size field or extract from description if not available
+    let dimensions = 'Đang cập nhật';
+    if (product.size) {
+      dimensions = product.size;
+    } else {
+      const dimensionsMatch = product.description.match(/kích thước ([^,]+)/i);
+      if (dimensionsMatch && dimensionsMatch[1]) {
+        dimensions = dimensionsMatch[1];
+      }
+    }
 
     // Truncate description for mobile
     const description = product.description;
@@ -364,7 +490,111 @@ document.addEventListener('DOMContentLoaded', function () {
 
   // Initialize thumbnail navigation
   initThumbnailNavigation();
+
+  // Initialize flashsale countdown timer
+  initFlashsaleCountdown();
+
+  // Initialize description toggle
+  initDescriptionToggle();
 });
+
+// Function to handle description toggle
+function initDescriptionToggle() {
+  setTimeout(() => {
+    const descriptionElement = document.querySelector('.product-description');
+    const toggleButton = document.getElementById('description-toggle');
+
+    if (!descriptionElement || !toggleButton) {
+      console.log('Description element or toggle button not found');
+      return;
+    }
+
+    // Check if description needs toggle button
+    const descriptionHeight = descriptionElement.scrollHeight;
+    const lineHeight = parseInt(
+      window.getComputedStyle(descriptionElement).lineHeight || '24'
+    );
+    const fontSize = parseInt(
+      window.getComputedStyle(descriptionElement).fontSize || '16'
+    );
+    const threeLineHeight = fontSize * 1.7 * 3; // Approximate height of 3 lines
+
+    console.log('Description height:', descriptionHeight);
+    console.log('Three line height:', threeLineHeight);
+
+    // Always show toggle button for testing
+    toggleButton.style.display = 'block';
+
+    toggleButton.addEventListener('click', function () {
+      if (descriptionElement.classList.contains('collapsed')) {
+        // Expand
+        descriptionElement.classList.remove('collapsed');
+        toggleButton.textContent = 'Rút gọn';
+      } else {
+        // Collapse
+        descriptionElement.classList.add('collapsed');
+        toggleButton.textContent = 'Xem thêm';
+      }
+    });
+  }, 1000); // Longer delay to ensure DOM is fully rendered
+}
+
+// Initialize flashsale countdown timer
+function initFlashsaleCountdown() {
+  const countdownElement = document.getElementById('flashsaleCountdown');
+  if (!countdownElement) return;
+
+  const endTime = parseInt(countdownElement.getAttribute('data-end-time'));
+  const flashsaleType = countdownElement.getAttribute('data-type');
+  const countdownTextElement = document.getElementById('countdownText');
+
+  if (!countdownTextElement) return;
+
+  // Update the timer every second
+  const updateTimer = () => {
+    const now = new Date().getTime();
+    let distance = endTime - now;
+
+    // If the countdown is over for daily flashsale, recalculate for next day
+    if (distance < 0 && flashsaleType === 'daily') {
+      // Calculate next end time (tomorrow same time)
+      const nextEndTime = new Date(endTime);
+      nextEndTime.setDate(nextEndTime.getDate() + 1);
+
+      // Update data attribute and recalculate distance
+      countdownElement.setAttribute('data-end-time', nextEndTime.getTime());
+      distance = nextEndTime.getTime() - now;
+    }
+
+    // If the countdown is over for fixed flashsale, show expired message
+    if (distance < 0 && flashsaleType === 'fixed') {
+      countdownTextElement.textContent = 'Flashsale đã kết thúc!';
+      return;
+    }
+
+    // Calculate time units
+    const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+    const hours = Math.floor(
+      (distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)
+    );
+    const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+    const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+    // Update the countdown text based on flashsale type
+    if (flashsaleType === 'fixed') {
+      countdownTextElement.textContent = `Kết thúc sau: ${days} ngày ${hours} giờ ${minutes} phút ${seconds} giây`;
+    } else {
+      // daily
+      countdownTextElement.textContent = `Kết thúc sau: ${hours} giờ ${minutes} phút ${seconds} giây`;
+    }
+  };
+
+  // Update immediately
+  updateTimer();
+
+  // Then update every second
+  setInterval(updateTimer, 1000);
+}
 
 // Global functions
 function changeMainImage(thumbnail, imageSrc) {
@@ -445,25 +675,6 @@ function changeMainImage(thumbnail, imageSrc) {
       thumbnail.removeChild(ripple);
     }
   }, 500);
-}
-
-function shareProduct() {
-  // Check if Web Share API is supported
-  if (navigator.share) {
-    navigator
-      .share({
-        title: document.title,
-        url: window.location.href,
-      })
-      .catch((error) => console.log('Error sharing:', error));
-  } else {
-    // Fallback: show social share section
-    const socialShare = document.querySelector('.social-share');
-    if (socialShare) {
-      // No scrolling needed
-      socialShare.style.animation = 'highlight 1s ease';
-    }
-  }
 }
 
 // Thumbnail slider functionality

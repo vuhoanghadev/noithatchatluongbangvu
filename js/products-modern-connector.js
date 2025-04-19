@@ -1201,19 +1201,55 @@ document.addEventListener('DOMContentLoaded', function () {
       const productId = product.id || '1';
 
       // Create badge HTML if promotion exists
-      const badgeHTML = product.promotion
-        ? `<div class="product-badge">${product.promotion}</div>`
-        : '';
+      let badgeHTML = '';
 
-      // Extract dimensions from description if available
+      // Check for flashsale first (priority over regular promotion)
+      if (product.flashsale && product.flashsale.active) {
+        const flashsale = product.flashsale;
+        let isActive = false;
+        const now = new Date();
+
+        // Check flashsale type and determine if it's active
+        if (flashsale.type === 'fixed') {
+          // Fixed-time flashsale
+          const endDate = new Date(flashsale.endsAt);
+          isActive = endDate > now;
+        } else if (flashsale.type === 'daily') {
+          // Daily flashsale - always active
+          isActive = true;
+        } else {
+          // Default behavior for backward compatibility
+          const endDate = new Date(flashsale.endsAt);
+          isActive = endDate > now;
+        }
+
+        // If flashsale is active, show badge
+        if (isActive) {
+          const dailyBadge = flashsale.type === 'daily' ? ' today-only' : '';
+          badgeHTML = `<div class="flashsale-badge${dailyBadge}"><i class="fas fa-bolt"></i> -${flashsale.discountPercent}%</div>`;
+        }
+      }
+      // If no active flashsale, show regular promotion
+      else if (product.promotion) {
+        badgeHTML = `<div class="product-badge">${product.promotion}</div>`;
+      }
+
+      // Get dimensions from size field or extract from description if not available
       let dimensions = 'Đang cập nhật';
       try {
-        const dimensionsMatch = productDescription.match(/kích thước ([^,]+)/i);
-        if (dimensionsMatch && dimensionsMatch[1]) {
-          dimensions = dimensionsMatch[1];
+        if (product.size) {
+          // Use the size field directly if available
+          dimensions = product.size;
+        } else {
+          // Fall back to extracting from description
+          const dimensionsMatch =
+            productDescription.match(/kích thước ([^,]+)/i);
+          if (dimensionsMatch && dimensionsMatch[1]) {
+            dimensions = dimensionsMatch[1];
+          }
         }
       } catch (e) {
-        console.log('Error extracting dimensions:', e);
+        console.log('Error getting dimensions:', e);
       }
 
       // Create product card HTML - using safer approach for Safari

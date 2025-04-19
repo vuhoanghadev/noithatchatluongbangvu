@@ -535,7 +535,7 @@
     -webkit-box-orient: vertical;
     overflow: hidden;
     text-overflow: ellipsis;
-    height: 3.08rem;
+    /* height: 3.08rem; */
     /* font-size * line-height * 2 lines */
 }
 
