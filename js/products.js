@@ -10,7 +10,7 @@ const products = [
     warranty: '10 năm',
     price: 'Liên Hệ',
     material: 'Nhựa Đài Loan Cao Cấp',
-    promotion: 'SALE 30%',
+    promotion: null,
     flashsale: {
       active: true,
       discountPercent: 30,

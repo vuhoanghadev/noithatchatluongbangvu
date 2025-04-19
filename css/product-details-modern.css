@@ -351,6 +351,8 @@ body {
     overflow: hidden;
     max-height: 1000px;
     /* Large enough to contain full text */
+    text-align: justify;
+    /* font-style: italic; */
 }
 
 .product-description.collapsed {
