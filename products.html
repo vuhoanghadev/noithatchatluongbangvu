@@ -436,7 +436,7 @@
 
     <!-- Announcement Banner -->
     <div class="announcement-banner">
-        Giảm giá 20% cho tất cả các sản phẩm mới! <a href="products.html">Xem ngayyyy</a>
+        Giảm giá 20% cho tất cả các sản phẩm mới! <a href="products.html">Xem ngayoooo</a>
     </div>
 
     <!-- Main Header -->
@@ -734,6 +734,7 @@
     <!-- Safari Fix Scripts - Load first -->
     <script src="js/safari-fix.js"></script>
     <script src="js/safari-scroll-fix.js"></script>
+    <script src="js/safari-pagination-fix.js"></script>
 
     <script src="js/main.js"></script>
     <script src="js/header.js"></script>
@@ -758,6 +759,43 @@
                     }
                 }
             }, 1000);
+
+            // Safari pagination scroll fix
+            const isSafari = /^((?!chrome|android).)*safari/i.test(navigator.userAgent) ||
+                (navigator.userAgent.includes('Mac') && 'ontouchend' in document);
+
+            if (isSafari) {
+                // Thêm xử lý cho các nút phân trang
+                function addSafariScrollFix() {
+                    const pagination = document.querySelector('.pagination');
+                    if (!pagination) {
+                        setTimeout(addSafariScrollFix, 500);
+                        return;
+                    }
+
+                    // Thêm sự kiện click cho tất cả các nút trong phân trang
+                    pagination.addEventListener('click', function (e) {
+                        if (e.target.tagName === 'BUTTON' || e.target.closest('button')) {
+                            // Cuộn lên đầu trang
+                            window.scrollTo(0, 0);
+
+                            // Đảm bảo cuộn hoàn tất
+                            setTimeout(function () {
+                                window.scrollTo(0, 0);
+                            }, 100);
+
+                            setTimeout(function () {
+                                window.scrollTo(0, 0);
+                            }, 500);
+                        }
+                    });
+
+                    console.log('Safari pagination scroll fix added directly');
+                }
+
+                // Thêm xử lý sau khi trang đã tải
+                addSafariScrollFix();
+            }
         });
     </script>
 </body>

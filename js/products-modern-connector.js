@@ -1541,6 +1541,22 @@ document.addEventListener('DOMContentLoaded', function () {
         // Scroll to top of products
         scrollToTopFix();
 
+        // Thêm xử lý đặc biệt cho Safari
+        if (
+          /^((?!chrome|android).)*safari/i.test(navigator.userAgent) ||
+          (navigator.userAgent.includes('Mac') && 'ontouchend' in document)
+        ) {
+          // Cuộn lên đầu trang ngay lập tức
+          setTimeout(function () {
+            window.scrollTo(0, 0);
+          }, 10);
+
+          // Đảm bảo cuộn hoàn tất
+          setTimeout(function () {
+            window.scrollTo(0, 0);
+          }, 500);
+        }
+
         // Clear any existing timeouts
         if (window.loadingTimeout) {
           clearTimeout(window.loadingTimeout);
@@ -1715,9 +1731,23 @@ document.addEventListener('DOMContentLoaded', function () {
         showLoading();
 
         // Scroll to top of products
-        document
-          .querySelector('.products-section')
-          .scrollIntoView({ behavior: 'smooth', block: 'start' });
+        scrollToTopFix();
+
+        // Thêm xử lý đặc biệt cho Safari
+        if (
+          /^((?!chrome|android).)*safari/i.test(navigator.userAgent) ||
+          (navigator.userAgent.includes('Mac') && 'ontouchend' in document)
+        ) {
+          // Cuộn lên đầu trang ngay lập tức
+          setTimeout(function () {
+            window.scrollTo(0, 0);
+          }, 10);
+
+          // Đảm bảo cuộn hoàn tất
+          setTimeout(function () {
+            window.scrollTo(0, 0);
+          }, 500);
+        }
 
         // Clear any existing timeouts
         if (window.loadingTimeout) {
