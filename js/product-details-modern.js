@@ -344,12 +344,12 @@ document.addEventListener('DOMContentLoaded', function () {
     // 8. Thêm các nút button liên hệ tư vấn và đặt hàng
     infoHTML += `
             <div class="product-actions">
-                <a href="https://zalo.me/123456789" class="btn-contact">
+                <a href="https://m.me/1457621511153713" class="btn-contact">
                     <i class="fas fa-comment"></i> Liên hệ tư vấn
                 </a>
-                <button class="btn-order" onclick="openOrderModal(product.name)">
+                <!-- <button class="btn-order" onclick="openOrderModal(product.name)">
                     <i class="fas fa-shopping-cart"></i> Đặt hàng
-                </button>
+                </button> -->
             </div>
 
             <!-- Free Consultation Section -->
