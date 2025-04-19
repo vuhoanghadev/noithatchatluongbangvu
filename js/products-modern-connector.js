@@ -1539,9 +1539,7 @@ document.addEventListener('DOMContentLoaded', function () {
         showLoading();
 
         // Scroll to top of products
-        document
-          .querySelector('.products-section')
-          .scrollIntoView({ behavior: 'smooth', block: 'start' });
+        scrollToTopFix();
 
         // Clear any existing timeouts
         if (window.loadingTimeout) {
@@ -1615,9 +1613,7 @@ document.addEventListener('DOMContentLoaded', function () {
         showLoading();
 
         // Scroll to top of products
-        document
-          .querySelector('.products-section')
-          .scrollIntoView({ behavior: 'smooth', block: 'start' });
+        scrollToTopFix();
 
         // Clear any existing timeouts
         if (window.loadingTimeout) {
@@ -1672,9 +1668,7 @@ document.addEventListener('DOMContentLoaded', function () {
         showLoading();
 
         // Scroll to top of products
-        document
-          .querySelector('.products-section')
-          .scrollIntoView({ behavior: 'smooth', block: 'start' });
+        scrollToTopFix();
 
         // Clear any existing timeouts
         if (window.loadingTimeout) {
@@ -1766,9 +1760,7 @@ document.addEventListener('DOMContentLoaded', function () {
         showLoading();
 
         // Scroll to top of products
-        document
-          .querySelector('.products-section')
-          .scrollIntoView({ behavior: 'smooth', block: 'start' });
+        scrollToTopFix();
 
         // Clear any existing timeouts
         if (window.loadingTimeout) {
