@@ -334,7 +334,11 @@ function populateTabContent(product) {
       const totalPages = Math.ceil(totalReviews / reviewsPerPage);
 
       // Add a container for reviews with data attributes for pagination
-      reviewsHTML += `<div class="reviews-container" data-current-page="1" data-total-pages="${totalPages}" data-reviews-per-page="${reviewsPerPage}">`;
+      reviewsHTML += `<div class="reviews-container" data-current-page="1" data-total-pages="${totalPages}" data-reviews-per-page="${reviewsPerPage}">
+        <div class="reviews-loading-overlay">
+          <div class="spinner"></div>
+        </div>
+      `;
 
       // Render all reviews but only show the first page initially
       product.reviews.forEach((review, index) => {
@@ -676,6 +680,14 @@ function initReviewPagination() {
 
   // Function to go to a specific page
   const goToPage = (pageNumber) => {
+    // Show loading overlay
+    const loadingOverlay = reviewsContainer.querySelector(
+      '.reviews-loading-overlay'
+    );
+    if (loadingOverlay) {
+      loadingOverlay.classList.add('active');
+    }
+
     // Update current page
     currentPage = pageNumber;
     reviewsContainer.setAttribute('data-current-page', currentPage);
@@ -699,16 +711,26 @@ function initReviewPagination() {
       paginationNext.disabled = currentPage === totalPages;
     }
 
-    // Show/hide reviews based on current page
-    const reviews = document.querySelectorAll('.review');
-    reviews.forEach((review) => {
-      const reviewPage = parseInt(review.getAttribute('data-page'));
-      if (reviewPage === currentPage) {
-        review.style.display = 'block';
-      } else {
-        review.style.display = 'none';
-      }
-    });
+    // Use setTimeout to create a small delay for the loading effect to be visible
+    setTimeout(() => {
+      // Show/hide reviews based on current page
+      const reviews = document.querySelectorAll('.review');
+      reviews.forEach((review) => {
+        const reviewPage = parseInt(review.getAttribute('data-page'));
+        if (reviewPage === currentPage) {
+          review.style.display = 'block';
+        } else {
+          review.style.display = 'none';
+        }
+      });
+
+      // Hide loading overlay after a short delay
+      setTimeout(() => {
+        if (loadingOverlay) {
+          loadingOverlay.classList.remove('active');
+        }
+      }, 500); // 500ms delay before hiding the loading overlay
+    }, 500); // 500ms delay for the loading effect
 
     // Scroll to review summary instead of reviews container, accounting for fixed header height
     const reviewSummary = document.querySelector('.review-summary');
@@ -940,6 +962,14 @@ function initReviewFilters() {
 
   reviewFilters.forEach((filter) => {
     filter.addEventListener('click', () => {
+      // Show loading overlay
+      const loadingOverlay = reviewsContainer
+        ? reviewsContainer.querySelector('.reviews-loading-overlay')
+        : null;
+      if (loadingOverlay) {
+        loadingOverlay.classList.add('active');
+      }
+
       // Remove active class from all filters
       reviewFilters.forEach((f) => f.classList.remove('active'));
 
@@ -948,120 +978,136 @@ function initReviewFilters() {
 
       const rating = filter.getAttribute('data-rating');
 
-      // Show/hide reviews based on filter
-      let visibleReviews = [];
+      // Use setTimeout to create a small delay for the loading effect to be visible
+      setTimeout(() => {
+        // Show/hide reviews based on filter
+        let visibleReviews = [];
 
-      reviews.forEach((review) => {
-        if (rating === 'all') {
-          review.classList.remove('filtered-out');
-          visibleReviews.push(review);
-        } else {
-          const reviewRating = Math.floor(
-            parseFloat(review.getAttribute('data-rating') || 0)
-          );
-          if (reviewRating === parseInt(rating)) {
+        reviews.forEach((review) => {
+          if (rating === 'all') {
             review.classList.remove('filtered-out');
             visibleReviews.push(review);
           } else {
-            review.classList.add('filtered-out');
-            review.style.display = 'none';
+            const reviewRating = Math.floor(
+              parseFloat(review.getAttribute('data-rating') || 0)
+            );
+            if (reviewRating === parseInt(rating)) {
+              review.classList.remove('filtered-out');
+              visibleReviews.push(review);
+            } else {
+              review.classList.add('filtered-out');
+              review.style.display = 'none';
+            }
           }
-        }
-      });
+        });
 
-      // Show message if no reviews match the filter
-      const reviewsContent = document.querySelector('.product-reviews-content');
-      let noMatchingReviews = document.querySelector('.no-matching-reviews');
+        // Show message if no reviews match the filter
+        const reviewsContent = document.querySelector(
+          '.product-reviews-content'
+        );
+        let noMatchingReviews = document.querySelector('.no-matching-reviews');
 
-      if (visibleReviews.length === 0 && rating !== 'all') {
-        // Hide pagination controls
-        if (paginationControls) {
-          paginationControls.style.display = 'none';
-        }
+        if (visibleReviews.length === 0 && rating !== 'all') {
+          // Hide pagination controls
+          if (paginationControls) {
+            paginationControls.style.display = 'none';
+          }
 
-        // Create message if it doesn't exist
-        if (!noMatchingReviews) {
-          noMatchingReviews = document.createElement('div');
-          noMatchingReviews.className = 'no-matching-reviews';
-          noMatchingReviews.innerHTML = `
-            <i class="far fa-comment-dots"></i>
-            <p>Không có đánh giá nào với ${rating} sao</p>
-          `;
-          reviewsContent.appendChild(noMatchingReviews);
+          // Create message if it doesn't exist
+          if (!noMatchingReviews) {
+            noMatchingReviews = document.createElement('div');
+            noMatchingReviews.className = 'no-matching-reviews';
+            noMatchingReviews.innerHTML = `
+              <i class="far fa-comment-dots"></i>
+              <p>Không có đánh giá nào với ${rating} sao</p>
+            `;
+            reviewsContent.appendChild(noMatchingReviews);
+          } else {
+            noMatchingReviews.innerHTML = `
+              <i class="far fa-comment-dots"></i>
+              <p>Không có đánh giá nào với ${rating} sao</p>
+            `;
+            noMatchingReviews.style.display = 'block';
+          }
         } else {
-          noMatchingReviews.innerHTML = `
-            <i class="far fa-comment-dots"></i>
-            <p>Không có đánh giá nào với ${rating} sao</p>
-          `;
-          noMatchingReviews.style.display = 'block';
-        }
-      } else {
-        // Show pagination controls if there are visible reviews
-        if (paginationControls) {
-          paginationControls.style.display = 'flex';
-        }
+          // Show pagination controls if there are visible reviews
+          if (paginationControls) {
+            paginationControls.style.display = 'flex';
+          }
 
-        if (noMatchingReviews) {
-          noMatchingReviews.style.display = 'none';
-        }
+          if (noMatchingReviews) {
+            noMatchingReviews.style.display = 'none';
+          }
 
-        // Recalculate pagination for filtered reviews
-        if (reviewsContainer && visibleReviews.length > 0) {
-          const reviewsPerPage =
-            parseInt(reviewsContainer.getAttribute('data-reviews-per-page')) ||
-            6;
-          const totalFilteredPages = Math.ceil(
-            visibleReviews.length / reviewsPerPage
-          );
+          // Recalculate pagination for filtered reviews
+          if (reviewsContainer && visibleReviews.length > 0) {
+            const reviewsPerPage =
+              parseInt(
+                reviewsContainer.getAttribute('data-reviews-per-page')
+              ) || 6;
+            const totalFilteredPages = Math.ceil(
+              visibleReviews.length / reviewsPerPage
+            );
 
-          // Update total pages attribute
-          reviewsContainer.setAttribute('data-total-pages', totalFilteredPages);
+            // Update total pages attribute
+            reviewsContainer.setAttribute(
+              'data-total-pages',
+              totalFilteredPages
+            );
 
-          // Reassign page numbers to visible reviews
-          visibleReviews.forEach((review, index) => {
-            const pageNumber = Math.floor(index / reviewsPerPage) + 1;
-            review.setAttribute('data-page', pageNumber);
-            review.style.display = pageNumber === 1 ? 'block' : 'none';
-          });
+            // Reassign page numbers to visible reviews
+            visibleReviews.forEach((review, index) => {
+              const pageNumber = Math.floor(index / reviewsPerPage) + 1;
+              review.setAttribute('data-page', pageNumber);
+              review.style.display = pageNumber === 1 ? 'block' : 'none';
+            });
 
-          // Reset to page 1
-          reviewsContainer.setAttribute('data-current-page', 1);
+            // Reset to page 1
+            reviewsContainer.setAttribute('data-current-page', 1);
 
-          // Update pagination UI
-          const paginationNumbers = document.querySelector(
-            '.pagination-numbers'
-          );
-          if (paginationNumbers) {
-            paginationNumbers.innerHTML = '';
-            for (let i = 1; i <= totalFilteredPages; i++) {
-              const activeClass = i === 1 ? 'active' : '';
-              paginationNumbers.innerHTML += `<button class="pagination-number ${activeClass}" data-page="${i}">${i}</button>`;
+            // Update pagination UI
+            const paginationNumbers = document.querySelector(
+              '.pagination-numbers'
+            );
+            if (paginationNumbers) {
+              paginationNumbers.innerHTML = '';
+              for (let i = 1; i <= totalFilteredPages; i++) {
+                const activeClass = i === 1 ? 'active' : '';
+                paginationNumbers.innerHTML += `<button class="pagination-number ${activeClass}" data-page="${i}">${i}</button>`;
+              }
+
+              // Reinitialize pagination event listeners
+              const newPaginationNumbers =
+                document.querySelectorAll('.pagination-number');
+              newPaginationNumbers.forEach((button) => {
+                button.addEventListener('click', () => {
+                  const pageNumber = parseInt(button.getAttribute('data-page'));
+                  goToFilteredPage(pageNumber, visibleReviews);
+                });
+              });
             }
 
-            // Reinitialize pagination event listeners
-            const newPaginationNumbers =
-              document.querySelectorAll('.pagination-number');
-            newPaginationNumbers.forEach((button) => {
-              button.addEventListener('click', () => {
-                const pageNumber = parseInt(button.getAttribute('data-page'));
-                goToFilteredPage(pageNumber, visibleReviews);
-              });
-            });
-          }
+            // Update prev/next buttons
+            const paginationPrev = document.querySelector('.pagination-prev');
+            const paginationNext = document.querySelector('.pagination-next');
 
-          // Update prev/next buttons
-          const paginationPrev = document.querySelector('.pagination-prev');
-          const paginationNext = document.querySelector('.pagination-next');
+            if (paginationPrev) {
+              paginationPrev.disabled = true;
+            }
 
-          if (paginationPrev) {
-            paginationPrev.disabled = true;
-          }
-
-          if (paginationNext) {
-            paginationNext.disabled = totalFilteredPages <= 1;
+            if (paginationNext) {
+              paginationNext.disabled = totalFilteredPages <= 1;
+            }
           }
         }
-      }
+
+        // Hide loading overlay after processing
+        setTimeout(() => {
+          if (loadingOverlay) {
+            loadingOverlay.classList.remove('active');
+          }
+        }, 500);
+      }, 500); // 500ms delay for the loading effect
     });
   });
 
@@ -1069,6 +1115,14 @@ function initReviewFilters() {
   function goToFilteredPage(pageNumber, visibleReviews) {
     const reviewsContainer = document.querySelector('.reviews-container');
     if (!reviewsContainer) return;
+
+    // Show loading overlay
+    const loadingOverlay = reviewsContainer.querySelector(
+      '.reviews-loading-overlay'
+    );
+    if (loadingOverlay) {
+      loadingOverlay.classList.add('active');
+    }
 
     // Update current page
     reviewsContainer.setAttribute('data-current-page', pageNumber);
@@ -1098,11 +1152,21 @@ function initReviewFilters() {
       paginationNext.disabled = pageNumber === totalPages;
     }
 
-    // Show/hide reviews based on current page
-    visibleReviews.forEach((review) => {
-      const reviewPage = parseInt(review.getAttribute('data-page'));
-      review.style.display = reviewPage === pageNumber ? 'block' : 'none';
-    });
+    // Use setTimeout to create a small delay for the loading effect to be visible
+    setTimeout(() => {
+      // Show/hide reviews based on current page
+      visibleReviews.forEach((review) => {
+        const reviewPage = parseInt(review.getAttribute('data-page'));
+        review.style.display = reviewPage === pageNumber ? 'block' : 'none';
+      });
+
+      // Hide loading overlay after a short delay
+      setTimeout(() => {
+        if (loadingOverlay) {
+          loadingOverlay.classList.remove('active');
+        }
+      }, 500); // 500ms delay before hiding the loading overlay
+    }, 500); // 500ms delay for the loading effect
 
     // Scroll to review summary instead of reviews container, accounting for fixed header height
     const reviewSummary = document.querySelector('.review-summary');
