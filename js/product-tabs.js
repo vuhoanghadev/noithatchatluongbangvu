@@ -38,10 +38,28 @@ function initProductTabs() {
 
       // Scroll to tab content on mobile
       if (window.innerWidth < 768) {
+        // Get the header height
+        const header = document.querySelector('header.main-header');
+        const announcementBanner = document.querySelector(
+          '.announcement-banner'
+        );
+
+        // Calculate total header height
+        const headerHeight = header ? header.offsetHeight : 0;
+        const announcementHeight =
+          announcementBanner &&
+          window.getComputedStyle(announcementBanner).display !== 'none'
+            ? announcementBanner.offsetHeight
+            : 0;
+        const totalHeaderHeight = headerHeight + announcementHeight;
+
+        // Calculate the position to scroll to
         const tabsOffset =
           tabsContainer.getBoundingClientRect().top + window.pageYOffset;
+
+        // Scroll to the calculated position, accounting for header height
         window.scrollTo({
-          top: tabsOffset - 20,
+          top: tabsOffset - totalHeaderHeight - 20, // 20px extra padding
           behavior: 'smooth',
         });
       }
