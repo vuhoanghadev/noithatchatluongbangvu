@@ -266,6 +266,78 @@ function populateTabContent(product) {
   if (reviewsContent) {
     let reviewsHTML = '<div class="product-reviews-content">';
 
+    // Add review form at the top
+    reviewsHTML += `
+      <div class="review-form-container">
+        <h3 class="review-form-title"><i class="fas fa-edit"></i> Đánh giá sản phẩm</h3>
+        <form class="review-form" id="reviewForm">
+          <div class="form-group">
+            <label for="reviewName">Họ tên của bạn</label>
+            <input type="text" id="reviewName" name="reviewName" placeholder="Nhập họ tên của bạn" required>
+          </div>
+
+          <div class="form-group">
+            <label>Đánh giá của bạn</label>
+            <div class="rating-input">
+              <input type="radio" id="star5" name="rating" value="5" required>
+              <label for="star5"><i class="fas fa-star"></i></label>
+              <input type="radio" id="star4" name="rating" value="4">
+              <label for="star4"><i class="fas fa-star"></i></label>
+              <input type="radio" id="star3" name="rating" value="3">
+              <label for="star3"><i class="fas fa-star"></i></label>
+              <input type="radio" id="star2" name="rating" value="2">
+              <label for="star2"><i class="fas fa-star"></i></label>
+              <input type="radio" id="star1" name="rating" value="1">
+              <label for="star1"><i class="fas fa-star"></i></label>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="reviewContent">Nội dung đánh giá</label>
+            <textarea id="reviewContent" name="reviewContent" placeholder="Chia sẻ trải nghiệm của bạn về sản phẩm này..." required></textarea>
+          </div>
+
+          <div class="form-group">
+            <label>Thêm hình ảnh/video (không bắt buộc)</label>
+            <div class="media-upload">
+              <div class="upload-buttons">
+                <label class="upload-button" for="reviewImages">
+                  <i class="fas fa-image"></i> Thêm hình ảnh
+                </label>
+                <input type="file" id="reviewImages" name="reviewImages" accept="image/*" multiple style="display: none;">
+
+                <label class="upload-button" for="reviewVideos">
+                  <i class="fas fa-video"></i> Thêm video
+                </label>
+                <input type="file" id="reviewVideos" name="reviewVideos" accept="video/*" multiple style="display: none;">
+              </div>
+
+              <div class="upload-preview" id="mediaPreview"></div>
+            </div>
+          </div>
+
+          <div class="anonymous-checkbox">
+            <input type="checkbox" id="isAnonymous" name="isAnonymous">
+            <label for="isAnonymous">Đăng đánh giá ẩn danh</label>
+          </div>
+
+          <button type="submit" class="submit-review">
+            <i class="fas fa-paper-plane"></i> Gửi đánh giá
+          </button>
+        </form>
+
+        <div class="review-success">
+          <i class="fas fa-check-circle"></i>
+          <span>Cảm ơn bạn đã đánh giá! Đánh giá của bạn đã được gửi thành công.</span>
+        </div>
+
+        <div class="review-error">
+          <i class="fas fa-exclamation-circle"></i>
+          <span>Đã xảy ra lỗi khi gửi đánh giá. Vui lòng thử lại sau.</span>
+        </div>
+      </div>
+    `;
+
     // Add review summary section
     if (product.reviews && product.reviews.length > 0) {
       // Count unique reviewers (non-anonymous)
