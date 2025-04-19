@@ -393,6 +393,9 @@ document.addEventListener('DOMContentLoaded', function () {
 
     // Set info HTML
     productInfo.innerHTML = infoHTML;
+
+    // Add product tabs
+    addTabsToProductDetails(product);
   }
 
   function renderRelatedProducts(product) {
