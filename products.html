@@ -436,7 +436,7 @@
 
     <!-- Announcement Banner -->
     <div class="announcement-banner">
-        Giảm giá 20% cho tất cả các sản phẩm mới! <a href="products.html">Xem ngayuuu</a>
+        Giảm giá 20% cho tất cả các sản phẩm mới! <a href="products.html">Xem ngayoooo</a>
     </div>
 
     <!-- Main Header -->
@@ -735,7 +735,6 @@
     <script src="js/safari-fix.js"></script>
     <script src="js/safari-scroll-fix.js"></script>
     <script src="js/safari-pagination-fix.js"></script>
-    <script src="js/back-button-fix.js"></script>
 
     <script src="js/main.js"></script>
     <script src="js/header.js"></script>
@@ -759,6 +758,9 @@
                         window.recoverProductsPage();
                     }
                 }
+
+                // Ẩn hiệu ứng loading nếu đang hiển thị
+                hideLoadingIfStuck();
             }, 1000);
 
             // Safari pagination scroll fix
@@ -796,6 +798,57 @@
 
                 // Thêm xử lý sau khi trang đã tải
                 addSafariScrollFix();
+            }
+        });
+
+        // Hàm ẩn hiệu ứng loading nếu bị treo
+        function hideLoadingIfStuck() {
+            // Kiểm tra nếu spinner đang hiển thị
+            const spinnerOverlay = document.querySelector('.spinner-overlay');
+            if (spinnerOverlay && spinnerOverlay.style.display !== 'none') {
+                console.log('Hiding stuck loading spinner');
+
+                // Ẩn spinner
+                spinnerOverlay.style.opacity = '0';
+                spinnerOverlay.classList.remove('active');
+
+                setTimeout(function () {
+                    spinnerOverlay.style.display = 'none';
+                }, 300);
+
+                // Xóa class loading từ các phần tử
+                document.querySelectorAll('.loading').forEach(function (element) {
+                    element.classList.remove('loading');
+                });
+
+                // Đặt biến isLoading thành false nếu có thể truy cập
+                if (typeof window.isLoading !== 'undefined') {
+                    window.isLoading = false;
+                }
+
+                // Xóa timeout nếu có
+                if (window.loadingTimeout) {
+                    clearTimeout(window.loadingTimeout);
+                    window.loadingTimeout = null;
+                }
+            }
+        }
+
+        // Kiểm tra và ẩn hiệu ứng loading nếu bị treo sau khi trang đã tải
+        setTimeout(hideLoadingIfStuck, 3000);
+        setTimeout(hideLoadingIfStuck, 5000);
+
+        // Thêm xử lý cho sự kiện popstate (khi người dùng ấn nút back)
+        window.addEventListener('popstate', function () {
+            console.log('Popstate event detected in inline script');
+            hideLoadingIfStuck();
+        });
+
+        // Thêm xử lý cho sự kiện visibilitychange
+        document.addEventListener('visibilitychange', function () {
+            if (document.visibilityState === 'visible') {
+                console.log('Page became visible again in inline script');
+                hideLoadingIfStuck();
             }
         });
     </script>
