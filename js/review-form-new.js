@@ -217,70 +217,126 @@ function initReviewForm() {
     }
   }
 
+  // Function to show review code modal
+  function showReviewCodeModal() {
+    const modal = document.getElementById('reviewCodeModal');
+    const closeBtn = document.querySelector('.review-code-close');
+    const submitBtn = document.getElementById('reviewCodeSubmit');
+    const codeInput = document.getElementById('reviewCodeInput');
+
+    // Clear previous input
+    codeInput.value = '';
+
+    // Show modal
+    modal.style.display = 'block';
+
+    // Focus on input
+    setTimeout(() => codeInput.focus(), 300);
+
+    // Close modal when clicking on X
+    closeBtn.onclick = function () {
+      modal.style.display = 'none';
+    };
+
+    // Close modal when clicking outside
+    window.onclick = function (event) {
+      if (event.target == modal) {
+        modal.style.display = 'none';
+      }
+    };
+
+    // Get error element
+    const errorElement = document.getElementById('reviewCodeError');
+
+    // Clear previous error
+    errorElement.style.display = 'none';
+    errorElement.textContent = '';
+
+    // Submit review when clicking submit button
+    submitBtn.onclick = function () {
+      const reviewCode = codeInput.value.trim();
+      if (validateReviewCode(reviewCode)) {
+        // Hide error if previously shown
+        errorElement.style.display = 'none';
+        modal.style.display = 'none';
+        submitReviewWithCode(reviewCode);
+      } else {
+        // Show error message in the modal
+        errorElement.textContent =
+          'Mã bình luận không hợp lệ. Vui lòng kiểm tra lại hoặc liên hệ cửa hàng.';
+        errorElement.style.display = 'block';
+        // Shake input to indicate error
+        codeInput.classList.add('shake');
+        setTimeout(() => {
+          codeInput.classList.remove('shake');
+        }, 500);
+      }
+    };
+
+    // Submit when pressing Enter
+    codeInput.addEventListener('keyup', function (event) {
+      if (event.key === 'Enter') {
+        event.preventDefault();
+        submitBtn.click();
+      } else {
+        // Clear error when typing
+        errorElement.style.display = 'none';
+      }
+    });
+  }
+
+  // Function to validate review code
+  function validateReviewCode(code) {
+    // Get current product ID
+    const urlParams = new URLSearchParams(window.location.search);
+    const productId = parseInt(urlParams.get('id'));
+
+    if (!productId || typeof products === 'undefined') {
+      return false;
+    }
+
+    // Find product
+    const product = products.find((p) => p.id === productId);
+
+    if (!product || !product.reviewCode) {
+      return false;
+    }
+
+    // Compare with product's review code
+    return (
+      code.trim().toUpperCase() === product.reviewCode.trim().toUpperCase()
+    );
+  }
+
   // Function to submit review
   function submitReview() {
+    // Validate basic form data first
+    const name = document.getElementById('reviewName').value;
+    const rating = document.querySelector(
+      'input[name="rating"]:checked'
+    )?.value;
+    const content = document.getElementById('reviewContent').value;
+
+    if (!name || !rating || !content) {
+      alert('Vui lòng điền đầy đủ thông tin bắt buộc.');
+      return;
+    }
+
+    // Show review code modal
+    showReviewCodeModal();
+  }
+
+  // Function to submit review with code
+  function submitReviewWithCode(reviewCode) {
     // Get form data
     const name = document.getElementById('reviewName').value;
-    const reviewCode = document.getElementById('reviewCode').value;
     const rating = document.querySelector(
       'input[name="rating"]:checked'
     )?.value;
     const content = document.getElementById('reviewContent').value;
     const isAnonymous = document.getElementById('isAnonymous').checked;
 
-    // Validate form data
-    if (!name || !rating || !content || !reviewCode) {
-      alert('Vui lòng điền đầy đủ thông tin bắt buộc.');
-      return;
-    }
-
-    // Get current product ID and check review code
-    const urlParams = new URLSearchParams(window.location.search);
-    const productId = parseInt(urlParams.get('id'));
-
-    if (!productId || typeof products === 'undefined') {
-      alert('Không tìm thấy thông tin sản phẩm');
-      return;
-    }
-
-    // Find product
-    console.log('All products:', products);
-    console.log('Looking for product ID:', productId);
-
-    const product = products.find((p) => p.id === productId);
-    console.log('Found product:', product);
-
-    if (!product) {
-      alert('Không tìm thấy sản phẩm');
-      return;
-    }
-
-    // Check if review code is valid
-    console.log('Product review code:', product.reviewCode);
-    console.log('Entered review code:', reviewCode);
-
-    // Thêm kiểm tra để đảm bảo mã bình luận hợp lệ
-    // Chấp nhận bất kỳ mã bình luận nào trong trường hợp khẩn cấp
-    const validCodes = [
-      'NTBV2024',
-      'NTBV2025',
-      'NTBV2026',
-      'NTBV2023',
-      'NTBV2022',
-    ];
-
-    // Chuyển đổi mã nhập vào thành chuỗi và loại bỏ khoảng trắng
-    const enteredReviewCode = String(reviewCode).trim().toUpperCase();
-
-    if (!validCodes.includes(enteredReviewCode)) {
-      alert(
-        'Mã bình luận không hợp lệ. Vui lòng kiểm tra lại hoặc liên hệ cửa hàng.'
-      );
-      console.log('Review code validation failed');
-      return;
-    }
-
-    console.log('Review code validation passed');
+    // Note: We don't need to get the product ID here as we've already validated the review code
 
     // Get media files
     const mediaFiles = [];
@@ -300,6 +356,7 @@ function initReviewForm() {
       content: content,
       isAnonymous: isAnonymous,
       avatar: avatarDataUrl, // Add avatar data URL
+      reviewCode: reviewCode, // Add review code
       images: mediaFiles
         .filter((file) => file.type === 'image')
         .map((file) => file.value),

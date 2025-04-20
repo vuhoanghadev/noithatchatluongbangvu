@@ -4,7 +4,7 @@ const products = [
     name: 'Tủ QA205 - 4 Cánh Mở, 2 Hàng Ngăn Kéo, Ô Hở Trái Vân Óc Chó',
     category: 'Tủ Quần Áo',
     image: 'images/products/product1.png',
-    reviewCode: 'NTBV2024', // Mã bình luận cho sản phẩm
+    reviewCode: 'NTBV2025', // Mã bình luận cho sản phẩm
     description:
       'Tủ quần áo QA205 được chế tác từ gỗ MDF phủ melamine cao cấp, mang phong cách hiện đại và tinh tế. Với thiết kế 4 cánh mở rộng rãi, 2 hàng ngăn kéo tiện lợi và ô hở bên trái, sản phẩm này không chỉ đáp ứng nhu cầu lưu trữ quần áo mà còn là điểm nhấn sang trọng cho phòng ngủ. Chất liệu nhựa Đài Loan bền chắc, chống ẩm mốc, chống cong vênh, phù hợp với các không gian sống có diện tích nhỏ hoặc vừa. Tủ có màu vân óc chó ấm áp, dễ dàng kết hợp với nhiều phong cách nội thất khác nhau.',
     size: '120x180x50cm',

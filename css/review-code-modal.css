@@ -1,0 +1,193 @@
+/* Review Code Modal Styles */
+.review-code-modal {
+    display: none;
+    position: fixed;
+    z-index: 1000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(0, 0, 0, 0.5);
+    animation: fadeIn 0.3s ease;
+}
+
+.review-code-modal-content {
+    background-color: #fff;
+    margin: 15% auto;
+    padding: 30px;
+    border-radius: 8px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+    width: 90%;
+    max-width: 500px;
+    position: relative;
+    animation: slideIn 0.3s ease;
+}
+
+.review-code-close {
+    position: absolute;
+    top: 15px;
+    right: 20px;
+    color: #aaa;
+    font-size: 28px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: color 0.2s ease;
+}
+
+.review-code-close:hover {
+    color: #0058dd;
+}
+
+.review-code-modal h2 {
+    margin-top: 0;
+    color: #1c2332;
+    font-size: 22px;
+    margin-bottom: 15px;
+}
+
+.review-code-modal p {
+    color: #4b5563;
+    margin-bottom: 20px;
+    font-size: 15px;
+    line-height: 1.5;
+}
+
+.review-code-input-group {
+    display: flex;
+    margin-bottom: 20px;
+}
+
+.review-code-input-group input {
+    flex: 1;
+    padding: 12px 15px;
+    border: 1px solid #e5e7eb;
+    border-radius: 6px 0 0 6px;
+    font-size: 16px;
+    outline: none;
+}
+
+.review-code-input-group input:focus {
+    border-color: #0058dd;
+    box-shadow: 0 0 0 3px rgba(0, 88, 221, 0.1);
+}
+
+.review-code-input-group button {
+    background-color: #0058dd;
+    color: white;
+    border: none;
+    padding: 12px 20px;
+    border-radius: 0 6px 6px 0;
+    cursor: pointer;
+    font-weight: 500;
+    transition: background-color 0.2s ease;
+}
+
+.review-code-input-group button:hover {
+    background-color: #0046b8;
+}
+
+.review-code-hint {
+    color: #6b7280;
+    font-size: 14px;
+    font-style: italic;
+    margin-top: 10px;
+}
+
+.review-code-error {
+    color: #ef4444;
+    font-size: 14px;
+    margin-top: 10px;
+    font-weight: 500;
+    display: none;
+    animation: fadeIn 0.3s ease;
+}
+
+/* Animations */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
+}
+
+@keyframes slideIn {
+    from {
+        transform: translateY(-20px);
+        opacity: 0;
+    }
+
+    to {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
+@keyframes shake {
+
+    0%,
+    100% {
+        transform: translateX(0);
+    }
+
+    10%,
+    30%,
+    50%,
+    70%,
+    90% {
+        transform: translateX(-5px);
+    }
+
+    20%,
+    40%,
+    60%,
+    80% {
+        transform: translateX(5px);
+    }
+}
+
+.shake {
+    animation: shake 0.5s ease;
+    border-color: #ef4444 !important;
+}
+
+/* Responsive Styles */
+@media (max-width: 768px) {
+    .review-code-modal-content {
+        margin: 20% auto;
+        padding: 20px;
+        width: 90%;
+    }
+
+    .review-code-input-group {
+        flex-direction: column;
+    }
+
+    .review-code-input-group input {
+        border-radius: 6px;
+        margin-bottom: 10px;
+    }
+
+    .review-code-input-group button {
+        border-radius: 6px;
+        width: 100%;
+    }
+}
+
+@media (max-width: 576px) {
+    .review-code-modal-content {
+        margin: 30% auto;
+        padding: 15px;
+    }
+
+    .review-code-modal h2 {
+        font-size: 18px;
+    }
+
+    .review-code-modal p {
+        font-size: 14px;
+    }
+}

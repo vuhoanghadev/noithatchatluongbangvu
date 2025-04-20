@@ -310,11 +310,7 @@ function populateTabContent(product) {
             <input type="text" id="reviewName" name="reviewName" placeholder="Nhập họ tên của bạn" required>
           </div>
 
-          <div class="form-group">
-            <label for="reviewCode">Mã bình luận</label>
-            <input type="text" id="reviewCode" name="reviewCode" placeholder="Nhập mã bình luận" required>
-            <small class="review-code-hint">Mã bình luận được cung cấp bởi cửa hàng khi mua sản phẩm</small>
-          </div>
+
 
           <div class="form-group">
             <label for="reviewAvatar">Ảnh đại diện (không bắt buộc)</label>
