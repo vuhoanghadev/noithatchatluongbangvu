@@ -40,9 +40,52 @@ function initReviewForm() {
 
   const reviewImages = document.getElementById('reviewImages');
   const reviewVideos = document.getElementById('reviewVideos');
+  const reviewAvatar = document.getElementById('reviewAvatar');
+  const avatarPreview = document.getElementById('avatarPreview');
   const mediaPreview = document.getElementById('mediaPreview');
   const successMessage = document.querySelector('.review-success');
   const errorMessage = document.querySelector('.review-error');
+
+  // Variable to store avatar data URL
+  let avatarDataUrl = null;
+
+  // Handle avatar upload
+  if (reviewAvatar) {
+    reviewAvatar.addEventListener('change', function (e) {
+      if (e.target.files && e.target.files[0]) {
+        const file = e.target.files[0];
+        // Resize avatar image
+        resizeImage(file, 200, 200, function (resizedDataUrl) {
+          // Update avatar preview
+          avatarPreview.innerHTML = `
+            <img src="${resizedDataUrl}" alt="Avatar">
+            <div class="avatar-remove"><i class="fas fa-times"></i></div>
+          `;
+
+          // Store avatar data URL
+          avatarDataUrl = resizedDataUrl;
+
+          // Add event listener to remove button
+          const removeButton = avatarPreview.querySelector('.avatar-remove');
+          if (removeButton) {
+            removeButton.addEventListener('click', function (event) {
+              event.stopPropagation();
+              // Reset avatar preview
+              avatarPreview.innerHTML = `
+                <div class="avatar-placeholder">
+                  <i class="fas fa-user"></i>
+                </div>
+              `;
+              // Clear avatar data URL
+              avatarDataUrl = null;
+              // Reset file input
+              reviewAvatar.value = '';
+            });
+          }
+        });
+      }
+    });
+  }
 
   // Handle image upload preview
   if (reviewImages) {
@@ -85,47 +128,92 @@ function initReviewForm() {
 
     for (let i = 0; i < filesToProcess; i++) {
       const file = files[i];
-      const reader = new FileReader();
 
-      reader.onload = function (e) {
-        const previewItem = document.createElement('div');
-        previewItem.className = 'preview-item';
+      if (type === 'image') {
+        // For images, resize before saving
+        resizeImage(file, 800, 600, function (resizedDataUrl) {
+          addMediaPreview(resizedDataUrl, 'image', file.type);
+        });
+      } else if (type === 'video') {
+        // For videos, just read as data URL
+        const reader = new FileReader();
+        reader.onload = function (e) {
+          addMediaPreview(e.target.result, 'video', file.type);
+        };
+        reader.readAsDataURL(file);
+      }
+    }
+  }
 
-        // Get the base64 data URL
-        const dataUrl = e.target.result;
+  // Function to resize image
+  function resizeImage(file, maxWidth, maxHeight, callback) {
+    const reader = new FileReader();
+    reader.onload = function (e) {
+      const img = new Image();
+      img.onload = function () {
+        let width = img.width;
+        let height = img.height;
 
-        if (type === 'image') {
-          previewItem.innerHTML = `
-            <img src="${dataUrl}" alt="Preview">
-            <div class="remove-preview"><i class="fas fa-times"></i></div>
-            <input type="hidden" name="mediaFiles" value="${encodeURIComponent(
-              dataUrl
-            )}" data-type="image">
-          `;
-        } else if (type === 'video') {
-          previewItem.innerHTML = `
-            <video controls>
-              <source src="${dataUrl}" type="${file.type}">
-            </video>
-            <div class="remove-preview"><i class="fas fa-times"></i></div>
-            <input type="hidden" name="mediaFiles" value="${encodeURIComponent(
-              dataUrl
-            )}" data-type="video">
-          `;
+        // Calculate new dimensions
+        if (width > height) {
+          if (width > maxWidth) {
+            height *= maxWidth / width;
+            width = maxWidth;
+          }
+        } else {
+          if (height > maxHeight) {
+            width *= maxHeight / height;
+            height = maxHeight;
+          }
         }
 
-        mediaPreview.appendChild(previewItem);
+        // Create canvas and resize
+        const canvas = document.createElement('canvas');
+        canvas.width = width;
+        canvas.height = height;
 
-        // Add event listener to remove button
-        const removeButton = previewItem.querySelector('.remove-preview');
-        if (removeButton) {
-          removeButton.addEventListener('click', function () {
-            mediaPreview.removeChild(previewItem);
-          });
-        }
+        // Draw resized image
+        const ctx = canvas.getContext('2d');
+        ctx.drawImage(img, 0, 0, width, height);
+
+        // Get data URL (JPEG format with 0.7 quality to reduce size)
+        const resizedDataUrl = canvas.toDataURL('image/jpeg', 0.7);
+        callback(resizedDataUrl);
       };
+      img.src = e.target.result;
+    };
+    reader.readAsDataURL(file);
+  }
 
-      reader.readAsDataURL(file);
+  // Function to add media preview
+  function addMediaPreview(dataUrl, type, fileType) {
+    const previewItem = document.createElement('div');
+    previewItem.className = 'preview-item';
+
+    if (type === 'image') {
+      previewItem.innerHTML = `
+        <img src="${dataUrl}" alt="Preview">
+        <div class="remove-preview"><i class="fas fa-times"></i></div>
+        <input type="hidden" name="mediaFiles" value="${dataUrl}" data-type="image">
+      `;
+    } else if (type === 'video') {
+      previewItem.innerHTML = `
+        <video controls>
+          <source src="${dataUrl}" type="${fileType}">
+        </video>
+        <div class="remove-preview"><i class="fas fa-times"></i></div>
+        <input type="hidden" name="mediaFiles" value="${dataUrl}" data-type="video">
+      `;
+    }
+
+    mediaPreview.appendChild(previewItem);
+
+    // Add event listener to remove button
+    const removeButton = previewItem.querySelector('.remove-preview');
+    if (removeButton) {
+      removeButton.addEventListener('click', function () {
+        mediaPreview.removeChild(previewItem);
+      });
     }
   }
 
@@ -150,7 +238,7 @@ function initReviewForm() {
     const mediaInputs = document.querySelectorAll('input[name="mediaFiles"]');
     mediaInputs.forEach((input) => {
       mediaFiles.push({
-        name: input.value,
+        value: input.value,
         type: input.dataset.type,
       });
     });
@@ -162,12 +250,13 @@ function initReviewForm() {
       rating: parseInt(rating),
       content: content,
       isAnonymous: isAnonymous,
+      avatar: avatarDataUrl, // Add avatar data URL
       images: mediaFiles
         .filter((file) => file.type === 'image')
-        .map((file) => decodeURIComponent(file.value)),
+        .map((file) => file.value),
       videos: mediaFiles
         .filter((file) => file.type === 'video')
-        .map((file) => decodeURIComponent(file.value)),
+        .map((file) => file.value),
     };
 
     // Show loading state
@@ -211,9 +300,12 @@ function initReviewForm() {
         reviewForm.reset();
         mediaPreview.innerHTML = '';
 
-        // Reload reviews section after 2 seconds
+        // Reload reviews section after 2 seconds with tab parameter
         setTimeout(() => {
-          location.reload();
+          // Get current URL and add tab parameter
+          const url = new URL(window.location.href);
+          url.searchParams.set('tab', 'product-reviews');
+          window.location.href = url.toString();
         }, 2000);
       } catch (error) {
         console.error('Error submitting review:', error);

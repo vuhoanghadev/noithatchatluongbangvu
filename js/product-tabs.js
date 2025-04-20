@@ -11,11 +11,42 @@ function initProductTabs() {
   const tabs = document.querySelectorAll('.product-tab');
   const tabContents = document.querySelectorAll('.product-tab-content');
 
-  // Set first tab as active by default
-  if (tabs.length > 0 && !document.querySelector('.product-tab.active')) {
-    tabs[0].classList.add('active');
-    if (tabContents.length > 0) {
-      tabContents[0].classList.add('active');
+  // Check if there's a tab parameter in the URL
+  const urlParams = new URLSearchParams(window.location.search);
+  const tabParam = urlParams.get('tab');
+
+  // Set active tab based on URL parameter or default to first tab
+  if (tabs.length > 0) {
+    // Remove active class from all tabs and contents
+    tabs.forEach((t) => t.classList.remove('active'));
+    tabContents.forEach((content) => content.classList.remove('active'));
+
+    if (tabParam) {
+      // Try to find tab with matching data-tab attribute
+      const targetTab = Array.from(tabs).find(
+        (tab) => tab.getAttribute('data-tab') === tabParam
+      );
+
+      if (targetTab) {
+        // Set active tab based on URL parameter
+        targetTab.classList.add('active');
+        const content = document.getElementById(tabParam);
+        if (content) {
+          content.classList.add('active');
+        }
+      } else {
+        // Fallback to first tab if parameter doesn't match any tab
+        tabs[0].classList.add('active');
+        if (tabContents.length > 0) {
+          tabContents[0].classList.add('active');
+        }
+      }
+    } else {
+      // No tab parameter, set first tab as active by default
+      tabs[0].classList.add('active');
+      if (tabContents.length > 0) {
+        tabContents[0].classList.add('active');
+      }
     }
   }
 
@@ -79,12 +110,15 @@ function updateReviewCount() {
 
   // Get current product
   const urlParams = new URLSearchParams(window.location.search);
-  const productId = urlParams.get('id');
+  const productId = parseInt(urlParams.get('id'));
 
-  if (!productId || !window.products) return;
+  if (!productId || typeof products === 'undefined') return;
 
-  const product = window.products.find((p) => p.id === parseInt(productId));
+  const product = products.find((p) => p.id === productId);
   if (!product) return;
+
+  // Load reviews from localStorage if available
+  loadReviewsFromLocalStorage(product);
 
   // Get review count from product data
   const reviewCount = product.reviews ? product.reviews.length : 0;
@@ -274,6 +308,21 @@ function populateTabContent(product) {
           <div class="form-group">
             <label for="reviewName">Họ tên của bạn</label>
             <input type="text" id="reviewName" name="reviewName" placeholder="Nhập họ tên của bạn" required>
+          </div>
+
+          <div class="form-group">
+            <label for="reviewAvatar">Ảnh đại diện (không bắt buộc)</label>
+            <div class="avatar-upload">
+              <div class="avatar-preview" id="avatarPreview">
+                <div class="avatar-placeholder">
+                  <i class="fas fa-user"></i>
+                </div>
+              </div>
+              <label class="avatar-upload-button" for="reviewAvatar">
+                <i class="fas fa-camera"></i> Chọn ảnh
+              </label>
+              <input type="file" id="reviewAvatar" name="reviewAvatar" accept="image/*" style="display: none;">
+            </div>
           </div>
 
           <div class="form-group">
@@ -475,9 +524,13 @@ function populateTabContent(product) {
         if (review.images && review.images.length > 0) {
           reviewsHTML += '<div class="review-images">';
           review.images.forEach((image) => {
+            // Check if image is a base64 data URL
+            const isBase64 = image.startsWith('data:image');
+            const imageSrc = isBase64 ? image : image; // Use as is if it's base64, otherwise use the path
+
             reviewsHTML += `
                             <div class="review-image-container">
-                                <img src="${image}" alt="Hình ảnh đánh giá" class="review-image" onclick="openLightbox('${image}')">
+                                <img src="${imageSrc}" alt="Hình ảnh đánh giá" class="review-image" onclick="openLightbox('${imageSrc}')">
                             </div>
                         `;
           });
@@ -488,10 +541,17 @@ function populateTabContent(product) {
         if (review.videos && review.videos.length > 0) {
           reviewsHTML += '<div class="review-videos">';
           review.videos.forEach((video) => {
+            // Check if video is a base64 data URL
+            const isBase64 = video.startsWith('data:video');
+            const videoSrc = isBase64 ? video : video; // Use as is if it's base64, otherwise use the path
+            const videoType = isBase64
+              ? video.split(';')[0].split(':')[1]
+              : 'video/mp4';
+
             reviewsHTML += `
                             <div class="review-video-container">
                                 <video controls class="review-video">
-                                    <source src="${video}" type="video/mp4">
+                                    <source src="${videoSrc}" type="${videoType}">
                                     Trình duyệt của bạn không hỗ trợ video.
                                 </video>
                             </div>
@@ -918,8 +978,15 @@ function openLightbox(imageSrc) {
 
   // Set image source and show lightbox
   const lightboxImage = lightbox.querySelector('.lightbox-image');
-  lightboxImage.src = imageSrc;
-  lightbox.classList.add('active');
+
+  // Handle base64 images (they can be very long strings)
+  try {
+    lightboxImage.src = imageSrc;
+    lightbox.classList.add('active');
+  } catch (error) {
+    console.error('Error loading image in lightbox:', error);
+    alert('Không thể hiển thị hình ảnh phóng to.');
+  }
 }
 
 // Add this function to the product-details-modern.js file's renderProductInfo function
@@ -1039,6 +1106,23 @@ function addTabsToProductDetails(product) {
 
   // Initialize review pagination
   initReviewPagination();
+}
+
+// Function to load reviews from localStorage
+function loadReviewsFromLocalStorage(product) {
+  try {
+    // Get reviews from localStorage
+    const allReviews = JSON.parse(localStorage.getItem('productReviews')) || {};
+
+    // Check if there are reviews for this product
+    if (allReviews[product.id] && Array.isArray(allReviews[product.id])) {
+      // Update product reviews with localStorage data
+      product.reviews = allReviews[product.id];
+      console.log('Reviews loaded from localStorage successfully');
+    }
+  } catch (error) {
+    console.error('Error loading reviews from localStorage:', error);
+  }
 }
 
 // Function to initialize review filters
