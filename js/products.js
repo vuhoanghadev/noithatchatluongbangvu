@@ -15,7 +15,7 @@ const products = [
     tag: 'bán chạy',
     rating: 4.7,
     views: 1250,
-    soldCount: 85,
+    soldCount: 120,
     sku: 'NTBV-QA205', // SKU tự đặt, muốn tự động thì có thể thêm 'true'
     flashsale: {
       active: true,

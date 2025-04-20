@@ -188,13 +188,13 @@ document.addEventListener('DOMContentLoaded', function () {
           ${starsHTML}
           <span class="rating-value">${rating.toFixed(1)}</span>
         </div>
-        <div class="product-views">
-          <i class="fas fa-eye"></i> ${views.toLocaleString('vi-VN')} lượt xem
-        </div>
         <div class="product-sold">
           <i class="fas fa-shopping-cart"></i> ${soldCount.toLocaleString(
             'vi-VN'
-          )} lượt bán
+          )} Lượt Bán
+        </div>
+        <div class="product-views">
+          <i class="fas fa-eye"></i> ${views.toLocaleString('vi-VN')} Lượt Xem
         </div>
       </div>
       <div class="product-category">${product.category}</div>
@@ -453,7 +453,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
     // Render each "also liked" product
     alsoLiked.forEach((likedProduct, index) => {
-      const card = createProductCard(likedProduct);
+      const card = createAlsoLikedProductCard(likedProduct);
       alsoLikedProducts.appendChild(card);
 
       // Add fade-in animation with delay
@@ -461,6 +461,88 @@ document.addEventListener('DOMContentLoaded', function () {
         card.classList.add('fade-in');
       }, index * 100);
     });
+  }
+
+  function createAlsoLikedProductCard(product) {
+    const card = document.createElement('div');
+    card.className = 'product-card also-liked-card';
+
+    // Create badge HTML if promotion exists
+    const badgeHTML = product.promotion
+      ? `<div class="product-badge">${product.promotion}</div>`
+      : '';
+
+    // Get rating and views count
+    const rating = product.rating || 0;
+    const views = product.views || 0;
+
+    // Format rating stars
+    const fullStars = Math.floor(rating);
+    const hasHalfStar = rating % 1 >= 0.5;
+    let starsHTML = '';
+
+    // Create full stars
+    for (let i = 0; i < fullStars; i++) {
+      starsHTML += '<i class="fas fa-star"></i>';
+    }
+
+    // Add half star if needed
+    if (hasHalfStar) {
+      starsHTML += '<i class="fas fa-star-half-alt"></i>';
+    }
+
+    // Add empty stars
+    const emptyStars = 5 - fullStars - (hasHalfStar ? 1 : 0);
+    for (let i = 0; i < emptyStars; i++) {
+      starsHTML += '<i class="far fa-star"></i>';
+    }
+
+    card.innerHTML = `
+            <div class="product-image">
+                <img src="${product.image}" alt="${
+      product.name
+    }" loading="lazy" onerror="this.src='images/products/placeholder.jpg'">
+                ${badgeHTML}
+            </div>
+            <div class="product-content">
+                <div class="product-category">
+                    <i class="fas fa-tag"></i> ${product.category}
+                </div>
+                <h3 class="product-title">${product.name}</h3>
+                <div class="product-stats-container">
+                    <div class="product-stats">
+                        <div class="product-rating">
+                            ${starsHTML}
+                            <span>${rating.toFixed(1)}</span>
+                        </div>
+                    </div>
+                    <div class="also-liked-product-views">
+                        <i class="fas fa-eye"></i>
+                        <span>${views.toLocaleString('vi-VN')}</span>
+                    </div>
+                </div>
+                <div class="product-price">
+                    <span>${product.price || 'Liên hệ'}</span>
+                </div>
+                <div class="product-action">
+                    <a href="product-details.html?id=${
+                      product.id
+                    }" class="product-details also-liked-details">
+                        Xem ngay <i class="fas fa-arrow-right"></i>
+                    </a>
+                </div>
+            </div>
+        `;
+
+    // Add click event to the entire card for better mobile experience
+    card.addEventListener('click', function (e) {
+      // Only navigate if the click wasn't on a button or link
+      if (!e.target.closest('a') && !e.target.closest('button')) {
+        window.location.href = `product-details.html?id=${product.id}`;
+      }
+    });
+
+    return card;
   }
 
   function createProductCard(product) {
@@ -483,12 +565,36 @@ document.addEventListener('DOMContentLoaded', function () {
       }
     }
 
-    // Truncate description for mobile
-    const description = product.description;
+    // Get rating and sold count
+    const rating = product.rating || 0;
+    const soldCount = product.soldCount || 0;
+
+    // Format rating stars
+    const fullStars = Math.floor(rating);
+    const hasHalfStar = rating % 1 >= 0.5;
+    let starsHTML = '';
+
+    // Create full stars
+    for (let i = 0; i < fullStars; i++) {
+      starsHTML += '<i class="fas fa-star"></i>';
+    }
+
+    // Add half star if needed
+    if (hasHalfStar) {
+      starsHTML += '<i class="fas fa-star-half-alt"></i>';
+    }
+
+    // Add empty stars
+    const emptyStars = 5 - fullStars - (hasHalfStar ? 1 : 0);
+    for (let i = 0; i < emptyStars; i++) {
+      starsHTML += '<i class="far fa-star"></i>';
+    }
 
     card.innerHTML = `
             <div class="product-image">
-                <img src="${product.image}" alt="${product.name}" loading="lazy" onerror="this.src='images/products/placeholder.jpg'">
+                <img src="${product.image}" alt="${
+      product.name
+    }" loading="lazy" onerror="this.src='images/products/placeholder.jpg'">
                 ${badgeHTML}
             </div>
             <div class="product-content">
@@ -496,14 +602,27 @@ document.addEventListener('DOMContentLoaded', function () {
                     <i class="fas fa-tag"></i> ${product.category}
                 </div>
                 <h3 class="product-title">${product.name}</h3>
-                <p class="product-description">${description}</p>
+                <div class="product-stats-container">
+                    <div class="product-stats">
+                        <div class="product-rating">
+                            ${starsHTML}
+                            <span>${rating.toFixed(1)}</span>
+                        </div>
+                    </div>
+                    <div class="related-product-sold">
+                        <i class="fas fa-shopping-cart"></i>
+                        <span>${soldCount.toLocaleString('vi-VN')}</span>
+                    </div>
+                </div>
+                <div class="product-price">
+                    <span>${product.price || 'Liên hệ'}</span>
+                </div>
                 <div class="product-action">
-                    <a href="product-details.html?id=${product.id}" class="product-details">
+                    <a href="product-details.html?id=${
+                      product.id
+                    }" class="product-details">
                         Chi tiết <i class="fas fa-arrow-right"></i>
                     </a>
-                    <div class="product-dimensions">
-                        <i class="fas fa-ruler-combined"></i> ${dimensions}
-                    </div>
                 </div>
             </div>
         `;

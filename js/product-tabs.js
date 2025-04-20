@@ -304,6 +304,7 @@ function populateTabContent(product) {
     reviewsHTML += `
       <div class="review-form-container">
         <h3 class="review-form-title"><i class="fas fa-edit"></i> Đánh giá sản phẩm</h3>
+
         <form class="review-form" id="reviewForm">
           <div class="form-group">
             <label for="reviewName">Họ tên của bạn</label>

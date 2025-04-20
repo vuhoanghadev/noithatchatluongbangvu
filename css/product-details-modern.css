@@ -497,20 +497,17 @@ body {
 .product-card {
     background: var(--product-white);
     border-radius: var(--product-card-radius);
-    box-shadow: var(--product-shadow);
+    box-shadow: 0 6px 16px rgb(0 0 0 / 12%), 0 0 0 1px rgba(0, 0, 0, 0.06);
     transition: var(--product-transition);
     position: relative;
     display: flex;
     flex-direction: column;
     height: 100%;
-    border: 1px solid rgba(0, 0, 0, 0.05);
+    border: none;
     opacity: 1;
-    /* Changed from 0 to 1 to fix Safari issue */
+    overflow: hidden;
     transform: translateY(0);
-    /* Changed from translateY(20px) to fix Safari issue */
 }
-
-
 
 .product-card.fade-in {
     opacity: 1;
@@ -519,30 +516,56 @@ body {
 }
 
 .product-card:hover {
-    transform: translateY(-10px);
-    box-shadow: var(--product-hover-shadow);
+    transform: translateY(-8px);
+    box-shadow: 0 12px 24px rgb(0 0 0 / 15%), 0 0 0 1px rgba(0, 0, 0, 0.08);
+}
+
+.product-card::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    border-radius: var(--product-card-radius);
+    pointer-events: none;
+    box-shadow: 0 0 0 1px rgba(249, 115, 22, 0.05);
+    transition: var(--product-transition);
+}
+
+.product-card:hover::after {
+    box-shadow: 0 0 0 2px rgba(249, 115, 22, 0.2);
 }
 
 /* Product image */
 .product-image {
     position: relative;
     aspect-ratio: 1/1;
-    /* Fallback for browsers that don't support aspect-ratio */
-    padding-top: 100%;
+    overflow: hidden;
+    background-color: #f5f5f5;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.04);
 }
 
-.product-image img {
+.product-image::before {
+    content: '';
     position: absolute;
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
+    background: linear-gradient(to bottom, rgba(0, 0, 0, 0.01), transparent 30%);
+    z-index: 1;
+}
+
+.product-image img {
+    width: 100%;
+    height: 100%;
     object-fit: cover;
-    transition: transform 0.5s ease;
+    transition: transform 0.6s cubic-bezier(0.165, 0.84, 0.44, 1);
 }
 
 .product-card:hover .product-image img {
-    transform: scale(1.05);
+    transform: scale(1.06);
 }
 
 /* Product badge */
@@ -560,6 +583,11 @@ body {
     box-shadow: 0 3px 8px rgba(249, 115, 22, 0.3);
     text-transform: uppercase;
     letter-spacing: 0.5px;
+}
+
+.also-liked-card .product-badge {
+    background: var(--product-secondary);
+    box-shadow: 0 3px 8px rgba(0, 88, 221, 0.3);
 }
 
 /* Product content */
@@ -589,7 +617,7 @@ body {
 }
 
 .product-title {
-    font-size: 1.2rem;
+    font-size: 1.1rem;
     font-weight: 700;
     color: var(--product-dark);
     margin-bottom: 10px;
@@ -608,38 +636,141 @@ body {
     color: var(--product-primary);
 }
 
-/* Product card description (different from product detail description) */
-.product-card .product-description {
+/* Product stats */
+.product-stats {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.product-rating {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+.product-rating i {
+    color: #FFB800;
+    font-size: 0.9rem;
+}
+
+.product-rating span {
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: var(--product-text-light);
+}
+
+.product-sold {
+    display: flex;
+    align-items: center;
+    gap: 5px;
     font-size: 0.9rem;
     color: var(--product-text-light);
-    line-height: 1.6;
-    margin-bottom: 20px;
-    flex-grow: 1;
-    display: -webkit-box;
-    -webkit-line-clamp: 2;
-    -webkit-box-orient: vertical;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    height: 3.2em;
-    /* Fixed height: 2 lines * 1.6 line-height */
+}
+
+.product-sold i {
+    color: var(--product-primary);
+}
+
+/* Also liked product views */
+.also-liked-product-views {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    background-color: rgba(0, 88, 221, 0.08);
+    padding: 6px 12px;
+    border-radius: 6px;
+    font-size: 0.9rem;
+    color: var(--product-text);
+    font-weight: 500;
+    margin-left: auto;
+}
+
+.also-liked-product-views i {
+    color: var(--product-secondary);
+    font-size: 1rem;
+}
+
+.also-liked-product-views span {
+    color: var(--product-text);
+    white-space: nowrap;
+}
+
+.also-liked-product-views::before {
+    content: 'Lượt xem:';
+    margin-right: 4px;
+    font-size: 0.9em;
+    color: var(--product-text-light);
+}
+
+/* Product stats container */
+.product-stats-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 12px;
+}
+
+/* Related product sold */
+.related-product-sold {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    background-color: rgba(249, 115, 22, 0.08);
+    padding: 6px 12px;
+    border-radius: 6px;
+    font-size: 0.9rem;
+    color: var(--product-text);
+    font-weight: 500;
+    margin-left: auto;
+}
+
+.related-product-sold i {
+    color: var(--product-primary);
+    font-size: 1rem;
+}
+
+.related-product-sold span {
+    color: var(--product-text);
+    white-space: nowrap;
+}
+
+.related-product-sold::before {
+    content: 'Lượt bán:';
+    margin-right: 4px;
+    font-size: 0.9em;
+    color: var(--product-text-light);
+}
+
+/* Product price */
+.product-price {
+    margin-bottom: 15px;
+}
+
+.product-price span {
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: var(--product-primary);
 }
 
 /* Product action */
 .product-action {
     margin-top: auto;
     display: flex;
-    justify-content: space-between;
+    justify-content: center;
     align-items: center;
     border-top: 1px solid rgba(0, 0, 0, 0.05);
     padding-top: 15px;
 }
 
 .product-details {
-    display: inline-block;
-    padding: 8px 20px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 10px 20px;
     background: var(--product-primary);
     color: var(--product-white);
-    border-radius: 6px;
+    border-radius: 8px;
     text-decoration: none;
     font-size: 0.9rem;
     font-weight: 600;
@@ -647,12 +778,15 @@ body {
     text-align: center;
     border: none;
     cursor: pointer;
+    box-shadow: 0 2px 8px rgba(249, 115, 22, 0.15);
+    width: 80%;
 }
 
 .product-details:hover {
     background: #e86207;
     transform: translateY(-3px);
     box-shadow: 0 5px 15px rgba(249, 115, 22, 0.2);
+    width: 85%;
 }
 
 .product-details i {
@@ -682,10 +816,10 @@ body {
 }
 
 .customers-also-liked h3 {
-    font-size: 1.5rem;
+    font-size: 1.1rem;
     color: var(--product-dark);
-    margin-bottom: 30px;
-    text-align: center;
+    margin-bottom: 10px;
+    text-align: left;
     position: relative;
 }
 
@@ -699,6 +833,56 @@ body {
     height: 3px;
     background: linear-gradient(90deg, var(--product-primary), var(--product-secondary));
     border-radius: 3px;
+}
+
+/* Also Liked Card Styles */
+.also-liked-card {
+    background: linear-gradient(to bottom, #ffffff, #f8f9fa);
+    border-radius: var(--product-card-radius);
+    box-shadow: 0 6px 16px rgb(0 0 0 / 10%), 0 0 0 1px rgba(0, 88, 221, 0.05);
+}
+
+.also-liked-card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 12px 24px rgb(0 0 0 / 12%), 0 0 0 1px rgba(0, 88, 221, 0.1);
+}
+
+.also-liked-card::after {
+    box-shadow: 0 0 0 1px rgba(0, 88, 221, 0.05);
+}
+
+.also-liked-card:hover::after {
+    box-shadow: 0 0 0 2px rgba(0, 88, 221, 0.15);
+}
+
+.also-liked-card .product-image::before {
+    background: linear-gradient(to bottom, rgba(0, 88, 221, 0.02), transparent 30%);
+}
+
+.also-liked-card .product-category i {
+    color: var(--product-secondary);
+}
+
+.also-liked-card .product-views i {
+    color: var(--product-secondary);
+}
+
+.also-liked-card .product-price span {
+    color: var(--product-secondary);
+}
+
+.also-liked-card:hover .product-title {
+    color: var(--product-secondary);
+}
+
+.also-liked-details {
+    background: var(--product-secondary);
+    box-shadow: 0 2px 8px rgba(0, 88, 221, 0.2);
+}
+
+.also-liked-details:hover {
+    background: #0046b8;
+    box-shadow: 0 5px 15px rgba(0, 88, 221, 0.25);
 }
 
 /* Decorative elements */
@@ -884,14 +1068,22 @@ body {
     }
 
     /* Improve product card on mobile */
-    .product-card .product-description {
-        -webkit-line-clamp: 2;
-        /* Limit to 2 lines */
-    }
-
     .product-card .product-action {
         flex-wrap: wrap;
         gap: 10px;
+    }
+
+    .product-stats-container {
+        flex-direction: row;
+        flex-wrap: nowrap;
+        gap: 12px;
+        margin-bottom: 15px;
+    }
+
+    .related-product-sold {
+        padding: 6px 10px;
+        font-size: 0.85rem;
+        margin-left: auto;
     }
 }
 
@@ -1000,7 +1192,7 @@ body {
     /* Improve product card on mobile */
     .product-card .product-action {
         flex-direction: column;
-        align-items: flex-start;
+        align-items: center;
     }
 
     .product-card .product-details {
@@ -1009,9 +1201,48 @@ body {
         margin-bottom: 10px;
     }
 
-    .product-card .product-dimensions {
+    .product-stats-container {
+        flex-direction: row;
+        align-items: center;
+        justify-content: space-between;
+        gap: 10px;
         width: 100%;
-        justify-content: center;
+        margin-bottom: 15px;
+    }
+
+    .product-stats {
+        gap: 8px;
+    }
+
+    .product-rating span {
+        font-size: 0.8rem;
+    }
+
+    .related-product-sold,
+    .also-liked-product-views {
+        padding: 5px 10px;
+        font-size: 0.9rem;
+        margin-left: auto;
+        justify-content: flex-end;
+        min-width: 100px;
+        text-align: right;
+    }
+
+    .related-product-sold i,
+    .also-liked-product-views i {
+        font-size: 1rem;
+    }
+
+    .related-product-sold::before {
+        content: 'Lượt bán:';
+        margin-right: 4px;
+        font-size: 0.9em;
+    }
+
+    .also-liked-product-views::before {
+        content: 'Lượt xem:';
+        margin-right: 4px;
+        font-size: 0.9em;
     }
 
     /* Adjust breadcrumb */
@@ -1023,6 +1254,31 @@ body {
 
 /* Extra small devices */
 @media (max-width: 400px) {
+    .product-stats-container {
+        flex-wrap: nowrap;
+    }
+
+    .product-rating i {
+        font-size: 0.8rem;
+    }
+
+    .related-product-sold,
+    .also-liked-product-views {
+        padding: 4px 8px;
+        font-size: 0.85rem;
+        min-width: 90px;
+    }
+
+    .related-product-sold i,
+    .also-liked-product-views i {
+        font-size: 0.95rem;
+    }
+
+    .related-product-sold::before,
+    .also-liked-product-views::before {
+        font-size: 0.85em;
+    }
+
     .product-container {
         padding: 12px;
         margin-bottom: 40px;

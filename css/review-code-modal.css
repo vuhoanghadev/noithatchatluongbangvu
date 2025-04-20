@@ -154,9 +154,126 @@
     border-color: #ef4444 !important;
 }
 
+/* Review Confirmation Modal Styles */
+.review-confirm-modal {
+    display: none;
+    position: fixed;
+    z-index: 1000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(0, 0, 0, 0.5);
+    animation: fadeIn 0.3s ease;
+}
+
+.review-confirm-modal-content {
+    background-color: #fff;
+    margin: 15% auto;
+    padding: 30px;
+    border-radius: 8px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+    width: 90%;
+    max-width: 500px;
+    position: relative;
+    animation: slideIn 0.3s ease;
+}
+
+.review-confirm-close {
+    position: absolute;
+    top: 15px;
+    right: 20px;
+    color: #aaa;
+    font-size: 28px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: color 0.2s ease;
+}
+
+.review-confirm-close:hover {
+    color: #0058dd;
+}
+
+.review-confirm-header {
+    display: flex;
+    align-items: center;
+    margin-bottom: 20px;
+    gap: 15px;
+}
+
+.review-confirm-header i {
+    font-size: 24px;
+    color: #f59e0b;
+}
+
+.review-confirm-header h2 {
+    margin: 0;
+    color: #1c2332;
+    font-size: 22px;
+}
+
+.review-confirm-body {
+    margin-bottom: 25px;
+}
+
+.review-confirm-body p {
+    color: #4b5563;
+    margin-bottom: 15px;
+    font-size: 15px;
+    line-height: 1.5;
+}
+
+.review-confirm-warning {
+    background-color: #fff8e6;
+    border-left: 4px solid #f59e0b;
+    padding: 15px;
+    color: #92400e !important;
+    font-size: 14px !important;
+    border-radius: 4px;
+}
+
+.review-confirm-actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 15px;
+}
+
+.review-confirm-cancel {
+    background-color: #f3f4f6;
+    color: #4b5563;
+    border: 1px solid #d1d5db;
+    padding: 10px 20px;
+    border-radius: 6px;
+    cursor: pointer;
+    font-weight: 500;
+    transition: all 0.2s ease;
+}
+
+.review-confirm-cancel:hover {
+    background-color: #e5e7eb;
+}
+
+.review-confirm-submit {
+    background-color: #0058dd;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 6px;
+    cursor: pointer;
+    font-weight: 500;
+    transition: background-color 0.2s ease;
+}
+
+.review-confirm-submit:hover {
+    background-color: #0046b8;
+}
+
 /* Responsive Styles */
 @media (max-width: 768px) {
-    .review-code-modal-content {
+
+    .review-code-modal-content,
+    .review-confirm-modal-content {
         margin: 20% auto;
         padding: 20px;
         width: 90%;
@@ -178,16 +295,34 @@
 }
 
 @media (max-width: 576px) {
-    .review-code-modal-content {
+
+    .review-code-modal-content,
+    .review-confirm-modal-content {
         margin: 30% auto;
         padding: 15px;
     }
 
-    .review-code-modal h2 {
+    .review-confirm-actions {
+        flex-direction: column;
+        gap: 10px;
+    }
+
+    .review-confirm-cancel,
+    .review-confirm-submit {
+        width: 100%;
+    }
+
+    .review-code-modal h2,
+    .review-confirm-header h2 {
         font-size: 18px;
     }
 
-    .review-code-modal p {
+    .review-code-modal p,
+    .review-confirm-body p {
         font-size: 14px;
+    }
+
+    .review-confirm-header i {
+        font-size: 20px;
     }
 }

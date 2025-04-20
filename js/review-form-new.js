@@ -258,8 +258,12 @@ function initReviewForm() {
       if (validateReviewCode(reviewCode)) {
         // Hide error if previously shown
         errorElement.style.display = 'none';
+
+        // Hide review code modal
         modal.style.display = 'none';
-        submitReviewWithCode(reviewCode);
+
+        // Show confirmation modal
+        showReviewConfirmModal(reviewCode);
       } else {
         // Show error message in the modal
         errorElement.textContent =
@@ -277,6 +281,7 @@ function initReviewForm() {
     codeInput.addEventListener('keyup', function (event) {
       if (event.key === 'Enter') {
         event.preventDefault();
+        // Trigger click event on submit button to show confirmation dialog
         submitBtn.click();
       } else {
         // Clear error when typing
@@ -322,9 +327,13 @@ function initReviewForm() {
       return;
     }
 
+    // Không cần kiểm tra trùng lặp theo tên nữa
+
     // Show review code modal
     showReviewCodeModal();
   }
+
+  // Đã loại bỏ hàm hasUserAlreadyReviewed
 
   // Function to submit review with code
   function submitReviewWithCode(reviewCode) {
@@ -459,5 +468,39 @@ function initReviewForm() {
     const minutes = date.getMinutes().toString().padStart(2, '0');
 
     return `${day}/${month}/${year} ${hours}:${minutes}`;
+  }
+
+  // Function to show review confirmation modal
+  function showReviewConfirmModal(reviewCode) {
+    const confirmModal = document.getElementById('reviewConfirmModal');
+    const closeBtn = confirmModal.querySelector('.review-confirm-close');
+    const cancelBtn = document.getElementById('reviewConfirmCancel');
+    const submitBtn = document.getElementById('reviewConfirmSubmit');
+
+    // Show modal
+    confirmModal.style.display = 'block';
+
+    // Close modal when clicking on X
+    closeBtn.onclick = function () {
+      confirmModal.style.display = 'none';
+    };
+
+    // Close modal when clicking outside
+    window.onclick = function (event) {
+      if (event.target == confirmModal) {
+        confirmModal.style.display = 'none';
+      }
+    };
+
+    // Cancel button action
+    cancelBtn.onclick = function () {
+      confirmModal.style.display = 'none';
+    };
+
+    // Submit button action
+    submitBtn.onclick = function () {
+      confirmModal.style.display = 'none';
+      submitReviewWithCode(reviewCode);
+    };
   }
 }
