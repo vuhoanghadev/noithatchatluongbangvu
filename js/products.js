@@ -15,6 +15,7 @@ const products = [
     tag: 'bán chạy',
     rating: 4.7,
     views: 1250,
+    soldCount: 85,
     sku: 'NTBV-QA205', // SKU tự đặt, muốn tự động thì có thể thêm 'true'
     flashsale: {
       active: true,
@@ -409,6 +410,7 @@ const products = [
     tag: 'Mới',
     rating: 4.5,
     views: 980,
+    soldCount: 42,
     sku: 'NTBV-TB120', // SKU tự đặt
     gallery: ['images/products/product2.png', 'images/products/product2.png'],
   },
@@ -425,6 +427,9 @@ const products = [
     price: 'Liên hệ',
     material: 'Gỗ tự nhiên phủ sơn PU',
     promotion: 'ƯU ĐÃI ĐẶC BIỆT THÁNG 4',
+    rating: 4.8,
+    views: 1560,
+    soldCount: 120,
     flashsale: {
       active: true,
       discountPercent: 25,

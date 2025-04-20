@@ -157,9 +157,10 @@ document.addEventListener('DOMContentLoaded', function () {
     // 2. Thêm tiêu đề sản phẩm
     infoHTML += `<h1>${product.name}</h1>`;
 
-    // 3. Thêm đánh giá và lượt xem
+    // 3. Thêm đánh giá, lượt xem và lượt bán
     const rating = product.rating || 0;
     const views = product.views || 0;
+    const soldCount = product.soldCount || 0;
     const fullStars = Math.floor(rating);
     const hasHalfStar = rating % 1 >= 0.5;
 
@@ -189,6 +190,11 @@ document.addEventListener('DOMContentLoaded', function () {
         </div>
         <div class="product-views">
           <i class="fas fa-eye"></i> ${views.toLocaleString('vi-VN')} lượt xem
+        </div>
+        <div class="product-sold">
+          <i class="fas fa-shopping-cart"></i> ${soldCount.toLocaleString(
+            'vi-VN'
+          )} lượt bán
         </div>
       </div>
       <div class="product-category">${product.category}</div>

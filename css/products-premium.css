@@ -555,6 +555,7 @@
     overflow: hidden;
     text-overflow: ellipsis;
     height: 4.32rem;
+    font-style: italic;
     /* font-size * line-height * 3 lines */
 }
 
