@@ -4,6 +4,7 @@ const products = [
     name: 'Tủ QA205 - 4 Cánh Mở, 2 Hàng Ngăn Kéo, Ô Hở Trái Vân Óc Chó',
     category: 'Tủ Quần Áo',
     image: 'images/products/product1.png',
+    reviewCode: 'NTBV2024', // Mã bình luận cho sản phẩm
     description:
       'Tủ quần áo QA205 được chế tác từ gỗ MDF phủ melamine cao cấp, mang phong cách hiện đại và tinh tế. Với thiết kế 4 cánh mở rộng rãi, 2 hàng ngăn kéo tiện lợi và ô hở bên trái, sản phẩm này không chỉ đáp ứng nhu cầu lưu trữ quần áo mà còn là điểm nhấn sang trọng cho phòng ngủ. Chất liệu nhựa Đài Loan bền chắc, chống ẩm mốc, chống cong vênh, phù hợp với các không gian sống có diện tích nhỏ hoặc vừa. Tủ có màu vân óc chó ấm áp, dễ dàng kết hợp với nhiều phong cách nội thất khác nhau.',
     size: '120x180x50cm',
@@ -397,6 +398,7 @@ const products = [
     name: 'Tủ Bếp QA120 - 3 Cánh Lùa, Vân Gỗ Sồi Tự Nhiên',
     category: 'Tủ Bếp',
     image: 'images/products/product2.png',
+    reviewCode: 'NTBV2025', // Mã bình luận cho sản phẩm
     description:
       'Tủ bếp QA120 là sự lựa chọn hoàn hảo cho không gian bếp hiện đại với thiết kế 3 cánh lùa tiết kiệm không gian. Sản phẩm được làm từ gỗ công nghiệp MDF phủ melamine vân gỗ sồi tự nhiên, mang lại vẻ đẹp sang trọng và ấm cúng. Chất liệu chống ẩm, chống mối mọt, đảm bảo độ bền lâu dài ngay cả trong môi trường bếp ẩm ướt. Với kích thước rộng rãi, tủ cung cấp không gian lưu trữ lớn cho các dụng cụ nhà bếp, thực phẩm khô và đồ dùng gia đình. Thiết kế tinh tế, dễ dàng vệ sinh, phù hợp với các căn bếp có diện tích vừa và nhỏ.',
     size: '200x60x80cm',
@@ -415,6 +417,7 @@ const products = [
     name: 'Bàn Học QA84 - 2 Cánh Dài, 1 Cánh Ngắn, 2 Ngăn Kéo, Vân Gỗ Sồi',
     category: 'Bàn Học',
     image: 'images/products/product3.png',
+    reviewCode: 'NTBV2026', // Mã bình luận cho sản phẩm
     description:
       'Bàn học QA84 được thiết kế dành riêng cho học sinh và sinh viên với phong cách tối giản nhưng đầy đủ công năng. Sản phẩm được làm từ gỗ tự nhiên phủ sơn PU cao cấp, mang lại độ bền vượt trội và khả năng chống trầy xước. Thiết kế gồm 2 cánh dài, 1 cánh ngắn và 2 ngăn kéo tiện lợi, giúp lưu trữ sách vở, tài liệu và dụng cụ học tập một cách ngăn nắp. Màu vân gỗ sồi tự nhiên tạo cảm giác ấm áp, kích thích sự tập trung khi học tập. Kích thước bàn phù hợp với các phòng học nhỏ, đảm bảo sự thoải mái khi sử dụng trong thời gian dài.',
     size: '100x50x75cm',
