@@ -35,18 +35,24 @@ document.addEventListener('DOMContentLoaded', function () {
 
   // Handle search functionality
   function handleSearch() {
-    // Get the search input element
-    const searchInput = document.querySelector('.search-input');
+    // Check if fullscreen search is available
+    const fullscreenSearch = document.querySelector('.fullscreen-search');
 
-    // If search input exists, focus on it
-    if (searchInput) {
-      searchInput.focus();
-
-      // Scroll to search input if it's not visible
-      searchInput.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    if (fullscreenSearch) {
+      // Open fullscreen search
+      openSearch();
     } else {
-      // If no search input on current page, redirect to search page
-      window.location.href = 'products.html?search=true';
+      // If fullscreen search is not available, check for regular search input
+      const searchInput = document.querySelector('.search-input');
+
+      if (searchInput) {
+        // Focus on existing search input
+        searchInput.focus();
+        searchInput.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      } else {
+        // If no search input on current page, redirect to search page
+        window.location.href = 'products.html?search=true';
+      }
     }
   }
 
