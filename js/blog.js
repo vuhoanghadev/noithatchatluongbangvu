@@ -1094,7 +1094,7 @@ if (document.getElementById('post-title')) {
       card.innerHTML = `
           <img src="${p.image}" alt="${p.title}" loading="lazy">
           <h4>${p.title}</h4>
-          <a href="blog-post.html?id=${p.id}" class="btn-read-more">Đọc thêm</a>
+          <a href="blog-detail.html?id=${p.id}" class="btn-read-more">Đọc thêm</a>
         `;
       relatedPosts.appendChild(card);
     });
