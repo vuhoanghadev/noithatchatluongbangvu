@@ -1,0 +1,33 @@
+/* Bottom navigation specific transitions */
+.bottom-nav-item.clicked i {
+    animation: scaleUp 0.3s ease forwards;
+}
+
+@keyframes scaleUp {
+    0% {
+        transform: scale(1);
+    }
+
+    50% {
+        transform: scale(1.2);
+    }
+
+    100% {
+        transform: scale(1);
+    }
+}
+
+/* Make sure bottom nav stays visible during transitions */
+.bottom-nav {
+    z-index: 9997;
+}
+
+/* Ensure the transition works well with the floating contact buttons */
+.fc-container {
+    z-index: 9996;
+}
+
+/* Ensure the transition works well with the back to top button */
+.back-to-top {
+    z-index: 9996;
+}
