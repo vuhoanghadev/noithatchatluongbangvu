@@ -201,6 +201,10 @@
     overflow: hidden;
     box-shadow: 0 6px 16px rgb(0 0 0 / 12%), 0 0 0 1px rgba(0, 0, 0, 0.06);
     transition: transform 0.2s ease, box-shadow 0.2s ease;
+    background-color: white;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
 }
 
 .search-result-card:hover {
@@ -208,14 +212,49 @@
     box-shadow: 0 10px 20px rgb(0 0 0 / 15%), 0 0 0 1px rgba(0, 0, 0, 0.06);
 }
 
-.search-result-image {
+.search-result-image-container {
+    position: relative;
     width: 100%;
     aspect-ratio: 1;
+    overflow: hidden;
+}
+
+.search-result-image {
+    width: 100%;
+    height: 100%;
     object-fit: cover;
+    transition: transform 0.3s ease;
+}
+
+.search-result-card:hover .search-result-image {
+    transform: scale(1.05);
+}
+
+.search-result-badge {
+    position: absolute;
+    top: 8px;
+    right: 8px;
+    padding: 4px 8px;
+    border-radius: 4px;
+    font-size: 11px;
+    font-weight: 600;
+    color: white;
+    z-index: 1;
+}
+
+.search-result-flashsale {
+    background-color: #ff4d4f;
+}
+
+.search-result-promotion {
+    background-color: #ff9800;
 }
 
 .search-result-info {
-    padding: 10px;
+    padding: 12px;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
 }
 
 .search-result-title {
@@ -232,14 +271,51 @@
     height: 2.6em;
 }
 
+.search-result-meta {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 5px;
+    font-size: 12px;
+}
+
+.search-result-rating {
+    display: flex;
+    align-items: center;
+}
+
+.search-result-rating i {
+    color: #ffb800;
+    font-size: 11px;
+    margin-right: 1px;
+}
+
+.search-result-rating-value {
+    margin-left: 3px;
+    color: #666;
+}
+
+.search-result-sold {
+    color: #666;
+    display: flex;
+    align-items: center;
+}
+
+.search-result-sold i {
+    font-size: 10px;
+    margin-right: 3px;
+    color: #0058dd;
+}
+
 .search-result-price {
     font-size: 14px;
     font-weight: 600;
     color: #0058dd;
+    margin-bottom: 8px;
 }
 
 .search-result-contact {
-    margin-top: 8px;
+    margin-top: auto;
     display: flex;
     gap: 5px;
 }
@@ -249,14 +325,16 @@
     background-color: #0058dd;
     color: white;
     border: none;
-    border-radius: 4px;
-    padding: 6px 0;
+    border-radius: 6px;
+    padding: 8px 0;
     font-size: 12px;
+    font-weight: 500;
     cursor: pointer;
     display: flex;
     align-items: center;
     justify-content: center;
-    transition: background-color 0.2s ease;
+    transition: all 0.2s ease;
+    text-decoration: none;
 }
 
 .search-result-contact-btn i {
@@ -265,6 +343,12 @@
 
 .search-result-contact-btn:hover {
     background-color: #0046b8;
+    transform: translateY(-2px);
+}
+
+.search-result-contact-btn:active {
+    background-color: #003da0;
+    transform: translateY(0);
 }
 
 .search-empty-state {
@@ -453,6 +537,53 @@
 }
 
 /* Responsive adjustments */
+@media (max-width: 480px) {
+    .search-results {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 10px;
+    }
+
+    .search-result-title {
+        font-size: 13px;
+        -webkit-line-clamp: 2;
+        height: 2.6em;
+    }
+
+    .search-result-info {
+        padding: 10px;
+    }
+
+    .search-result-meta {
+        font-size: 11px;
+    }
+
+    .search-result-rating i {
+        font-size: 10px;
+    }
+
+    .search-result-price {
+        font-size: 13px;
+        margin-bottom: 6px;
+    }
+
+    .search-result-contact-btn {
+        padding: 7px 0;
+        font-size: 11px;
+    }
+
+    .search-result-badge {
+        font-size: 10px;
+        padding: 3px 6px;
+    }
+}
+
+@media (min-width: 481px) and (max-width: 767px) {
+    .search-results {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 12px;
+    }
+}
+
 @media (min-width: 768px) {
     .search-results {
         grid-template-columns: repeat(3, 1fr);
@@ -708,11 +839,21 @@
 
 /* Advanced search filters */
 .search-advanced-filters {
-    margin-bottom: 20px;
-    border-radius: 10px;
+    margin: 0 0 20px 0;
+    border-radius: 0 0 10px 10px;
     overflow: hidden;
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
     background-color: #fff;
+    position: sticky;
+    top: 116px;
+    /* Position below the search-tabs */
+    z-index: 1;
+    width: 100%;
+}
+
+#blog-filters {
+    display: none;
+    /* Hidden by default, will be shown when blog tab is active */
 }
 
 .search-filter-toggle {
@@ -746,9 +887,18 @@
 }
 
 .search-filters-container {
-    padding: 15px 20px;
     background-color: #fff;
     border-bottom: 1px solid #eee;
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.3s ease, padding 0.3s ease;
+    padding: 0 20px;
+    width: 100%;
+}
+
+.search-filters-container[style="display: block;"] {
+    max-height: 1000px;
+    padding: 15px 20px;
 }
 
 .search-filter-group {
@@ -783,7 +933,9 @@
     box-shadow: 0 0 0 2px rgba(0, 88, 221, 0.1);
 }
 
-.search-filter-tags {
+.search-filter-tags,
+.search-filter-product-types,
+.search-filter-price-sort {
     display: flex;
     flex-wrap: wrap;
     gap: 10px;
@@ -800,12 +952,28 @@
     transition: background-color 0.2s ease;
 }
 
-.search-filter-tag input {
+.search-filter-tag input,
+.search-filter-checkbox-item input {
     margin-right: 6px;
     accent-color: #0058dd;
 }
 
 .search-filter-tag:hover {
+    background-color: #e9e9e9;
+}
+
+.search-filter-checkbox-item {
+    display: flex;
+    align-items: center;
+    padding: 6px 12px;
+    background-color: #f5f5f5;
+    border-radius: 20px;
+    font-size: 13px;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+}
+
+.search-filter-checkbox-item:hover {
     background-color: #e9e9e9;
 }
 
@@ -824,26 +992,59 @@
     font-weight: 500;
     cursor: pointer;
     transition: background-color 0.2s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.search-filter-apply i {
+    margin-right: 5px;
+    font-size: 14px;
 }
 
 .search-filter-apply:hover {
     background-color: #0046b8;
 }
 
+.search-filter-apply:active {
+    background-color: #003da0;
+    transform: translateY(1px);
+}
+
 .search-filter-reset {
     padding: 10px 20px;
     background-color: #f5f5f5;
-    color: #666;
+    color: #333;
     border: 1px solid #ddd;
     border-radius: 6px;
     font-weight: 500;
     cursor: pointer;
     transition: all 0.2s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.search-filter-reset i {
+    margin-right: 5px;
+    font-size: 14px;
+    color: #666;
+    transition: color 0.2s ease;
 }
 
 .search-filter-reset:hover {
     background-color: #e9e9e9;
-    color: #333;
+    color: #d9534f;
+    border-color: #d9534f;
+}
+
+.search-filter-reset:hover i {
+    color: #d9534f;
+}
+
+.search-filter-reset:active {
+    background-color: #e0e0e0;
+    transform: translateY(1px);
 }
 
 /* Search query display */
@@ -865,8 +1066,16 @@
 /* Tab navigation for search results */
 .search-tabs {
     display: flex;
-    margin-bottom: 15px;
+    margin-bottom: 0;
     border-bottom: 1px solid #eee;
+    justify-content: space-between;
+    align-items: center;
+    position: sticky;
+    top: 75px;
+    /* Position below the search header */
+    z-index: 2;
+    background-color: #fff;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
 }
 
 .search-tab {
@@ -894,6 +1103,8 @@
 
 .search-tab-content {
     display: none;
+    padding-top: 10px;
+    /* Add some space after the sticky tabs */
 }
 
 .search-tab-content.active {
@@ -907,4 +1118,41 @@
     color: #777;
     padding: 2px 6px;
     border-radius: 10px;
+}
+
+/* Filter toggle in tabs */
+.search-tabs .search-filter-toggle {
+    padding: 10px 15px;
+    font-size: 14px;
+    color: #777;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    background: none;
+    border: none;
+    box-shadow: none;
+    margin-left: auto;
+    transition: color 0.2s ease;
+}
+
+.search-tabs .search-filter-toggle i {
+    margin-right: 5px;
+    font-size: 14px;
+    color: #777;
+}
+
+.search-tabs .search-filter-toggle:hover {
+    color: #0058dd;
+}
+
+.search-tabs .search-filter-toggle:hover i {
+    color: #0058dd;
+}
+
+.search-tabs .search-filter-toggle.active {
+    color: #0058dd;
+}
+
+.search-tabs .search-filter-toggle.active i {
+    color: #0058dd;
 }

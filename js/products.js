@@ -427,6 +427,7 @@ const products = [
     price: 'Liên hệ',
     material: 'Gỗ tự nhiên phủ sơn PU',
     promotion: 'ƯU ĐÃI ĐẶC BIỆT THÁNG 4',
+    tag: 'Bán chạy',
     rating: 4.8,
     views: 1560,
     soldCount: 120,
@@ -450,6 +451,7 @@ const products = [
       'Bàn làm việc QA126 là lựa chọn lý tưởng cho không gian văn phòng tại nhà hoặc văn phòng chuyên nghiệp. Sản phẩm được làm từ gỗ MDF phủ melamine màu trắng sáng, mang lại vẻ đẹp hiện đại và dễ dàng phối hợp với nhiều phong cách nội thất. Thiết kế gồm 3 cánh mở rộng rãi và 1 cánh nhỏ, cung cấp không gian lưu trữ lớn cho tài liệu, thiết bị văn phòng và vật dụng cá nhân. Bề mặt bàn chống thấm nước, chống trầy xước, dễ dàng vệ sinh. Kích thước bàn phù hợp với các không gian làm việc vừa và nhỏ, mang lại sự tiện nghi và chuyên nghiệp.',
     size: '120x60x75cm',
     promotion: null,
+    tag: 'Bán Chạy',
     gallery: ['images/products/product4.png'],
   },
   {
@@ -953,6 +955,7 @@ const products = [
     name: 'Tủ Bếp Gỗ Công Nghiệp Tiện Nghi',
     category: 'Tủ Bếp',
     image: 'images/products/product2.png',
+    price: '50.500.000đ',
     description:
       'Tủ bếp gỗ công nghiệp được thiết kế với phong cách hiện đại, mang lại sự tiện nghi và thẩm mỹ cho không gian bếp. Sản phẩm được làm từ gỗ MDF phủ melamine cao cấp, mang lại độ bền cao và khả năng chống ẩm mốc vượt trội. Với thiết kế cánh mở rộng rãi và kệ tích hợp, tủ cung cấp không gian lưu trữ lớn cho dụng cụ nhà bếp, thực phẩm khô và đồ dùng gia đình. Bề mặt tủ mịn màng, dễ dàng vệ sinh và chống trầy xước. Kích thước tủ phù hợp với các căn bếp lớn, mang lại sự tiện lợi và sang trọng cho ngôi nhà của bạn.',
     size: '230x60x85cm',
@@ -964,6 +967,7 @@ const products = [
     name: 'Bàn Học Gỗ MDF Nhỏ Gọn Tiện Dụng',
     category: 'Bàn Học',
     image: 'images/products/product3.png',
+    price: '20.500.000đ',
     description:
       'Bàn học gỗ MDF được thiết kế dành riêng cho học sinh với phong cách tối giản và tiện dụng. Sản phẩm được làm từ gỗ MDF phủ melamine cao cấp, mang lại độ bền cao và khả năng chống trầy xước. Thiết kế nhỏ gọn với các ngăn kéo và kệ lưu trữ, giúp sắp xếp sách vở, tài liệu và dụng cụ học tập một cách ngăn nắp. Màu sắc vân gỗ tự nhiên tạo cảm giác ấm áp, kích thích sự tập trung khi học tập. Kích thước bàn phù hợp với các phòng học nhỏ, đảm bảo sự thoải mái khi sử dụng trong thời gian dài.',
     size: '80x40x70cm',
@@ -975,6 +979,7 @@ const products = [
     name: 'Bàn Làm Việc Gỗ Công Nghiệp Nhỏ Gọn',
     category: 'Bàn Làm Việc',
     image: 'images/products/product4.png',
+    price: '10.500.000đ',
     description:
       'Bàn làm việc gỗ công nghiệp được chế tác từ gỗ MDF phủ melamine cao cấp, mang lại vẻ đẹp hiện đại và tiện dụng cho không gian làm việc. Với thiết kế nhỏ gọn, bàn cung cấp không gian lưu trữ vừa đủ cho tài liệu, thiết bị văn phòng và vật dụng cá nhân. Bề mặt bàn chống thấm nước, chống trầy xước, dễ dàng vệ sinh, đảm bảo độ bền lâu dài. Màu sắc trung tính, dễ dàng kết hợp với nhiều phong cách nội thất. Kích thước bàn phù hợp với các không gian làm việc nhỏ, mang lại sự tiện nghi và hiệu quả khi làm việc.',
     size: '100x50x75cm',
@@ -986,6 +991,7 @@ const products = [
     name: 'Bàn Trang Điểm Gỗ Tự Nhiên Sang Trọng',
     category: 'Bàn Trang Điểm',
     image: 'images/products/product5.png',
+    price: '5.500.000đ',
     description:
       'Bàn trang điểm gỗ tự nhiên được chế tác từ gỗ sồi cao cấp, mang lại vẻ đẹp sang trọng và tinh tế cho phòng ngủ. Với thiết kế hiện đại, bàn đi kèm gương lớn và các ngăn kéo, kệ lưu trữ rộng rãi, phù hợp để sắp xếp mỹ phẩm, phụ kiện và đồ dùng cá nhân. Bề mặt gỗ được phủ lớp sơn PU cao cấp, chống thấm nước, chống mối mọt và chống trầy xước, đảm bảo độ bền lâu dài. Kích thước bàn phù hợp với nhiều không gian phòng ngủ, từ căn hộ nhỏ đến nhà phố lớn, mang lại sự tiện nghi và thẩm mỹ.',
     size: '85x40x130cm',
@@ -997,6 +1003,19 @@ const products = [
     name: 'Tủ Giày Gỗ Tự Nhiên Bền Đẹp',
     category: 'Tủ Giày',
     image: 'images/products/product6.png',
+    price: '2.500.000',
+    description:
+      'Tủ giày gỗ tự nhiên được chế tác từ gỗ sồi cao cấp, mang lại vẻ đẹp sang trọng và bền bỉ cho không gian sống. Với thiết kế cánh mở rộng rãi, tủ cung cấp không gian lưu trữ lớn, phù hợp để sắp xếp nhiều đôi giày dép một cách gọn gàng. Bề mặt gỗ được phủ lớp sơn PU cao cấp, chống thấm nước, chống mối mọt và chống trầy xước, đảm bảo độ bền lâu dài. Màu gỗ tự nhiên ấm áp, dễ dàng kết hợp với nhiều phong cách nội thất. Kích thước tủ phù hợp với các căn hộ có diện tích vừa và lớn, mang lại sự tiện nghi và thẩm mỹ.',
+    size: '100x30x100cm',
+    promotion: 'sale 20%',
+    gallery: ['images/products/product6.png', 'images/products/product7.png'],
+  },
+  {
+    id: 54,
+    name: 'Tủ Giày Gỗ Tự Nhiên Bền Đẹp',
+    category: 'Tủ Giày',
+    image: 'images/products/product6.png',
+    price: '2.999.999',
     description:
       'Tủ giày gỗ tự nhiên được chế tác từ gỗ sồi cao cấp, mang lại vẻ đẹp sang trọng và bền bỉ cho không gian sống. Với thiết kế cánh mở rộng rãi, tủ cung cấp không gian lưu trữ lớn, phù hợp để sắp xếp nhiều đôi giày dép một cách gọn gàng. Bề mặt gỗ được phủ lớp sơn PU cao cấp, chống thấm nước, chống mối mọt và chống trầy xước, đảm bảo độ bền lâu dài. Màu gỗ tự nhiên ấm áp, dễ dàng kết hợp với nhiều phong cách nội thất. Kích thước tủ phù hợp với các căn hộ có diện tích vừa và lớn, mang lại sự tiện nghi và thẩm mỹ.',
     size: '100x30x100cm',
