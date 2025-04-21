@@ -38,7 +38,7 @@
     <link rel="stylesheet" href="css/header-new.css">
     <link rel="stylesheet" href="css/banner-new.css">
     <link rel="stylesheet" href="css/footer-modern.css">
-    <link rel="stylesheet" href="css/floating-contact.css">
+    <link rel="stylesheet" href="css/floating-contact-new.css">
     <link rel="stylesheet" href="css/booking-modal-compact.css">
     <link rel="stylesheet" href="css/booking-modal-brand.css">
     <link rel="stylesheet" href="css/booking-success.css">
@@ -47,12 +47,12 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css"
         integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA=="
         crossorigin="anonymous" referrerpolicy="no-referrer" />
-</head>
-
-<body>
     <div id="fb-root"></div>
     <script async defer crossorigin="anonymous"
         src="https://connect.facebook.net/vi_VN/sdk.js#xfbml=1&version=v22.0"></script>
+</head>
+
+<body>
 
     <!-- Announcement Banner -->
     <div class="announcement-banner">
@@ -262,16 +262,7 @@
             </div>
         </section>
 
-        <!-- Comments Section -->
-        <section class="comments-section">
-            <div class="container">
-                <h2 class="section-title">Bình luận</h2>
-                <div class="comments-wrapper">
-                    <div class="fb-comments" data-href="https://noithatchatluongbangvu.vercel.app/blog-detail.html"
-                        data-width="100%" data-numposts="5"></div>
-                </div>
-            </div>
-        </section>
+
 
         <!-- Newsletter Section -->
         <section class="newsletter-section">
@@ -392,25 +383,24 @@
     <script src="js/header-scroll.js"></script>
     <script src="js/logo-animation.js"></script>
     <script src="js/footer-modern.js"></script>
-    <script src="js/floating-contact.js"></script>
+    <script src="js/floating-contact-new.js"></script>
     <script src="js/effects.js"></script>
 
 
 
-    <!-- Floating Contact Buttons -->
-    <div class="floating-contact">
-        <a href="tel:0972774646" class="floating-contact-button floating-contact-phone">
+    <!-- Floating Contact Buttons - New Version -->
+    <div class="fc-container">
+        <a href="tel:0972774646" class="fc-button fc-phone">
             <i class="fas fa-phone-alt"></i>
-            <span class="floating-contact-label">Gọi ngay: 097.277.4646</span>
+            <span class="fc-label">Gọi ngay: 097.277.4646</span>
         </a>
-        <a href="https://zalo.me/123456789" target="_blank" class="floating-contact-button floating-contact-zalo">
-            <img src="./images/Icon_of_Zalo.svg" alt="Zalo" style="width: 28px; height: 28px;">
-            <span class="floating-contact-label">Chat Zalo</span>
+        <a href="https://zalo.me/123456789" target="_blank" class="fc-button fc-zalo">
+            <img src="./images/Icon_of_Zalo.svg" alt="Zalo">
+            <span class="fc-label">Chat Zalo</span>
         </a>
-        <a href="https://m.me/tunhuachatluong" target="_blank"
-            class="floating-contact-button floating-contact-messenger">
+        <a href="https://m.me/tunhuachatluong" target="_blank" class="fc-button fc-messenger">
             <i class="fab fa-facebook-messenger"></i>
-            <span class="floating-contact-label">Messenger</span>
+            <span class="fc-label">Messenger</span>
         </a>
     </div>
 

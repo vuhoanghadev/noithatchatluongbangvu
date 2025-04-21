@@ -51,6 +51,8 @@
     <link rel="stylesheet" href="css/main.css">
     <link rel="stylesheet" href="css/header-new.css">
     <link rel="stylesheet" href="css/banner-new.css">
+    <link rel="stylesheet" href="css/footer-modern.css">
+    <link rel="stylesheet" href="css/floating-contact-new.css">
     <style>
         body {
             font-family: 'Poppins', sans-serif;
@@ -945,6 +947,10 @@
 </head>
 
 <body class="bg-white">
+    <div id="fb-root"></div>
+    <script async defer crossorigin="anonymous"
+        src="https://connect.facebook.net/vi_VN/sdk.js#xfbml=1&version=v18.0&appId=your-app-id&autoLogAppEvents=1"
+        nonce="random-nonce"></script>
     <!-- Announcement Banner -->
     <div class="announcement-banner">
         Giảm giá 20% cho tất cả các sản phẩm mới! <a href="products.html">Xem ngay</a>
@@ -1396,106 +1402,87 @@
     </section>
 
     <!-- Footer -->
-    <footer class="bg-gray-900 text-white py-16">
-        <div class="container mx-auto px-4">
-            <!-- Top Footer -->
-            <div class="grid grid-cols-1 md:grid-cols-4 gap-12 mb-12">
-                <!-- Brand Column -->
-                <div class="space-y-6">
-                    <div class="flex items-center space-x-3">
-                        <i class="fas fa-couch text-3xl text-orange-500"></i>
-                        <h3 class="text-2xl font-bold">Nội Thất Chất Lượng Hà Nội</h3>
+    <footer class="footer" style="padding-top: 100px;">
+        <div class="footer-container">
+            <div class="container">
+                <div class="footer-content">
+                    <div class="footer-brand">
+                        <div class="footer-logo-container">
+                            <img src="./images/logo.svg" alt="Logo" class="footer-logo">
+                            <div class="footer-brand-text">
+                                <h3>Nội Thất Chất Lượng Bàng Vũ</h3>
+                                <p class="footer-brand-tagline">Nâng Tầm Không Gian Sống</p>
+                            </div>
+                        </div>
+                        <p>Chúng tôi chuyên cung cấp các sản phẩm nội thất cao cấp, thiết kế và thi công nội thất theo
+                            yêu cầu. Với hơn 10 năm kinh nghiệm, chúng tôi tự hào mang đến những sản phẩm chất lượng cao
+                            và dịch vụ chuyên nghiệp.</p>
+
+                        <div class="newsletter-form">
+                            <p>Đăng ký nhận thông tin và ưu đãi mới nhất</p>
+                            <div class="newsletter-input-group">
+                                <input type="email" class="newsletter-input" placeholder="Nhập email của bạn">
+                                <button class="newsletter-button">Đăng ký</button>
+                            </div>
+                        </div>
                     </div>
-                    <p class="text-gray-400 leading-relaxed">Chuyên cung cấp các sản phẩm tủ nhựa cao cấp cho mọi không
-                        gian sống. Cam kết chất lượng và dịch vụ tốt nhất.</p>
-                    <div class="flex space-x-4">
-                        <a href="#" class="social-icon">
-                            <i class="fab fa-facebook-f"></i>
-                        </a>
-                        <a href="#" class="social-icon">
-                            <i class="fab fa-instagram"></i>
-                        </a>
-                        <a href="#" class="social-icon">
-                            <i class="fab fa-youtube"></i>
-                        </a>
-                        <a href="#" class="social-icon">
-                            <i class="fab fa-tiktok"></i>
-                        </a>
+
+                    <div class="footer-info">
+                        <h3>Thông tin liên hệ</h3>
+                        <p><i class="fas fa-map-marker-alt"></i> Số 91,93 Ngõ 85, đường Đức Diễn, Phúc Diễn, Bắc Từ
+                            Liêm, Hà Nội</p>
+                        <p><i class="fas fa-phone"></i> 097.277.4646</p>
+                        <p><i class="fas fa-envelope"></i> contact@noithatbangvu.com</p>
+                        <p><i class="far fa-clock"></i> Thời gian làm việc: 8:00 - 17:30, T2 - CN</p>
                     </div>
-                </div>
 
-                <!-- Quick Links -->
-                <div>
-                    <h3 class="text-xl font-bold mb-6 relative inline-block">
-                        Liên Kết Nhanh
-                        <span
-                            class="absolute bottom-0 left-0 w-full h-0.5 bg-orange-500 transform scale-x-0 group-hover:scale-x-100 transition-transform duration-300"></span>
-                    </h3>
-                    <ul class="space-y-3">
-                        <li><a href="#" class="footer-link">Trang chủ</a></li>
-                        <li><a href="#" class="footer-link">Sản phẩm</a></li>
-                        <li><a href="#" class="footer-link">Bộ sưu tập</a></li>
-                        <li><a href="#" class="footer-link">Dự án tiêu biểu</a></li>
-                        <li><a href="#" class="footer-link">Tin tức</a></li>
-                    </ul>
-                </div>
+                    <div class="footer-links">
+                        <h3>Liên kết nhanh</h3>
+                        <ul>
+                            <li><a href="index.html">Trang chủ</a></li>
+                            <li><a href="products.html">Sản phẩm</a></li>
+                            <li><a href="services.html">Dịch vụ thiết kế</a></li>
+                            <li><a href="about.html">Về chúng tôi</a></li>
+                            <li><a href="blog.html">Blog</a></li>
+                            <li><a href="quote-ai.html">Báo giá AI</a></li>
+                            <li><a href="contact.html">Liên hệ</a></li>
+                        </ul>
+                    </div>
 
-                <!-- Contact Info -->
-                <div>
-                    <h3 class="text-xl font-bold mb-6">Liên Hệ</h3>
-                    <ul class="space-y-4">
-                        <li class="flex items-start space-x-3">
-                            <i class="fas fa-phone-alt text-orange-500 mt-1"></i>
-                            <div>
-                                <p class="text-gray-400">Hotline</p>
-                                <a href="tel:0972774646"
-                                    class="text-white hover:text-orange-500 transition duration-300">097.277.4646</a>
-                            </div>
-                        </li>
-                        <li class="flex items-start space-x-3">
-                            <i class="fas fa-envelope text-orange-500 mt-1"></i>
-                            <div>
-                                <p class="text-gray-400">Email</p>
-                                <a href="mailto:info@noithatnhuahanoi.com"
-                                    class="text-white hover:text-orange-500 transition duration-300">info@noithatnhuahanoi.com</a>
-                            </div>
-                        </li>
-                        <li class="flex items-start space-x-3">
-                            <i class="fas fa-map-marker-alt text-orange-500 mt-1"></i>
-                            <div>
-                                <p class="text-gray-400">Địa chỉ</p>
-                                <p class="text-white">Cầu Diễn, Nam Từ Liêm, Hà Nội</p>
-                            </div>
-                        </li>
-                    </ul>
-                </div>
+                    <div class="footer-social">
+                        <h3>Kết nối với chúng tôi</h3>
+                        <div class="social-icons">
+                            <a href="https://facebook.com/tunhuachatluong" class="facebook" target="_blank"><i
+                                    class="fab fa-facebook-f"></i></a>
+                            <a href="https://zalo.me/123456789" class="zalo" target="_blank"><img
+                                    src="./images/Icon_of_Zalo.svg" alt="Zalo" style="width: 18px; height: 18px;"></a>
+                            <a href="#" class="instagram"><i class="fab fa-instagram"></i></a>
+                            <a href="#" class="youtube"><i class="fab fa-youtube"></i></a>
+                        </div>
 
-                <!-- Newsletter -->
-                <div>
-                    <h3 class="text-xl font-bold mb-6">Đăng Ký Nhận Tin</h3>
-                    <p class="text-gray-400 mb-4">Nhận thông tin mới nhất về sản phẩm và khuyến mãi</p>
-                    <form class="space-y-3">
-                        <input type="email" placeholder="Email của bạn"
-                            class="w-full px-4 py-3 rounded-lg bg-gray-800 border border-gray-700 focus:border-orange-500 focus:outline-none transition duration-300">
-                        <button type="submit"
-                            class="w-full bg-orange-500 text-white px-6 py-3 rounded-lg hover:bg-orange-600 transition duration-300 flex items-center justify-center">
-                            <span>Đăng ký</span>
-                            <i class="fas fa-paper-plane ml-2"></i>
-                        </button>
-                    </form>
+                        <!-- Facebook Page Plugin -->
+                        <div class="fb-page" data-href="https://web.facebook.com/tunhuachatluong/" data-tabs="timeline"
+                            data-width="" data-height="70" data-small-header="false" data-adapt-container-width="true"
+                            data-hide-cover="false" data-show-facepile="true">
+                            <blockquote cite="https://web.facebook.com/tunhuachatluong/" class="fb-xfbml-parse-ignore">
+                                <a href="https://web.facebook.com/tunhuachatluong/">Nội Thất Chất Lượng Hà Nội</a>
+                            </blockquote>
+                        </div>
+                    </div>
                 </div>
             </div>
+        </div>
 
-            <!-- Bottom Footer -->
-            <div class="border-t border-gray-800 pt-8">
-                <div class="flex flex-col md:flex-row justify-between items-center space-y-4 md:space-y-0">
-                    <p class="text-gray-400">© 2024 Nội Thất Chất Lượng Hà Nội. All rights reserved.</p>
-                    <div class="flex space-x-6">
-                        <a href="#" class="text-gray-400 hover:text-orange-500 transition duration-300">Chính sách bảo
-                            mật</a>
-                        <a href="#" class="text-gray-400 hover:text-orange-500 transition duration-300">Điều khoản sử
-                            dụng</a>
-                        <a href="#" class="text-gray-400 hover:text-orange-500 transition duration-300">Sitemap</a>
+        <div class="footer-bottom">
+            <div class="container">
+                <div class="footer-bottom-content">
+                    <p>© 2025 Bản quyền thuộc về <a href="#">
+                            Nội Thất Chất Lượng Bàng Vũ</a></p>
+                    <div class="footer-payment-methods">
+                        <img src="https://cdn-icons-png.flaticon.com/512/196/196578.png" alt="Visa">
+                        <img src="https://cdn-icons-png.flaticon.com/512/196/196561.png" alt="MasterCard">
+                        <img src="https://cdn-icons-png.flaticon.com/512/217/217445.png" alt="PayPal">
+                        <img src="https://cdn-icons-png.flaticon.com/512/5968/5968299.png" alt="MoMo">
                     </div>
                 </div>
             </div>
@@ -1532,6 +1519,8 @@
     <script src="js/header.js"></script>
     <script src="js/header-scroll.js"></script>
     <script src="js/logo-animation.js"></script>
+    <script src="js/footer-modern.js"></script>
+    <script src="js/floating-contact-new.js"></script>
     <script>
         // Fix for mobile menu contact button on quote-ai.html
         document.addEventListener('DOMContentLoaded', function () {
@@ -2251,6 +2240,21 @@
             }
         }, { passive: true });
     </script>
+    <!-- Floating Contact Buttons - New Version -->
+    <div class="fc-container">
+        <a href="tel:0972774646" class="fc-button fc-phone">
+            <i class="fas fa-phone-alt"></i>
+            <span class="fc-label">Gọi ngay: 097.277.4646</span>
+        </a>
+        <a href="https://zalo.me/123456789" target="_blank" class="fc-button fc-zalo">
+            <img src="./images/Icon_of_Zalo.svg" alt="Zalo">
+            <span class="fc-label">Chat Zalo</span>
+        </a>
+        <a href="https://m.me/tunhuachatluong" target="_blank" class="fc-button fc-messenger">
+            <i class="fab fa-facebook-messenger"></i>
+            <span class="fc-label">Messenger</span>
+        </a>
+    </div>
 </body>
 
 </html>

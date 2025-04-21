@@ -41,8 +41,9 @@
     <link rel="stylesheet" href="css/header-new.css">
     <link rel="stylesheet" href="css/banner-new.css">
     <link rel="stylesheet" href="css/footer-modern.css">
-    <link rel="stylesheet" href="css/floating-contact.css">
+    <link rel="stylesheet" href="css/floating-contact-new.css">
     <link rel="stylesheet" href="css/back-to-top.css">
+    <link rel="stylesheet" href="css/bottom-nav.css">
     <link rel="stylesheet" href="css/promo-badge-modern.css">
     <!-- Font Awesome Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css"
@@ -515,19 +516,19 @@
         <i class="fas fa-arrow-up"></i>
     </button>
 
-    <!-- Floating Contact Buttons -->
-    <div class="floating-contact">
-        <a href="tel:0123456789" class="floating-contact-button floating-contact-phone">
+    <!-- Floating Contact Buttons - New Version -->
+    <div class="fc-container">
+        <a href="tel:0972774646" class="fc-button fc-phone">
             <i class="fas fa-phone-alt"></i>
-            <span class="floating-contact-label">Gọi ngay</span>
+            <span class="fc-label">Gọi ngay: 097.277.4646</span>
         </a>
-        <a href="https://zalo.me/0123456789" class="floating-contact-button floating-contact-zalo">
-            <img src="images/Icon_of_Zalo.svg" alt="Zalo">
-            <span class="floating-contact-label">Chat Zalo</span>
+        <a href="https://zalo.me/123456789" target="_blank" class="fc-button fc-zalo">
+            <img src="./images/Icon_of_Zalo.svg" alt="Zalo">
+            <span class="fc-label">Chat Zalo</span>
         </a>
-        <a href="https://m.me/noithatbangvu" class="floating-contact-button floating-contact-messenger">
+        <a href="https://m.me/tunhuachatluong" target="_blank" class="fc-button fc-messenger">
             <i class="fab fa-facebook-messenger"></i>
-            <span class="floating-contact-label">Messenger</span>
+            <span class="fc-label">Messenger</span>
         </a>
     </div>
 
@@ -744,8 +745,9 @@
     <script src="js/booking-modal.js"></script>
     <script src="js/products.js"></script>
     <script src="js/products-modern-connector.js"></script>
-    <script src="js/floating-contact.js"></script>
+    <script src="js/floating-contact-new.js"></script>
     <script src="js/back-to-top.js"></script>
+    <script src="js/bottom-nav.js"></script>
 
     <!-- Fallback script for Safari -->
     <script>
@@ -853,6 +855,27 @@
             }
         });
     </script>
+    <!-- Bottom Navigation for Mobile -->
+    <nav class="bottom-nav">
+        <div class="bottom-nav-grid">
+            <a href="index.html" class="bottom-nav-item" id="home-nav">
+                <i class="fas fa-home"></i>
+                <span>Trang chủ</span>
+            </a>
+            <a href="products.html" class="bottom-nav-item active" id="products-nav">
+                <i class="fas fa-box"></i>
+                <span>Sản phẩm</span>
+            </a>
+            <a href="#" class="bottom-nav-item" id="search-nav">
+                <i class="fas fa-search"></i>
+                <span>Tìm kiếm</span>
+            </a>
+            <a href="blog.html" class="bottom-nav-item" id="blog-nav">
+                <i class="fas fa-newspaper"></i>
+                <span>Blog</span>
+            </a>
+        </div>
+    </nav>
 </body>
 
 </html>

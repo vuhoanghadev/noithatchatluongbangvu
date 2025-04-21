@@ -1,0 +1,149 @@
+/* Bottom Navigation for Mobile */
+.bottom-nav {
+    display: none;
+    /* Hidden by default, shown only on mobile */
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 60px;
+    background-color: #ffffff;
+    box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.1);
+    z-index: 999;
+    transition: all 0.3s ease;
+}
+
+.bottom-nav-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    height: 100%;
+}
+
+.bottom-nav-item {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 0.5rem 0;
+    color: #666;
+    text-decoration: none;
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+}
+
+.bottom-nav-item i {
+    font-size: 1.25rem;
+    margin-bottom: 0.25rem;
+    transition: transform 0.3s ease, color 0.3s ease;
+}
+
+.bottom-nav-item span {
+    font-size: 0.7rem;
+    font-weight: 500;
+    transition: color 0.3s ease;
+    white-space: nowrap;
+}
+
+/* Active state */
+.bottom-nav-item.active {
+    color: #0058dd;
+}
+
+.bottom-nav-item.active i {
+    transform: translateY(-2px);
+}
+
+/* Hover effects */
+.bottom-nav-item:hover {
+    color: #0058dd;
+}
+
+/* Ripple effect on click */
+.bottom-nav-item::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 5px;
+    height: 5px;
+    background: rgba(0, 88, 221, 0.3);
+    opacity: 0;
+    border-radius: 100%;
+    transform: scale(1, 1) translate(-50%, -50%);
+    transform-origin: 50% 50%;
+}
+
+.bottom-nav-item:active::after {
+    animation: ripple 0.6s ease-out;
+}
+
+@keyframes ripple {
+    0% {
+        transform: scale(0, 0);
+        opacity: 0.5;
+    }
+
+    20% {
+        transform: scale(25, 25);
+        opacity: 0.5;
+    }
+
+    100% {
+        opacity: 0;
+        transform: scale(40, 40);
+    }
+}
+
+/* Show bottom navigation only on mobile */
+@media (max-width: 768px) {
+    .bottom-nav {
+        display: block;
+    }
+
+    /* Add padding to body to prevent content from being hidden behind the nav */
+    body {
+        padding-bottom: 60px;
+    }
+}
+
+/* Animation for icons */
+@keyframes bounce {
+
+    0%,
+    100% {
+        transform: translateY(0);
+    }
+
+    50% {
+        transform: translateY(-3px);
+    }
+}
+
+.bottom-nav-item.active i {
+    animation: bounce 0.5s ease;
+}
+
+/* Search icon specific styles */
+.bottom-nav-search-icon {
+    position: relative;
+}
+
+.bottom-nav-search-icon::before {
+    content: '';
+    position: absolute;
+    top: -8px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 40px;
+    height: 40px;
+    background-color: #f0f8ff;
+    border-radius: 50%;
+    z-index: -1;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.bottom-nav-item.active .bottom-nav-search-icon::before {
+    opacity: 1;
+}
