@@ -30,8 +30,8 @@ function createSearchInterface() {
                 <i class="fas fa-search"></i>
                 <div class="search-input-wrapper">
                     <input type="text" class="search-input" placeholder="Tìm kiếm sản phẩm, bài viết...">
-                    <div class="search-autocomplete"></div>
                 </div>
+                <div class="search-autocomplete"></div>
                 <button class="search-clear-btn">
                     <i class="fas fa-times"></i>
                 </button>
@@ -338,6 +338,46 @@ function initSearch() {
     });
   }
 
+  // Handle input container click to hide filters
+  const searchInputContainer = document.querySelector(
+    '.search-input-container'
+  );
+  if (searchInputContainer) {
+    searchInputContainer.addEventListener('click', function () {
+      // Hide all filter containers
+      const productFiltersContainer = document.querySelector(
+        '#product-filters .search-filters-container'
+      );
+      const blogFiltersContainer = document.querySelector(
+        '#blog-filters .search-filters-container'
+      );
+
+      if (productFiltersContainer)
+        productFiltersContainer.style.display = 'none';
+      if (blogFiltersContainer) blogFiltersContainer.style.display = 'none';
+
+      // Update the global filter state to closed
+      document.body.setAttribute('data-filter-open', 'false');
+
+      // Update filter toggle button state
+      const filterToggleBtns = document.querySelectorAll(
+        '.search-filter-toggle'
+      );
+      if (filterToggleBtns && filterToggleBtns.length > 0) {
+        // Update all filter toggle buttons
+        filterToggleBtns.forEach((btn) => {
+          btn.classList.remove('active');
+
+          // Update the icon color as well
+          const icons = btn.querySelectorAll('i');
+          icons.forEach((icon) => {
+            icon.style.color = '#777';
+          });
+        });
+      }
+    });
+  }
+
   // Handle input changes
   if (searchInput) {
     searchInput.addEventListener('input', function () {
@@ -448,7 +488,21 @@ function initSearch() {
 
       // Update filter toggle button state based on global filter state
       if (filterToggle) {
-        filterToggle.classList.toggle('active', isFilterOpen);
+        // Force remove first to ensure proper state
+        filterToggle.classList.remove('active');
+        if (isFilterOpen) {
+          filterToggle.classList.add('active');
+        }
+
+        // Update the icon color as well
+        const icons = filterToggle.querySelectorAll('i');
+        icons.forEach((icon) => {
+          if (isFilterOpen) {
+            icon.style.color = '#0058dd';
+          } else {
+            icon.style.color = '#777';
+          }
+        });
       }
     });
   });
@@ -485,13 +539,20 @@ function initSearch() {
   loadSearchHistory();
 
   // Initialize advanced filters
-  initAdvancedFilters();
+  setTimeout(() => {
+    initAdvancedFilters();
+    console.log('Advanced filters initialized with delay');
+  }, 500);
 
   // Initialize global filter state to closed
   document.body.setAttribute('data-filter-open', 'false');
 
   // Initialize autocomplete
   initAutocomplete();
+
+  // Add scroll event listener to update filter container position
+  window.addEventListener('scroll', updateFilterContainerPosition);
+  window.addEventListener('resize', updateFilterContainerPosition);
 
   // Ensure Products tab is active by default
   const productsTab = document.querySelector(
@@ -551,8 +612,8 @@ function openSearch() {
     searchInput.focus();
   }, 300);
 
-  // Prevent body scrolling
-  document.body.style.overflow = 'hidden';
+  // Prevent body scrolling - this is now handled by CSS
+  // document.body.style.overflow = 'hidden';
 }
 
 /**
@@ -577,8 +638,8 @@ function closeSearch() {
     el.style.visibility = '';
   });
 
-  // Allow body scrolling
-  document.body.style.overflow = '';
+  // Allow body scrolling - this is now handled by CSS
+  // document.body.style.overflow = '';
 }
 
 /**
@@ -1591,36 +1652,115 @@ function initAdvancedFilters() {
         newFilterState
       );
 
-      // Update filter toggle button state
-      this.classList.toggle('active', newFilterState);
-
       // Determine which filter container to show based on active tab
       const activeTab = document.querySelector('.search-tab.active');
       const tabName = activeTab
         ? activeTab.getAttribute('data-tab')
         : 'products';
 
-      // Get both filter containers
-      const productFiltersContainer = document.querySelector(
-        '#product-filters .search-filters-container'
-      );
-      const blogFiltersContainer = document.querySelector(
-        '#blog-filters .search-filters-container'
-      );
+      // Get both filter containers - using a more direct approach
+      const productFilters = document.getElementById('product-filters');
+      const blogFilters = document.getElementById('blog-filters');
+
+      // Get the filter containers directly
+      const productFiltersContainer = productFilters
+        ? productFilters.querySelector('.search-filters-container')
+        : null;
+      const blogFiltersContainer = blogFilters
+        ? blogFilters.querySelector('.search-filters-container')
+        : null;
+
+      // Debug - log the parent elements
+      console.log('Product filters parent:', productFilters);
+      console.log('Blog filters parent:', blogFilters);
+
+      // Debug information
+      console.log('Product filters container:', productFiltersContainer);
+      console.log('Blog filters container:', blogFiltersContainer);
 
       // First, hide all filter containers
-      if (productFiltersContainer)
+      if (productFiltersContainer) {
         productFiltersContainer.style.display = 'none';
-      if (blogFiltersContainer) blogFiltersContainer.style.display = 'none';
+        console.log('Hiding product filters container');
+      }
+      if (blogFiltersContainer) {
+        blogFiltersContainer.style.display = 'none';
+        console.log('Hiding blog filters container');
+      }
+
+      // Update the global filter state
+      document.body.setAttribute(
+        'data-filter-open',
+        newFilterState ? 'true' : 'false'
+      );
+
+      // Update filter toggle button state - IMPORTANT: This must be done AFTER setting data-filter-open
+      // Update all filter toggle buttons to ensure consistency
+      const filterToggleBtns = document.querySelectorAll(
+        '.search-filter-toggle'
+      );
+      filterToggleBtns.forEach((btn) => {
+        // Force remove first to ensure proper state
+        btn.classList.remove('active');
+        if (newFilterState) {
+          btn.classList.add('active');
+        }
+
+        // Update the icon color as well
+        const icons = btn.querySelectorAll('i');
+        icons.forEach((icon) => {
+          if (newFilterState) {
+            icon.style.color = '#0058dd';
+          } else {
+            icon.style.color = '#777';
+          }
+        });
+      });
 
       // Then, show the appropriate filter container based on active tab and new filter state
       if (newFilterState) {
         if (tabName === 'products' && productFiltersContainer) {
-          productFiltersContainer.style.display = 'block';
-          console.log('Showing product filters container');
+          // Show the container at the current scroll position
+          if (productFilters) {
+            productFilters.style.display = 'block';
+          }
+
+          if (productFiltersContainer) {
+            // Calculate position based on current scroll and viewport
+            const searchTabs = document.querySelector('.search-tabs');
+            const searchTabsRect = searchTabs.getBoundingClientRect();
+            const searchTabsBottom = searchTabsRect.bottom;
+
+            // Position the filter container right below the search tabs
+            productFiltersContainer.style.top = searchTabsBottom + 'px';
+            productFiltersContainer.style.display = 'block';
+
+            console.log(
+              'Showing product filters container at position:',
+              searchTabsBottom
+            );
+          }
         } else if (tabName === 'blog' && blogFiltersContainer) {
-          blogFiltersContainer.style.display = 'block';
-          console.log('Showing blog filters container');
+          // Show the container at the current scroll position
+          if (blogFilters) {
+            blogFilters.style.display = 'block';
+          }
+
+          if (blogFiltersContainer) {
+            // Calculate position based on current scroll and viewport
+            const searchTabs = document.querySelector('.search-tabs');
+            const searchTabsRect = searchTabs.getBoundingClientRect();
+            const searchTabsBottom = searchTabsRect.bottom;
+
+            // Position the filter container right below the search tabs
+            blogFiltersContainer.style.top = searchTabsBottom + 'px';
+            blogFiltersContainer.style.display = 'block';
+
+            console.log(
+              'Showing blog filters container at position:',
+              searchTabsBottom
+            );
+          }
         }
       }
     });
@@ -2066,6 +2206,74 @@ function resetFilters() {
 }
 
 /**
+ * Updates the position of filter containers based on search tabs position
+ */
+function updateFilterContainerPosition() {
+  // Check if filters are open
+  const isFilterOpen =
+    document.body.getAttribute('data-filter-open') === 'true';
+
+  // Update filter toggle button state based on global filter state
+  // Use querySelectorAll to get all filter toggle buttons
+  const filterToggleBtns = document.querySelectorAll('.search-filter-toggle');
+  if (filterToggleBtns && filterToggleBtns.length > 0) {
+    // Update all filter toggle buttons
+    filterToggleBtns.forEach((btn) => {
+      // Force remove and add to ensure proper state
+      btn.classList.remove('active');
+      if (isFilterOpen) {
+        btn.classList.add('active');
+      }
+      // Update the icon color as well
+      const icons = btn.querySelectorAll('i');
+      icons.forEach((icon) => {
+        if (isFilterOpen) {
+          icon.style.color = '#0058dd';
+        } else {
+          icon.style.color = '#777';
+        }
+      });
+    });
+  }
+
+  if (!isFilterOpen) return;
+
+  // Get search tabs position
+  const searchTabs = document.querySelector('.search-tabs');
+  if (!searchTabs) return;
+
+  const searchTabsRect = searchTabs.getBoundingClientRect();
+  const searchTabsBottom = searchTabsRect.bottom;
+
+  // Get active tab
+  const activeTab = document.querySelector('.search-tab.active');
+  const tabName = activeTab ? activeTab.getAttribute('data-tab') : 'products';
+
+  // Update position of the active filter container
+  if (tabName === 'products') {
+    const productFiltersContainer = document.querySelector(
+      '#product-filters .search-filters-container'
+    );
+    if (
+      productFiltersContainer &&
+      productFiltersContainer.style.display === 'block'
+    ) {
+      productFiltersContainer.style.top = searchTabsBottom + 'px';
+    }
+  } else if (tabName === 'blog') {
+    const blogFiltersContainer = document.querySelector(
+      '#blog-filters .search-filters-container'
+    );
+    if (
+      blogFiltersContainer &&
+      blogFiltersContainer.style.display === 'block'
+    ) {
+      blogFiltersContainer.style.top = searchTabsBottom + 'px';
+    }
+  }
+}
+
+/**
  * Initializes the autocomplete functionality
  */
 function initAutocomplete() {
@@ -2089,6 +2297,9 @@ function initAutocomplete() {
  */
 function showAutocomplete(query) {
   const autocompleteContainer = document.querySelector('.search-autocomplete');
+
+  // Reset z-index to ensure it's visible
+  autocompleteContainer.style.zIndex = '9050';
 
   // Normalize query
   const normalizedQuery = normalizeString(query);
@@ -2316,6 +2527,7 @@ function hideAutocomplete() {
   const autocompleteContainer = document.querySelector('.search-autocomplete');
   if (autocompleteContainer) {
     autocompleteContainer.classList.remove('visible');
+    autocompleteContainer.style.zIndex = '-1';
   }
 }
 
