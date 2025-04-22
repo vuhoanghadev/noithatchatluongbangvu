@@ -382,7 +382,7 @@ const posts = [
 
     `,
     relatedProducts: [1, 2, 3, 4],
-    views: 27000, // Giữ nguyên lượt xem
+    views: 800, // Giữ nguyên lượt xem
   },
 ];
 
