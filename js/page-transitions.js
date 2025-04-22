@@ -277,9 +277,16 @@ function startPageTransition(url, x, y, isHistoryNavigation = false) {
         // Scroll to top
         window.scrollTo(0, 0);
 
-        // Dispatch a custom event that the page has been loaded via AJAX
+        // Dispatch custom events that the page has been loaded via AJAX
         document.dispatchEvent(
           new CustomEvent('ajaxPageLoaded', {
+            detail: { url: url },
+          })
+        );
+
+        // Dispatch a custom event that the page transition is complete
+        document.dispatchEvent(
+          new CustomEvent('page-transition-complete', {
             detail: { url: url },
           })
         );
@@ -387,6 +394,18 @@ function handleInitialPageLoad() {
         mainContent.classList.remove('fade-in');
       }, 500);
     }
+
+    // Update active navigation based on current URL
+    updateActiveNavigation(window.location.href);
+
+    // Dispatch a custom event that the page has been loaded initially
+    setTimeout(() => {
+      document.dispatchEvent(
+        new CustomEvent('page-transition-complete', {
+          detail: { url: window.location.href },
+        })
+      );
+    }, 100);
   }
 }
 
