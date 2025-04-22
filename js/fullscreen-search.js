@@ -2,14 +2,19 @@
  * Fullscreen Search Functionality
  * Provides a mobile-friendly fullscreen search experience
  */
-document.addEventListener('DOMContentLoaded', function () {
-  // Create the fullscreen search container if it doesn't exist
-  if (!document.querySelector('.fullscreen-search')) {
-    createSearchInterface();
-  }
+// Biến để theo dõi trạng thái khởi tạo
+let searchInitialized = false;
 
-  // Initialize search functionality
-  initSearch();
+document.addEventListener('DOMContentLoaded', function () {
+  // Trì hoãn việc khởi tạo giao diện tìm kiếm để tránh hiệu ứng nháy
+  setTimeout(function () {
+    // Chỉ khởi tạo nếu chưa được khởi tạo
+    if (!searchInitialized && !document.querySelector('.fullscreen-search')) {
+      createSearchInterface();
+      initSearch();
+      searchInitialized = true;
+    }
+  }, 300); // Trì hoãn 300ms
 });
 
 /**
@@ -588,6 +593,27 @@ function initSearch() {
  * Opens the fullscreen search
  */
 function openSearch() {
+  // Đảm bảo giao diện tìm kiếm được khởi tạo trước khi mở
+  if (!searchInitialized || !document.querySelector('.fullscreen-search')) {
+    createSearchInterface();
+    initSearch();
+    searchInitialized = true;
+
+    // Trì hoãn mở giao diện tìm kiếm để đảm bảo khởi tạo hoàn tất
+    setTimeout(() => {
+      openSearchInterface();
+    }, 100);
+    return;
+  }
+
+  // Nếu đã khởi tạo, mở giao diện tìm kiếm ngay lập tức
+  openSearchInterface();
+}
+
+/**
+ * Mở giao diện tìm kiếm sau khi đã khởi tạo
+ */
+function openSearchInterface() {
   const searchContainer = document.querySelector('.fullscreen-search');
   const searchInput = document.querySelector('.search-input');
 
