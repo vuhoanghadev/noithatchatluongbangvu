@@ -23,7 +23,16 @@ document.addEventListener('DOMContentLoaded', function () {
   // Variables
   let currentPage = 1;
   let productsPerPage = 12;
-  let filteredProducts = [...products]; // Use existing products array from products.js
+
+  // Sắp xếp sản phẩm theo thứ tự giảm dần của ID
+  let sortedProducts = [...products].sort((a, b) => {
+    // Chuyển đổi ID thành số để so sánh
+    const idA = parseInt(a.id);
+    const idB = parseInt(b.id);
+    return idB - idA; // Sắp xếp giảm dần
+  });
+
+  let filteredProducts = [...sortedProducts]; // Sử dụng mảng sản phẩm đã sắp xếp
 
   // Products per page selector
   const productsPerPageSelect = document.getElementById('products-per-page');
@@ -1102,7 +1111,8 @@ document.addEventListener('DOMContentLoaded', function () {
     // Remove accents from search value for non-accented search
     const normalizedSearchValue = removeAccents(searchValue);
 
-    filteredProducts = products.filter((product) => {
+    // Lọc sản phẩm từ mảng đã sắp xếp theo thứ tự giảm dần của ID
+    filteredProducts = sortedProducts.filter((product) => {
       // Category filter
       const categoryMatch =
         categoryValue === 'all' || product.category === categoryValue;

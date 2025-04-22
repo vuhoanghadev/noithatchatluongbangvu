@@ -1,4 +1,5 @@
-document.addEventListener('DOMContentLoaded', function () {
+// Hàm xử lý trang chi tiết bài viết
+function handleBlogDetail() {
   // Lọc các bài viết trùng lặp trước khi hiển thị
   if (typeof removeDuplicatePosts === 'function') {
     removeDuplicatePosts();
@@ -30,6 +31,8 @@ document.addEventListener('DOMContentLoaded', function () {
     return;
   }
 
+  console.log(`Đang xử lý trang chi tiết bài viết ID: ${postId}`);
+
   // Cập nhật tiêu đề trang
   document.title = `${post.title} - Nội Thất Chất Lượng Bàng Vũ`;
 
@@ -44,7 +47,23 @@ document.addEventListener('DOMContentLoaded', function () {
   document.getElementById('blog-title').textContent = post.title;
   document.getElementById('blog-author').textContent = post.author || 'Admin';
   document.getElementById('blog-date').textContent = formatDate(new Date());
-  document.getElementById('blog-views').textContent = post.views || 0;
+
+  // Lấy lượt xem từ localStorage hoặc từ dữ liệu trong blog.js
+  let viewsData = localStorage.getItem('blogPostViews');
+  let views = viewsData ? JSON.parse(viewsData) : {};
+
+  // Kiểm tra xem lượt xem trong localStorage có khớp với lượt xem trong blog.js không
+  // Nếu lượt xem trong blog.js lớn hơn, có nghĩa là admin đã cập nhật
+  if (!views[postId] || post.views > views[postId]) {
+    // Đồng bộ lượt xem từ blog.js vào localStorage
+    views[postId] = post.views;
+    localStorage.setItem('blogPostViews', JSON.stringify(views));
+  }
+
+  // Hiển thị lượt xem - Ưu tiên hiển thị lượt xem từ localStorage
+  document.getElementById('blog-views').textContent =
+    views[postId] || post.views || 0;
+
   document.getElementById('blog-image').src = post.image;
   document.getElementById('blog-image').alt = post.title;
   document.getElementById('blog-content').innerHTML = post.content;
@@ -72,6 +91,33 @@ document.addEventListener('DOMContentLoaded', function () {
 
   // Khởi tạo chức năng chia sẻ
   initSocialShare(post);
+}
+
+// Khi trang được tải ban đầu
+document.addEventListener('DOMContentLoaded', function () {
+  // Kiểm tra xem có phải trang blog-detail không
+  if (window.location.pathname.includes('blog-detail.html')) {
+    handleBlogDetail();
+  }
+});
+
+// Khi trang được tải qua AJAX (page transitions)
+document.addEventListener('ajaxPageLoaded', function (event) {
+  // Kiểm tra xem có phải trang blog-detail không
+  if (event.detail.url.includes('blog-detail.html')) {
+    console.log('Trang blog-detail được tải qua AJAX:', event.detail.url);
+    handleBlogDetail();
+  }
+});
+
+// Khi hoàn tất chuyển trang
+document.addEventListener('page-transition-complete', function (event) {
+  // Kiểm tra xem có phải trang blog-detail không
+  if (event.detail.url.includes('blog-detail.html')) {
+    console.log('Chuyển trang đến blog-detail hoàn tất:', event.detail.url);
+    // Đảm bảo rằng các phần tử đã được tạo trước khi xử lý
+    setTimeout(handleBlogDetail, 100);
+  }
 });
 
 // Hàm cập nhật meta tags
@@ -319,6 +365,10 @@ function displayRelatedPosts(currentPostId, category) {
 
 // Hàm tăng lượt xem
 function increaseViewCount(postId) {
+  // Tìm bài viết theo ID
+  const post = posts.find((p) => p.id === postId);
+  if (!post) return;
+
   // Lấy dữ liệu lượt xem từ localStorage
   let viewsData = localStorage.getItem('blogPostViews');
   let views = viewsData ? JSON.parse(viewsData) : {};
@@ -327,21 +377,31 @@ function increaseViewCount(postId) {
   let viewedPosts = sessionStorage.getItem('viewedBlogPosts');
   let viewedPostsArray = viewedPosts ? JSON.parse(viewedPosts) : [];
 
+  // Kiểm tra xem lượt xem trong localStorage có lớn hơn trong blog.js không
+  if (views[postId] && views[postId] > post.views) {
+    // Cập nhật lượt xem trong dữ liệu bài viết từ localStorage
+    post.views = views[postId];
+    console.log(`Đồng bộ lượt xem từ localStorage: ${post.views}`);
+  }
+
   // Chỉ tăng lượt xem nếu bài viết chưa được xem trong phiên này
   if (!viewedPostsArray.includes(postId)) {
-    // Tăng lượt xem
-    views[postId] = (views[postId] || 0) + 1;
+    // Tăng lượt xem trực tiếp trong dữ liệu bài viết
+    post.views = (post.views || 0) + 1;
 
-    // Lưu lại vào localStorage
+    // Cập nhật lượt xem trong localStorage
+    views[postId] = post.views;
     localStorage.setItem('blogPostViews', JSON.stringify(views));
 
     // Thêm bài viết vào danh sách đã xem trong phiên này
     viewedPostsArray.push(postId);
     sessionStorage.setItem('viewedBlogPosts', JSON.stringify(viewedPostsArray));
+
+    console.log(`Tăng lượt xem cho bài viết ID ${postId} lên ${post.views}`);
   }
 
-  // Cập nhật hiển thị
-  document.getElementById('blog-views').textContent = views[postId];
+  // Cập nhật hiển thị - Hiển thị lượt xem từ dữ liệu bài viết đã được cập nhật
+  document.getElementById('blog-views').textContent = post.views || 0;
 }
 
 // Hàm khởi tạo nút Back to Top

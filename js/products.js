@@ -1022,6 +1022,402 @@ const products = [
     promotion: 'sale 20%',
     gallery: ['images/products/product6.png', 'images/products/product7.png'],
   },
+  {
+    id: 55,
+    name: 'Tủ QA205 - 4 Cánh Mở, 2 Hàng Ngăn Kéo, Ô Hở Trái Vân Gỗ Sồi',
+    category: 'Tủ Quần Áo',
+    image:
+      'https://bepnhanphat.com/wp-content/uploads/2022/03/mau-tu-quan-ao-go-mdf-loi-xanh-chong-am-phu-melamine-bepnhanphat-1.jpg',
+    reviewCode: 'NTBV2025', // Mã bình luận cho sản phẩm
+    description:
+      'Tủ quần áo QA205 được chế tác từ gỗ MDF phủ melamine cao cấp, mang phong cách hiện đại và tinh tế. Với thiết kế 4 cánh mở rộng rãi, 2 hàng ngăn kéo tiện lợi và ô hở bên trái, sản phẩm này không chỉ đáp ứng nhu cầu lưu trữ quần áo mà còn là điểm nhấn sang trọng cho phòng ngủ. Chất liệu nhựa Đài Loan bền chắc, chống ẩm mốc, chống cong vênh, phù hợp với các không gian sống có diện tích nhỏ hoặc vừa. Tủ có màu vân óc chó ấm áp, dễ dàng kết hợp với nhiều phong cách nội thất khác nhau.',
+    size: '120x180x50cm',
+    warranty: '10 năm',
+    price: 'Liên Hệ',
+    material: 'Nhựa Đài Loan Cao Cấp',
+    promotion: null,
+    tag: 'bán chạy',
+    rating: 4.7,
+    views: 1250,
+    soldCount: 120,
+    sku: 'NTBV-QA205', // SKU tự đặt, muốn tự động thì có thể thêm 'true'
+    flashsale: {
+      active: true,
+      discountPercent: 30,
+      oldPrice: 5000000,
+      newPrice: 3500000,
+      type: 'daily', // 'fixed' hoặc 'daily' => fixed là cố định , daily là hàng ngày
+      endsAt: '2025-04-19T23:59:59',
+      hidePrice: false, // true: không hiển thị giá, false: hiển thị giá
+    },
+    gallery: [
+      'images/products/product1.png',
+      'images/products/product2.png',
+      'images/products/product3.png',
+      'images/products/product4.png',
+      'images/products/product1.png',
+      'images/products/product2.png',
+      'images/products/product3.png',
+      'images/products/product4.png',
+      'images/products/product1.png',
+      'images/products/product2.png',
+      'images/products/product3.png',
+      'images/products/product4.png',
+    ],
+    // Thông tin chi tiết cho tab mô tả chi tiết
+    specifications: {
+      'Kích thước': '120x180x50cm (Rộng x Cao x Sâu)',
+      'Chất liệu': 'Gỗ MDF phủ melamine, Nhựa Đài Loan cao cấp',
+      'Màu sắc': 'Vân gỗ óc chó',
+      'Số cánh': '4 cánh mở',
+      'Ngăn kéo': '2 hàng ngăn kéo',
+      'Tính năng đặc biệt': 'Ô hở bên trái, Chống ẩm mốc, Chống cong vênh',
+      'Phong cách': 'Hiện đại, Sang trọng',
+      'Xuất xứ': 'Việt Nam',
+      'Thời gian bảo hành': '10 năm',
+      'Mã sản phẩm': 'NTBV-QA205',
+      'ĐIỂM NỔI BẬT':
+        'Thiết kế 4 cánh mở rộng rãi, 2 hàng ngăn kéo tiện lợi, Ô hở bên trái, Chất liệu nhựa Đài Loan bền chắc, Chống ẩm mốc, Chống cong vênh, Màu vân óc chó sang trọng',
+    },
+    detailedDescription: {
+      content: `<p>Tủ quần áo QA205 là sự lựa chọn hoàn hảo cho không gian phòng ngủ hiện đại với thiết kế sang trọng và công năng vượt trội.</p>
+      <p>Được chế tác từ gỗ MDF phủ melamine cao cấp với vân gỗ óc chó ấm áp, sản phẩm không chỉ mang đến vẻ đẹp thẩm mỹ mà còn đảm bảo độ bền vượt trội theo thời gian.</p>
+      <h4>Đặc điểm nổi bật:</h4>
+      <ul>
+        <li>Thiết kế 4 cánh mở rộng rãi, tạo không gian lưu trữ tối đa</li>
+        <li>2 hàng ngăn kéo tiện lợi cho việc sắp xếp đồ lót, phụ kiện</li>
+        <li>Ô hở bên trái tiện dụng để trưng bày hoặc để đồ thường xuyên sử dụng</li>
+        <li>Chất liệu nhựa Đài Loan bền chắc, chống ẩm mốc, chống cong vênh</li>
+        <li>Màu vân óc chó sang trọng, dễ dàng kết hợp với nhiều phong cách nội thất</li>
+      </ul>`,
+      images: [
+        {
+          src: 'images/products/product1.png',
+          caption: 'Tủ quần áo QA205 - Góc nhìn tổng thể',
+        },
+        {
+          src: 'images/products/product2.png',
+          caption: 'Chi tiết ngăn kéo và ô hở bên trái',
+        },
+        {
+          src: 'images/products/product3.png',
+          caption: 'Không gian lưu trữ bên trong tủ',
+        },
+      ],
+    },
+    // Thông tin đánh giá cho tab đánh giá
+    reviews: [
+      {
+        author: 'Nguyễn Trọng Tấn',
+        date: '15/04/2025 10:30 AM',
+        rating: 5,
+        content:
+          'Sản phẩm rất đẹp và chắc chắn, đúng với mô tả. Giao hàng nhanh và lắp đặt tận tình. Tôi rất hài lòng với tủ quần áo này!',
+        images: [
+          'images/products/product1.png',
+          'images/products/product2.png',
+        ],
+        videos: [],
+        isAnonymous: false,
+        avatar: '../images/avt1.webp',
+        replies: [
+          {
+            author: 'Nội Thất Bàng Vũ',
+            isAdmin: true,
+            date: '15/04/2025 14:45 PM',
+            content:
+              'Cảm ơn anh đã tin tưởng và ủng hộ sản phẩm của chúng tôi. Chúc anh và gia đình có trải nghiệm tuyệt vời với sản phẩm!',
+            avatar: '../images/logo.svg',
+          },
+        ],
+      },
+      {
+        author: 'Tuấn Anh Lê',
+        date: '09/04/2025 11:26AM',
+        rating: 4.5,
+        content:
+          'Tủ đẹp, chất lượng tốt. Tuy nhiên thời gian giao hàng hơi lâu. Nhưng nhìn chung tôi vẫn rất hài lòng với sản phẩm.',
+        images: [
+          'images/products/product3.png',
+          'images/products/product4.png',
+          'images/products/product5.png',
+        ],
+        videos: ['../images/vifdeo1.mp4'],
+        isAnonymous: false,
+        avatar: '../images/avt2.webp',
+        replies: [
+          {
+            author: 'Nội Thất Bàng Vũ',
+            isAdmin: true,
+            date: '10/04/2025 09:15 AM',
+            content:
+              'Cảm ơn anh đã phản hồi. Chúng tôi xin lỗi về sự chậm trễ trong quá trình giao hàng. Chúng tôi sẽ cải thiện dịch vụ trong thời gian tới.',
+            avatar: '../images/logo.svg',
+          },
+        ],
+      },
+      {
+        author: 'Ẩn danh',
+        date: '05/02/2025 08:15 PM',
+        rating: 5,
+        content:
+          'Đậu xanh sản phẩm gì vừa đẹp vừa chất lượng, đúng với giá tiền. Tuy nhiên có một vài vết xước nhỏ khi giao hàng.',
+        images: [],
+        videos: [],
+        isAnonymous: true,
+        avatar: '',
+        replies: [
+          {
+            author: 'Nội Thất Bàng Vũ',
+            isAdmin: true,
+            date: '10/04/2025 09:15 AM',
+            content:
+              'Cảm ơn anh/chị đã tin tưởng và ủng hộ sản phẩm của shop! 😊 Shop rất vui khi anh/chị đánh giá cao về chất lượng và thiết kế đẹp của sản phẩm đậu xanh. Về vấn đề một vài vết xước nhỏ khi giao hàng, shop thành thật xin lỗi vì sự bất tiện này. Shop sẽ cố gắng cải thiện dịch vụ giao hàng trong thời gian tới.',
+            avatar: '../images/logo.svg',
+          },
+        ],
+      },
+      {
+        author: 'Ẩn danh',
+        date: '05/02/2025 08:15 PM',
+        rating: 5,
+        content:
+          'Tủ quần áo thiết kế hiện đại, màu sắc sang trọng, giá cả rất hợp lý. Chỉ hơi tiếc là có vài vết xước nhỏ trên cánh tủ khi nhận.',
+        images: [],
+        videos: [],
+        isAnonymous: true,
+        avatar: '',
+        replies: [
+          {
+            author: 'Nội Thất Chất Lượng Bàng Vũ',
+            isAdmin: true,
+            date: '10/04/2025 09:15 AM',
+            content:
+              'Cảm ơn anh/chị đã ủng hộ shop! 🌟 Shop xin lỗi về vết xước nhỏ. Vui lòng gửi ảnh qua Zalo 0972774646 để shop hỗ trợ sửa chữa ngay ạ!',
+            avatar: '../images/logo.svg',
+          },
+        ],
+      },
+      {
+        author: 'Ẩn danh',
+        date: '06/02/2025 09:30 AM',
+        rating: 5,
+        content:
+          'Tủ quần áo chất liệu nhựa giả gỗ đẹp, chắc chắn, giá tốt. Nhưng bao bì giao hàng hơi móp méo, may là tủ không bị ảnh hưởng nhiều.',
+        images: [],
+        videos: [],
+        isAnonymous: true,
+        avatar: '',
+        replies: [
+          {
+            author: 'Nội Thất Chất Lượng Bàng Vũ',
+            isAdmin: true,
+            date: '11/04/2025 10:00 AM',
+            content:
+              'Cảm ơn anh/chị đã tin tưởng shop! 😊 Shop xin lỗi vì bao bì chưa tốt. Shop sẽ kiểm tra lại vận chuyển để cải thiện. Có cần hỗ trợ thêm, anh/chị nhắn shop nhé!',
+            avatar: '../images/logo.svg',
+          },
+        ],
+      },
+      {
+        author: 'Ẩn danh',
+        date: '07/02/2025 03:20 PM',
+        rating: 4,
+        content:
+          'Tủ quần áo rộng rãi, nhiều ngăn tiện lợi, đúng như mô tả. Có điều lắp ráp hơi mất thời gian vì thiếu 1-2 con ốc nhỏ.',
+        images: [],
+        videos: [],
+        isAnonymous: true,
+        avatar: '',
+        replies: [
+          {
+            author: 'Nội Thất Chất Lượng Bàng Vũ',
+            isAdmin: true,
+            date: '12/04/2025 08:45 AM',
+            content:
+              'Cảm ơn anh/chị đã chọn sản phẩm shop! 🌼 Shop xin lỗi vì thiếu ốc. Anh/chị nhắn Zalo 0972774646, shop gửi bổ sung ngay ạ!',
+            avatar: '../images/logo.svg',
+          },
+        ],
+      },
+      {
+        author: 'Ẩn danh',
+        date: '08/02/2025 11:00 AM',
+        rating: 5,
+        content:
+          'Tủ quần áo đẹp, chất lượng vượt mong đợi, giá rất ổn. Giao hàng đúng hẹn, chỉ có một vết xước nhẹ ở góc tủ.',
+        images: [],
+        videos: [],
+        isAnonymous: true,
+        avatar: '',
+        replies: [
+          {
+            author: 'Nội Thất Chất Lượng Bàng Vũ',
+            isAdmin: true,
+            date: '13/04/2025 09:30 AM',
+            content:
+              'Cảm ơn anh/chị đã yêu thích sản phẩm! 😍 Shop xin lỗi về vết xước. Vui lòng gửi ảnh qua Fanpage để shop khắc phục nhanh nhé!',
+            avatar: '../images/logo.svg',
+          },
+        ],
+      },
+      {
+        author: 'Ẩn danh',
+        date: '09/02/2025 07:45 PM',
+        rating: 5,
+        content:
+          'Tủ quần áo thiết kế tối giản, phù hợp không gian nhỏ, giá hợp lý. Nhưng giao hàng chậm hơn dự kiến 1 ngày.',
+        images: [],
+        videos: [],
+        isAnonymous: true,
+        avatar: '',
+        replies: [
+          {
+            author: 'Nội Thất Chất Lượng Bàng Vũ',
+            isAdmin: true,
+            date: '14/04/2025 10:15 AM',
+            content:
+              'Cảm ơn anh/chị đã ủng hộ! 🌈 Shop xin lỗi vì giao hàng chậm. Shop sẽ phối hợp vận chuyển để cải thiện. Cần hỗ trợ, anh/chị liên hệ shop nhé!',
+            avatar: '../images/logo.svg',
+          },
+        ],
+      },
+      {
+        author: 'Ẩn danh',
+        date: '10/02/2025 02:10 PM',
+        rating: 4,
+        content:
+          'Tủ quần áo màu trắng đẹp, chất liệu bền, giá cả phải chăng. Chỉ hơi tiếc là hướng dẫn lắp ráp hơi khó hiểu.',
+        images: [],
+        videos: [],
+        isAnonymous: true,
+        avatar: '',
+        replies: [
+          {
+            author: 'Nội Thất Chất Lượng Bàng Vũ',
+            isAdmin: true,
+            date: '15/04/2025 09:00 AM',
+            content:
+              'Cảm ơn anh/chị đã chọn shop! 😊 Shop xin lỗi vì hướng dẫn chưa rõ. Anh/chị nhắn Zalo, shop gửi video hướng dẫn chi tiết ngay ạ!',
+            avatar: '../images/logo.svg',
+          },
+        ],
+      },
+      {
+        author: 'Ẩn danh',
+        date: '11/02/2025 10:25 AM',
+        rating: 4,
+        content:
+          'Tủ quần áo chắc chắn, thiết kế đẹp, phù hợp với phòng ngủ hiện đại. Có vài vết bẩn nhỏ trên bề mặt khi nhận hàng.',
+        images: [],
+        videos: [],
+        isAnonymous: true,
+        avatar: '',
+        replies: [
+          {
+            author: 'Nội Thất Chất Lượng Bàng Vũ',
+            isAdmin: true,
+            date: '16/04/2025 08:30 AM',
+            content:
+              'Cảm ơn anh/chị đã tin tưởng shop! 🌟 Shop xin lỗi về vết bẩn. Vui lòng gửi ảnh qua Zalo 0972774646 để shop hỗ trợ vệ sinh hoặc đổi mới ạ!',
+            avatar: '../images/logo.svg',
+          },
+        ],
+      },
+      {
+        author: 'Ẩn danh',
+        date: '12/02/2025 06:50 PM',
+        rating: 5,
+        content:
+          'Tủ quần áo rất đẹp, chất liệu tốt, giá hợp túi tiền. Giao hàng nhanh, nhưng đóng gói hơi lỏng lẻo.',
+        images: [],
+        videos: [],
+        isAnonymous: true,
+        avatar: '',
+        replies: [
+          {
+            author: 'Nội Thất Chất Lượng Bàng Vũ',
+            isAdmin: true,
+            date: '17/04/2025 09:45 AM',
+            content:
+              'Cảm ơn anh/chị đã yêu thích tủ! 😍 Shop xin lỗi vì đóng gói chưa tốt. Shop sẽ kiểm tra lại để cải thiện. Cần hỗ trợ, anh/chị nhắn shop nhé!',
+            avatar: '../images/logo.svg',
+          },
+        ],
+      },
+      {
+        author: 'Ẩn danh',
+        date: '13/02/2025 01:30 PM',
+        rating: 5,
+        content:
+          'Tủ quần áo thiết kế tinh tế, nhiều ngăn tiện dụng, giá ổn. Nhưng có một bản lề hơi lỏng sau khi lắp.',
+        images: [],
+        videos: [],
+        isAnonymous: true,
+        avatar: '',
+        replies: [
+          {
+            author: 'Nội Thất Chất Lượng Bàng Vũ',
+            isAdmin: true,
+            date: '18/04/2025 10:20 AM',
+            content:
+              'Cảm ơn anh/chị đã ủng hộ! 🌼 Shop xin lỗi vì bản lề. Anh/chị gửi ảnh qua Fanpage, shop hỗ trợ thay mới ngay ạ!',
+            avatar: '../images/logo.svg',
+          },
+        ],
+      },
+      {
+        author: 'Ẩn danh',
+        date: '14/02/2025 04:15 PM',
+        rating: 5,
+        content:
+          'Tủ quần áo đẹp, chất liệu nhựa cao cấp, giá hợp lý. Chỉ hơi bất tiện vì giao hàng trễ giờ hẹn.',
+        images: [],
+        videos: [],
+        isAnonymous: true,
+        avatar: '',
+        replies: [
+          {
+            author: 'Nội Thất Chất Lượng Bàng Vũ',
+            isAdmin: true,
+            date: '19/04/2025 09:10 AM',
+            content:
+              'Cảm ơn anh/chị đã chọn shop! 🌈 Shop xin lỗi vì giao trễ. Shop sẽ cải thiện lịch trình vận chuyển. Cần hỗ trợ, anh/chị liên hệ shop nhé!',
+            avatar: '../images/logo.svg',
+          },
+        ],
+      },
+    ],
+    // Thông tin chính sách cho tab chính sách
+    policies: {
+      shipping:
+        'Miễn phí vận chuyển trong phạm vi 10km từ cửa hàng. Phí vận chuyển sẽ được tính dựa trên khoảng cách và khối lượng sản phẩm cho các khu vực khác.',
+      returns:
+        'Quý khách có thể đổi trả sản phẩm trong vòng 7 ngày kể từ ngày nhận hàng nếu sản phẩm có lỗi từ nhà sản xuất. Sản phẩm đổi trả phải còn nguyên vẹn, không có dấu hiệu đã qua sử dụng.',
+      warranty:
+        'Sản phẩm được bảo hành chính hãng 10 năm cho các lỗi kỹ thuật. Bảo hành không áp dụng cho các trường hợp hư hỏng do sử dụng không đúng cách hoặc tự ý sửa chữa.',
+      payment:
+        'Chúng tôi chấp nhận thanh toán bằng tiền mặt, chuyển khoản ngân hàng, thẻ tín dụng/ghi nợ và các ví điện tử phổ biến như MoMo, ZaloPay.',
+    },
+    // Thông tin bảo quản cho tab bảo quản
+    care: {
+      cleaning:
+        'Lau chùi sản phẩm thường xuyên bằng khăn mềm, khô hoặc hơi ẩm. Tránh sử dụng các chất tẩy rửa có tính axit hoặc kiềm mạnh.',
+      sunlight:
+        'Không đặt sản phẩm dưới ánh nắng mặt trời trực tiếp trong thời gian dài để tránh bạc màu và biến dạng.',
+      humidity:
+        'Không đặt sản phẩm ở nơi có độ ẩm cao hoặc tiếp xúc trực tiếp với nước để tránh gỗ bị cong vênh, nấm mốc.',
+      temperature:
+        'Duy trì sản phẩm ở nhiệt độ phòng ổn định, tránh thay đổi nhiệt độ đột ngột có thể gây nứt, cong vênh.',
+      tips: [
+        'Nhiệt độ lý tưởng: 18-24°C',
+        'Độ ẩm lý tưởng: 40-60%',
+        'Sử dụng miếng lót khi đặt vật dụng nóng hoặc lạnh lên bề mặt tủ',
+        'Kiểm tra và siết chặt các ốc vít định kỳ 6 tháng/lần',
+        'Sử dụng sáp đánh bóng gỗ 1 năm/lần để duy trì vẻ đẹp của sản phẩm',
+      ],
+    },
+  },
 
   // ... tiếp tục với các sản phẩm khác
 ];

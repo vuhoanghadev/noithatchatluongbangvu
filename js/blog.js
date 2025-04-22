@@ -16,39 +16,39 @@ function removeDuplicatePosts() {
   uniquePosts.forEach((post) => posts.push(post)); // Thêm các phần tử duy nhất vào mảng
 }
 
-// Hàm để tự động tăng lượt xem mỗi ngày
-function autoIncreaseViews() {
-  // Lấy ngày hiện tại
-  const today = new Date().toLocaleDateString();
+// Hàm để đồng bộ lượt xem giữa blog.js và localStorage
+function syncViewsWithLocalStorage() {
+  // Lấy dữ liệu lượt xem từ localStorage
+  let viewsData = localStorage.getItem('blogPostViews');
+  let views = viewsData ? JSON.parse(viewsData) : {};
 
-  // Kiểm tra xem đã tăng lượt xem hôm nay chưa
-  const lastUpdated = localStorage.getItem('lastViewsUpdate');
+  // Đồng bộ lượt xem giữa blog.js và localStorage
+  posts.forEach((post) => {
+    const postId = post.id;
 
-  // Nếu chưa tăng lượt xem hôm nay
-  if (lastUpdated !== today) {
-    // Lấy dữ liệu lượt xem từ localStorage
-    let viewsData = localStorage.getItem('blogPostViews');
-    let views = viewsData ? JSON.parse(viewsData) : {};
+    // Nếu chưa có lượt xem trong localStorage, sử dụng giá trị từ blog.js
+    if (!views[postId] && post.views) {
+      views[postId] = post.views;
+      console.log(`Khởi tạo lượt xem cho bài viết ID ${postId}: ${post.views}`);
+    }
+    // Nếu lượt xem trong localStorage lớn hơn, cập nhật lại trường views trong blog.js
+    else if (views[postId] && (!post.views || views[postId] > post.views)) {
+      post.views = views[postId];
+      console.log(
+        `Cập nhật lượt xem cho bài viết ID ${postId} từ localStorage: ${views[postId]}`
+      );
+    }
+    // Nếu lượt xem trong blog.js lớn hơn, cập nhật localStorage
+    else if (post.views && (!views[postId] || post.views > views[postId])) {
+      views[postId] = post.views;
+      console.log(
+        `Cập nhật lượt xem cho bài viết ID ${postId} vào localStorage: ${post.views}`
+      );
+    }
+  });
 
-    // Tăng lượt xem cho mỗi bài viết
-    posts.forEach((post) => {
-      const postId = post.id;
-      views[postId] = (views[postId] || 0) + 5;
-    });
-
-    // Lưu lại vào localStorage
-    localStorage.setItem('blogPostViews', JSON.stringify(views));
-    localStorage.setItem('lastViewsUpdate', today);
-  }
-
-  // Cập nhật lượt xem vào dữ liệu bài viết
-  const viewsData = localStorage.getItem('blogPostViews');
-  if (viewsData) {
-    const views = JSON.parse(viewsData);
-    posts.forEach((post) => {
-      post.views = views[post.id] || 0;
-    });
-  }
+  // Lưu lại vào localStorage
+  localStorage.setItem('blogPostViews', JSON.stringify(views));
 }
 
 const posts = [
@@ -341,13 +341,54 @@ const posts = [
         <p>Nội thất đa năng như giường gấp, bàn gấp đang rất được ưa chuộng...</p>
       `,
     relatedProducts: [6, 7],
+    views: 10,
+  },
+  {
+    id: 22,
+    title: '5 Mẹo Chọn Tủ Quần Áo Phù Hợp Với Không Gian Sống Của Bạn Hà',
+    category: 'Mẹo thiết kế nội thất',
+    author: 'Vũ Hoàng Hà',
+    image:
+      'https://images.unsplash.com/photo-1598928506311-c55ded91a20c?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Nnx8bGl2aW5nJTIwcm9vbXxlbnwwfHwwfHx8MA%3D%3D',
+    excerpt:
+      'Khám phá 5 mẹo vàng giúp bạn chọn tủ quần áo hoàn hảo, vừa đẹp mắt vừa tối ưu không gian và nhu cầu sử dụng.',
+    content: `
+      <h2>5 Mẹo Chọn Tủ Quần Áo Phù Hợp Với Không Gian Sống Của Bạn</h2>
+      <p>Chọn được một chiếc tủ quần áo phù hợp không chỉ giúp bạn tổ chức không gian sống gọn gàng mà còn nâng tầm thẩm mỹ cho căn phòng. Dưới đây là 5 mẹo chi tiết giúp bạn đưa ra quyết định đúng đắn khi chọn mua tủ quần áo.</p>
+
+      <h3>1. Đo đạc không gian chính xác</h3>
+      <p>Trước khi chọn mua tủ quần áo, việc đầu tiên bạn cần làm là đo đạc chính xác diện tích phòng ngủ. Hãy ghi lại chiều dài, chiều rộng và chiều cao của khu vực định đặt tủ. Đừng quên tính đến khoảng không gian cần thiết để mở cửa tủ hoặc kéo ngăn kéo. Nếu phòng nhỏ, hãy cân nhắc tủ âm tường hoặc tủ cánh lùa để tiết kiệm diện tích.</p>
+      <img src="https://plus.unsplash.com/premium_photo-1676823547752-1d24e8597047?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="Đo đạc không gian phòng ngủ" loading="lazy">
+
+      <h3>2. Lựa chọn chất liệu bền bỉ</h3>
+      <p>Chất liệu là yếu tố quyết định độ bền và vẻ đẹp lâu dài của tủ quần áo. Gỗ tự nhiên như gỗ sồi, gỗ óc chó mang lại vẻ đẹp sang trọng và độ bền cao, nhưng giá thành thường cao hơn. Trong khi đó, gỗ công nghiệp như MDF phủ melamine hoặc laminate là lựa chọn phổ biến nhờ giá cả hợp lý, chống cong vênh và đa dạng màu sắc.</p>
+      <p><strong>Mẹo:</strong> Nếu bạn sống ở khu vực có độ ẩm cao, hãy chọn gỗ công nghiệp có lớp phủ chống ẩm để tăng tuổi thọ cho sản phẩm.</p>
+
+      <h3>3. Tối ưu hóa thiết kế và công năng</h3>
+      <p>Một chiếc tủ quần áo lý tưởng không chỉ đẹp mà còn phải đáp ứng nhu cầu sử dụng. Hãy xác định số lượng quần áo, phụ kiện và vật dụng bạn cần lưu trữ. Tủ có nhiều ngăn kéo, kệ treo, hoặc thanh ngang sẽ giúp bạn dễ dàng phân loại và sắp xếp. Ngoài ra, các thiết kế hiện đại còn tích hợp gương, đèn LED hoặc kệ đa năng, giúp tối ưu hóa trải nghiệm sử dụng.</p>
+      <img src="https://plus.unsplash.com/premium_photo-1661777938520-110b62a5537f?q=80&w=1931&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="Tủ quần áo thiết kế hiện đại" loading="lazy">
+
+      <h3>4. Phù hợp với phong cách nội thất</h3>
+      <p>Tủ quần áo nên hòa hợp với phong cách tổng thể của căn phòng. Nếu phòng ngủ mang phong cách tối giản, hãy chọn tủ có thiết kế đơn giản, màu sắc trung tính như trắng, xám hoặc be. Ngược lại, với phong cách cổ điển, tủ quần áo bằng gỗ tự nhiên với các chi tiết chạm khắc sẽ là điểm nhấn hoàn hảo.</p>
+      <p><strong>Lưu ý:</strong> Đừng quên phối màu tủ với các nội thất khác như giường, bàn trang điểm để tạo sự thống nhất.</p>
+
+      <h3>5. Cân nhắc ngân sách và thương hiệu</h3>
+      <p>Trước khi mua, hãy xác định ngân sách rõ ràng để thu hẹp lựa chọn. Các thương hiệu nội thất uy tín thường cung cấp sản phẩm chất lượng cao kèm chính sách bảo hành tốt. Nếu bạn muốn tiết kiệm chi phí, hãy tìm kiếm các chương trình khuyến mãi hoặc cân nhắc mua tủ lắp ráp với thiết kế hiện đại.</p>
+      <p><strong>Gợi ý:</strong> Đừng chỉ tập trung vào giá rẻ mà bỏ qua chất lượng, vì một chiếc tủ tốt sẽ đồng hành cùng bạn trong nhiều năm.</p>
+
+      <h3>Kết luận</h3>
+      <p>Chọn tủ quần áo không chỉ là việc mua sắm mà còn là cách bạn đầu tư cho không gian sống tiện nghi và thẩm mỹ. Hãy áp dụng 5 mẹo trên để tìm được chiếc tủ hoàn hảo cho ngôi nhà của bạn. Nếu cần tư vấn thêm hoặc muốn khám phá các mẫu tủ quần áo hiện đại, hãy liên hệ với chúng tôi ngay hôm nay!</p>
+
+    `,
+    relatedProducts: [1, 2, 3, 4],
+    views: 2611, // Giữ nguyên lượt xem
   },
 ];
 
-// Tự động tăng lượt xem mỗi ngày
+// Đồng bộ lượt xem khi tải trang
 document.addEventListener('DOMContentLoaded', function () {
-  // Gọi hàm tự động tăng lượt xem
-  autoIncreaseViews();
+  // Gọi hàm đồng bộ lượt xem
+  syncViewsWithLocalStorage();
 });
 
 // Trang danh sách blog
@@ -355,8 +396,16 @@ if (document.getElementById('blog-grid')) {
   // Lọc các bài viết trùng lặp trước khi hiển thị
   removeDuplicatePosts();
 
-  // Tự động tăng lượt xem mỗi ngày
-  autoIncreaseViews();
+  // Đồng bộ lượt xem
+  syncViewsWithLocalStorage();
+
+  // Sắp xếp bài viết theo thứ tự giảm dần của ID
+  posts.sort((a, b) => {
+    // Chuyển đổi ID thành số để so sánh
+    const idA = parseInt(a.id);
+    const idB = parseInt(b.id);
+    return idB - idA; // Sắp xếp giảm dần
+  });
 
   const blogGrid = document.getElementById('blog-grid');
   const pagination = document.getElementById('pagination');
@@ -406,14 +455,65 @@ if (document.getElementById('blog-grid')) {
               </div>
               <a href="blog-detail.html?id=${
                 post.id
-              }" class="btn-read-more">Đọc thêm <i class="fas fa-arrow-right"></i></a>
+              }" class="btn-read-more" data-post-id="${
+        post.id
+      }">Đọc thêm <i class="fas fa-arrow-right"></i></a>
             </div>
           </div>
         `;
       blogGrid.appendChild(card);
     });
 
+    // Thêm sự kiện click cho các nút "Đọc thêm"
+    addReadMoreClickHandlers();
+
     renderPagination(posts.length);
+  }
+
+  // Hàm thêm sự kiện click cho các nút "Đọc thêm"
+  function addReadMoreClickHandlers() {
+    const readMoreButtons = document.querySelectorAll('.btn-read-more');
+    readMoreButtons.forEach((button) => {
+      // Xóa các sự kiện click cũ để tránh bị trùng lặp
+      const newButton = button.cloneNode(true);
+      button.parentNode.replaceChild(newButton, button);
+
+      newButton.addEventListener('click', function (event) {
+        // Lấy ID bài viết từ thuộc tính data-post-id
+        const postId = parseInt(this.getAttribute('data-post-id'));
+        if (!postId) return;
+
+        // Tìm bài viết theo ID
+        const post = posts.find((p) => p.id === postId);
+        if (!post) return;
+
+        // Tăng lượt xem trực tiếp trong dữ liệu bài viết
+        post.views = (post.views || 0) + 1;
+
+        // Lưu lượt xem vào localStorage
+        let viewsData = localStorage.getItem('blogPostViews');
+        let views = viewsData ? JSON.parse(viewsData) : {};
+        views[postId] = post.views;
+        localStorage.setItem('blogPostViews', JSON.stringify(views));
+
+        // Đánh dấu bài viết đã được xem trong sessionStorage
+        let viewedPosts = sessionStorage.getItem('viewedBlogPosts');
+        let viewedPostsArray = viewedPosts ? JSON.parse(viewedPosts) : [];
+        if (!viewedPostsArray.includes(postId)) {
+          viewedPostsArray.push(postId);
+          sessionStorage.setItem(
+            'viewedBlogPosts',
+            JSON.stringify(viewedPostsArray)
+          );
+        }
+
+        console.log(
+          `Tăng lượt xem cho bài viết ID ${postId} lên ${post.views}`
+        );
+
+        // Cho phép sự kiện click tiếp tục xảy ra (chuyển trang)
+      });
+    });
   }
 
   function renderPagination(totalItems) {
