@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Reset Views</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      max-width: 800px;
+      margin: 0 auto;
+      padding: 20px;
+    }
+    h1 {
+      color: #0058dd;
+    }
+    button {
+      background-color: #0058dd;
+      color: white;
+      border: none;
+      padding: 10px 20px;
+      border-radius: 5px;
+      cursor: pointer;
+      margin: 10px 0;
+    }
+    button:hover {
+      background-color: #0046b5;
+    }
+    pre {
+      background-color: #f5f5f5;
+      padding: 10px;
+      border-radius: 5px;
+      overflow: auto;
+    }
+  </style>
+</head>
+<body>
+  <h1>Reset Views</h1>
+  <p>Sử dụng trang này để xóa dữ liệu lượt xem trong localStorage và kiểm tra tính năng tăng lượt xem.</p>
+  
+  <button id="reset-views">Xóa dữ liệu lượt xem</button>
+  <button id="show-views">Hiển thị dữ liệu lượt xem</button>
+  <button id="reset-viewed-posts">Xóa danh sách bài viết đã xem</button>
+  
+  <h2>Dữ liệu lượt xem</h2>
+  <pre id="views-data"></pre>
+  
+  <h2>Danh sách bài viết đã xem</h2>
+  <pre id="viewed-posts-data"></pre>
+  
+  <script>
+    document.getElementById('reset-views').addEventListener('click', function() {
+      localStorage.removeItem('blogPostViews');
+      alert('Đã xóa dữ liệu lượt xem trong localStorage');
+      updateDisplay();
+    });
+    
+    document.getElementById('show-views').addEventListener('click', function() {
+      updateDisplay();
+    });
+    
+    document.getElementById('reset-viewed-posts').addEventListener('click', function() {
+      localStorage.removeItem('viewedBlogPosts');
+      alert('Đã xóa danh sách bài viết đã xem trong localStorage');
+      updateDisplay();
+    });
+    
+    function updateDisplay() {
+      const viewsData = localStorage.getItem('blogPostViews');
+      const viewedPostsData = localStorage.getItem('viewedBlogPosts');
+      
+      document.getElementById('views-data').textContent = viewsData ? JSON.stringify(JSON.parse(viewsData), null, 2) : 'Không có dữ liệu';
+      document.getElementById('viewed-posts-data').textContent = viewedPostsData ? JSON.stringify(JSON.parse(viewedPostsData), null, 2) : 'Không có dữ liệu';
+    }
+    
+    // Hiển thị dữ liệu khi tải trang
+    updateDisplay();
+  </script>
+</body>
+</html>

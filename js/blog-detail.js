@@ -394,6 +394,12 @@ function increaseViewCount(postId) {
     post.views = views[postIdStr];
   }
 
+  // Debug: In ra giá trị lượt xem hiện tại
+  console.log(`Lượt xem hiện tại của bài viết ID ${postIdStr}: ${post.views}`);
+  console.log(`viewedPosts[${postIdStr}] = ${viewedPosts[postIdStr]}`);
+  console.log(`views[${postIdStr}] = ${views[postIdStr]}`);
+  console.log(`post.views = ${post.views}`);
+
   // Kiểm tra xem người dùng đã từng xem bài viết này chưa
   if (!viewedPosts[postIdStr]) {
     // Tăng lượt xem lên 1
