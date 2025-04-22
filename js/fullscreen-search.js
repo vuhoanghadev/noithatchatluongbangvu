@@ -30,7 +30,7 @@ function createSearchInterface() {
                 <i class="fas fa-search"></i>
                 <div class="search-input-wrapper">
                     <input type="text" class="search-input" placeholder="Tìm kiếm sản phẩm, bài viết...">
-                    <div class="search-autocomplete" style="display: none;"></div>
+                    <div class="search-autocomplete"></div>
                 </div>
                 <button class="search-clear-btn">
                     <i class="fas fa-times"></i>
@@ -38,15 +38,16 @@ function createSearchInterface() {
             </div>
         </div>
 
-        <div class="search-content">
-            <!-- Tabs for different search types -->
-            <div class="search-tabs">
-                <div class="search-tab active" data-tab="products">Sản phẩm <span class="search-count">0</span></div>
-                <div class="search-tab" data-tab="blog">Bài viết <span class="search-count">0</span></div>
-                <div class="search-filter-toggle">
-                    <i class="fas fa-filter"></i> Bộ lọc
-                </div>
+        <!-- Tabs for different search types -->
+        <div class="search-tabs">
+            <div class="search-tab active" data-tab="products">Sản phẩm <span class="search-count">0</span></div>
+            <div class="search-tab" data-tab="blog">Bài viết <span class="search-count">0</span></div>
+            <div class="search-filter-toggle">
+                <i class="fas fa-filter"></i> Bộ lọc
             </div>
+        </div>
+
+        <div class="search-content">
 
             <!-- Advanced search filters for products -->
             <div class="search-advanced-filters" id="product-filters">
@@ -399,13 +400,55 @@ function initSearch() {
       // Show/hide appropriate filters based on active tab
       const productFilters = document.getElementById('product-filters');
       const blogFilters = document.getElementById('blog-filters');
+      const filterToggle = document.querySelector('.search-filter-toggle');
+
+      // Get filter containers
+      const productFiltersContainer = document.querySelector(
+        '#product-filters .search-filters-container'
+      );
+      const blogFiltersContainer = document.querySelector(
+        '#blog-filters .search-filters-container'
+      );
+
+      // Check global filter state
+      const isFilterOpen =
+        document.body.getAttribute('data-filter-open') === 'true';
+
+      console.log(
+        'Tab changed to:',
+        tabName,
+        'Global filter state:',
+        isFilterOpen
+      );
+
+      // First, hide all filter containers
+      if (productFiltersContainer)
+        productFiltersContainer.style.display = 'none';
+      if (blogFiltersContainer) blogFiltersContainer.style.display = 'none';
 
       if (tabName === 'products') {
+        // Show product filters container, hide blog filters container
         if (productFilters) productFilters.style.display = 'block';
         if (blogFilters) blogFilters.style.display = 'none';
+
+        // If global filter state is open, show the product filter container
+        if (isFilterOpen && productFiltersContainer) {
+          productFiltersContainer.style.display = 'block';
+        }
       } else if (tabName === 'blog') {
+        // Show blog filters container, hide product filters container
         if (productFilters) productFilters.style.display = 'none';
         if (blogFilters) blogFilters.style.display = 'block';
+
+        // If global filter state is open, show the blog filter container
+        if (isFilterOpen && blogFiltersContainer) {
+          blogFiltersContainer.style.display = 'block';
+        }
+      }
+
+      // Update filter toggle button state based on global filter state
+      if (filterToggle) {
+        filterToggle.classList.toggle('active', isFilterOpen);
       }
     });
   });
@@ -443,6 +486,9 @@ function initSearch() {
 
   // Initialize advanced filters
   initAdvancedFilters();
+
+  // Initialize global filter state to closed
+  document.body.setAttribute('data-filter-open', 'false');
 
   // Initialize autocomplete
   initAutocomplete();
@@ -487,6 +533,19 @@ function openSearch() {
   // Show the search container
   searchContainer.classList.add('active');
 
+  // Add search-active class to body to hide other elements
+  document.body.classList.add('search-active');
+
+  // Force hide any floating elements that might be using fixed positioning
+  const floatingElements = document.querySelectorAll(
+    '.fc-container, .bottom-nav, [class*="floating-"], [class*="scroll-to-top"]'
+  );
+  floatingElements.forEach((el) => {
+    el.style.display = 'none';
+    el.style.opacity = '0';
+    el.style.visibility = 'hidden';
+  });
+
   // Focus the input
   setTimeout(() => {
     searchInput.focus();
@@ -504,6 +563,19 @@ function closeSearch() {
 
   // Hide the search container
   searchContainer.classList.remove('active');
+
+  // Remove search-active class from body to show other elements
+  document.body.classList.remove('search-active');
+
+  // Show any floating elements that were hidden
+  const floatingElements = document.querySelectorAll(
+    '.fc-container, .bottom-nav, [class*="floating-"], [class*="scroll-to-top"]'
+  );
+  floatingElements.forEach((el) => {
+    el.style.display = '';
+    el.style.opacity = '';
+    el.style.visibility = '';
+  });
 
   // Allow body scrolling
   document.body.style.overflow = '';
@@ -532,18 +604,61 @@ function performSearch(query, filters = {}) {
   // Hide autocomplete
   hideAutocomplete();
 
-  // Hide filters container if it's open, unless keepFiltersOpen is true
-  const filtersContainer = document.querySelector('.search-filters-container');
+  // Handle filters container visibility
+  const activeTab = document.querySelector('.search-tab.active');
+  const tabName = activeTab ? activeTab.getAttribute('data-tab') : 'products';
+
+  // Get both filter containers
+  const productFiltersContainer = document.querySelector(
+    '#product-filters .search-filters-container'
+  );
+  const blogFiltersContainer = document.querySelector(
+    '#blog-filters .search-filters-container'
+  );
+
+  // Get current active filter container
+  let activeFiltersContainer;
+  if (tabName === 'products') {
+    activeFiltersContainer = productFiltersContainer;
+  } else if (tabName === 'blog') {
+    activeFiltersContainer = blogFiltersContainer;
+  }
+
   const filterToggle = document.querySelector('.search-filter-toggle');
-  if (
-    filtersContainer &&
-    filtersContainer.style.display === 'block' &&
-    !filters.keepFiltersOpen
+
+  // Check if we should keep filters open
+  if (filters.keepFiltersOpen) {
+    // Update the global filter state to open
+    document.body.setAttribute('data-filter-open', 'true');
+
+    // Make sure filter toggle shows active state
+    if (filterToggle) {
+      filterToggle.classList.add('active');
+    }
+
+    // Show the active filter container
+    if (activeFiltersContainer) {
+      activeFiltersContainer.style.display = 'block';
+    }
+
+    console.log('Keeping filters container open during search');
+  } else if (
+    !filters.keepFiltersOpen &&
+    activeFiltersContainer &&
+    activeFiltersContainer.style.display === 'block'
   ) {
-    filtersContainer.style.display = 'none';
+    // Hide all filter containers
+    if (productFiltersContainer) productFiltersContainer.style.display = 'none';
+    if (blogFiltersContainer) blogFiltersContainer.style.display = 'none';
+
+    // Update the global filter state to closed
+    document.body.setAttribute('data-filter-open', 'false');
+
+    // Update filter toggle button state
     if (filterToggle) {
       filterToggle.classList.remove('active');
     }
+
     console.log('Hiding filters container during search');
   }
 
@@ -1226,23 +1341,46 @@ function displayBlogResults(posts) {
   // Create HTML for each blog post
   const postsHTML = posts
     .map((post) => {
+      // Get blog image URL or use a default image from the post content or a generic icon
+      let imageUrl = '';
+      if (post.image) {
+        imageUrl = post.image;
+      } else if (post.content && post.content.includes('<img')) {
+        // Try to extract the first image from content
+        const imgMatch = post.content.match(
+          /<img[^>]+src=["']([^"']+)["'][^>]*>/i
+        );
+        if (imgMatch && imgMatch[1]) {
+          imageUrl = imgMatch[1];
+        }
+      }
+
+      // If no image found, use a div with an icon instead
+      const useImageTag = imageUrl !== '';
+
+      // Get view count or default to 0
+      const viewCount = post.views || 0;
+
       return `
             <div class="search-blog-card" data-id="${post.id}">
-                <img src="${post.image || 'images/placeholder.jpg'}" alt="${
-        post.title
-      }" class="search-blog-image">
+                ${
+                  useImageTag
+                    ? `<img src="${imageUrl}" alt="${post.title}" class="search-blog-image">`
+                    : `<div class="search-blog-image-placeholder"><i class="fas fa-newspaper"></i></div>`
+                }
                 <div class="search-blog-info">
                     <h3 class="search-blog-title">${post.title}</h3>
                     <p class="search-blog-excerpt">${
-                      post.excerpt || post.content.substring(0, 100)
+                      post.excerpt ||
+                      post.content.replace(/<[^>]*>/g, '').substring(0, 120)
                     }...</p>
                     <div class="search-blog-meta">
                         <span class="search-blog-date"><i class="far fa-calendar-alt"></i> ${formatDate(
                           post.date
                         )}</span>
-                        <span class="search-blog-category">${
-                          post.category
-                        }</span>
+                        <span class="search-blog-views"><i class="fas fa-eye"></i> ${viewCount.toLocaleString(
+                          'vi-VN'
+                        )} lượt xem</span>
                     </div>
                 </div>
             </div>
@@ -1435,28 +1573,55 @@ function initAdvancedFilters() {
   // Toggle filters visibility when filter button is clicked
   if (filterToggle) {
     filterToggle.addEventListener('click', function () {
-      // Determine which filter container to toggle based on active tab
+      // Get current global filter state
+      const currentFilterState =
+        document.body.getAttribute('data-filter-open') === 'true';
+
+      // Toggle the global filter state
+      const newFilterState = !currentFilterState;
+      document.body.setAttribute(
+        'data-filter-open',
+        newFilterState ? 'true' : 'false'
+      );
+
+      console.log(
+        'Toggle global filter state:',
+        currentFilterState,
+        '->',
+        newFilterState
+      );
+
+      // Update filter toggle button state
+      this.classList.toggle('active', newFilterState);
+
+      // Determine which filter container to show based on active tab
       const activeTab = document.querySelector('.search-tab.active');
       const tabName = activeTab
         ? activeTab.getAttribute('data-tab')
         : 'products';
 
-      let filtersContainer;
-      if (tabName === 'products') {
-        filtersContainer = document.querySelector(
-          '#product-filters .search-filters-container'
-        );
-      } else if (tabName === 'blog') {
-        filtersContainer = document.querySelector(
-          '#blog-filters .search-filters-container'
-        );
-      }
+      // Get both filter containers
+      const productFiltersContainer = document.querySelector(
+        '#product-filters .search-filters-container'
+      );
+      const blogFiltersContainer = document.querySelector(
+        '#blog-filters .search-filters-container'
+      );
 
-      if (filtersContainer) {
-        const isVisible = filtersContainer.style.display !== 'none';
-        console.log('Toggle filters visibility, current state:', isVisible);
-        filtersContainer.style.display = isVisible ? 'none' : 'block';
-        this.classList.toggle('active', !isVisible);
+      // First, hide all filter containers
+      if (productFiltersContainer)
+        productFiltersContainer.style.display = 'none';
+      if (blogFiltersContainer) blogFiltersContainer.style.display = 'none';
+
+      // Then, show the appropriate filter container based on active tab and new filter state
+      if (newFilterState) {
+        if (tabName === 'products' && productFiltersContainer) {
+          productFiltersContainer.style.display = 'block';
+          console.log('Showing product filters container');
+        } else if (tabName === 'blog' && blogFiltersContainer) {
+          blogFiltersContainer.style.display = 'block';
+          console.log('Showing blog filters container');
+        }
       }
     });
     console.log('Filter toggle event listener added');
@@ -1959,31 +2124,143 @@ function showAutocomplete(query) {
     `;
   }
 
-  // Add product matches
+  // Add product section title if there are product matches
+  if (productMatches.length > 0) {
+    html += `
+      <div class="search-autocomplete-section-title">
+        <i class="fas fa-box"></i> Sản phẩm gợi ý
+      </div>
+    `;
+  }
+
+  // Add product matches with images and view count
   productMatches.forEach((product) => {
+    // Get product image URL or use a placeholder
+    const imageUrl =
+      product.images && product.images.length > 0
+        ? product.images[0]
+        : 'images/placeholder.jpg';
+
+    // Get view count or default to 0
+    const viewCount = product.views || 0;
+
     html += `
       <div class="search-autocomplete-item" data-type="product" data-id="${
         product.id
       }">
-        <i class="fas fa-box"></i>
-        <span>${highlightMatch(product.name, normalizedQuery)}</span>
-        <span class="search-autocomplete-category">Sản phẩm</span>
+        <div class="search-autocomplete-product">
+          <img src="${imageUrl}" alt="${
+      product.name
+    }" class="search-autocomplete-product-image">
+          <div class="search-autocomplete-product-info">
+            <div class="search-autocomplete-product-title">${highlightMatch(
+              product.name,
+              normalizedQuery
+            )}</div>
+            <div class="search-autocomplete-product-meta">
+              <div class="search-autocomplete-product-views">
+                <i class="fas fa-eye"></i> ${viewCount.toLocaleString(
+                  'vi-VN'
+                )} lượt xem
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
     `;
   });
 
-  // Add blog matches
+  // Add blog section title if there are blog matches
+  if (blogMatches.length > 0) {
+    html += `
+      <div class="search-autocomplete-section-title">
+        <i class="fas fa-newspaper"></i> Bài viết gợi ý
+      </div>
+    `;
+  }
+
+  // Add blog matches with images, date and view count
   blogMatches.forEach((post) => {
+    // Get blog image URL or use a default image from the post content or a generic icon
+    let imageUrl = '';
+    if (post.image) {
+      imageUrl = post.image;
+    } else if (post.content && post.content.includes('<img')) {
+      // Try to extract the first image from content
+      const imgMatch = post.content.match(
+        /<img[^>]+src=["']([^"']+)["'][^>]*>/i
+      );
+      if (imgMatch && imgMatch[1]) {
+        imageUrl = imgMatch[1];
+      }
+    }
+
+    // If no image found, use a div with an icon instead
+    const useImageTag = imageUrl !== '';
+
+    // Get view count or default to 0
+    const viewCount = post.views || 0;
+
+    // Format date
+    let dateStr = 'Không rõ';
+    if (post.date) {
+      try {
+        const date = new Date(post.date);
+        dateStr = date.toLocaleDateString('vi-VN', {
+          year: 'numeric',
+          month: 'numeric',
+          day: 'numeric',
+        });
+      } catch (e) {
+        console.error('Error formatting date:', e);
+      }
+    }
+
     html += `
       <div class="search-autocomplete-item" data-type="blog" data-id="${
         post.id
       }">
-        <i class="fas fa-newspaper"></i>
-        <span>${highlightMatch(post.title, normalizedQuery)}</span>
-        <span class="search-autocomplete-category">Bài viết</span>
+        <div class="search-autocomplete-blog">
+          ${
+            useImageTag
+              ? `<img src="${imageUrl}" alt="${post.title}" class="search-autocomplete-blog-image">`
+              : `<div class="search-autocomplete-blog-image-placeholder"><i class="fas fa-newspaper"></i></div>`
+          }
+          <div class="search-autocomplete-blog-info">
+            <div class="search-autocomplete-blog-title">${highlightMatch(
+              post.title,
+              normalizedQuery
+            )}</div>
+            <div class="search-autocomplete-blog-meta">
+              <div class="search-autocomplete-blog-date">
+                <i class="far fa-calendar-alt"></i> ${dateStr}
+              </div>
+              <div class="search-autocomplete-blog-views">
+                <i class="fas fa-eye"></i> ${viewCount.toLocaleString(
+                  'vi-VN'
+                )} lượt xem
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
     `;
   });
+
+  // Check if there are any results
+  if (
+    productMatches.length === 0 &&
+    blogMatches.length === 0 &&
+    !spellingSuggestion
+  ) {
+    // Show empty state
+    html += `
+      <div class="search-autocomplete-empty-state">
+        <i class="fas fa-search"></i>
+        <div>Không tìm thấy kết quả phù hợp với "${query}"</div>
+      </div>
+    `;
+  }
 
   // Add search option
   html += `
@@ -1995,7 +2272,7 @@ function showAutocomplete(query) {
 
   // Update autocomplete container
   autocompleteContainer.innerHTML = html;
-  autocompleteContainer.style.display = 'block';
+  autocompleteContainer.classList.add('visible');
 
   // Add click event listeners to autocomplete items
   const autocompleteItems = autocompleteContainer.querySelectorAll(
@@ -2038,7 +2315,7 @@ function showAutocomplete(query) {
 function hideAutocomplete() {
   const autocompleteContainer = document.querySelector('.search-autocomplete');
   if (autocompleteContainer) {
-    autocompleteContainer.style.display = 'none';
+    autocompleteContainer.classList.remove('visible');
   }
 }
 
