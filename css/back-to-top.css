@@ -11,10 +11,14 @@
     left: 20px;
     width: 50px;
     height: 50px;
-    border-radius: 12px; /* Hình vuông bo góc thay vì hình tròn */
-    background-color: var(--backtotop-white); /* Nền trắng */
-    color: var(--backtotop-primary); /* Màu chữ cam */
-    border: 2px solid var(--backtotop-primary); /* Viền cam */
+    border-radius: 12px;
+    /* Hình vuông bo góc thay vì hình tròn */
+    background-color: var(--backtotop-white);
+    /* Nền trắng */
+    color: var(--backtotop-primary);
+    /* Màu chữ cam */
+    border: 2px solid var(--backtotop-primary);
+    /* Viền cam */
     display: flex;
     align-items: center;
     justify-content: center;
@@ -22,7 +26,7 @@
     opacity: 0;
     visibility: hidden;
     transition: var(--backtotop-transition);
-    z-index: 99;
+    z-index: 9999;
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
 }
 
@@ -67,8 +71,10 @@
 }
 
 .back-to-top:hover {
-    background-color: var(--backtotop-primary); /* Nền cam khi hover */
-    color: var(--backtotop-white); /* Chữ trắng khi hover */
+    background-color: var(--backtotop-primary);
+    /* Nền cam khi hover */
+    color: var(--backtotop-white);
+    /* Chữ trắng khi hover */
     transform: translateY(-3px);
     box-shadow: 0 6px 15px rgba(249, 115, 22, 0.2);
 }
@@ -94,7 +100,8 @@
 }
 
 .back-to-top i {
-    font-size: 20px; /* Nhỏ hơn floating-contact-button */
+    font-size: 20px;
+    /* Nhỏ hơn floating-contact-button */
     transition: var(--backtotop-transition);
 }
 
@@ -105,7 +112,8 @@
 /* Responsive Styles */
 @media (max-width: 768px) {
     .back-to-top {
-        bottom: 30px;
+        bottom: 80px;
+        /* Increased to avoid overlap with bottom nav */
         left: 15px;
         width: 45px;
         height: 45px;
@@ -115,7 +123,8 @@
 
 @media (max-width: 576px) {
     .back-to-top {
-        bottom: 20px;
+        bottom: 75px;
+        /* Increased to avoid overlap with bottom nav */
         left: 10px;
         width: 40px;
         height: 40px;

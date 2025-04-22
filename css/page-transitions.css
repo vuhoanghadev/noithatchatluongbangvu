@@ -24,10 +24,10 @@
 
 /* Ensure the transition works well with the floating contact buttons */
 .fc-container {
-    z-index: 9996;
+    z-index: 9998;
 }
 
 /* Ensure the transition works well with the back to top button */
 .back-to-top {
-    z-index: 9996;
+    z-index: 9998;
 }

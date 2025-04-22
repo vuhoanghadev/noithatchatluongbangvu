@@ -14,7 +14,7 @@
     position: fixed;
     bottom: 60px;
     right: 20px;
-    z-index: 999;
+    z-index: 9999;
     display: flex;
     flex-direction: column;
     gap: 15px;
@@ -329,7 +329,8 @@
 /* Mobile styles */
 @media (max-width: 768px) {
     .fc-container {
-        bottom: 30px;
+        bottom: 80px;
+        /* Increased to avoid overlap with bottom nav */
         right: 15px;
         gap: 12px;
     }
@@ -341,7 +342,7 @@
 
     .fc-button i,
     .fc-button img {
-        font-size: 22px;
+        font-size: 26px;
     }
 
     .fc-zalo img {
@@ -457,7 +458,8 @@
 /* Small mobile devices */
 @media (max-width: 576px) {
     .fc-container {
-        bottom: 20px;
+        bottom: 75px;
+        /* Increased to avoid overlap with bottom nav */
         right: 10px;
         gap: 10px;
     }
@@ -470,11 +472,11 @@
 
     .fc-button i,
     .fc-button img {
-        font-size: 20px;
+        font-size: 23px;
     }
 
     .fc-zalo img {
-        width: 22px;
-        height: 22px;
+        width: 26px;
+        height: 26px;
     }
 }

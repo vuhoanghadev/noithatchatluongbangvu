@@ -135,12 +135,12 @@ function createTransitionOverlay() {
 
             /* Floating contact buttons should stay visible */
             .fc-container {
-                z-index: 9998;
+                z-index: 10001;
             }
 
             /* Back to top button should stay visible */
             .back-to-top {
-                z-index: 9998;
+                z-index: 10001;
             }
         `;
     document.head.appendChild(styleElement);
