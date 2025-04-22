@@ -7,8 +7,8 @@
     left: 0;
     width: 100%;
     height: 60px;
-    /* background-color: #ffffff; */
-    background-color: #fff5f5;
+    background-color: #ffffff;
+    /* background-color: #fff5f5; */
     box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.1);
     z-index: 9999;
     transition: all 0.3s ease;
@@ -49,8 +49,8 @@
 
 /* Active state */
 .bottom-nav-item.active {
-    /* color: #0058dd; */
-    color: #f97316;
+    color: #0058dd;
+    /* color: #f97316; */
 }
 
 .bottom-nav-item.active i {
