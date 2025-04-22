@@ -22,28 +22,29 @@ function syncViewsWithLocalStorage() {
   let viewsData = localStorage.getItem('blogPostViews');
   let views = viewsData ? JSON.parse(viewsData) : {};
 
+  // Lấy dữ liệu bài viết đã xem từ localStorage
+  let viewedPostsData = localStorage.getItem('viewedBlogPosts');
+  let viewedPosts = viewedPostsData ? JSON.parse(viewedPostsData) : {};
+
   // Đồng bộ lượt xem giữa blog.js và localStorage
   posts.forEach((post) => {
-    const postId = post.id;
+    const postId = post.id.toString();
 
-    // Nếu chưa có lượt xem trong localStorage, sử dụng giá trị từ blog.js
-    if (!views[postId] && post.views) {
+    // Nếu admin cập nhật lượt xem thủ công trong blog.js
+    if (post.views && (!views[postId] || post.views > views[postId])) {
+      // Cập nhật lượt xem trong localStorage
       views[postId] = post.views;
-      console.log(`Khởi tạo lượt xem cho bài viết ID ${postId}: ${post.views}`);
+      console.log(
+        `Admin đã cập nhật lượt xem cho bài viết ID ${postId}: ${post.views}`
+      );
     }
-    // Nếu lượt xem trong localStorage lớn hơn, cập nhật lại trường views trong blog.js
-    else if (views[postId] && (!post.views || views[postId] > post.views)) {
+    // Nếu đã có lượt xem trong localStorage, sử dụng giá trị đó
+    else if (views[postId]) {
       post.views = views[postId];
-      console.log(
-        `Cập nhật lượt xem cho bài viết ID ${postId} từ localStorage: ${views[postId]}`
-      );
     }
-    // Nếu lượt xem trong blog.js lớn hơn, cập nhật localStorage
-    else if (post.views && (!views[postId] || post.views > views[postId])) {
-      views[postId] = post.views;
-      console.log(
-        `Cập nhật lượt xem cho bài viết ID ${postId} vào localStorage: ${post.views}`
-      );
+    // Nếu chưa có lượt xem trong localStorage, khởi tạo giá trị ban đầu
+    else {
+      views[postId] = post.views || 0;
     }
   });
 
@@ -381,7 +382,7 @@ const posts = [
 
     `,
     relatedProducts: [1, 2, 3, 4],
-    views: 26111, // Giữ nguyên lượt xem
+    views: 2000, // Giữ nguyên lượt xem
   },
 ];
 
@@ -478,38 +479,47 @@ if (document.getElementById('blog-grid')) {
       const newButton = button.cloneNode(true);
       button.parentNode.replaceChild(newButton, button);
 
-      newButton.addEventListener('click', function (event) {
+      newButton.addEventListener('click', function () {
         // Lấy ID bài viết từ thuộc tính data-post-id
         const postId = parseInt(this.getAttribute('data-post-id'));
         if (!postId) return;
+
+        // Chuyển postId thành chuỗi để đảm bảo tính nhất quán
+        const postIdStr = postId.toString();
 
         // Tìm bài viết theo ID
         const post = posts.find((p) => p.id === postId);
         if (!post) return;
 
-        // Tăng lượt xem trực tiếp trong dữ liệu bài viết
-        post.views = (post.views || 0) + 1;
-
-        // Lưu lượt xem vào localStorage
+        // Lấy dữ liệu lượt xem từ localStorage
         let viewsData = localStorage.getItem('blogPostViews');
         let views = viewsData ? JSON.parse(viewsData) : {};
-        views[postId] = post.views;
-        localStorage.setItem('blogPostViews', JSON.stringify(views));
 
-        // Đánh dấu bài viết đã được xem trong sessionStorage
-        let viewedPosts = sessionStorage.getItem('viewedBlogPosts');
-        let viewedPostsArray = viewedPosts ? JSON.parse(viewedPosts) : [];
-        if (!viewedPostsArray.includes(postId)) {
-          viewedPostsArray.push(postId);
-          sessionStorage.setItem(
-            'viewedBlogPosts',
-            JSON.stringify(viewedPostsArray)
+        // Lấy danh sách bài viết đã xem từ localStorage
+        let viewedPostsData = localStorage.getItem('viewedBlogPosts');
+        let viewedPosts = viewedPostsData ? JSON.parse(viewedPostsData) : {};
+
+        // Kiểm tra xem người dùng đã từng xem bài viết này chưa
+        if (!viewedPosts[postIdStr]) {
+          // Tăng lượt xem lên 1
+          post.views = (post.views || 0) + 1;
+
+          // Cập nhật lượt xem trong localStorage
+          views[postIdStr] = post.views;
+          localStorage.setItem('blogPostViews', JSON.stringify(views));
+
+          // Đánh dấu bài viết đã được xem
+          viewedPosts[postIdStr] = true;
+          localStorage.setItem('viewedBlogPosts', JSON.stringify(viewedPosts));
+
+          console.log(
+            `Tăng lượt xem cho bài viết ID ${postIdStr} lên ${post.views}`
+          );
+        } else {
+          console.log(
+            `Người dùng đã xem bài viết ID ${postIdStr} trước đó, giữ nguyên lượt xem: ${post.views}`
           );
         }
-
-        console.log(
-          `Tăng lượt xem cho bài viết ID ${postId} lên ${post.views}`
-        );
 
         // Cho phép sự kiện click tiếp tục xảy ra (chuyển trang)
       });
