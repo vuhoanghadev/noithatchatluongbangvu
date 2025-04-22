@@ -346,7 +346,8 @@ const posts = [
   },
   {
     id: 22,
-    title: 'Bé tấn Chọn Tủ Quần Áo Phù Hợp Với Không Gian Sống Của Bạn Hà',
+    title:
+      'Bé kiệt mi nhon Chọn Tủ Quần Áo Phù Hợp Với Không Gian Sống Của Bạn Hà',
     category: 'Mẹo thiết kế nội thất',
     author: 'Vũ Hoàng Hà',
     image:
@@ -382,7 +383,7 @@ const posts = [
 
     `,
     relatedProducts: [1, 2, 3, 4],
-    views: 10000, // Giữ nguyên lượt xem
+    views: 8000, // Giữ nguyên lượt xem
   },
 ];
 
