@@ -342,12 +342,12 @@ const posts = [
         <p>Nội thất đa năng như giường gấp, bàn gấp đang rất được ưa chuộng...</p>
       `,
     relatedProducts: [6, 7],
-    views: 29,
+    views: 30,
   },
   {
     id: 22,
     title:
-      'Bé tấn mi nhon Chọn Tủ Quần Áo Phù Hợp Với Không Gian Sống Của Bạn Hà',
+      'Bé hà mi nhon Chọn Tủ Quần Áo Phù Hợp Với Không Gian Sống Của Bạn Hà',
     category: 'Mẹo thiết kế nội thất',
     author: 'Vũ Hoàng Hà',
     image:
