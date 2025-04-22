@@ -342,7 +342,7 @@ const posts = [
         <p>Nội thất đa năng như giường gấp, bàn gấp đang rất được ưa chuộng...</p>
       `,
     relatedProducts: [6, 7],
-    views: 30,
+    views: 32,
   },
   {
     id: 22,
