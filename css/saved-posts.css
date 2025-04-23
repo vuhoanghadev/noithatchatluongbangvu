@@ -115,46 +115,6 @@
   position: relative;
 }
 
-.save-button-container::after {
-  content: 'Lưu bài viết này để đọc sau!';
-  position: absolute;
-  top: 0;
-  left: 200px;
-  background-color: rgba(0, 88, 221, 0.1);
-  color: #0058dd;
-  padding: 5px 12px;
-  border-radius: 20px;
-  font-size: 0.85rem;
-  opacity: 0;
-  transform: translateY(10px);
-  pointer-events: none;
-  transition: all 0.5s ease;
-  white-space: nowrap;
-  animation: hintPulse 3s ease 1s forwards;
-}
-
-@keyframes hintPulse {
-  0% {
-    opacity: 0;
-    transform: translateY(10px);
-  }
-
-  10% {
-    opacity: 1;
-    transform: translateY(0);
-  }
-
-  90% {
-    opacity: 1;
-    transform: translateY(0);
-  }
-
-  100% {
-    opacity: 0;
-    transform: translateY(-10px);
-  }
-}
-
 /* Danh sách bài viết đã lưu */
 .saved-posts-container {
   position: fixed !important;
@@ -247,14 +207,12 @@
 
 .saved-posts-toggle {
   position: fixed !important;
-  top: calc(50% - 200px) !important;
-  /* Đặt nút ở vị trí cao hơn các nút liên hệ */
+  top: 300px !important;
+  /* Vị trí cố định từ đầu trang */
   right: 20px !important;
   /* Thống nhất với vị trí của các nút liên hệ */
   left: auto !important;
   /* Đảm bảo không có thuộc tính left nào được áp dụng */
-  /* Thay đổi từ left sang right */
-  transform: translateY(-50%) !important;
   width: 55px !important;
   /* Thống nhất với kích thước của các nút liên hệ */
   height: 55px !important;
@@ -273,10 +231,14 @@
   transition: all 0.3s ease !important;
   border: none !important;
   /* Bỏ viền để giống với các nút liên hệ */
+  opacity: 1 !important;
+  visibility: visible !important;
 }
 
+
+
 .saved-posts-toggle:hover {
-  transform: translateY(-50%) scale(1.05) translateY(-5px) !important;
+  transform: scale(1.05) translateY(-5px) !important;
   background-color: #0046b1 !important;
   /* Màu đậm hơn khi hover */
   box-shadow: 0 6px 15px rgba(0, 0, 0, 0.3) !important;
@@ -339,17 +301,16 @@
 /* Responsive styles */
 @media (max-width: 768px) {
   .saved-posts-toggle {
-    top: 50% !important;
+    top: 250px !important;
     right: 15px !important;
     left: auto !important;
     /* Thay đổi từ left sang right */
-    transform: translateY(-50%) !important;
     width: 50px !important;
     height: 50px !important;
   }
 
   .saved-posts-toggle:hover {
-    transform: translateY(-50%) scale(1.05) translateY(-5px) !important;
+    transform: scale(1.05) translateY(-5px) !important;
   }
 
   .saved-posts-toggle i {
@@ -369,11 +330,7 @@
     min-width: 160px;
   }
 
-  .save-button-container::after {
-    left: 170px;
-    font-size: 0.8rem;
-    padding: 4px 10px;
-  }
+
 
   /* Đảm bảo nút không bị che khuất bởi các phần tử khác trên mobile */
   .saved-posts-toggle {
@@ -397,6 +354,7 @@
 /* Small mobile devices */
 @media (max-width: 576px) {
   .saved-posts-toggle {
+    top: 200px !important;
     right: 10px !important;
     width: 45px !important;
     height: 45px !important;
@@ -419,10 +377,5 @@
     margin-right: 8px;
   }
 
-  .save-button-container::after {
-    left: 150px;
-    font-size: 0.75rem;
-    padding: 3px 8px;
-    top: -2px;
-  }
+
 }

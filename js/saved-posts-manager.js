@@ -598,6 +598,24 @@ function createSavedPostsToggle() {
   toggle.innerHTML = '<i class="fas fa-bookmark"></i>';
   toggle.setAttribute('title', 'Bài viết đã lưu');
 
+  // Đặt các thuộc tính inline style để đảm bảo hiển thị đúng
+  toggle.style.position = 'fixed';
+  toggle.style.top = '300px';
+  toggle.style.right = '20px';
+  toggle.style.width = '55px';
+  toggle.style.height = '55px';
+  toggle.style.backgroundColor = '#0058dd';
+  toggle.style.color = 'white';
+  toggle.style.borderRadius = '50%';
+  toggle.style.display = 'flex';
+  toggle.style.alignItems = 'center';
+  toggle.style.justifyContent = 'center';
+  toggle.style.cursor = 'pointer';
+  toggle.style.zIndex = '1001';
+  toggle.style.boxShadow = '0 4px 10px rgba(0, 0, 0, 0.2)';
+  toggle.style.transition = 'all 0.3s ease';
+  toggle.style.border = 'none';
+
   // Thêm số lượng bài viết đã lưu
   const count = document.createElement('span');
   count.className = 'saved-posts-count';
@@ -664,6 +682,119 @@ function createSavedPostsToggle() {
   // Thêm nút vào body
   document.body.appendChild(toggle);
   console.log('Đã thêm nút hiển thị danh sách bài viết đã lưu vào trang');
+
+  // Tạo và thêm thông báo gợi ý
+  setTimeout(() => {
+    const hint = document.createElement('div');
+    hint.className = 'saved-posts-hint';
+    hint.textContent = 'Lưu bài viết này để đọc sau!';
+    hint.style.position = 'fixed';
+    hint.style.top = '300px';
+    hint.style.right = '85px';
+    hint.style.backgroundColor = 'white';
+    hint.style.color = '#0058dd';
+    hint.style.padding = '8px 15px';
+    hint.style.borderRadius = '20px';
+    hint.style.fontSize = '0.9rem';
+    hint.style.boxShadow = '0 4px 10px rgba(0, 0, 0, 0.1)';
+    hint.style.zIndex = '1000';
+    hint.style.fontWeight = '500';
+    hint.style.border = '1px solid rgba(0, 88, 221, 0.2)';
+    hint.style.whiteSpace = 'nowrap';
+    hint.style.opacity = '0';
+    hint.style.transition = 'opacity 0.3s ease';
+    hint.style.pointerEvents = 'none'; // Đảm bảo hint không cản trở sự kiện click
+
+    // Điều chỉnh cho màn hình nhỏ hơn
+    if (window.innerWidth <= 768) {
+      hint.style.top = '250px';
+      hint.style.right = '75px';
+      hint.style.fontSize = '0.8rem';
+      hint.style.padding = '6px 12px';
+    }
+
+    if (window.innerWidth <= 576) {
+      hint.style.top = '200px';
+      hint.style.right = '65px';
+      hint.style.fontSize = '0.75rem';
+      hint.style.padding = '5px 10px';
+      hint.style.maxWidth = '150px';
+      hint.style.whiteSpace = 'normal';
+      hint.style.textAlign = 'center';
+      hint.style.lineHeight = '1.3';
+    }
+
+    // Tạo mũi tên
+    const arrow = document.createElement('div');
+    arrow.style.position = 'absolute';
+    arrow.style.top = '50%';
+    arrow.style.right = '-5px';
+    arrow.style.transform = 'translateY(-50%) rotate(45deg)';
+    arrow.style.width = '10px';
+    arrow.style.height = '10px';
+    arrow.style.backgroundColor = 'white';
+    arrow.style.borderRight = '1px solid rgba(0, 88, 221, 0.2)';
+    arrow.style.borderBottom = '1px solid rgba(0, 88, 221, 0.2)';
+
+    // Điều chỉnh mũi tên cho màn hình nhỏ hơn
+    if (window.innerWidth <= 576) {
+      arrow.style.width = '7px';
+      arrow.style.height = '7px';
+    }
+
+    hint.appendChild(arrow);
+    document.body.appendChild(hint);
+
+    // Biến để theo dõi trạng thái hiển thị
+    let isVisible = false;
+    let hideTimeout;
+
+    // Hiển thị thông báo sau 1.5 giây
+    setTimeout(() => {
+      hint.style.opacity = '1';
+      isVisible = true;
+
+      // Ẩn thông báo sau 6 giây
+      hideTimeout = setTimeout(() => {
+        hint.style.opacity = '0';
+        isVisible = false;
+
+        // Xóa thông báo sau khi ẩn
+        setTimeout(() => {
+          if (!isVisible) {
+            // Chỉ xóa nếu không đang hiển thị
+            hint.remove();
+          }
+        }, 300);
+      }, 6000);
+    }, 1500);
+
+    // Thêm sự kiện hover cho nút bookmark
+    toggle.addEventListener('mouseenter', function () {
+      // Hủy bỏ timeout ẩn nếu đang có
+      if (hideTimeout) {
+        clearTimeout(hideTimeout);
+      }
+      hint.style.opacity = '1';
+      isVisible = true;
+    });
+
+    toggle.addEventListener('mouseleave', function () {
+      // Ẩn thông báo sau 2 giây khi rời chuột
+      hideTimeout = setTimeout(() => {
+        hint.style.opacity = '0';
+        isVisible = false;
+
+        // Xóa thông báo sau khi ẩn
+        setTimeout(() => {
+          if (!isVisible) {
+            // Chỉ xóa nếu không đang hiển thị
+            hint.remove();
+          }
+        }, 300);
+      }, 2000);
+    });
+  }, 500);
 
   return toggle;
 }
