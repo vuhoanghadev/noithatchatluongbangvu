@@ -37,30 +37,42 @@ function renderEnhancedPromotions() {
   // Clear existing content
   promotionList.innerHTML = '';
 
+  // Thêm nút "Xem tất cả ưu đãi"
+  const viewAllContainer = document.createElement('div');
+  viewAllContainer.className = 'view-all-promos';
+  viewAllContainer.innerHTML =
+    '<a href="products.html" class="btn-view-all-promos">Xem tất cả ưu đãi</a>';
+
+  // Lấy tối đa 6 sản phẩm khuyến mãi đầu tiên
+  const limitedPromotions = promotions.slice(0, 6);
+
   // Enhanced promotion data with additional details
-  const enhancedPromotions = [
-    {
-      product: promotions[0],
-      endDate: new Date(Date.now() + 7 * 24 * 60 * 60 * 1000), // 7 days from now
+  const enhancedPromotions = [];
+
+  // Process each promotion and add it to the enhancedPromotions array
+  limitedPromotions.forEach((product) => {
+    // Default end date if promoEndDate is not specified (30 days from now)
+    let endDate;
+
+    if (product.promoEndDate) {
+      // Use the fixed end date from the product
+      endDate = new Date(product.promoEndDate);
+    } else {
+      // Fallback to 30 days from now if no end date is specified
+      endDate = new Date(Date.now() + 30 * 24 * 60 * 60 * 1000);
+    }
+
+    // Create promotion object
+    enhancedPromotions.push({
+      product: product,
+      endDate: endDate,
       isLimited: true,
-      discount: '20%',
-      code: 'SUMMER20',
-    },
-    {
-      product: promotions.length > 1 ? promotions[1] : promotions[0],
-      endDate: new Date(Date.now() + 14 * 24 * 60 * 60 * 1000), // 14 days from now
-      isLimited: true,
-      discount: 'Quà tặng kèm',
-      code: 'GIFT2023',
-    },
-    {
-      product: promotions.length > 2 ? promotions[2] : promotions[0],
-      endDate: new Date(Date.now() + 30 * 24 * 60 * 60 * 1000), // 30 days from now
-      isLimited: true,
-      discount: 'Miễn phí vận chuyển',
-      code: 'FREESHIP',
-    },
-  ];
+      discount: product.promotion.toLowerCase().includes('giảm')
+        ? product.promotion
+        : '20%',
+      code: 'PROMO' + product.id,
+    });
+  });
 
   // Render each enhanced promotion
   enhancedPromotions.forEach((promo, index) => {
@@ -134,11 +146,7 @@ function renderEnhancedPromotions() {
     promotionList.appendChild(card);
   });
 
-  // Add "View All" button
-  const viewAllContainer = document.createElement('div');
-  viewAllContainer.className = 'view-all-promos';
-  viewAllContainer.innerHTML =
-    '<a href="products.html" class="btn-view-all-promos">Xem tất cả ưu đãi</a>';
+  // Thêm nút "Xem tất cả" vào cuối phần
   promotionSection.querySelector('.container').appendChild(viewAllContainer);
 }
 

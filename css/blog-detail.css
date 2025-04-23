@@ -23,8 +23,30 @@
 /* Breadcrumb styles */
 .breadcrumb-container {
     background-color: var(--blog-light);
-    padding: 120px 0 20px;
+    padding: 130px 0 20px;
     border-bottom: 1px solid var(--blog-border);
+}
+
+/* Responsive padding for breadcrumb on tablets and mobile */
+@media (max-width: 1024px) {
+    .breadcrumb-container {
+        padding-top: 140px;
+        /* Increase top padding on tablets */
+    }
+}
+
+@media (max-width: 768px) {
+    .breadcrumb-container {
+        padding-top: 160px;
+        /* Further increase top padding on mobile */
+    }
+}
+
+@media (max-width: 576px) {
+    .breadcrumb-container {
+        padding-top: 180px;
+        /* Maximum padding on small mobile devices */
+    }
 }
 
 .breadcrumb {
@@ -65,7 +87,7 @@
 
 /* Blog Detail Section */
 .blog-detail {
-    padding: 60px 0;
+    padding: 30px 0;
     background-color: var(--blog-light);
 }
 
@@ -934,11 +956,11 @@
     }
 
     .breadcrumb-container {
-        padding: 100px 0 15px;
+        padding: 120px 0 15px;
     }
 
     .blog-detail {
-        padding: 40px 0;
+        padding: 30px 0;
     }
 
     .blog-detail-wrapper {

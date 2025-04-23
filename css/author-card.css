@@ -57,8 +57,8 @@
 .author-avatar {
   position: relative;
   flex-shrink: 0;
-  width: 120px;
-  height: 120px;
+  width: 160px;
+  height: 160px;
   border-radius: 50%;
   overflow: hidden;
   border: 4px solid var(--author-white);
@@ -180,6 +180,7 @@
   position: relative;
   padding-left: 20px;
   border-left: 3px solid var(--author-primary-light);
+  text-align: justify;
 }
 
 /* Author Social */
@@ -305,57 +306,59 @@
     padding: 25px 20px;
     margin: 40px 0;
   }
-  
+
   .author-header {
     flex-direction: column;
     text-align: center;
     gap: 15px;
   }
-  
+
   .author-avatar {
-    width: 100px;
-    height: 100px;
+    width: 130px;
+    height: 130px;
     margin: 0 auto;
   }
-  
+
   .author-name {
     font-size: 1.5rem;
     justify-content: center;
   }
-  
+
   .author-title {
     justify-content: center;
     flex-wrap: wrap;
   }
-  
+
   .author-stats {
     justify-content: center;
   }
-  
+
   .author-bio {
     padding-left: 15px;
     font-size: 0.95rem;
-    text-align: left;
+    text-align: justify;
+    padding-right: 11px;
+
   }
-  
+
   .author-social {
     justify-content: center;
   }
-  
+
   .author-footer {
     flex-direction: column;
     gap: 15px;
   }
-  
+
   .author-contact {
     width: 100%;
   }
-  
+
   .author-contact-btn {
     width: 100%;
     justify-content: center;
   }
-  
+
   .author-more {
     margin-top: 10px;
   }
@@ -366,42 +369,45 @@
     padding: 20px 15px;
     margin: 30px 0;
   }
-  
+
   .author-avatar {
-    width: 80px;
-    height: 80px;
+    width: 120px;
+    height: 120px;
   }
-  
+
   .author-name {
     font-size: 1.3rem;
   }
-  
+
   .author-title {
     font-size: 0.9rem;
     flex-direction: column;
     gap: 5px;
   }
-  
+
   .author-stats {
     flex-wrap: wrap;
   }
-  
+
   .author-stat {
     padding: 6px 12px;
   }
-  
+
   .author-stat-value {
     font-size: 1rem;
   }
-  
+
   .author-stat-label {
     font-size: 0.7rem;
   }
-  
+
   .author-bio {
     font-size: 0.9rem;
+    text-align: justify;
+    padding-right: 11px;
+
   }
-  
+
   .author-social a {
     width: 35px;
     height: 35px;

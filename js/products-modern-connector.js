@@ -1338,6 +1338,88 @@ document.addEventListener('DOMContentLoaded', function () {
       title.textContent = productName;
       contentDiv.appendChild(title);
 
+      // Add product stats container (price, rating, soldCount)
+      const statsContainer = document.createElement('div');
+      statsContainer.className = 'product-stats-container';
+
+      // Add price
+      const priceDiv = document.createElement('div');
+      priceDiv.className = 'product-price';
+      // Check if product has price information
+      let priceText = 'Liên hệ';
+      if (
+        product.flashsale &&
+        product.flashsale.active &&
+        !product.flashsale.hidePrice
+      ) {
+        // If there's an active flashsale with visible price
+        priceText = product.flashsale.newPrice.toLocaleString('vi-VN') + '₫';
+        if (product.flashsale.oldPrice) {
+          const oldPriceSpan = document.createElement('span');
+          oldPriceSpan.className = 'old-price';
+          oldPriceSpan.textContent =
+            product.flashsale.oldPrice.toLocaleString('vi-VN') + '₫';
+          priceDiv.appendChild(oldPriceSpan);
+        }
+      } else if (product.price) {
+        // If product has regular price
+        priceText = product.price.toLocaleString('vi-VN') + '₫';
+      }
+
+      const priceSpan = document.createElement('span');
+      priceSpan.textContent = priceText;
+      priceDiv.appendChild(priceSpan);
+      statsContainer.appendChild(priceDiv);
+
+      // Add rating and soldCount in a flex container
+      const metricsDiv = document.createElement('div');
+      metricsDiv.className = 'product-metrics';
+
+      // Add rating
+      const ratingDiv = document.createElement('div');
+      ratingDiv.className = 'product-rating';
+
+      // Calculate average rating from reviews if available
+      let rating = 5; // Default rating
+      if (product.reviews && product.reviews.length > 0) {
+        const totalRating = product.reviews.reduce(
+          (sum, review) => sum + review.rating,
+          0
+        );
+        rating = totalRating / product.reviews.length;
+      } else if (product.rating !== undefined) {
+        rating = product.rating;
+      }
+
+      // Create star icons based on rating
+      const starsHTML = Array(5)
+        .fill()
+        .map((_, i) => {
+          if (i < Math.floor(rating)) {
+            return '<i class="fas fa-star"></i>';
+          } else if (i < Math.ceil(rating) && rating % 1 !== 0) {
+            return '<i class="fas fa-star-half-alt"></i>';
+          } else {
+            return '<i class="far fa-star"></i>';
+          }
+        })
+        .join('');
+
+      ratingDiv.innerHTML = `${starsHTML} <span>${rating.toFixed(1)}</span>`;
+      metricsDiv.appendChild(ratingDiv);
+
+      // Add sold count
+      const soldDiv = document.createElement('div');
+      soldDiv.className = 'product-sold';
+      const soldCount = product.soldCount || 0;
+      soldDiv.innerHTML = `<i class="fas fa-shopping-cart"></i> <span>${soldCount.toLocaleString(
+        'vi-VN'
+      )}</span>`;
+      metricsDiv.appendChild(soldDiv);
+
+      statsContainer.appendChild(metricsDiv);
+      contentDiv.appendChild(statsContainer);
+
       const desc = document.createElement('p');
       desc.className = 'product-description';
       desc.textContent = productDescription;

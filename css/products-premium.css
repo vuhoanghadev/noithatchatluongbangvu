@@ -539,6 +539,75 @@
     /* font-size * line-height * 2 lines */
 }
 
+/* Product stats container */
+.product-stats-container {
+    margin-bottom: 12px;
+}
+
+/* Product price */
+.product-price {
+    font-size: 1.05rem;
+    font-weight: 700;
+    color: var(--premium-primary);
+    margin-bottom: 8px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.product-price .old-price {
+    font-size: 0.85rem;
+    color: var(--premium-text-muted);
+    text-decoration: line-through;
+    font-weight: 400;
+}
+
+/* Product metrics (rating and sold count) */
+.product-metrics {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 10px;
+    font-size: 0.85rem;
+}
+
+/* Product rating */
+.product-rating {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    color: var(--premium-text-light);
+}
+
+.product-rating i {
+    color: #FFB800;
+    font-size: 0.8rem;
+}
+
+.product-rating span {
+    font-weight: 600;
+    color: var(--premium-text);
+}
+
+/* Product sold count */
+.product-sold {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    color: var(--premium-text-light);
+}
+
+.product-sold i {
+    color: var(--premium-secondary);
+    font-size: 0.8rem;
+}
+
+.product-sold span {
+    font-weight: 600;
+    color: var(--premium-text);
+    ;
+}
+
 .product-card:hover .product-title {
     color: var(--premium-primary);
 }
@@ -843,6 +912,25 @@
         font-size: 1rem;
     }
 
+    .product-stats-container {
+        margin-bottom: 10px;
+    }
+
+    .product-price {
+        font-size: 0.95rem;
+        margin-bottom: 6px;
+    }
+
+    .product-metrics {
+        font-size: 0.8rem;
+        margin-bottom: 8px;
+    }
+
+    .product-rating i,
+    .product-sold i {
+        font-size: 0.75rem;
+    }
+
     .product-description {
         font-size: 0.85rem;
         -webkit-line-clamp: 2;
@@ -915,6 +1003,29 @@
     .product-badge {
         font-size: 0.7rem;
         padding: 4px 10px;
+    }
+
+    .product-stats-container {
+        margin-bottom: 8px;
+    }
+
+    .product-price {
+        font-size: 0.9rem;
+        margin-bottom: 5px;
+    }
+
+    .product-price .old-price {
+        font-size: 0.75rem;
+    }
+
+    .product-metrics {
+        font-size: 0.75rem;
+        margin-bottom: 6px;
+    }
+
+    .product-rating i,
+    .product-sold i {
+        font-size: 0.7rem;
     }
 
     .product-action {

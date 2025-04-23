@@ -5,17 +5,19 @@ const products = [
     category: 'Tủ Quần Áo',
     image: 'images/products/product1.png',
     reviewCode: 'NTBV2025', // Mã bình luận cho sản phẩm
+    featured: true, // Sản phẩm nổi bật
     description:
       'Tủ quần áo QA205 được chế tác từ gỗ MDF phủ melamine cao cấp, mang phong cách hiện đại và tinh tế. Với thiết kế 4 cánh mở rộng rãi, 2 hàng ngăn kéo tiện lợi và ô hở bên trái, sản phẩm này không chỉ đáp ứng nhu cầu lưu trữ quần áo mà còn là điểm nhấn sang trọng cho phòng ngủ. Chất liệu nhựa Đài Loan bền chắc, chống ẩm mốc, chống cong vênh, phù hợp với các không gian sống có diện tích nhỏ hoặc vừa. Tủ có màu vân óc chó ấm áp, dễ dàng kết hợp với nhiều phong cách nội thất khác nhau.',
     size: '120x180x50cm',
     warranty: '10 năm',
     price: 'Liên Hệ',
     material: 'Nhựa Đài Loan Cao Cấp',
-    promotion: null,
+    promotion: 'Ưu đãi đặc biệt',
     tag: 'bán chạy',
     rating: 4.7,
     views: 1250,
     soldCount: 120,
+    promoEndDate: '2025-05-30T00:00:00', // Ngày kết thúc khuyến mãi
     sku: 'NTBV-QA205', // SKU tự đặt, muốn tự động thì có thể thêm 'true'
     flashsale: {
       active: true,
@@ -411,6 +413,7 @@ const products = [
     rating: 4.5,
     views: 980,
     soldCount: 42,
+    promoEndDate: '2025-05-15T00:00:00', // Ngày kết thúc khuyến mãi
     sku: 'NTBV-TB120', // SKU tự đặt
     gallery: ['images/products/product2.png', 'images/products/product2.png'],
   },
@@ -420,6 +423,7 @@ const products = [
     category: 'Bàn Học',
     image: 'images/products/product3.png',
     reviewCode: 'NTBV2026', // Mã bình luận cho sản phẩm
+    featured: true, // Sản phẩm nổi bật
     description:
       'Bàn học QA84 được thiết kế dành riêng cho học sinh và sinh viên với phong cách tối giản nhưng đầy đủ công năng. Sản phẩm được làm từ gỗ tự nhiên phủ sơn PU cao cấp, mang lại độ bền vượt trội và khả năng chống trầy xước. Thiết kế gồm 2 cánh dài, 1 cánh ngắn và 2 ngăn kéo tiện lợi, giúp lưu trữ sách vở, tài liệu và dụng cụ học tập một cách ngăn nắp. Màu vân gỗ sồi tự nhiên tạo cảm giác ấm áp, kích thích sự tập trung khi học tập. Kích thước bàn phù hợp với các phòng học nhỏ, đảm bảo sự thoải mái khi sử dụng trong thời gian dài.',
     size: '100x50x75cm',
@@ -431,6 +435,7 @@ const products = [
     rating: 4.8,
     views: 1560,
     soldCount: 120,
+    promoEndDate: '2025-04-30T00:00:00', // Ngày kết thúc khuyến mãi
     flashsale: {
       active: true,
       discountPercent: 25,
@@ -450,8 +455,9 @@ const products = [
     description:
       'Bàn làm việc QA126 là lựa chọn lý tưởng cho không gian văn phòng tại nhà hoặc văn phòng chuyên nghiệp. Sản phẩm được làm từ gỗ MDF phủ melamine màu trắng sáng, mang lại vẻ đẹp hiện đại và dễ dàng phối hợp với nhiều phong cách nội thất. Thiết kế gồm 3 cánh mở rộng rãi và 1 cánh nhỏ, cung cấp không gian lưu trữ lớn cho tài liệu, thiết bị văn phòng và vật dụng cá nhân. Bề mặt bàn chống thấm nước, chống trầy xước, dễ dàng vệ sinh. Kích thước bàn phù hợp với các không gian làm việc vừa và nhỏ, mang lại sự tiện nghi và chuyên nghiệp.',
     size: '120x60x75cm',
-    promotion: null,
+    promotion: 'Giảm 15% - Quà tặng kèm',
     tag: 'Bán Chạy',
+    promoEndDate: '2025-06-15T00:00:00', // Ngày kết thúc khuyến mãi
     gallery: ['images/products/product4.png'],
   },
   {
@@ -459,10 +465,12 @@ const products = [
     name: 'Bàn Trang Điểm Gương Tròn Sang Trọng',
     category: 'Bàn Trang Điểm',
     image: 'images/products/product5.png',
+    featured: true, // Sản phẩm nổi bật
     description:
       'Bàn trang điểm gương tròn là điểm nhấn hoàn hảo cho phòng ngủ hiện đại. Được chế tác từ gỗ MDF phủ melamine cao cấp, sản phẩm mang lại độ bền cao và khả năng chống ẩm mốc hiệu quả. Gương tròn lớn được thiết kế tinh tế, giúp việc trang điểm trở nên dễ dàng và thoải mái. Bàn đi kèm các ngăn kéo và kệ lưu trữ rộng rãi, phù hợp để sắp xếp mỹ phẩm, phụ kiện và đồ dùng cá nhân. Màu sắc trung tính và thiết kế nhỏ gọn giúp bàn phù hợp với nhiều không gian phòng ngủ, từ phong cách tối giản đến sang trọng.',
     size: '80x40x130cm',
-    promotion: null,
+    promotion: 'Giảm 20% - Miễn phí vận chuyển',
+    promoEndDate: '2025-05-20T00:00:00', // Ngày kết thúc khuyến mãi
     gallery: ['images/products/product5.png'],
   },
   {
@@ -473,7 +481,8 @@ const products = [
     description:
       'Tủ giày 2 cánh được làm từ gỗ công nghiệp MDF phủ melamine, mang lại độ bền cao và khả năng chống ẩm mốc vượt trội. Với thiết kế 2 cánh mở rộng rãi, tủ cung cấp không gian lưu trữ lớn, phù hợp để sắp xếp nhiều đôi giày dép một cách gọn gàng. Bề mặt tủ được hoàn thiện mịn màng, dễ dàng vệ sinh và chống trầy xước. Màu sắc vân gỗ tự nhiên mang lại vẻ đẹp hiện đại, dễ dàng kết hợp với các không gian nội thất như phòng khách, hành lang hoặc phòng ngủ. Kích thước nhỏ gọn, lý tưởng cho các căn hộ có diện tích hạn chế.',
     size: '80x30x100cm',
-    promotion: null,
+    promotion: 'Giảm 25% - Quà tặng kèm',
+    promoEndDate: '2025-06-30T00:00:00', // Ngày kết thúc khuyến mãi
     gallery: ['images/products/product6.png'],
   },
   {
@@ -481,6 +490,7 @@ const products = [
     name: 'Tủ Sách Đa Năng Vân Gỗ Óc Chó',
     category: 'Tủ Sách',
     image: 'images/products/product7.png',
+    featured: true, // Sản phẩm nổi bật
     description:
       'Tủ sách đa năng được thiết kế để đáp ứng nhu cầu lưu trữ và trang trí trong không gian sống hiện đại. Sản phẩm được làm từ gỗ MDF phủ melamine vân gỗ óc chó sang trọng, mang lại độ bền cao và khả năng chống ẩm, chống mối mọt hiệu quả. Với các kệ mở và ngăn kéo tích hợp, tủ phù hợp để lưu trữ sách, tài liệu, đồ trang trí hoặc các vật dụng cá nhân. Thiết kế tinh tế, tối ưu không gian, giúp tủ dễ dàng phù hợp với phòng khách, phòng làm việc hoặc phòng ngủ. Kích thước lớn nhưng vẫn gọn gàng, lý tưởng cho nhiều phong cách nội thất.',
     size: '100x30x180cm',
@@ -492,6 +502,7 @@ const products = [
     name: 'Giường Ngủ Gỗ Tự Nhiên Sang Trọng',
     category: 'Tủ Quần Áo',
     image: 'images/products/product8.png',
+    featured: true,
     description:
       'Giường ngủ gỗ tự nhiên được chế tác từ gỗ sồi cao cấp, mang lại vẻ đẹp sang trọng và độ bền vượt trội. Với thiết kế hiện đại, giường có các đường nét tinh tế, phù hợp với nhiều phong cách nội thất từ cổ điển đến hiện đại. Bề mặt gỗ được xử lý kỹ lưỡng, phủ lớp sơn PU chống thấm nước và chống trầy xước, đảm bảo độ bền lâu dài. Kích thước giường rộng rãi, mang lại sự thoải mái tối đa cho giấc ngủ. Sản phẩm này là lựa chọn lý tưởng cho những ai yêu thích sự tinh tế và chất lượng cao trong không gian phòng ngủ.',
     size: '180x200cm',
@@ -694,6 +705,8 @@ const products = [
     name: 'Bàn Học Gỗ MDF Nhỏ Gọn',
     category: 'Bàn Học',
     image: 'images/products/product3.png',
+    featured: true,
+
     description:
       'Bàn học gỗ MDF được thiết kế dành riêng cho học sinh với phong cách tối giản và tiện dụng. Sản phẩm được làm từ gỗ MDF phủ melamine cao cấp, mang lại độ bền cao và khả năng chống trầy xước. Thiết kế nhỏ gọn với các ngăn kéo và kệ lưu trữ, giúp sắp xếp sách vở, tài liệu và dụng cụ học tập một cách ngăn nắp. Màu sắc vân gỗ tự nhiên tạo cảm giác ấm áp, kích thích sự tập trung khi học tập. Kích thước bàn phù hợp với các phòng học nhỏ, đảm bảo sự thoải mái khi sử dụng trong thời gian dài.',
     size: '90x45x70cm',
@@ -1425,11 +1438,13 @@ const products = [
 // Trang chủ: Render sản phẩm nổi bật và khuyến mãi
 if (document.getElementById('featured-products')) {
   const featuredProducts = document.getElementById('featured-products');
-  const promotionList = document.getElementById('promotion-list');
-  const featured = products.slice(0, 6); // 6 sản phẩm nổi bật
-  const promotions = products.filter((p) => p.promotion);
 
-  featured.forEach((product, index) => {
+  // Lọc sản phẩm nổi bật dựa vào trường featured
+  const featured = products.filter((p) => p.featured === true);
+  // Nếu không có sản phẩm nào có trường featured = true, lấy 6 sản phẩm đầu tiên
+  const featuredToShow = featured.length > 0 ? featured : products.slice(0, 6);
+
+  featuredToShow.forEach((product) => {
     const card = document.createElement('div');
     card.className = 'product-card';
     card.innerHTML = `
@@ -1455,17 +1470,7 @@ if (document.getElementById('featured-products')) {
     featuredProducts.appendChild(card);
   });
 
-  promotions.forEach((product) => {
-    const card = document.createElement('div');
-    card.className = 'promo-card';
-    card.innerHTML = `
-        <img src="${product.image}" alt="${product.name}" loading="lazy">
-        <h3>${product.name}</h3>
-        <p>${product.promotion}</p>
-        <a href="https://zalo.me/123456789" class="btn-contact">Tìm hiểu thêm</a>
-      `;
-    promotionList.appendChild(card);
-  });
+  // Không hiển thị sản phẩm khuyến mãi ở đây vì đã được xử lý trong file promotion-new.js
 }
 
 // Hàm chuyển đổi chuỗi có dấu thành không dấu

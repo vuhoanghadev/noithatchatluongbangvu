@@ -499,7 +499,7 @@ const posts = [
       <h3>5. Sản xuất bền vững và tiết kiệm chi phí</h3>
       <p>AI đang giúp cách mạng hóa quá trình sản xuất nội thất, giúp giảm thiểu chất thải và tối ưu hóa việc sử dụng nguyên liệu. Các thuật toán AI có thể tính toán cách cắt vật liệu hiệu quả nhất, giảm thiểu phế liệu và tiết kiệm chi phí.</p>
       <p>Ngoài ra, AI còn giúp dự đoán xu hướng thị trường và nhu cầu của người tiêu dùng, giúp các nhà sản xuất tập trung vào những sản phẩm có tiềm năng thành công cao, giảm thiểu rủi ro và lãng phí.</p>
-      <img src="https://images.unsplash.com/photo-1618220179428-22790b485390?q=80&w=2127&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="Sản xuất nội thất bền vững" loading="lazy">
+      <img src="https://i.ytimg.com/vi/2pPg7Rxh5EA/maxresdefault.jpg" alt="Sản xuất nội thất bền vững" loading="lazy">
 
       <h3>Kết luận</h3>
       <p>Công nghệ AI đang mở ra một kỷ nguyên mới trong thiết kế và sản xuất nội thất, nơi mà sự cá nhân hóa, hiệu quả và bền vững được đặt lên hàng đầu. Tuy nhiên, điều quan trọng là phải nhận thức rằng AI không phải là để thay thế con người, mà là công cụ hỗ trợ để nâng cao khả năng sáng tạo và hiệu quả của các nhà thiết kế.</p>
