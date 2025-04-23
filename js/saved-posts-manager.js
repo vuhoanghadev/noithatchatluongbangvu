@@ -803,9 +803,22 @@ function createSavedPostsToggle() {
 function initSaveForLaterFeature() {
   console.log('Khởi tạo tính năng lưu bài viết...');
 
-  // Đảm bảo rằng chúng ta đang ở trang chi tiết bài viết
-  if (!window.location.href.includes('blog-detail.html')) {
-    console.log('Không phải trang chi tiết bài viết, bỏ qua khởi tạo');
+  // Kiểm tra xem đang ở trang nào
+  const isBlogDetail = window.location.href.includes('blog-detail.html');
+  const isBlogPage = window.location.href.includes('blog.html');
+
+  // Nếu không phải trang blog-detail.html hoặc blog.html, bỏ qua khởi tạo
+  if (!isBlogDetail && !isBlogPage) {
+    console.log('Không phải trang blog, bỏ qua khởi tạo');
+    return;
+  }
+
+  // Nếu là trang blog.html, chỉ tạo nút hiển thị danh sách bài viết đã lưu
+  if (isBlogPage) {
+    console.log(
+      'Đang ở trang blog, tạo nút hiển thị danh sách bài viết đã lưu'
+    );
+    createSavedPostsToggle();
     return;
   }
 
@@ -899,3 +912,18 @@ window.SavedPostsManager = {
   removePost,
   clearAllSavedPosts,
 };
+
+// Tự động khởi tạo tính năng lưu bài viết khi trang được tải
+document.addEventListener('DOMContentLoaded', function () {
+  initSaveForLaterFeature();
+});
+
+// Khởi tạo khi trang được tải qua AJAX (nếu có)
+document.addEventListener('ajaxPageLoaded', function () {
+  initSaveForLaterFeature();
+});
+
+// Khởi tạo khi hoàn tất chuyển trang (nếu có)
+document.addEventListener('page-transition-complete', function () {
+  initSaveForLaterFeature();
+});
