@@ -46,7 +46,8 @@ function handleBlogDetail() {
   document.getElementById('blog-category').textContent = post.category;
   document.getElementById('blog-title').textContent = post.title;
   document.getElementById('blog-author').textContent = post.author || 'Admin';
-  document.getElementById('blog-date').textContent = formatDate(new Date());
+  document.getElementById('blog-date').textContent =
+    post.blogDate || formatDate(new Date());
 
   // Lấy lượt xem từ localStorage hoặc từ dữ liệu trong blog.js
   let viewsData = localStorage.getItem('blogPostViews');
@@ -69,15 +70,109 @@ function handleBlogDetail() {
   document.getElementById('blog-content').innerHTML = post.content;
 
   // Cập nhật thông tin tác giả
-  document.getElementById('author-name').textContent = post.author || 'Admin';
+  const authorNameElement = document.getElementById('author-name');
+  if (authorNameElement) {
+    // Lưu trữ badge để giữ lại
+    const badge = authorNameElement.querySelector('.verified-badge');
+    // Xóa nội dung hiện tại
+    authorNameElement.innerHTML = '';
+    // Thêm tên tác giả
+    authorNameElement.textContent = post.author || 'Admin';
+    // Thêm lại badge
+    if (badge) {
+      // Cập nhật trạng thái verified và nội dung
+      if (post.authorVerified) {
+        badge.style.display = 'inline-flex';
 
-  // Cập nhật ảnh đại diện và mô tả tác giả
-  if (post.authorAvatar) {
-    document.getElementById('author-avatar').src = post.authorAvatar;
+        // Cập nhật nội dung badge
+        const badgeText = badge.querySelector('span') || badge.lastChild;
+        if (badgeText && badgeText.nodeType === Node.TEXT_NODE) {
+          // Nếu là text node, cập nhật trực tiếp
+          badgeText.textContent = post.authorVerified;
+        } else if (badgeText) {
+          // Nếu là element, cập nhật nội dung
+          badgeText.textContent = post.authorVerified;
+        } else {
+          // Nếu không tìm thấy, thêm text node mới
+          const icon = badge.querySelector('i');
+          if (icon) {
+            // Xóa nội dung cũ và thêm lại icon + text mới
+            badge.innerHTML = '';
+            badge.appendChild(icon.cloneNode(true));
+            badge.appendChild(
+              document.createTextNode(' ' + post.authorVerified)
+            );
+          } else {
+            badge.textContent = post.authorVerified;
+          }
+        }
+      } else {
+        badge.style.display = 'none';
+      }
+      authorNameElement.appendChild(badge);
+    }
   }
 
+  // Cập nhật ảnh đại diện tác giả
+  if (post.authorAvatar) {
+    const avatarElement = document.getElementById('author-avatar');
+    if (avatarElement) {
+      avatarElement.src = post.authorAvatar;
+    }
+  }
+
+  // Cập nhật mô tả tác giả
   if (post.authorBio) {
-    document.getElementById('author-bio').textContent = post.authorBio;
+    const bioElement = document.getElementById('author-bio');
+    if (bioElement) {
+      bioElement.textContent = post.authorBio;
+    }
+  }
+
+  // Cập nhật nghề nghiệp tác giả
+  const authorJobElement = document.querySelector(
+    '.author-title span:first-child i'
+  );
+  if (authorJobElement && authorJobElement.parentElement) {
+    const jobTextNode = authorJobElement.nextSibling;
+    if (jobTextNode) {
+      jobTextNode.textContent = ' ' + (post.authorJob || 'Chuyên gia nội thất');
+    }
+  }
+
+  // Cập nhật thông tin kinh nghiệm
+  const experienceElement = document.querySelector(
+    '.author-stat:nth-child(1) .author-stat-value'
+  );
+  if (experienceElement) {
+    experienceElement.textContent = (post.authorExperience || '5') + '+';
+  }
+
+  // Cập nhật thông tin dự án
+  const projectsElement = document.querySelector(
+    '.author-stat:nth-child(2) .author-stat-value'
+  );
+  if (projectsElement) {
+    projectsElement.textContent = (post.authorProjects || '100') + '+';
+  }
+
+  // Cập nhật thông tin đánh giá
+  const ratingElement = document.querySelector(
+    '.author-stat:nth-child(3) .author-stat-value'
+  );
+  if (ratingElement) {
+    ratingElement.textContent = post.authorRating || '4.5';
+  }
+
+  // Cập nhật số bài viết của tác giả
+  const postCountElement = document.getElementById('author-post-count');
+  if (postCountElement) {
+    // Đếm số bài viết có cùng tác giả
+    const authorName = post.author || 'Admin';
+    const authorPosts = posts.filter(
+      (p) => (p.author || 'Admin') === authorName
+    ).length;
+    postCountElement.textContent = authorPosts;
   }
 
   // Cập nhật tags
@@ -100,6 +195,9 @@ function handleBlogDetail() {
 
   // Khởi tạo chức năng chia sẻ
   initSocialShare(post);
+
+  // Khởi tạo chức năng "Xem thêm bài viết" của tác giả
+  initAuthorMorePosts(post);
 }
 
 // Khi trang được tải ban đầu
@@ -494,4 +592,51 @@ function initSocialShare(post) {
     )}`;
     window.open(url, '_blank', 'width=600,height=400');
   };
+}
+
+/**
+ * Khởi tạo chức năng "Xem thêm bài viết" của tác giả
+ * @param {Object} currentPost - Bài viết hiện tại
+ */
+function initAuthorMorePosts(currentPost) {
+  // Tìm nút "Xem thêm bài viết"
+  const authorMoreButton = document.querySelector('.author-more');
+
+  if (!authorMoreButton) return;
+
+  // Lấy tên tác giả của bài viết hiện tại
+  const authorName = currentPost.author || 'Admin';
+
+  // Lọc các bài viết khác của cùng tác giả (trừ bài viết hiện tại)
+  const authorPosts = posts.filter(
+    (post) =>
+      (post.author || 'Admin') === authorName && post.id !== currentPost.id
+  );
+
+  // Nếu không có bài viết nào khác của tác giả này
+  if (authorPosts.length === 0) {
+    // Ẩn hoặc vô hiệu hóa nút
+    authorMoreButton.style.opacity = '0.5';
+    authorMoreButton.style.pointerEvents = 'none';
+    authorMoreButton.title = 'Không có bài viết nào khác của tác giả này';
+    return;
+  }
+
+  // Thêm sự kiện click cho nút
+  authorMoreButton.addEventListener('click', function (e) {
+    e.preventDefault();
+
+    // Chọn ngẫu nhiên một bài viết khác của tác giả
+    const randomIndex = Math.floor(Math.random() * authorPosts.length);
+    const randomPost = authorPosts[randomIndex];
+
+    // Chuyển hướng đến bài viết đó
+    window.location.href = `blog-detail.html?id=${randomPost.id}`;
+  });
+
+  // Cập nhật nội dung nút để hiển thị số lượng bài viết khác của tác giả
+  authorMoreButton.innerHTML = `Xem thêm bài viết (${authorPosts.length}) <i class="fas fa-arrow-right"></i>`;
+
+  // Thêm tooltip để hiển thị thông tin hữa ích
+  authorMoreButton.title = `Xem ngẫu nhiên một bài viết khác của ${authorName}`;
 }

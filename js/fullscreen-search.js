@@ -1462,9 +1462,9 @@ function displayBlogResults(posts) {
                       post.content.replace(/<[^>]*>/g, '').substring(0, 120)
                     }...</p>
                     <div class="search-blog-meta">
-                        <span class="search-blog-date"><i class="far fa-calendar-alt"></i> ${formatDate(
-                          post.date
-                        )}</span>
+                        <span class="search-blog-date"><i class="far fa-calendar-alt"></i> ${
+                          post.blogDate || formatDate(post.date)
+                        }</span>
                         <span class="search-blog-views"><i class="fas fa-eye"></i> ${viewCount.toLocaleString(
                           'vi-VN'
                         )} lượt xem</span>
@@ -2470,7 +2470,7 @@ function showAutocomplete(query) {
             )}</div>
             <div class="search-autocomplete-blog-meta">
               <div class="search-autocomplete-blog-date">
-                <i class="far fa-calendar-alt"></i> ${dateStr}
+                <i class="far fa-calendar-alt"></i> ${post.blogDate || dateStr}
               </div>
               <div class="search-autocomplete-blog-views">
                 <i class="fas fa-eye"></i> ${viewCount.toLocaleString(

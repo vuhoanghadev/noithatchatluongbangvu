@@ -99,8 +99,14 @@ const posts = [
     category: 'Mẹo thiết kế nội thất',
     author: 'Vũ Hoàng Hà',
     authorAvatar: '../images/avt tac gia/vuhoangha.jpg',
+    blogDate: '10/04/2025',
     authorBio:
-      'Vũ Hoàng Hà là chuyên gia thiết kế nội thất với hơn 10 năm kinh nghiệm trong lĩnh vực. Anh đã tham gia thiết kế cho nhiều dự án lớn và nhỏ, từ căn hộ chung cư đến biệt thự cao cấp.Vũ Hoàng Hà là chuyên gia thiết kế nội thất với hơn 10 năm kinh nghiệm trong lĩnh vực. Anh đã tham gia thiết kế cho nhiều dự án lớn và nhỏ, từ căn hộ chung cư đến biệt thự cao cấp.Vũ Hoàng Hà là chuyên gia thiết kế nội thất với hơn 10 năm kinh nghiệm trong lĩnh vực.',
+      'Với hơn 5 năm kinh nghiệm trong lĩnh vực thiết kế nội thất, Vũ Hoàng Hà đã thực hiện thành công trên 150 dự án, mang đến không gian sống tinh tế và tiện nghi cho hàng trăm khách hàng. Anh nổi bật với phong cách thiết kế hiện đại, kết hợp giữa thẩm mỹ và công năng, luôn đặt trải nghiệm người dùng lên hàng đầu. Hà cam kết đồng hành cùng khách hàng từ ý tưởng đến hiện thực, đảm bảo từng sản phẩm đều đạt chất lượng vượt mong đợi.',
+    authorVerified: 'Chuyên gia',
+    authorJob: 'Chuyên gia thiết kế nội thất',
+    authorExperience: 5,
+    authorProjects: 150,
+    authorRating: 4.9,
     image:
       'https://images.unsplash.com/photo-1598928506311-c55ded91a20c?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Nnx8bGl2aW5nJTIwcm9vbXxlbnwwfHwwfHx8MA%3D%3D',
     excerpt:
@@ -142,8 +148,14 @@ const posts = [
     category: 'Xu hướng',
     author: 'Trần Thị Hương',
     authorAvatar: 'https://i.pravatar.cc/150?img=5',
+    blogDate: '25/03/2025',
     authorBio:
       'Trần Thị Hương là nhà phân tích xu hướng nội thất với hơn 8 năm kinh nghiệm. Cô đã cộng tác với nhiều tạp chí nội thất hàng đầu và thường xuyên tham dự các triển lãm quốc tế để cập nhật xu hướng mới nhất.',
+    authorVerified: 'Nhà phân tích',
+    authorJob: 'Nhà phân tích xu hướng nội thất',
+    authorExperience: 8,
+    authorProjects: 200,
+    authorRating: 4.8,
     image:
       'https://images.unsplash.com/photo-1598928506311-c55ded91a20c?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Nnx8bGl2aW5nJTIwcm9vbXxlbnwwfHwwfHx8MA%3D%3D',
     excerpt: 'Khám phá các xu hướng nội thất mới nhất cho năm 2025.',
@@ -160,8 +172,14 @@ const posts = [
     category: 'Dự án',
     author: 'Lê Văn Bình',
     authorAvatar: 'https://i.pravatar.cc/150?img=8',
+    blogDate: '18/03/2025',
     authorBio:
       'Lê Văn Bình là kiến trúc sư nội thất với hơn 12 năm kinh nghiệm trong thiết kế và thi công. Anh đã hoàn thành hơn 200 dự án nội thất cho căn hộ, biệt thự và văn phòng, với phong cách thiết kế hiện đại và tinh tế.',
+    authorVerified: 'Kiến trúc sư',
+    authorJob: 'Kiến trúc sư nội thất',
+    authorExperience: 12,
+    authorProjects: 200,
+    authorRating: 4.7,
     image:
       'https://images.unsplash.com/photo-1598928506311-c55ded91a20c?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Nnx8bGl2aW5nJTIwcm9vbXxlbnwwfHwwfHx8MA%3D%3D',
     excerpt: 'Xem dự án phòng ngủ chúng tôi đã thực hiện cho khách hàng.',
@@ -178,8 +196,14 @@ const posts = [
     category: 'Mẹo thiết kế',
     author: 'Phạm Thị Mai',
     authorAvatar: 'https://i.pravatar.cc/150?img=9',
+    blogDate: '05/03/2025',
     authorBio:
       'Phạm Thị Mai là nhà thiết kế nội thất chuyên về không gian bếp. Với hơn 7 năm kinh nghiệm, cô đã giúp hàng trăm gia đình tối ưu hóa không gian bếp nhỏ với các giải pháp thông minh và tiện ích.',
+    authorVerified: 'Chuyên gia bếp',
+    authorJob: 'Chuyên gia thiết kế bếp',
+    authorExperience: 7,
+    authorProjects: 120,
+    authorRating: 4.9,
     image:
       'https://plus.unsplash.com/premium_photo-1661595245288-65d1430d0d13?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NXx8bGl2aW5nJTIwcm9vbXxlbnwwfHwwfHx8MA%3D%3D',
     excerpt: 'Mẹo bố trí tủ bếp để tối ưu diện tích căn bếp nhỏ.',
@@ -388,6 +412,15 @@ const posts = [
     title: '5 Mẹo Chọn Tủ Quần Áo Phù Hợp Với Không Gian Sống Của Bạn',
     category: 'Mẹo thiết kế nội thất',
     author: 'Vũ Hoàng Hà',
+    authorAvatar: '../images/avt tac gia/vuhoangha2.jpg',
+    blogDate: '01/02/2025',
+    authorBio:
+      'Với hơn 5 năm kinh nghiệm trong lĩnh vực thiết kế nội thất, Vũ Hoàng Hà đã thực hiện thành công trên 150 dự án, mang đến không gian sống tinh tế và tiện nghi cho hàng trăm khách hàng. Anh nổi bật với phong cách thiết kế hiện đại, kết hợp giữa thẩm mỹ và công năng, luôn đặt trải nghiệm người dùng lên hàng đầu. Hà cam kết đồng hành cùng khách hàng từ ý tưởng đến hiện thực, đảm bảo từng sản phẩm đều đạt chất lượng vượt mong đợi.',
+    authorVerified: 'Chuyên gia',
+    authorJob: 'Chuyên gia thiết kế nội thất',
+    authorExperience: 5,
+    authorProjects: 150,
+    authorRating: 4.9,
     image:
       'https://images.unsplash.com/photo-1598928506311-c55ded91a20c?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Nnx8bGl2aW5nJTIwcm9vbXxlbnwwfHwwfHx8MA%3D%3D',
     excerpt:
@@ -421,7 +454,59 @@ const posts = [
 
     `,
     relatedProducts: [1, 2, 3, 4],
-    views: 316, // Giữ nguyên lượt xem
+    views: 290,
+  },
+  {
+    id: 22,
+    title: 'Tương lai của thiết kế nội thất với công nghệ AI',
+    category: 'Công nghệ',
+    author: 'Vũ Hoàng Hà',
+    authorAvatar: '../images/avt tac gia/vuhoangha2.jpg',
+    authorBio:
+      'Vũ Hoàng Hà là CEO và đồng sáng lập Nội Thất Chất Lượng Bàng Vũ – thương hiệu nổi bật trong lĩnh vực thiết kế và sản xuất nội thất cao cấp tại Việt Nam. Với hơn 15 năm kinh nghiệm, anh đã góp phần kiến tạo hàng trăm không gian sống tối ưu, tinh tế và chuẩn gu khách hàng. Phong cách thiết kế của anh tập trung vào sự hài hoà giữa thẩm mỹ hiện đại và công năng thực tiễn. Bên cạnh vai trò điều hành, anh còn là người truyền cảm hứng cho giới trẻ theo đuổi ngành nội thất. Triết lý của anh là: “Không gian sống đẹp phải vừa tiện dụng, vừa thể hiện được cá tính của chủ nhân.” Anh hiện dẫn dắt đội ngũ Bàng Vũ hướng tới các giải pháp nội thất thông minh và cá nhân hoá cho từng gia đình Việt.',
+
+    authorVerified: 'CEO & Founder',
+    authorJob: 'CEO & Đồng sáng lập',
+    authorExperience: 15,
+    authorProjects: 500,
+    authorRating: 5.0,
+    image:
+      'https://images.unsplash.com/photo-1586023492125-27b2c045efd7?q=80&w=2158&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
+    excerpt:
+      'Khám phá cách công nghệ AI đang cách mạng hóa ngành thiết kế nội thất và tương lai của không gian sống thông minh.',
+    content: `
+      <h2>Tương lai của thiết kế nội thất với công nghệ AI</h2>
+      <p>Trong thời đại số hóa ngày nay, trí tuệ nhân tạo (AI) đang dần trở thành một công cụ không thể thiếu trong nhiều ngành công nghiệp, và thiết kế nội thất không phải là ngoại lệ. Công nghệ AI đang mở ra những cách tiếp cận mới mẻ và sáng tạo trong việc thiết kế, sản xuất và tối ưu hóa không gian sống.</p>
+      <img src="https://images.unsplash.com/photo-1550009158-9ebf69173e03?q=80&w=2071&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="AI trong thiết kế nội thất" loading="lazy">
+
+      <h3>1. Thiết kế cá nhân hóa với AI</h3>
+      <p>Một trong những ứng dụng nổi bật nhất của AI trong thiết kế nội thất là khả năng tạo ra các giải pháp cá nhân hóa. Thông qua việc phân tích dữ liệu về sở thích, thói quen và nhu cầu của người dùng, AI có thể đề xuất những thiết kế phù hợp nhất với từng cá nhân.</p>
+      <p>Các công cụ thiết kế dựa trên AI có thể tạo ra hàng trăm phiên bản của một không gian, cho phép người dùng khám phá nhiều lựa chọn và tìm ra giải pháp tối ưu nhất mà có thể họ chưa từng nghĩ đến.</p>
+
+      <h3>2. Mô phỏng 3D và thực tế ảo</h3>
+      <p>AI đã cách mạng hóa cách chúng ta trực quan hóa không gian sống trước khi xây dựng. Các công nghệ mô phỏng 3D và thực tế ảo (VR) kết hợp với AI cho phép người dùng "đi" vào không gian sống ảo và trải nghiệm thiết kế trước khi quyết định đầu tư.</p>
+      <p>Các thuật toán AI có thể tự động tạo ra mô hình 3D chi tiết từ các bản vẽ 2D, tiết kiệm thời gian và công sức cho các nhà thiết kế. Đồng thời, công nghệ này còn giúp khách hàng hiểu rõ hơn về không gian sống tương lai của họ.</p>
+      <img src="https://images.unsplash.com/photo-1600607687920-4e2a09cf159d?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="Mô phỏng 3D trong thiết kế nội thất" loading="lazy">
+
+      <h3>3. Tối ưu hóa không gian và công năng</h3>
+      <p>AI có khả năng phân tích và tối ưu hóa việc sử dụng không gian dựa trên các yếu tố như luồng di chuyển, ánh sáng tự nhiên, và các yếu tố môi trường khác. Điều này đặc biệt hữu ích trong các không gian nhỏ hoặc có hình dạng khó.</p>
+      <p>Các thuật toán AI có thể đề xuất cách bố trí nội thất tối ưu nhất để tối đa hóa không gian sử dụng, đồng thời đảm bảo tính thẩm mỹ và công năng. Đặc biệt, AI có thể cân nhắc giữa nhiều mục tiêu khác nhau như tiết kiệm không gian, tối ưu hóa ánh sáng, và tạo sự thoải mái cho người sử dụng.</p>
+
+      <h3>4. Nhà thông minh và Internet of Things (IoT)</h3>
+      <p>AI là trái tim của các hệ thống nhà thông minh, nơi mà nội thất và thiết bị được kết nối với nhau thông qua Internet of Things (IoT). Các hệ thống này có thể học hỏi thói quen của người dùng và tự động điều chỉnh để tạo môi trường sống tối ưu.</p>
+      <p>Ví dụ, hệ thống chiếu sáng thông minh có thể tự động điều chỉnh độ sáng dựa trên thời gian trong ngày và hoạt động của người dùng, trong khi hệ thống điều hòa có thể duy trì nhiệt độ lý tưởng dựa trên sở thích cá nhân và điều kiện thời tiết.</p>
+
+      <h3>5. Sản xuất bền vững và tiết kiệm chi phí</h3>
+      <p>AI đang giúp cách mạng hóa quá trình sản xuất nội thất, giúp giảm thiểu chất thải và tối ưu hóa việc sử dụng nguyên liệu. Các thuật toán AI có thể tính toán cách cắt vật liệu hiệu quả nhất, giảm thiểu phế liệu và tiết kiệm chi phí.</p>
+      <p>Ngoài ra, AI còn giúp dự đoán xu hướng thị trường và nhu cầu của người tiêu dùng, giúp các nhà sản xuất tập trung vào những sản phẩm có tiềm năng thành công cao, giảm thiểu rủi ro và lãng phí.</p>
+      <img src="https://images.unsplash.com/photo-1618220179428-22790b485390?q=80&w=2127&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="Sản xuất nội thất bền vững" loading="lazy">
+
+      <h3>Kết luận</h3>
+      <p>Công nghệ AI đang mở ra một kỷ nguyên mới trong thiết kế và sản xuất nội thất, nơi mà sự cá nhân hóa, hiệu quả và bền vững được đặt lên hàng đầu. Tuy nhiên, điều quan trọng là phải nhận thức rằng AI không phải là để thay thế con người, mà là công cụ hỗ trợ để nâng cao khả năng sáng tạo và hiệu quả của các nhà thiết kế.</p>
+      <p>Khi công nghệ AI tiếp tục phát triển, chúng ta có thể mong đợi những đột phá mới trong cách chúng ta thiết kế, sản xuất và trải nghiệm không gian sống. Tương lai của thiết kế nội thất với AI không chỉ là về công nghệ, mà còn là về việc tạo ra những không gian sống thông minh hơn, tiện nghi hơn và bền vững hơn cho tất cả mọi người.</p>
+    `,
+    relatedProducts: [6, 7, 8],
+    views: 150,
   },
 ];
 
@@ -453,6 +538,50 @@ if (document.getElementById('blog-grid')) {
   const itemsPerPage = 6;
   let currentPage = 1;
 
+  // Hàm lấy tất cả các danh mục duy nhất từ mảng posts
+  function getUniqueCategories() {
+    const categories = new Set();
+    posts.forEach((post) => {
+      if (post.category) {
+        categories.add(post.category);
+      }
+    });
+    return Array.from(categories).sort(); // Sắp xếp theo thứ tự bảng chữ cái
+  }
+
+  // Hàm cập nhật dropdown danh mục
+  function updateCategoryDropdown() {
+    if (!categoryFilter) return;
+
+    // Lưu lại giá trị đang được chọn
+    const selectedValue = categoryFilter.value;
+
+    // Xóa tất cả các tùy chọn hiện tại trừ tùy chọn "Tất cả"
+    while (categoryFilter.options.length > 1) {
+      categoryFilter.remove(1);
+    }
+
+    // Thêm các danh mục duy nhất vào dropdown
+    const categories = getUniqueCategories();
+    categories.forEach((category) => {
+      const option = document.createElement('option');
+      option.value = category;
+      option.textContent = category;
+      categoryFilter.appendChild(option);
+    });
+
+    // Khôi phục giá trị đã chọn nếu vẫn còn trong danh sách
+    if (selectedValue !== 'all') {
+      const exists = Array.from(categoryFilter.options).some(
+        (option) => option.value === selectedValue
+      );
+      categoryFilter.value = exists ? selectedValue : 'all';
+    }
+  }
+
+  // Cập nhật dropdown danh mục khi trang được tải
+  updateCategoryDropdown();
+
   function renderPosts(posts, page = 1) {
     blogGrid.innerHTML = '';
     const start = (page - 1) * itemsPerPage;
@@ -468,14 +597,18 @@ if (document.getElementById('blog-grid')) {
       const card = document.createElement('div');
       card.className = 'blog-card';
 
-      // Format date - using a placeholder date since we don't have actual dates
-      const date = new Date();
-      date.setDate(date.getDate() - Math.floor(Math.random() * 30)); // Random date within last 30 days
-      const formattedDate = date.toLocaleDateString('vi-VN', {
-        year: 'numeric',
-        month: 'short',
-        day: 'numeric',
-      });
+      // Format date - use blogDate if available, otherwise use current date
+      let formattedDate;
+      if (post.blogDate) {
+        formattedDate = post.blogDate;
+      } else {
+        const date = new Date();
+        formattedDate = date.toLocaleDateString('vi-VN', {
+          year: 'numeric',
+          month: 'short',
+          day: 'numeric',
+        });
+      }
 
       card.innerHTML = `
           <img src="${post.image}" alt="${post.title}" loading="lazy">
@@ -1211,26 +1344,33 @@ if (document.getElementById('post-title')) {
 
     // Render sản phẩm liên quan
     relatedProducts.innerHTML = '';
-    post.relatedProducts.forEach((productId) => {
-      const product = products.find((p) => p.id === productId);
-      if (product) {
-        const card = document.createElement('div');
-        card.className = 'card';
-        card.innerHTML = `
-            <img src="${product.image}" alt="${product.name}" loading="lazy">
-            <h4>${product.name}</h4>
-            ${
-              product.promotion
-                ? `<span class="promo-badge">${product.promotion}</span>`
-                : ''
-            }
-            <a href="product-details.html?id=${
-              product.id
-            }" class="btn-details">Xem chi tiết</a>
-          `;
-        relatedProducts.appendChild(card);
-      }
-    });
+
+    // Kiểm tra xem biến products có tồn tại không
+    if (typeof products !== 'undefined' && Array.isArray(products)) {
+      post.relatedProducts.forEach((productId) => {
+        const product = products.find((p) => p.id === productId);
+        if (product) {
+          const card = document.createElement('div');
+          card.className = 'card';
+          card.innerHTML = `
+              <img src="${product.image}" alt="${product.name}" loading="lazy">
+              <h4>${product.name}</h4>
+              ${
+                product.promotion
+                  ? `<span class="promo-badge">${product.promotion}</span>`
+                  : ''
+              }
+              <a href="product-details.html?id=${
+                product.id
+              }" class="btn-details">Xem chi tiết</a>
+            `;
+          relatedProducts.appendChild(card);
+        }
+      });
+    } else {
+      // Nếu không có dữ liệu sản phẩm, hiển thị thông báo
+      relatedProducts.innerHTML = '<p>Không có sản phẩm liên quan.</p>';
+    }
 
     // Render bài viết liên quan
     relatedPosts.innerHTML = '';

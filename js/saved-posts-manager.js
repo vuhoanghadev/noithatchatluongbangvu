@@ -211,6 +211,148 @@ function showNotification(message, duration = 2000) {
   }, duration);
 }
 
+// Hiển thị hộp thoại xác nhận
+function showConfirmDialog(title, message, onConfirm) {
+  console.log('Hiển thị hộp thoại xác nhận:', message);
+
+  // Xóa hộp thoại cũ nếu có
+  const oldDialog = document.querySelector('.confirm-dialog-container');
+  if (oldDialog) {
+    oldDialog.remove();
+  }
+
+  // Tạo overlay
+  const overlay = document.createElement('div');
+  overlay.className = 'confirm-dialog-overlay';
+  overlay.style.position = 'fixed';
+  overlay.style.top = '0';
+  overlay.style.left = '0';
+  overlay.style.width = '100%';
+  overlay.style.height = '100%';
+  overlay.style.backgroundColor = 'rgba(0, 0, 0, 0.5)';
+  overlay.style.zIndex = '10000';
+  overlay.style.display = 'flex';
+  overlay.style.justifyContent = 'center';
+  overlay.style.alignItems = 'center';
+
+  // Tạo hộp thoại
+  const dialogContainer = document.createElement('div');
+  dialogContainer.className = 'confirm-dialog-container';
+  dialogContainer.style.backgroundColor = 'white';
+  dialogContainer.style.borderRadius = '8px';
+  dialogContainer.style.boxShadow = '0 4px 15px rgba(0, 0, 0, 0.2)';
+  dialogContainer.style.width = '90%';
+  dialogContainer.style.maxWidth = '400px';
+  dialogContainer.style.padding = '20px';
+  dialogContainer.style.animation = 'dialogFadeIn 0.3s ease';
+
+  // Tạo tiêu đề
+  const dialogTitle = document.createElement('h3');
+  dialogTitle.style.margin = '0 0 15px 0';
+  dialogTitle.style.color = '#333';
+  dialogTitle.style.fontSize = '1.2rem';
+  dialogTitle.style.fontWeight = '600';
+  dialogTitle.textContent = title;
+
+  // Tạo nội dung
+  const dialogMessage = document.createElement('p');
+  dialogMessage.style.margin = '0 0 20px 0';
+  dialogMessage.style.color = '#555';
+  dialogMessage.style.fontSize = '1rem';
+  dialogMessage.style.lineHeight = '1.5';
+  dialogMessage.textContent = message;
+
+  // Tạo phần nút
+  const dialogButtons = document.createElement('div');
+  dialogButtons.style.display = 'flex';
+  dialogButtons.style.justifyContent = 'flex-end';
+  dialogButtons.style.gap = '10px';
+
+  // Nút hủy
+  const cancelButton = document.createElement('button');
+  cancelButton.style.padding = '8px 16px';
+  cancelButton.style.backgroundColor = '#f1f1f1';
+  cancelButton.style.color = '#333';
+  cancelButton.style.border = 'none';
+  cancelButton.style.borderRadius = '4px';
+  cancelButton.style.cursor = 'pointer';
+  cancelButton.style.fontWeight = '500';
+  cancelButton.style.transition = 'all 0.2s ease';
+  cancelButton.textContent = 'Hủy';
+
+  // Nút xác nhận
+  const confirmButton = document.createElement('button');
+  confirmButton.style.padding = '8px 16px';
+  confirmButton.style.backgroundColor = '#f44336';
+  confirmButton.style.color = 'white';
+  confirmButton.style.border = 'none';
+  confirmButton.style.borderRadius = '4px';
+  confirmButton.style.cursor = 'pointer';
+  confirmButton.style.fontWeight = '500';
+  confirmButton.style.transition = 'all 0.2s ease';
+  confirmButton.textContent = 'Xóa';
+
+  // Thêm hiệu ứng hover
+  cancelButton.onmouseover = function () {
+    this.style.backgroundColor = '#e0e0e0';
+  };
+  cancelButton.onmouseout = function () {
+    this.style.backgroundColor = '#f1f1f1';
+  };
+
+  confirmButton.onmouseover = function () {
+    this.style.backgroundColor = '#d32f2f';
+  };
+  confirmButton.onmouseout = function () {
+    this.style.backgroundColor = '#f44336';
+  };
+
+  // Thêm sự kiện
+  cancelButton.onclick = function () {
+    overlay.remove();
+  };
+
+  confirmButton.onclick = function () {
+    if (typeof onConfirm === 'function') {
+      onConfirm();
+    }
+    overlay.remove();
+  };
+
+  // Thêm các phần tử vào hộp thoại
+  dialogButtons.appendChild(cancelButton);
+  dialogButtons.appendChild(confirmButton);
+
+  dialogContainer.appendChild(dialogTitle);
+  dialogContainer.appendChild(dialogMessage);
+  dialogContainer.appendChild(dialogButtons);
+
+  overlay.appendChild(dialogContainer);
+
+  // Thêm style cho animation
+  const style = document.createElement('style');
+  style.textContent = `
+    @keyframes dialogFadeIn {
+      from { opacity: 0; transform: translateY(-20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+  `;
+  document.head.appendChild(style);
+
+  // Thêm overlay vào body
+  document.body.appendChild(overlay);
+
+  // Thêm sự kiện đóng khi nhấn Escape
+  const handleKeyDown = function (e) {
+    if (e.key === 'Escape') {
+      overlay.remove();
+      document.removeEventListener('keydown', handleKeyDown);
+    }
+  };
+
+  document.addEventListener('keydown', handleKeyDown);
+}
+
 // Tạo nút lưu bài viết
 function createSaveButton(postInfo) {
   console.log('Tạo nút lưu bài viết cho:', postInfo.title);
@@ -236,15 +378,22 @@ function createSaveButton(postInfo) {
     );
 
     if (currentlySaved) {
-      // Xóa bài viết
-      if (removePost(postInfo.url)) {
-        updateSaveButtonUI(button, false);
-        showNotification('Đã xóa bài viết khỏi danh sách đọc sau');
-        updateSavedPostsCount();
-        console.log('Đã xóa bài viết khỏi danh sách đọc sau');
-      } else {
-        console.log('Lỗi khi xóa bài viết');
-      }
+      // Hiển thị hộp thoại xác nhận trước khi xóa
+      showConfirmDialog(
+        'Xác nhận xóa',
+        `Bạn có chắc muốn xóa bài viết "${postInfo.title}" khỏi danh sách đọc sau không?`,
+        () => {
+          // Xóa bài viết sau khi xác nhận
+          if (removePost(postInfo.url)) {
+            updateSaveButtonUI(button, false);
+            showNotification('Đã xóa bài viết khỏi danh sách đọc sau');
+            updateSavedPostsCount();
+            console.log('Đã xóa bài viết khỏi danh sách đọc sau');
+          } else {
+            console.log('Lỗi khi xóa bài viết');
+          }
+        }
+      );
     } else {
       // Lưu bài viết
       if (savePost(postInfo)) {
@@ -269,6 +418,8 @@ function updateSavedPostsCount() {
   if (!countElement) return;
 
   const count = getSavedPosts().length;
+
+  // Luôn hiển thị số lượng bài viết đã lưu
   countElement.textContent = count;
 
   // Ẩn số lượng nếu không có bài viết nào
@@ -276,6 +427,11 @@ function updateSavedPostsCount() {
     countElement.style.display = 'none';
   } else {
     countElement.style.display = 'flex';
+
+    // Đảm bảo số lượng luôn hiển thị
+    if (countElement.textContent === '') {
+      countElement.textContent = count;
+    }
   }
 }
 
@@ -329,24 +485,37 @@ function renderSavedPostsList(container) {
       e.preventDefault();
       const url = this.getAttribute('data-url');
 
-      if (removePost(url)) {
-        // Cập nhật lại danh sách
-        renderSavedPostsList(container);
+      // Tìm tiêu đề bài viết để hiển thị trong hộp thoại xác nhận
+      const postTitle = this.closest('.saved-post-item').querySelector(
+        '.saved-post-title a'
+      ).textContent;
 
-        // Cập nhật trạng thái nút lưu nếu đang ở trang chi tiết bài viết
-        if (window.location.href === url) {
-          const saveButton = document.querySelector('.save-for-later');
-          if (saveButton) {
-            updateSaveButtonUI(saveButton, false);
+      // Hiển thị hộp thoại xác nhận
+      showConfirmDialog(
+        'Xác nhận xóa',
+        `Bạn có chắc muốn xóa bài viết "${postTitle}" khỏi danh sách đọc sau không?`,
+        () => {
+          // Hàm callback khi người dùng xác nhận xóa
+          if (removePost(url)) {
+            // Cập nhật lại danh sách
+            renderSavedPostsList(container);
+
+            // Cập nhật trạng thái nút lưu nếu đang ở trang chi tiết bài viết
+            if (window.location.href === url) {
+              const saveButton = document.querySelector('.save-for-later');
+              if (saveButton) {
+                updateSaveButtonUI(saveButton, false);
+              }
+            }
+
+            // Cập nhật số lượng bài viết đã lưu
+            updateSavedPostsCount();
+
+            // Hiển thị thông báo
+            showNotification('Đã xóa bài viết khỏi danh sách đọc sau');
           }
         }
-
-        // Cập nhật số lượng bài viết đã lưu
-        updateSavedPostsCount();
-
-        // Hiển thị thông báo
-        showNotification('Đã xóa bài viết khỏi danh sách đọc sau');
-      }
+      );
     });
   });
 }
@@ -432,6 +601,18 @@ function createSavedPostsToggle() {
   // Thêm số lượng bài viết đã lưu
   const count = document.createElement('span');
   count.className = 'saved-posts-count';
+
+  // Đặt số lượng bài viết đã lưu trước khi thêm vào DOM
+  const savedPostsCount = getSavedPosts().length;
+  count.textContent = savedPostsCount;
+
+  // Ẩn nếu không có bài viết nào
+  if (savedPostsCount === 0) {
+    count.style.display = 'none';
+  } else {
+    count.style.display = 'flex';
+  }
+
   toggle.appendChild(count);
 
   // Cập nhật số lượng bài viết đã lưu
