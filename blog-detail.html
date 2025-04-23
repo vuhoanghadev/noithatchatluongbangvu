@@ -43,6 +43,8 @@
     <link rel="stylesheet" href="css/booking-modal-brand.css">
     <link rel="stylesheet" href="css/booking-success.css">
     <link rel="stylesheet" href="css/booking-loading.css">
+    <link rel="stylesheet" href="css/blog-enhancements.css">
+    <link rel="stylesheet" href="css/saved-posts.css">
     <!-- Font Awesome Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css"
         integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA=="
@@ -161,7 +163,7 @@
                             </div>
                             <div class="blog-views">
                                 <i class="far fa-eye"></i>
-                                <span id="blog-views">0</span>Lượt xem
+                                <span id="blog-views">0</span>&nbsp;Lượt xem
                             </div>
                         </div>
                     </div>
@@ -378,6 +380,8 @@
     <script src="js/main.js"></script>
     <script src="js/blog.js"></script>
     <script src="js/blog-detail.js"></script>
+    <script src="js/blog-enhancements.js"></script>
+    <script src="js/saved-posts-manager.js"></script>
     <script src="js/back-to-top.js"></script>
     <script src="js/header.js"></script>
     <script src="js/header-scroll.js"></script>
@@ -385,6 +389,37 @@
     <script src="js/footer-modern.js"></script>
     <script src="js/floating-contact-new.js"></script>
     <script src="js/effects.js"></script>
+    <script>
+        // Khởi tạo tính năng lưu bài viết khi trang đã tải xong
+        document.addEventListener('DOMContentLoaded', function () {
+            console.log('Trang blog-detail đã tải xong, khởi tạo tính năng lưu bài viết...');
+            // Đợi một chút để đảm bảo các phần tử đã được tải đầy đủ
+            setTimeout(function () {
+                // Khởi tạo tính năng lưu bài viết
+                SavedPostsManager.initSaveForLaterFeature();
+            }, 500);
+        });
+
+        // Khởi tạo lại khi trang được tải qua AJAX
+        document.addEventListener('ajaxPageLoaded', function (event) {
+            if (event.detail.url.includes('blog-detail.html')) {
+                console.log('Trang blog-detail được tải qua AJAX, khởi tạo lại tính năng lưu bài viết...');
+                setTimeout(function () {
+                    SavedPostsManager.initSaveForLaterFeature();
+                }, 500);
+            }
+        });
+
+        // Khởi tạo lại khi hoàn tất chuyển trang
+        document.addEventListener('page-transition-complete', function (event) {
+            if (event.detail.url.includes('blog-detail.html')) {
+                console.log('Chuyển trang đến blog-detail hoàn tất, khởi tạo lại tính năng lưu bài viết...');
+                setTimeout(function () {
+                    SavedPostsManager.initSaveForLaterFeature();
+                }, 500);
+            }
+        });
+    </script>
 
 
 

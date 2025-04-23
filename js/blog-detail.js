@@ -71,6 +71,15 @@ function handleBlogDetail() {
   // Cập nhật thông tin tác giả
   document.getElementById('author-name').textContent = post.author || 'Admin';
 
+  // Cập nhật ảnh đại diện và mô tả tác giả
+  if (post.authorAvatar) {
+    document.getElementById('author-avatar').src = post.authorAvatar;
+  }
+
+  if (post.authorBio) {
+    document.getElementById('author-bio').textContent = post.authorBio;
+  }
+
   // Cập nhật tags
   updateTags(post.category);
 

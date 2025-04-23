@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Kiểm tra tính năng tăng lượt xem tự động</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      max-width: 800px;
+      margin: 0 auto;
+      padding: 20px;
+    }
+    h1 {
+      color: #0058dd;
+    }
+    button {
+      background-color: #0058dd;
+      color: white;
+      border: none;
+      padding: 10px 20px;
+      border-radius: 5px;
+      cursor: pointer;
+      margin: 10px 0;
+    }
+    button:hover {
+      background-color: #0046b5;
+    }
+    pre {
+      background-color: #f5f5f5;
+      padding: 10px;
+      border-radius: 5px;
+      overflow: auto;
+    }
+    .card {
+      border: 1px solid #ddd;
+      border-radius: 5px;
+      padding: 15px;
+      margin-bottom: 15px;
+    }
+    .card h3 {
+      margin-top: 0;
+    }
+  </style>
+</head>
+<body>
+  <h1>Kiểm tra tính năng tăng lượt xem tự động</h1>
+  <p>Sử dụng trang này để kiểm tra tính năng tăng lượt xem tự động mỗi ngày mới.</p>
+  
+  <div class="card">
+    <h3>Ngày hiện tại</h3>
+    <p id="current-date"></p>
+  </div>
+  
+  <div class="card">
+    <h3>Ngày cuối cùng đã tăng lượt xem</h3>
+    <p id="last-increased-date"></p>
+  </div>
+  
+  <button id="reset-date">Xóa ngày cuối cùng đã tăng lượt xem</button>
+  <button id="show-views">Hiển thị dữ liệu lượt xem</button>
+  <button id="reset-views">Xóa dữ liệu lượt xem</button>
+  <button id="reset-viewed-posts">Xóa danh sách bài viết đã xem</button>
+  <button id="simulate-new-day">Giả lập ngày mới</button>
+  
+  <h2>Dữ liệu lượt xem</h2>
+  <pre id="views-data"></pre>
+  
+  <h2>Danh sách bài viết đã xem</h2>
+  <pre id="viewed-posts-data"></pre>
+  
+  <script src="js/blog.js"></script>
+  <script>
+    // Hiển thị ngày hiện tại
+    document.getElementById('current-date').textContent = new Date().toLocaleDateString('vi-VN');
+    
+    // Hiển thị ngày cuối cùng đã tăng lượt xem
+    const lastIncreasedDate = localStorage.getItem('lastViewsIncreasedDate');
+    document.getElementById('last-increased-date').textContent = lastIncreasedDate || 'Chưa có';
+    
+    // Xóa ngày cuối cùng đã tăng lượt xem
+    document.getElementById('reset-date').addEventListener('click', function() {
+      localStorage.removeItem('lastViewsIncreasedDate');
+      alert('Đã xóa ngày cuối cùng đã tăng lượt xem');
+      document.getElementById('last-increased-date').textContent = 'Chưa có';
+      updateDisplay();
+    });
+    
+    // Hiển thị dữ liệu lượt xem
+    document.getElementById('show-views').addEventListener('click', function() {
+      updateDisplay();
+    });
+    
+    // Xóa dữ liệu lượt xem
+    document.getElementById('reset-views').addEventListener('click', function() {
+      localStorage.removeItem('blogPostViews');
+      alert('Đã xóa dữ liệu lượt xem trong localStorage');
+      updateDisplay();
+    });
+    
+    // Xóa danh sách bài viết đã xem
+    document.getElementById('reset-viewed-posts').addEventListener('click', function() {
+      localStorage.removeItem('viewedBlogPosts');
+      alert('Đã xóa danh sách bài viết đã xem trong localStorage');
+      updateDisplay();
+    });
+    
+    // Giả lập ngày mới
+    document.getElementById('simulate-new-day').addEventListener('click', function() {
+      // Xóa ngày cuối cùng đã tăng lượt xem
+      localStorage.removeItem('lastViewsIncreasedDate');
+      
+      // Gọi hàm kiểm tra và tăng lượt xem tự động
+      checkAndIncreaseViewsDaily();
+      
+      // Cập nhật hiển thị
+      document.getElementById('last-increased-date').textContent = localStorage.getItem('lastViewsIncreasedDate') || 'Chưa có';
+      alert('Đã giả lập ngày mới và tăng lượt xem cho tất cả bài viết');
+      updateDisplay();
+    });
+    
+    // Cập nhật hiển thị dữ liệu
+    function updateDisplay() {
+      const viewsData = localStorage.getItem('blogPostViews');
+      const viewedPostsData = localStorage.getItem('viewedBlogPosts');
+      
+      document.getElementById('views-data').textContent = viewsData ? JSON.stringify(JSON.parse(viewsData), null, 2) : 'Không có dữ liệu';
+      document.getElementById('viewed-posts-data').textContent = viewedPostsData ? JSON.stringify(JSON.parse(viewedPostsData), null, 2) : 'Không có dữ liệu';
+    }
+    
+    // Hiển thị dữ liệu khi tải trang
+    updateDisplay();
+  </script>
+</body>
+</html>

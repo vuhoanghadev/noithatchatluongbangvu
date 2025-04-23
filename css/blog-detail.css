@@ -250,14 +250,16 @@
     margin: 40px 0 20px;
     position: relative;
     padding-bottom: 10px;
+    text-align: center;
 }
 
 .blog-content h2::after {
     content: '';
     position: absolute;
     bottom: 0;
-    left: 0;
-    width: 60px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 80px;
     height: 3px;
     background: var(--blog-primary);
     border-radius: 2px;

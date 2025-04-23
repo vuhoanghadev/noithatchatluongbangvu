@@ -16,8 +16,48 @@ function removeDuplicatePosts() {
   uniquePosts.forEach((post) => posts.push(post)); // Thêm các phần tử duy nhất vào mảng
 }
 
+// Hàm kiểm tra và tăng lượt xem tự động mỗi ngày mới
+function checkAndIncreaseViewsDaily() {
+  // Lấy ngày hiện tại
+  const today = new Date().toLocaleDateString('vi-VN');
+
+  // Lấy ngày cuối cùng đã tăng lượt xem từ localStorage
+  const lastIncreasedDate = localStorage.getItem('lastViewsIncreasedDate');
+
+  // Nếu chưa có ngày cuối cùng hoặc ngày hiện tại khác ngày cuối cùng
+  if (!lastIncreasedDate || lastIncreasedDate !== today) {
+    console.log(`Sang ngày mới: ${today}, tăng lượt xem cho tất cả bài viết`);
+
+    // Lấy dữ liệu lượt xem từ localStorage
+    let viewsData = localStorage.getItem('blogPostViews');
+    let views = viewsData ? JSON.parse(viewsData) : {};
+
+    // Tăng lượt xem cho tất cả bài viết
+    posts.forEach((post) => {
+      const postId = post.id.toString();
+
+      // Tăng lượt xem lên 5
+      post.views = (post.views || 0) + 5;
+      views[postId] = post.views;
+
+      console.log(
+        `Tăng lượt xem cho bài viết ID ${postId} lên ${post.views} (+5 lượt xem)`
+      );
+    });
+
+    // Lưu lại vào localStorage
+    localStorage.setItem('blogPostViews', JSON.stringify(views));
+
+    // Cập nhật ngày cuối cùng đã tăng lượt xem
+    localStorage.setItem('lastViewsIncreasedDate', today);
+  }
+}
+
 // Hàm để đồng bộ lượt xem giữa blog.js và localStorage
 function syncViewsWithLocalStorage() {
+  // Kiểm tra và tăng lượt xem tự động mỗi ngày mới
+  checkAndIncreaseViewsDaily();
+
   // Lấy dữ liệu lượt xem từ localStorage
   let viewsData = localStorage.getItem('blogPostViews');
   let views = viewsData ? JSON.parse(viewsData) : {};
@@ -58,6 +98,9 @@ const posts = [
     title: '5 Mẹo Chọn Tủ Quần Áo Phù Hợp Với Không Gian Sống Của Bạn',
     category: 'Mẹo thiết kế nội thất',
     author: 'Vũ Hoàng Hà',
+    authorAvatar: '../images/avt tac gia/vuhoangha.jpg',
+    authorBio:
+      'Vũ Hoàng Hà là chuyên gia thiết kế nội thất với hơn 10 năm kinh nghiệm trong lĩnh vực. Anh đã tham gia thiết kế cho nhiều dự án lớn và nhỏ, từ căn hộ chung cư đến biệt thự cao cấp.Vũ Hoàng Hà là chuyên gia thiết kế nội thất với hơn 10 năm kinh nghiệm trong lĩnh vực. Anh đã tham gia thiết kế cho nhiều dự án lớn và nhỏ, từ căn hộ chung cư đến biệt thự cao cấp.Vũ Hoàng Hà là chuyên gia thiết kế nội thất với hơn 10 năm kinh nghiệm trong lĩnh vực.',
     image:
       'https://images.unsplash.com/photo-1598928506311-c55ded91a20c?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Nnx8bGl2aW5nJTIwcm9vbXxlbnwwfHwwfHx8MA%3D%3D',
     excerpt:
@@ -91,13 +134,16 @@ const posts = [
 
     `,
     relatedProducts: [1, 2, 3, 4],
-    views: 261, // Giữ nguyên lượt xem
+    views: 290, // Giữ nguyên lượt xem
   },
   {
     id: 2,
     title: 'Xu Hướng Nội Thất 2025',
     category: 'Xu hướng',
     author: 'Trần Thị Hương',
+    authorAvatar: 'https://i.pravatar.cc/150?img=5',
+    authorBio:
+      'Trần Thị Hương là nhà phân tích xu hướng nội thất với hơn 8 năm kinh nghiệm. Cô đã cộng tác với nhiều tạp chí nội thất hàng đầu và thường xuyên tham dự các triển lãm quốc tế để cập nhật xu hướng mới nhất.',
     image:
       'https://images.unsplash.com/photo-1598928506311-c55ded91a20c?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Nnx8bGl2aW5nJTIwcm9vbXxlbnwwfHwwfHx8MA%3D%3D',
     excerpt: 'Khám phá các xu hướng nội thất mới nhất cho năm 2025.',
@@ -113,6 +159,9 @@ const posts = [
     title: 'Dự Án Phòng Ngủ Hiện Đại',
     category: 'Dự án',
     author: 'Lê Văn Bình',
+    authorAvatar: 'https://i.pravatar.cc/150?img=8',
+    authorBio:
+      'Lê Văn Bình là kiến trúc sư nội thất với hơn 12 năm kinh nghiệm trong thiết kế và thi công. Anh đã hoàn thành hơn 200 dự án nội thất cho căn hộ, biệt thự và văn phòng, với phong cách thiết kế hiện đại và tinh tế.',
     image:
       'https://images.unsplash.com/photo-1598928506311-c55ded91a20c?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Nnx8bGl2aW5nJTIwcm9vbXxlbnwwfHwwfHx8MA%3D%3D',
     excerpt: 'Xem dự án phòng ngủ chúng tôi đã thực hiện cho khách hàng.',
@@ -128,6 +177,9 @@ const posts = [
     title: 'Cách Bố Trí Tủ Bếp Tiết Kiệm Không Gian',
     category: 'Mẹo thiết kế',
     author: 'Phạm Thị Mai',
+    authorAvatar: 'https://i.pravatar.cc/150?img=9',
+    authorBio:
+      'Phạm Thị Mai là nhà thiết kế nội thất chuyên về không gian bếp. Với hơn 7 năm kinh nghiệm, cô đã giúp hàng trăm gia đình tối ưu hóa không gian bếp nhỏ với các giải pháp thông minh và tiện ích.',
     image:
       'https://plus.unsplash.com/premium_photo-1661595245288-65d1430d0d13?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NXx8bGl2aW5nJTIwcm9vbXxlbnwwfHwwfHx8MA%3D%3D',
     excerpt: 'Mẹo bố trí tủ bếp để tối ưu diện tích căn bếp nhỏ.',
@@ -333,16 +385,43 @@ const posts = [
   },
   {
     id: 21,
-    title: 'Nội Thất Thông Minh Cho Nhà Nhỏ',
-    category: 'Xu hướng',
+    title: '5 Mẹo Chọn Tủ Quần Áo Phù Hợp Với Không Gian Sống Của Bạn',
+    category: 'Mẹo thiết kế nội thất',
+    author: 'Vũ Hoàng Hà',
     image:
-      'https://plus.unsplash.com/premium_photo-1661595245288-65d1430d0d13?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NXx8bGl2aW5nJTIwcm9vbXxlbnwwfHwwfHx8MA%3D%3D',
-    excerpt: 'Giải pháp nội thất thông minh cho không gian hạn chế.',
+      'https://images.unsplash.com/photo-1598928506311-c55ded91a20c?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Nnx8bGl2aW5nJTIwcm9vbXxlbnwwfHwwfHx8MA%3D%3D',
+    excerpt:
+      'Khám phá 5 mẹo vàng giúp bạn chọn tủ quần áo hoàn hảo, vừa đẹp mắt vừa tối ưu không gian và nhu cầu sử dụng.',
     content: `
-        <p>Nội thất đa năng như giường gấp, bàn gấp đang rất được ưa chuộng...</p>
-      `,
-    relatedProducts: [6, 7],
-    views: 300,
+      <h2>5 Mẹo Chọn Tủ Quần Áo Phù Hợp Với Không Gian Sống Của Bạn</h2>
+      <p>Chọn được một chiếc tủ quần áo phù hợp không chỉ giúp bạn tổ chức không gian sống gọn gàng mà còn nâng tầm thẩm mỹ cho căn phòng. Dưới đây là 5 mẹo chi tiết giúp bạn đưa ra quyết định đúng đắn khi chọn mua tủ quần áo.</p>
+
+      <h3>1. Đo đạc không gian chính xác</h3>
+      <p>Trước khi chọn mua tủ quần áo, việc đầu tiên bạn cần làm là đo đạc chính xác diện tích phòng ngủ. Hãy ghi lại chiều dài, chiều rộng và chiều cao của khu vực định đặt tủ. Đừng quên tính đến khoảng không gian cần thiết để mở cửa tủ hoặc kéo ngăn kéo. Nếu phòng nhỏ, hãy cân nhắc tủ âm tường hoặc tủ cánh lùa để tiết kiệm diện tích.</p>
+      <img src="https://plus.unsplash.com/premium_photo-1676823547752-1d24e8597047?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="Đo đạc không gian phòng ngủ" loading="lazy">
+
+      <h3>2. Lựa chọn chất liệu bền bỉ</h3>
+      <p>Chất liệu là yếu tố quyết định độ bền và vẻ đẹp lâu dài của tủ quần áo. Gỗ tự nhiên như gỗ sồi, gỗ óc chó mang lại vẻ đẹp sang trọng và độ bền cao, nhưng giá thành thường cao hơn. Trong khi đó, gỗ công nghiệp như MDF phủ melamine hoặc laminate là lựa chọn phổ biến nhờ giá cả hợp lý, chống cong vênh và đa dạng màu sắc.</p>
+      <p><strong>Mẹo:</strong> Nếu bạn sống ở khu vực có độ ẩm cao, hãy chọn gỗ công nghiệp có lớp phủ chống ẩm để tăng tuổi thọ cho sản phẩm.</p>
+
+      <h3>3. Tối ưu hóa thiết kế và công năng</h3>
+      <p>Một chiếc tủ quần áo lý tưởng không chỉ đẹp mà còn phải đáp ứng nhu cầu sử dụng. Hãy xác định số lượng quần áo, phụ kiện và vật dụng bạn cần lưu trữ. Tủ có nhiều ngăn kéo, kệ treo, hoặc thanh ngang sẽ giúp bạn dễ dàng phân loại và sắp xếp. Ngoài ra, các thiết kế hiện đại còn tích hợp gương, đèn LED hoặc kệ đa năng, giúp tối ưu hóa trải nghiệm sử dụng.</p>
+      <img src="https://plus.unsplash.com/premium_photo-1661777938520-110b62a5537f?q=80&w=1931&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="Tủ quần áo thiết kế hiện đại" loading="lazy">
+
+      <h3>4. Phù hợp với phong cách nội thất</h3>
+      <p>Tủ quần áo nên hòa hợp với phong cách tổng thể của căn phòng. Nếu phòng ngủ mang phong cách tối giản, hãy chọn tủ có thiết kế đơn giản, màu sắc trung tính như trắng, xám hoặc be. Ngược lại, với phong cách cổ điển, tủ quần áo bằng gỗ tự nhiên với các chi tiết chạm khắc sẽ là điểm nhấn hoàn hảo.</p>
+      <p><strong>Lưu ý:</strong> Đừng quên phối màu tủ với các nội thất khác như giường, bàn trang điểm để tạo sự thống nhất.</p>
+
+      <h3>5. Cân nhắc ngân sách và thương hiệu</h3>
+      <p>Trước khi mua, hãy xác định ngân sách rõ ràng để thu hẹp lựa chọn. Các thương hiệu nội thất uy tín thường cung cấp sản phẩm chất lượng cao kèm chính sách bảo hành tốt. Nếu bạn muốn tiết kiệm chi phí, hãy tìm kiếm các chương trình khuyến mãi hoặc cân nhắc mua tủ lắp ráp với thiết kế hiện đại.</p>
+      <p><strong>Gợi ý:</strong> Đừng chỉ tập trung vào giá rẻ mà bỏ qua chất lượng, vì một chiếc tủ tốt sẽ đồng hành cùng bạn trong nhiều năm.</p>
+
+      <h3>Kết luận</h3>
+      <p>Chọn tủ quần áo không chỉ là việc mua sắm mà còn là cách bạn đầu tư cho không gian sống tiện nghi và thẩm mỹ. Hãy áp dụng 5 mẹo trên để tìm được chiếc tủ hoàn hảo cho ngôi nhà của bạn. Nếu cần tư vấn thêm hoặc muốn khám phá các mẫu tủ quần áo hiện đại, hãy liên hệ với chúng tôi ngay hôm nay!</p>
+
+    `,
+    relatedProducts: [1, 2, 3, 4],
+    views: 316, // Giữ nguyên lượt xem
   },
 ];
 
@@ -412,7 +491,7 @@ if (document.getElementById('blog-grid')) {
                 <span class="blog-card-date"><i class="far fa-calendar-alt"></i> ${formattedDate}</span>
                 <span class="blog-card-views"><i class="far fa-eye"></i> ${
                   post.views || 0
-                } lượt xem</span>
+                } Lượt xem</span>
               </div>
               <a href="blog-detail.html?id=${
                 post.id
