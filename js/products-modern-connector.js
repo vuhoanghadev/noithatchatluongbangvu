@@ -1353,17 +1353,27 @@ document.addEventListener('DOMContentLoaded', function () {
         !product.flashsale.hidePrice
       ) {
         // If there's an active flashsale with visible price
-        priceText = product.flashsale.newPrice.toLocaleString('vi-VN') + '₫';
+        priceText = product.flashsale.newPrice.toLocaleString('vi-VN') + 'đ';
         if (product.flashsale.oldPrice) {
           const oldPriceSpan = document.createElement('span');
           oldPriceSpan.className = 'old-price';
           oldPriceSpan.textContent =
-            product.flashsale.oldPrice.toLocaleString('vi-VN') + '₫';
+            product.flashsale.oldPrice.toLocaleString('vi-VN') + 'đ';
           priceDiv.appendChild(oldPriceSpan);
         }
       } else if (product.price) {
         // If product has regular price
-        priceText = product.price.toLocaleString('vi-VN') + '₫';
+        // Check if price is a number format or text
+        if (
+          typeof product.price === 'number' ||
+          /^[\d.,]+$/.test(product.price.replace(/\./g, ''))
+        ) {
+          // If it's a number format, add the đ symbol
+          priceText = product.price.toLocaleString('vi-VN') + 'đ';
+        } else {
+          // If it's text like "liên hệ", don't add the đ symbol
+          priceText = product.price;
+        }
       }
 
       const priceSpan = document.createElement('span');

@@ -106,7 +106,7 @@
 
     /* Add padding to body to prevent content from being hidden behind the nav */
     body {
-        padding-bottom: 60px;
+        /* padding-bottom: 60px; */
     }
 }
 

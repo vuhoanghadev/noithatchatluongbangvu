@@ -49,6 +49,13 @@ function connectProductsData() {
       };
     });
 
+    // Sắp xếp sản phẩm theo thứ tự ID giảm dần (từ ID cao đến ID thấp)
+    window.products.sort((a, b) => {
+      const idA = parseInt(a.id);
+      const idB = parseInt(b.id);
+      return idB - idA; // Sắp xếp giảm dần
+    });
+
     console.log(`Connected ${window.products.length} products to search`);
   } else {
     console.warn('Products data not found. Using fallback data if available.');
@@ -81,14 +88,30 @@ function connectBlogPostsData() {
         title: post.title,
         category: post.category,
         author: post.author || 'Admin',
+        authorAvatar: post.authorAvatar || '',
+        authorBio: post.authorBio || '',
+        authorVerified: post.authorVerified || '',
+        authorJob: post.authorJob || '',
+        authorExperience: post.authorExperience || 0,
+        authorProjects: post.authorProjects || 0,
+        authorRating: post.authorRating || 0,
         image: image,
         excerpt:
           post.excerpt ||
           (cleanContent ? cleanContent.substring(0, 150) + '...' : ''),
         content: cleanContent,
         date: post.date || new Date().toISOString().split('T')[0],
+        blogDate: post.blogDate || '',
         views: post.views || 0,
+        relatedProducts: post.relatedProducts || [],
       };
+    });
+
+    // Sắp xếp bài viết theo thứ tự ID giảm dần (từ ID cao đến ID thấp)
+    window.blogPosts.sort((a, b) => {
+      const idA = parseInt(a.id);
+      const idB = parseInt(b.id);
+      return idB - idA; // Sắp xếp giảm dần
     });
 
     console.log(`Connected ${window.blogPosts.length} blog posts to search`);
@@ -154,6 +177,15 @@ function setupFallbackData() {
         title: '5 Mẹo Chọn Tủ Quần Áo Phù Hợp Với Không Gian Sống Của Bạn',
         category: 'Mẹo thiết kế nội thất',
         author: 'Vũ Hoàng Hà',
+        authorAvatar: '../images/avt tac gia/vuhoangha.jpg',
+        blogDate: '10/04/2025',
+        authorBio:
+          'Với hơn 5 năm kinh nghiệm trong lĩnh vực thiết kế nội thất, Vũ Hoàng Hà đã thực hiện thành công trên 150 dự án, mang đến không gian sống tinh tế và tiện nghi cho hàng trăm khách hàng.',
+        authorVerified: 'Chuyên gia',
+        authorJob: 'Chuyên gia thiết kế nội thất',
+        authorExperience: 5,
+        authorProjects: 150,
+        authorRating: 4.9,
         image:
           'https://images.unsplash.com/photo-1598928506311-c55ded91a20c?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Nnx8bGl2aW5nJTIwcm9vbXxlbnwwfHwwfHx8MA%3D%3D',
         excerpt:
@@ -161,18 +193,31 @@ function setupFallbackData() {
         content:
           'Chọn được một chiếc tủ quần áo phù hợp không chỉ giúp bạn tổ chức không gian sống gọn gàng mà còn nâng tầm thẩm mỹ cho căn phòng.',
         date: '2025-04-15',
+        views: 290,
+        relatedProducts: [1, 2, 3, 4],
       },
       {
         id: 2,
         title: 'Xu Hướng Nội Thất 2025',
         category: 'Xu hướng',
         author: 'Trần Thị Hương',
+        authorAvatar: 'https://i.pravatar.cc/150?img=5',
+        blogDate: '25/03/2025',
+        authorBio:
+          'Trần Thị Hương là nhà phân tích xu hướng nội thất với hơn 8 năm kinh nghiệm. Cô đã cộng tác với nhiều tạp chí nội thất hàng đầu.',
+        authorVerified: 'Nhà phân tích',
+        authorJob: 'Nhà phân tích xu hướng nội thất',
+        authorExperience: 8,
+        authorProjects: 200,
+        authorRating: 4.8,
         image:
           'https://images.unsplash.com/photo-1598928506311-c55ded91a20c?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Nnx8bGl2aW5nJTIwcm9vbXxlbnwwfHwwfHx8MA%3D%3D',
         excerpt: 'Khám phá các xu hướng nội thất mới nhất cho năm 2025.',
         content:
           'Năm 2025, nội thất tối giản và bền vững sẽ lên ngôi. Màu sắc: Tông màu trung tính kết hợp điểm nhấn cam.',
         date: '2025-03-20',
+        views: 150,
+        relatedProducts: [4, 5],
       },
     ];
   }

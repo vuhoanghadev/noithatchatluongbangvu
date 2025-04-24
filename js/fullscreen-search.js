@@ -1465,9 +1465,9 @@ function displayBlogResults(posts) {
                         <span class="search-blog-date"><i class="far fa-calendar-alt"></i> ${
                           post.blogDate || formatDate(post.date)
                         }</span>
-                        <span class="search-blog-views"><i class="fas fa-eye"></i> ${viewCount.toLocaleString(
+                        <span class="search-blog-views"><i class="fas fa-eye"></i> <span>${viewCount.toLocaleString(
                           'vi-VN'
-                        )} lượt xem</span>
+                        )} lượt xem</span></span>
                     </div>
                 </div>
             </div>

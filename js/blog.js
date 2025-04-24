@@ -1376,6 +1376,12 @@ if (document.getElementById('post-title')) {
     relatedPosts.innerHTML = '';
     const related = posts
       .filter((p) => p.id !== postId && p.category === post.category)
+      // Sắp xếp theo thứ tự ID giảm dần
+      .sort((a, b) => {
+        const idA = parseInt(a.id);
+        const idB = parseInt(b.id);
+        return idB - idA; // Sắp xếp giảm dần
+      })
       .slice(0, 3);
     related.forEach((p) => {
       const card = document.createElement('div');

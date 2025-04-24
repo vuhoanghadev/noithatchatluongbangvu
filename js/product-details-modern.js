@@ -299,7 +299,9 @@ document.addEventListener('DOMContentLoaded', function () {
                 <i class="fas fa-tag"></i> GIÁ BÁN
             </div>
             <div class="price-value">
-                <span class="contact-price">${product.price || 'Liên hệ'}</span>
+                <span class="contact-price">${
+                  formatPrice(product.price) || 'Liên hệ'
+                }</span>
             </div>
             <div class="price-note">
                 <i class="fas fa-info-circle"></i> Liên hệ để được tư vấn về kích thước và màu sắc
@@ -522,7 +524,7 @@ document.addEventListener('DOMContentLoaded', function () {
                     </div>
                 </div>
                 <div class="product-price">
-                    <span>${product.price || 'Liên hệ'}</span>
+                    <span>${formatPrice(product.price) || 'Liên hệ'}</span>
                 </div>
                 <div class="product-action">
                     <a href="product-details.html?id=${
@@ -615,7 +617,7 @@ document.addEventListener('DOMContentLoaded', function () {
                     </div>
                 </div>
                 <div class="product-price">
-                    <span>${product.price || 'Liên hệ'}</span>
+                    <span>${formatPrice(product.price) || 'Liên hệ'}</span>
                 </div>
                 <div class="product-action">
                     <a href="product-details.html?id=${
@@ -824,6 +826,22 @@ function initFlashsaleCountdown() {
 
   // Then update every second
   setInterval(updateTimer, 1000);
+}
+
+// Function to format price based on whether it's a number or text
+function formatPrice(price) {
+  if (!price) return 'Liên hệ';
+
+  // Check if price is a number format or text
+  if (typeof price === 'number' || /^[\d.,]+$/.test(price.replace(/\./g, ''))) {
+    // If it's a number format, add the đ symbol
+    return typeof price === 'number'
+      ? price.toLocaleString('vi-VN') + 'đ'
+      : price + 'đ';
+  } else {
+    // If it's text like "liên hệ", don't add the đ symbol
+    return price;
+  }
 }
 
 // Function to generate SKU from product data

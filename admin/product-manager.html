@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quản lý Sản phẩm - Nội Thất Chất Lượng Bàng Vũ</title>
+    <link rel="stylesheet" href="css/product-manager.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Quản lý Sản phẩm</h1>
+            <div class="actions">
+                <button id="addProductBtn" class="btn primary">Thêm sản phẩm mới</button>
+                <button id="exportBtn" class="btn success">Xuất file products.js</button>
+            </div>
+        </header>
+
+        <main>
+            <div class="product-list-container">
+                <h2>Danh sách sản phẩm</h2>
+                <div class="search-container">
+                    <input type="text" id="searchInput" placeholder="Tìm kiếm sản phẩm...">
+                </div>
+                <div class="product-list" id="productList">
+                    <!-- Danh sách sản phẩm sẽ được thêm vào đây bằng JavaScript -->
+                </div>
+            </div>
+
+            <div id="productFormContainer" class="form-container hidden">
+                <h2 id="formTitle">Thêm sản phẩm mới</h2>
+                <form id="productForm">
+                    <input type="hidden" id="productId">
+                    
+                    <div class="form-group">
+                        <label for="productName">Tên sản phẩm *</label>
+                        <input type="text" id="productName" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="productCategory">Danh mục *</label>
+                        <input type="text" id="productCategory" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="productImage">Hình ảnh chính *</label>
+                        <input type="text" id="productImage" required placeholder="Đường dẫn hình ảnh (ví dụ: images/products/product1.png)">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="productDescription">Mô tả *</label>
+                        <textarea id="productDescription" rows="4" required></textarea>
+                    </div>
+                    
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="productSize">Kích thước</label>
+                            <input type="text" id="productSize" placeholder="Ví dụ: 120x180x50cm">
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="productWarranty">Bảo hành</label>
+                            <input type="text" id="productWarranty" placeholder="Ví dụ: 10 năm">
+                        </div>
+                    </div>
+                    
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="productPrice">Giá</label>
+                            <input type="text" id="productPrice" placeholder="Ví dụ: Liên Hệ">
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="productMaterial">Chất liệu</label>
+                            <input type="text" id="productMaterial" placeholder="Ví dụ: Nhựa Đài Loan Cao Cấp">
+                        </div>
+                    </div>
+                    
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="productPromotion">Khuyến mãi</label>
+                            <input type="text" id="productPromotion" placeholder="Ví dụ: Ưu đãi đặc biệt">
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="productTag">Tag</label>
+                            <input type="text" id="productTag" placeholder="Ví dụ: bán chạy">
+                        </div>
+                    </div>
+                    
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="productRating">Đánh giá</label>
+                            <input type="number" id="productRating" min="0" max="5" step="0.1" placeholder="Ví dụ: 4.7">
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="productViews">Lượt xem</label>
+                            <input type="number" id="productViews" min="0" placeholder="Ví dụ: 1250">
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="productSoldCount">Đã bán</label>
+                            <input type="number" id="productSoldCount" min="0" placeholder="Ví dụ: 120">
+                        </div>
+                    </div>
+                    
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="productPromoEndDate">Ngày kết thúc khuyến mãi</label>
+                            <input type="datetime-local" id="productPromoEndDate">
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="productSku">SKU</label>
+                            <input type="text" id="productSku" placeholder="Ví dụ: NTBV-QA205">
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="productFeatured">Sản phẩm nổi bật</label>
+                            <select id="productFeatured">
+                                <option value="false">Không</option>
+                                <option value="true">Có</option>
+                            </select>
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="productGallery">Thư viện hình ảnh</label>
+                        <textarea id="productGallery" rows="3" placeholder="Mỗi đường dẫn hình ảnh trên một dòng"></textarea>
+                    </div>
+                    
+                    <div class="form-group collapsible">
+                        <div class="collapsible-header">
+                            <label>Thông tin Flash Sale</label>
+                            <span class="toggle-icon">+</span>
+                        </div>
+                        <div class="collapsible-content">
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label for="flashsaleActive">Kích hoạt</label>
+                                    <select id="flashsaleActive">
+                                        <option value="false">Không</option>
+                                        <option value="true">Có</option>
+                                    </select>
+                                </div>
+                                
+                                <div class="form-group">
+                                    <label for="flashsaleDiscountPercent">Phần trăm giảm giá</label>
+                                    <input type="number" id="flashsaleDiscountPercent" min="0" max="100" placeholder="Ví dụ: 30">
+                                </div>
+                            </div>
+                            
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label for="flashsaleOldPrice">Giá cũ</label>
+                                    <input type="number" id="flashsaleOldPrice" min="0" placeholder="Ví dụ: 5000000">
+                                </div>
+                                
+                                <div class="form-group">
+                                    <label for="flashsaleNewPrice">Giá mới</label>
+                                    <input type="number" id="flashsaleNewPrice" min="0" placeholder="Ví dụ: 3500000">
+                                </div>
+                            </div>
+                            
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label for="flashsaleType">Loại</label>
+                                    <select id="flashsaleType">
+                                        <option value="fixed">Cố định</option>
+                                        <option value="daily">Hàng ngày</option>
+                                    </select>
+                                </div>
+                                
+                                <div class="form-group">
+                                    <label for="flashsaleEndsAt">Kết thúc lúc</label>
+                                    <input type="datetime-local" id="flashsaleEndsAt">
+                                </div>
+                                
+                                <div class="form-group">
+                                    <label for="flashsaleHidePrice">Ẩn giá</label>
+                                    <select id="flashsaleHidePrice">
+                                        <option value="false">Không</option>
+                                        <option value="true">Có</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="form-group collapsible">
+                        <div class="collapsible-header">
+                            <label>Thông số kỹ thuật</label>
+                            <span class="toggle-icon">+</span>
+                        </div>
+                        <div class="collapsible-content">
+                            <div id="specificationsContainer">
+                                <div class="specification-item">
+                                    <input type="text" class="spec-key" placeholder="Tên thông số">
+                                    <input type="text" class="spec-value" placeholder="Giá trị">
+                                    <button type="button" class="remove-spec-btn">Xóa</button>
+                                </div>
+                            </div>
+                            <button type="button" id="addSpecBtn" class="btn secondary">Thêm thông số</button>
+                        </div>
+                    </div>
+                    
+                    <div class="form-group collapsible">
+                        <div class="collapsible-header">
+                            <label>Mô tả chi tiết</label>
+                            <span class="toggle-icon">+</span>
+                        </div>
+                        <div class="collapsible-content">
+                            <div class="form-group">
+                                <label for="detailedContent">Nội dung</label>
+                                <textarea id="detailedContent" rows="6" placeholder="Nhập nội dung HTML"></textarea>
+                            </div>
+                            
+                            <div id="detailedImagesContainer">
+                                <h4>Hình ảnh mô tả</h4>
+                                <div class="detailed-image-item">
+                                    <input type="text" class="image-src" placeholder="Đường dẫn hình ảnh">
+                                    <input type="text" class="image-caption" placeholder="Chú thích">
+                                    <button type="button" class="remove-image-btn">Xóa</button>
+                                </div>
+                            </div>
+                            <button type="button" id="addDetailedImageBtn" class="btn secondary">Thêm hình ảnh</button>
+                        </div>
+                    </div>
+                    
+                    <div class="form-actions">
+                        <button type="button" id="cancelBtn" class="btn danger">Hủy</button>
+                        <button type="submit" class="btn success">Lưu sản phẩm</button>
+                    </div>
+                </form>
+            </div>
+        </main>
+
+        <div id="exportModal" class="modal hidden">
+            <div class="modal-content">
+                <span class="close-modal">&times;</span>
+                <h2>Xuất file products.js</h2>
+                <p>Copy nội dung bên dưới và lưu vào file products.js:</p>
+                <div class="code-container">
+                    <pre id="exportCode"></pre>
+                </div>
+                <button id="copyExportBtn" class="btn primary">Copy vào clipboard</button>
+                <button id="downloadExportBtn" class="btn success">Tải xuống file</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="../js/products.js"></script>
+    <script src="js/product-manager.js"></script>
+</body>
+</html>

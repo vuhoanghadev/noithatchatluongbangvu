@@ -824,7 +824,8 @@
     }
 
     .search-blog-meta {
-        gap: 10px;
+        gap: 8px;
+        font-size: 11px;
     }
 
     .search-result-title {
@@ -978,11 +979,12 @@ body.search-active [class*="scroll-to-top"] {
 
 .search-blog-info {
     flex: 1;
-    padding: 15px 20px 15px 0;
+    padding: 15px 15px 15px 0;
     display: flex;
     flex-direction: column;
     overflow: hidden;
     justify-content: center;
+    width: 100%;
 }
 
 .search-blog-title {
@@ -1015,32 +1017,51 @@ body.search-active [class*="scroll-to-top"] {
 .search-blog-meta {
     display: flex;
     align-items: center;
-    gap: 15px;
+    gap: 10px;
     font-size: 12px;
     color: #777;
-    flex-wrap: wrap;
+    flex-wrap: nowrap;
+    /* Prevent wrapping by default */
+    white-space: nowrap;
+    /* Keep all content on one line */
+    width: 100%;
+    /* Use full width of container */
+    padding-right: 5px;
+    /* Small padding to prevent touching the edge */
 }
 
 .search-blog-date {
     display: flex;
     align-items: center;
+    flex-shrink: 0;
+    /* Prevent date from shrinking */
+    margin-right: 5px;
 }
 
 .search-blog-date i {
     margin-right: 4px;
     font-size: 11px;
     color: #0058dd;
+    flex-shrink: 0;
+    /* Prevent icon from shrinking */
 }
 
 .search-blog-views {
     display: flex;
     align-items: center;
+    flex-shrink: 1;
+    /* Allow views to shrink if needed */
+    flex-grow: 1;
+    /* Allow views to grow and fill available space */
+    justify-content: flex-start;
 }
 
 .search-blog-views i {
     margin-right: 4px;
     font-size: 11px;
     color: #0058dd;
+    flex-shrink: 0;
+    /* Prevent icon from shrinking */
 }
 
 .search-blog-category {
@@ -1536,4 +1557,38 @@ body.search-active [class*="scroll-to-top"] {
 
 .search-tabs .search-filter-toggle.active i {
     color: #0058dd;
+}
+
+/* Extra small devices (phones, 480px and down) */
+@media (max-width: 480px) {
+    .search-blog-meta {
+        font-size: 12px;
+        /* Maintain readable font size */
+        gap: 8px;
+    }
+
+    .search-blog-date {
+        /* Compact date display on mobile */
+        flex-basis: auto;
+    }
+
+    .search-blog-views {
+        /* Allow views to take remaining space */
+        flex: 1;
+    }
+
+    /* Allow view counts to extend to the edge */
+    .search-blog-views span {
+        display: inline-block;
+        width: 100%;
+    }
+}
+
+/* Very small devices (small phones, 375px and down) */
+@media (max-width: 375px) {
+    .search-blog-meta {
+        font-size: 11px;
+        /* Still maintain readable size */
+        gap: 6px;
+    }
 }

@@ -349,7 +349,7 @@
 }
 
 .promo-card-title.truncated::after {
-    display: block;
+    /* display: block; */
 }
 
 .promo-card-category {
