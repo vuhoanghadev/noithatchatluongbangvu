@@ -1004,7 +1004,7 @@ const products = [
     name: 'Bàn Trang Điểm Gỗ Tự Nhiên Sang Trọng',
     category: 'Bàn Trang Điểm',
     image: 'images/products/product5.png',
-    price: '5.500.000',
+    price: '5.500.000đ',
     description:
       'Bàn trang điểm gỗ tự nhiên được chế tác từ gỗ sồi cao cấp, mang lại vẻ đẹp sang trọng và tinh tế cho phòng ngủ. Với thiết kế hiện đại, bàn đi kèm gương lớn và các ngăn kéo, kệ lưu trữ rộng rãi, phù hợp để sắp xếp mỹ phẩm, phụ kiện và đồ dùng cá nhân. Bề mặt gỗ được phủ lớp sơn PU cao cấp, chống thấm nước, chống mối mọt và chống trầy xước, đảm bảo độ bền lâu dài. Kích thước bàn phù hợp với nhiều không gian phòng ngủ, từ căn hộ nhỏ đến nhà phố lớn, mang lại sự tiện nghi và thẩm mỹ.',
     size: '85x40x130cm',
@@ -1439,18 +1439,10 @@ const products = [
 if (document.getElementById('featured-products')) {
   const featuredProducts = document.getElementById('featured-products');
 
-  // Sắp xếp sản phẩm theo thứ tự ID giảm dần (từ ID cao đến ID thấp)
-  const sortedProducts = [...products].sort((a, b) => {
-    const idA = parseInt(a.id);
-    const idB = parseInt(b.id);
-    return idB - idA; // Sắp xếp giảm dần
-  });
-
   // Lọc sản phẩm nổi bật dựa vào trường featured
-  const featured = sortedProducts.filter((p) => p.featured === true);
+  const featured = products.filter((p) => p.featured === true);
   // Nếu không có sản phẩm nào có trường featured = true, lấy 6 sản phẩm đầu tiên
-  const featuredToShow =
-    featured.length > 0 ? featured : sortedProducts.slice(0, 6);
+  const featuredToShow = featured.length > 0 ? featured : products.slice(0, 6);
 
   featuredToShow.forEach((product) => {
     const card = document.createElement('div');
@@ -1673,14 +1665,6 @@ if (document.getElementById('product-grid')) {
         return nameMatch || descMatch;
       });
     }
-
-    // Sắp xếp sản phẩm theo thứ tự ID giảm dần (từ ID cao đến ID thấp)
-    filtered.sort((a, b) => {
-      const idA = parseInt(a.id);
-      const idB = parseInt(b.id);
-      return idB - idA; // Sắp xếp giảm dần
-    });
-
     return filtered;
   }
 
