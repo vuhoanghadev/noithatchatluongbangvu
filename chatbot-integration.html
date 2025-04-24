@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tích hợp Chatbot AI - Nội Thất Chất Lượng Bàng Vũ</title>
+    
+    <!-- Hướng dẫn tích hợp Chatbot AI -->
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        h1 {
+            color: #f97316;
+            border-bottom: 2px solid #f97316;
+            padding-bottom: 10px;
+        }
+        h2 {
+            color: #ea580c;
+            margin-top: 30px;
+        }
+        code {
+            background-color: #f5f5f5;
+            padding: 2px 5px;
+            border-radius: 4px;
+            font-family: Consolas, Monaco, 'Andale Mono', monospace;
+        }
+        pre {
+            background-color: #f5f5f5;
+            padding: 15px;
+            border-radius: 8px;
+            overflow-x: auto;
+            font-family: Consolas, Monaco, 'Andale Mono', monospace;
+        }
+        .note {
+            background-color: #fff8e6;
+            border-left: 4px solid #f97316;
+            padding: 15px;
+            margin: 20px 0;
+            border-radius: 0 8px 8px 0;
+        }
+        .step {
+            background-color: #f8f9fa;
+            padding: 20px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+        }
+        .step h3 {
+            margin-top: 0;
+            color: #f97316;
+        }
+    </style>
+</head>
+<body>
+    <h1>Hướng dẫn tích hợp Chatbot AI vào trang web</h1>
+    
+    <div class="note">
+        <strong>Lưu ý:</strong> Chatbot AI này được thiết kế để tích hợp với dữ liệu từ <code>products.js</code> và <code>blog.js</code> để cung cấp trải nghiệm tư vấn thông minh cho người dùng.
+    </div>
+    
+    <div class="step">
+        <h3>Bước 1: Thêm các file CSS và JavaScript</h3>
+        <p>Thêm các đoạn mã sau vào phần <code>&lt;head&gt;</code> của trang web:</p>
+        <pre>&lt;!-- Chatbot AI CSS --&gt;
+&lt;link rel="stylesheet" href="css/chatbot-ai.css"&gt;</pre>
+        
+        <p>Thêm các đoạn mã sau vào cuối phần <code>&lt;body&gt;</code> của trang web, sau khi đã tải <code>products.js</code> và <code>blog.js</code>:</p>
+        <pre>&lt;!-- Chatbot AI Scripts --&gt;
+&lt;script src="js/chatbot-ai.js"&gt;&lt;/script&gt;
+&lt;script src="js/chatbot-ai-handlers.js"&gt;&lt;/script&gt;</pre>
+    </div>
+    
+    <div class="step">
+        <h3>Bước 2: Thêm HTML cho Chatbot</h3>
+        <p>Thêm đoạn mã HTML sau vào cuối phần <code>&lt;body&gt;</code> của trang web:</p>
+        <pre>&lt;!-- Chatbot AI Widget --&gt;
+&lt;div class="ai-chat-widget"&gt;
+    &lt;i class="fas fa-robot"&gt;&lt;/i&gt;
+&lt;/div&gt;
+
+&lt;!-- Chatbot AI Container --&gt;
+&lt;div class="ai-chat-container"&gt;
+    &lt;div class="ai-chat-header"&gt;
+        &lt;h3&gt;&lt;i class="fas fa-robot"&gt;&lt;/i&gt; Trợ lý ảo Bàng Vũ&lt;/h3&gt;
+        &lt;button class="ai-chat-close"&gt;&lt;i class="fas fa-times"&gt;&lt;/i&gt;&lt;/button&gt;
+    &lt;/div&gt;
+    &lt;div class="ai-chat-messages"&gt;
+        &lt;!-- Tin nhắn sẽ được thêm vào đây --&gt;
+    &lt;/div&gt;
+    &lt;div class="ai-chat-input"&gt;
+        &lt;input type="text" placeholder="Nhập câu hỏi của bạn..."&gt;
+        &lt;button&gt;&lt;i class="fas fa-paper-plane"&gt;&lt;/i&gt;&lt;/button&gt;
+    &lt;/div&gt;
+&lt;/div&gt;</pre>
+    </div>
+    
+    <div class="step">
+        <h3>Bước 3: Kiểm tra Font Awesome</h3>
+        <p>Đảm bảo rằng Font Awesome đã được tải trong trang web của bạn. Nếu chưa, thêm đoạn mã sau vào phần <code>&lt;head&gt;</code>:</p>
+        <pre>&lt;link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"&gt;</pre>
+    </div>
+    
+    <div class="note">
+        <h3>Cách hoạt động của Chatbot AI</h3>
+        <p>Chatbot AI sẽ tự động tải dữ liệu từ <code>products.js</code> và <code>blog.js</code> khi trang web được tải. Nó sẽ phân tích các câu hỏi của người dùng và cung cấp câu trả lời phù hợp dựa trên dữ liệu sản phẩm và bài viết.</p>
+        <p>Các tính năng chính:</p>
+        <ul>
+            <li>Tìm kiếm và gợi ý sản phẩm dựa trên từ khóa</li>
+            <li>Tìm kiếm và gợi ý bài viết liên quan</li>
+            <li>Cung cấp thông tin về chính sách bảo hành, giao hàng</li>
+            <li>Hiển thị thông tin liên hệ</li>
+            <li>Thông báo về các chương trình khuyến mãi</li>
+        </ul>
+    </div>
+    
+    <div class="step">
+        <h3>Tùy chỉnh nâng cao</h3>
+        <p>Bạn có thể tùy chỉnh chatbot bằng cách chỉnh sửa các biến trong file <code>chatbot-ai.js</code>:</p>
+        <ul>
+            <li><code>chatbotConfig.greetings</code>: Thay đổi các lời chào</li>
+            <li><code>chatbotConfig.defaultResponses</code>: Thay đổi câu trả lời mặc định</li>
+            <li><code>chatbotConfig.contactInfo</code>: Cập nhật thông tin liên hệ</li>
+            <li><code>intentPatterns</code>: Thêm hoặc sửa các mẫu câu để nhận diện ý định người dùng</li>
+        </ul>
+    </div>
+    
+    <div class="note">
+        <p><strong>Lưu ý quan trọng:</strong> Đảm bảo rằng các file <code>products.js</code> và <code>blog.js</code> được tải trước khi tải <code>chatbot-ai.js</code> và <code>chatbot-ai-handlers.js</code> để chatbot có thể truy cập dữ liệu.</p>
+    </div>
+</body>
+</html>

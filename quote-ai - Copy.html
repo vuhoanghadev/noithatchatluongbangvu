@@ -53,7 +53,6 @@
     <link rel="stylesheet" href="css/banner-new.css">
     <link rel="stylesheet" href="css/footer-modern.css">
     <link rel="stylesheet" href="css/floating-contact-new.css">
-    <link rel="stylesheet" href="css/chatbot-ai.css">
     <style>
         body {
             font-family: 'Poppins', sans-serif;
@@ -105,247 +104,6 @@
             /* Ensure button is above other elements */
             overflow: hidden;
             /* For ripple effect */
-        }
-
-        /* Improved Toggle Switch Styles */
-        .toggle-checkbox {
-            right: 0;
-            opacity: 0;
-            z-index: 0;
-        }
-
-        .toggle-label {
-            position: relative;
-            transition: all 0.3s ease;
-            cursor: pointer;
-            box-shadow: inset 0 0 3px rgba(0, 0, 0, 0.1);
-        }
-
-        .toggle-label:before {
-            content: "TẮT";
-            position: absolute;
-            right: 10px;
-            top: 50%;
-            transform: translateY(-50%);
-            font-size: 10px;
-            font-weight: bold;
-            color: #666;
-            text-transform: uppercase;
-            transition: all 0.3s ease;
-        }
-
-        .toggle-checkbox:checked+.toggle-label {
-            background-color: #f97316;
-        }
-
-        .toggle-checkbox:checked+.toggle-label:before {
-            content: "BẬT";
-            left: 10px;
-            right: auto;
-            color: white;
-        }
-
-        /* Hover effect to indicate interactivity */
-        .relative.inline-block:hover .toggle-label {
-            box-shadow: 0 0 0 2px rgba(249, 115, 22, 0.2);
-        }
-
-        /* Add a subtle animation */
-        .toggle-checkbox:checked+.toggle-label {
-            animation: toggleOn 0.3s ease-in-out;
-        }
-
-        @keyframes toggleOn {
-            0% {
-                transform: scale(0.95);
-            }
-
-            50% {
-                transform: scale(1.05);
-            }
-
-            100% {
-                transform: scale(1);
-            }
-        }
-
-        /* Styles for product image preview */
-        #productImagePreview {
-            transition: all 0.3s ease;
-            max-height: 0;
-            opacity: 0;
-        }
-
-        #productImagePreview.show {
-            max-height: 200px;
-            opacity: 1;
-            margin-top: 0.5rem;
-        }
-
-        /* Styles for 3D preview */
-        #product3DPreview {
-            position: relative;
-            overflow: hidden;
-            transition: all 0.5s ease;
-        }
-
-        #product3DModel {
-            transition: transform 1s ease;
-        }
-
-        .rotating {
-            animation: rotate3D 5s infinite linear;
-        }
-
-        @keyframes rotate3D {
-            0% {
-                transform: rotateY(0deg);
-            }
-
-            100% {
-                transform: rotateY(360deg);
-            }
-        }
-
-        /* Styles for AI chat widget */
-        .ai-chat-widget {
-            position: fixed;
-            bottom: 80px;
-            left: 20px;
-            /* Đặt ở góc trái thay vì góc phải */
-            width: 60px;
-            height: 60px;
-            background-color: #f97316;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: white;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
-            cursor: pointer;
-            z-index: 999;
-            transition: all 0.3s ease;
-        }
-
-        .ai-chat-widget:hover {
-            transform: scale(1.1);
-        }
-
-        .ai-chat-widget i {
-            font-size: 24px;
-        }
-
-        .ai-chat-container {
-            position: fixed;
-            bottom: 80px;
-            left: 20px;
-            /* Đặt ở góc trái thay vì góc phải */
-            width: 350px;
-            height: 450px;
-            background-color: white;
-            border-radius: 12px;
-            box-shadow: 0 5px 25px rgba(0, 0, 0, 0.2);
-            z-index: 1000;
-            display: none;
-            flex-direction: column;
-            overflow: hidden;
-        }
-
-        .ai-chat-container.open {
-            display: flex;
-        }
-
-        /* Responsive styles for AI chat widget */
-        @media (max-width: 768px) {
-            .ai-chat-widget {
-                bottom: 140px;
-                /* Increase bottom position on mobile to avoid bottom nav */
-                left: 15px;
-                width: 50px;
-                height: 50px;
-            }
-
-            .ai-chat-container {
-                bottom: 140px;
-                left: 15px;
-                width: 300px;
-                height: 400px;
-            }
-        }
-
-        .ai-chat-header {
-            background-color: #f97316;
-            color: white;
-            padding: 15px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        .ai-chat-header h3 {
-            margin: 0;
-            font-size: 16px;
-            font-weight: 600;
-        }
-
-        .ai-chat-close {
-            background: none;
-            border: none;
-            color: white;
-            cursor: pointer;
-            font-size: 18px;
-        }
-
-        .ai-chat-messages {
-            flex: 1;
-            padding: 15px;
-            overflow-y: auto;
-        }
-
-        .ai-chat-input {
-            border-top: 1px solid #e5e7eb;
-            padding: 10px;
-            display: flex;
-        }
-
-        .ai-chat-input input {
-            flex: 1;
-            padding: 10px;
-            border: 1px solid #e5e7eb;
-            border-radius: 20px;
-            outline: none;
-        }
-
-        .ai-chat-input button {
-            background-color: #f97316;
-            color: white;
-            border: none;
-            border-radius: 20px;
-            padding: 10px 15px;
-            margin-left: 10px;
-            cursor: pointer;
-        }
-
-        .ai-message {
-            margin-bottom: 10px;
-            max-width: 80%;
-        }
-
-        .ai-message-bot {
-            background-color: #f3f4f6;
-            padding: 10px 15px;
-            border-radius: 18px 18px 18px 0;
-            align-self: flex-start;
-            color: #4b5563;
-        }
-
-        .ai-message-user {
-            background-color: #f97316;
-            color: white;
-            padding: 10px 15px;
-            border-radius: 18px 18px 0 18px;
-            align-self: flex-end;
-            margin-left: auto;
         }
 
         #suggestSize:hover {
@@ -406,9 +164,8 @@
                 padding-top: 105px !important;
             }
 
-            /* Adjust spacing for mobile */
             .ai-pricing-section {
-                padding-top: 4rem !important;
+                /* padding-top: 6rem !important; */
             }
 
             .mobile-contact-btn {
@@ -908,25 +665,6 @@
             transition: all 0.3s ease;
         }
 
-        /* Tiêu đề với gạch chân cho Lịch Sử Báo Giá */
-        #historySection h2 {
-            position: relative;
-            width: 100%;
-            text-align: center;
-            padding-bottom: 10px;
-            margin-bottom: 20px;
-        }
-
-        #historySection h2::after {
-            content: '';
-            display: block;
-            width: 50px;
-            height: 3px;
-            background: var(--primary-color);
-            margin: 15px auto 0;
-            box-shadow: 0 2px 4px rgba(255, 107, 53, 0.3);
-        }
-
         /* Particle Animation */
         .particle {
             position: absolute;
@@ -1291,7 +1029,7 @@
         </div>
 
         <div class="mobile-contact-btn visible">
-            <a href="tel:0972774646" class="contact-btn"><i class="fas fa-phone"></i> TƯ VẤN MIỄN PHÍ</a>
+            <a href="https://zalo.me/123456789" class="contact-btn"><i class="fas fa-comment"></i> TƯ VẤN MIỄN PHÍ</a>
         </div>
     </div>
 
@@ -1365,11 +1103,6 @@
                                         <option value="book">Tủ sách</option>
                                         <option value="bed">Giường ngủ</option>
                                     </select>
-                                    <!-- Hình ảnh minh họa sản phẩm -->
-                                    <div id="productImagePreview" class="mt-2 rounded-lg overflow-hidden hidden">
-                                        <img id="productImage" src="" alt="Hình ảnh sản phẩm"
-                                            class="w-full h-auto object-cover">
-                                    </div>
                                 </div>
                                 <div class="form-group">
                                     <label for="material" class="form-label">Chất liệu</label>
@@ -1383,39 +1116,21 @@
 
                                 <!-- Kích thước -->
                                 <div class="form-group">
-                                    <label for="width" class="form-label">Chiều rộng (m): <span
-                                            id="widthValue">1.5</span></label>
-                                    <div class="flex items-center gap-2">
-                                        <input type="range" id="widthSlider"
-                                            class="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer"
-                                            min="0.5" max="10" step="0.1" value="1.5">
-                                        <input type="number" id="width" class="form-input w-20" step="0.1" min="0.5"
-                                            max="10" value="1.5" required>
-                                    </div>
+                                    <label for="width" class="form-label">Chiều rộng (m)</label>
+                                    <input type="number" id="width" class="form-input" step="0.1" min="0.5" max="10"
+                                        required>
                                 </div>
                                 <div class="form-group">
-                                    <label for="height" class="form-label">Chiều cao (m): <span
-                                            id="heightValue">2.0</span></label>
-                                    <div class="flex items-center gap-2">
-                                        <input type="range" id="heightSlider"
-                                            class="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer"
-                                            min="0.5" max="3" step="0.1" value="2.0">
-                                        <input type="number" id="height" class="form-input w-20" step="0.1" min="0.5"
-                                            max="3" value="2.0" required>
-                                    </div>
+                                    <label for="height" class="form-label">Chiều cao (m)</label>
+                                    <input type="number" id="height" class="form-input" step="0.1" min="0.5" max="3"
+                                        required>
                                 </div>
 
                                 <!-- Chiều sâu và Gợi ý kích thước -->
                                 <div class="form-group">
-                                    <label for="depth" class="form-label">Chiều sâu (m): <span
-                                            id="depthValue">0.6</span></label>
-                                    <div class="flex items-center gap-2">
-                                        <input type="range" id="depthSlider"
-                                            class="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer"
-                                            min="0.3" max="1" step="0.1" value="0.6">
-                                        <input type="number" id="depth" class="form-input w-20" step="0.1" min="0.3"
-                                            max="1" value="0.6" required>
-                                    </div>
+                                    <label for="depth" class="form-label">Chiều sâu (m)</label>
+                                    <input type="number" id="depth" class="form-input" step="0.1" min="0.3" max="1"
+                                        required>
                                 </div>
                                 <div class="form-group">
                                     <label class="form-label">Gợi ý tự động</label>
@@ -1445,90 +1160,12 @@
 
                     <!-- History Section -->
                     <div id="historySection" class="ai-pricing-card">
-                        <!-- Tiêu đề -->
-                        <h2 class="text-2xl font-semibold mb-6 text-gray-900 text-center">Lịch Sử Báo Giá</h2>
-
-                        <!-- Nút xóa tất cả -->
-                        <div class="mb-4">
-                            <button id="clearHistory"
-                                class="btn-secondary px-4 py-2 flex items-center justify-center text-base w-full">
-                                <i class="fas fa-trash-alt mr-2"></i>
-                                Xóa tất cả
-                            </button>
+                        <div class="flex justify-between items-center mb-6">
+                            <h2 class="text-2xl font-semibold text-gray-900">Lịch Sử Báo Giá</h2>
+                            <button id="clearHistory" class="btn-secondary text-sm px-3 py-1">Xóa tất cả</button>
                         </div>
-
-                        <!-- Bộ lọc danh mục -->
-                        <div class="mb-4">
-                            <label for="historyFilter" class="block text-sm font-medium text-gray-700 mb-2">Lọc theo
-                                danh mục:</label>
-                            <select id="historyFilter"
-                                class="w-full border border-gray-300 rounded-lg px-3 py-2 bg-white focus:outline-none focus:ring-2 focus:ring-orange-500 focus:border-orange-500">
-                                <option value="all">Tất cả danh mục</option>
-                                <option value="wardrobe">Tủ quần áo</option>
-                                <option value="kitchen">Tủ bếp</option>
-                                <option value="shoe">Tủ giày</option>
-                                <option value="study">Tủ bàn học</option>
-                                <option value="book">Tủ sách</option>
-                                <option value="bed">Giường ngủ</option>
-                            </select>
-                        </div>
-
-                        <!-- Danh sách lịch sử -->
-                        <div id="historyList"
-                            class="max-h-96 overflow-y-auto border border-gray-100 rounded-lg bg-gray-50 p-4">
-                            <p class="text-gray-600 text-center py-8">Chưa có báo giá nào</p>
-                        </div>
-
-                        <!-- User Preferences Section -->
-                        <div class="mt-6 pt-6 border-t border-gray-200">
-                            <h3 class="text-xl font-semibold mb-5 text-gray-900 flex items-center">
-                                <i class="fas fa-user-cog text-orange-500 mr-3 text-xl"></i>
-                                Thiết Lập Cá Nhân
-                            </h3>
-                            <div class="space-y-3">
-                                <div
-                                    class="flex items-center justify-between p-3 hover:bg-orange-50 rounded-lg transition-all mb-2 border border-gray-100">
-                                    <label for="savePreferences"
-                                        class="text-base text-gray-700 flex items-center cursor-pointer">
-                                        <i class="fas fa-save text-orange-500 mr-3 text-lg"></i>
-                                        Lưu thiết lập của tôi
-                                    </label>
-                                    <div class="relative inline-block w-14 mr-2 align-middle select-none">
-                                        <input type="checkbox" id="savePreferences"
-                                            class="toggle-checkbox absolute block w-7 h-7 rounded-full bg-white border-4 appearance-none cursor-pointer" />
-                                        <label for="savePreferences"
-                                            class="toggle-label block overflow-hidden h-7 rounded-full bg-gray-300 cursor-pointer"></label>
-                                    </div>
-                                </div>
-                                <div
-                                    class="flex items-center justify-between p-3 hover:bg-orange-50 rounded-lg transition-all mb-2 border border-gray-100">
-                                    <label for="showRecommendations"
-                                        class="text-base text-gray-700 flex items-center cursor-pointer">
-                                        <i class="fas fa-lightbulb text-orange-500 mr-3 text-lg"></i>
-                                        Hiển thị gợi ý từ AI
-                                    </label>
-                                    <div class="relative inline-block w-14 mr-2 align-middle select-none">
-                                        <input type="checkbox" id="showRecommendations" checked
-                                            class="toggle-checkbox absolute block w-7 h-7 rounded-full bg-white border-4 appearance-none cursor-pointer" />
-                                        <label for="showRecommendations"
-                                            class="toggle-label block overflow-hidden h-7 rounded-full bg-gray-300 cursor-pointer"></label>
-                                    </div>
-                                </div>
-                                <div
-                                    class="flex items-center justify-between p-3 hover:bg-orange-50 rounded-lg transition-all mb-2 border border-gray-100">
-                                    <label for="show3DPreview"
-                                        class="text-base text-gray-700 flex items-center cursor-pointer">
-                                        <i class="fas fa-cube text-orange-500 mr-3 text-lg"></i>
-                                        Hiển thị xem trước 3D
-                                    </label>
-                                    <div class="relative inline-block w-14 mr-2 align-middle select-none">
-                                        <input type="checkbox" id="show3DPreview" checked
-                                            class="toggle-checkbox absolute block w-7 h-7 rounded-full bg-white border-4 appearance-none cursor-pointer" />
-                                        <label for="show3DPreview"
-                                            class="toggle-label block overflow-hidden h-7 rounded-full bg-gray-300 cursor-pointer"></label>
-                                    </div>
-                                </div>
-                            </div>
+                        <div id="historyList" class="max-h-96 overflow-y-auto">
+                            <p class="text-gray-600 text-center">Chưa có báo giá nào</p>
                         </div>
                     </div>
 
@@ -1606,31 +1243,6 @@
                                     </div>
                                 </div>
                             </div>
-
-                            <!-- 3D Preview Section -->
-                            <div class="mt-4 pt-4 border-t border-gray-100">
-                                <h4 class="text-md font-semibold mb-3 text-gray-900 flex items-center">
-                                    <i class="fas fa-cube text-orange-500 mr-2"></i>
-                                    Xem trước 3D
-                                </h4>
-                                <div id="product3DPreview"
-                                    class="bg-gray-50 rounded-lg p-4 flex items-center justify-center"
-                                    style="height: 200px;">
-                                    <div id="product3DModel" class="relative w-full h-full">
-                                        <!-- 3D model will be rendered here -->
-                                        <div class="absolute inset-0 flex items-center justify-center"
-                                            id="product3DPlaceholder">
-                                            <i class="fas fa-cube text-gray-300 text-5xl"></i>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="flex justify-center mt-2">
-                                    <button type="button" id="rotate3DModel"
-                                        class="text-sm text-orange-500 flex items-center">
-                                        <i class="fas fa-sync-alt mr-1"></i> Xoay mô hình
-                                    </button>
-                                </div>
-                            </div>
                         </div>
 
                         <!-- Price Card -->
@@ -1681,58 +1293,15 @@
                                 </div>
                             </div>
 
-                            <!-- AI Recommendations Section -->
-                            <div class="mt-6 bg-white p-6 rounded-lg shadow-sm border-l-4 border-blue-500">
-                                <h4 class="text-md font-semibold mb-3 text-gray-900 flex items-center">
-                                    <i class="fas fa-robot text-blue-500 mr-2"></i>
-                                    Gợi Ý Từ AI
-                                </h4>
-                                <div id="aiRecommendations" class="text-gray-700">
-                                    <div id="aiSuggestionLoading" class="flex items-center justify-center py-4">
-                                        <div class="animate-spin rounded-full h-6 w-6 border-b-2 border-orange-500">
-                                        </div>
-                                        <span class="ml-2">Đang phân tích dữ liệu...</span>
-                                    </div>
-                                    <div id="aiSuggestionContent" class="hidden">
-                                        <p class="mb-2"><i class="fas fa-lightbulb text-yellow-500 mr-1"></i> <span
-                                                id="aiSuggestion1"></span></p>
-                                        <p class="mb-2"><i class="fas fa-lightbulb text-yellow-500 mr-1"></i> <span
-                                                id="aiSuggestion2"></span></p>
-                                        <p><i class="fas fa-lightbulb text-yellow-500 mr-1"></i> <span
-                                                id="aiSuggestion3"></span></p>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <!-- Related Products Section -->
-                            <div class="mt-6 bg-white p-6 rounded-lg shadow-sm border-l-4 border-green-500">
-                                <h4 class="text-md font-semibold mb-3 text-gray-900 flex items-center">
-                                    <i class="fas fa-th-large text-green-500 mr-2"></i>
-                                    Sản Phẩm Liên Quan
-                                </h4>
-                                <div id="relatedProductsLoading" class="flex items-center justify-center py-4">
-                                    <div class="animate-spin rounded-full h-6 w-6 border-b-2 border-green-500"></div>
-                                    <span class="ml-2">Đang tìm sản phẩm phù hợp...</span>
-                                </div>
-                                <div id="relatedProducts" class="grid grid-cols-2 md:grid-cols-3 gap-3 hidden"></div>
-                                <div class="mt-3 text-center">
-                                    <a href="products.html"
-                                        class="text-sm text-orange-500 hover:text-orange-600 inline-flex items-center">
-                                        Xem tất cả sản phẩm <i class="fas fa-arrow-right ml-1"></i>
-                                    </a>
-                                </div>
-                            </div>
-
                             <div class="mt-6 flex flex-col sm:flex-row gap-4 justify-center">
-                                <a href="tel:0972774646" class="btn-primary flex-1 flex items-center justify-center">
+                                <button class="btn-primary flex-1" onclick="window.location.href='tel:0987654321'">
                                     <i class="fas fa-phone-alt mr-2"></i>
                                     Liên Hệ Đặt Hàng
-                                </a>
-                                <a href="quy-trinh-thiet-ke.html"
-                                    class="btn-secondary flex-1 flex items-center justify-center">
-                                    <i class="fas fa-drafting-compass mr-2"></i>
-                                    Xem Quy Trình Thiết Kế
-                                </a>
+                                </button>
+                                <button class="btn-secondary flex-1" onclick="window.location.href='index.html'">
+                                    <i class="fas fa-arrow-left mr-2"></i>
+                                    Quay Về Trang Chủ
+                                </button>
                             </div>
                         </div>
                     </div>
@@ -1819,7 +1388,7 @@
                         <div class="p-6 bg-gray-50 border-t border-gray-100 text-center">
                             <p class="text-gray-700 mb-4">Hơn 1000+ khách hàng hài lòng tại Hà Nội và các tỉnh lân cận
                             </p>
-                            <a href="tel:0972774646"
+                            <a href="tel:0987654321"
                                 class="inline-flex items-center justify-center px-6 py-3 bg-orange-500 text-white font-medium rounded-lg hover:bg-orange-600 transition-colors">
                                 <i class="fas fa-phone-alt mr-2"></i>
                                 Gọi ngay để được tư vấn miễn phí
@@ -1891,8 +1460,8 @@
                         <div class="social-icons">
                             <a href="https://facebook.com/tunhuachatluong" class="facebook" target="_blank"><i
                                     class="fab fa-facebook-f"></i></a>
-                            <a href="tel:0972774646" class="zalo" target="_blank"><img src="./images/Icon_of_Zalo.svg"
-                                    alt="Zalo" style="width: 18px; height: 18px;"></a>
+                            <a href="https://zalo.me/123456789" class="zalo" target="_blank"><img
+                                    src="./images/Icon_of_Zalo.svg" alt="Zalo" style="width: 18px; height: 18px;"></a>
                             <a href="#" class="instagram"><i class="fab fa-instagram"></i></a>
                             <a href="#" class="youtube"><i class="fab fa-youtube"></i></a>
                         </div>
@@ -2327,297 +1896,6 @@
             }, 200); // Reduced delay for better responsiveness
         }
 
-        // Product image paths for preview
-        const productImages = {
-            wardrobe: './images/products/sanpham1/sanpham1.webp',
-            kitchen: './images/products/sanpham2/sanpham2.webp',
-            shoe: './images/products/sanpham3/sanpham3.webp',
-            study: './images/products/sanpham4/sanpham4.webp',
-            book: './images/products/sanpham5/sanpham5.webp',
-            bed: './images/products/sanpham6/sanpham6.webp'
-        };
-
-        // Add event listeners for form elements
-        document.addEventListener('DOMContentLoaded', function () {
-            // Product type change - update image preview
-            document.getElementById('productType').addEventListener('change', function () {
-                const productType = this.value;
-                if (productType) {
-                    // Update the product image preview
-                    const productImage = document.getElementById('productImage');
-                    productImage.src = productImages[productType];
-                    document.getElementById('productImagePreview').classList.add('show');
-
-                    // Update 3D preview
-                    update3DPreview();
-                } else {
-                    document.getElementById('productImagePreview').classList.remove('show');
-                }
-            });
-
-            // Slider inputs for dimensions
-            const widthSlider = document.getElementById('widthSlider');
-            const heightSlider = document.getElementById('heightSlider');
-            const depthSlider = document.getElementById('depthSlider');
-            const widthInput = document.getElementById('width');
-            const heightInput = document.getElementById('height');
-            const depthInput = document.getElementById('depth');
-            const widthValue = document.getElementById('widthValue');
-            const heightValue = document.getElementById('heightValue');
-            const depthValue = document.getElementById('depthValue');
-
-            // Width slider and input sync
-            widthSlider.addEventListener('input', function () {
-                widthInput.value = this.value;
-                widthValue.textContent = this.value;
-                update3DPreview();
-            });
-
-            widthInput.addEventListener('input', function () {
-                widthSlider.value = this.value;
-                widthValue.textContent = this.value;
-                update3DPreview();
-            });
-
-            // Height slider and input sync
-            heightSlider.addEventListener('input', function () {
-                heightInput.value = this.value;
-                heightValue.textContent = this.value;
-                update3DPreview();
-            });
-
-            heightInput.addEventListener('input', function () {
-                heightSlider.value = this.value;
-                heightValue.textContent = this.value;
-                update3DPreview();
-            });
-
-            // Depth slider and input sync
-            depthSlider.addEventListener('input', function () {
-                depthInput.value = this.value;
-                depthValue.textContent = this.value;
-                update3DPreview();
-            });
-
-            depthInput.addEventListener('input', function () {
-                depthSlider.value = this.value;
-                depthValue.textContent = this.value;
-                update3DPreview();
-            });
-
-            // 3D preview rotation
-            document.getElementById('rotate3DModel').addEventListener('click', function () {
-                const model = document.getElementById('product3DModel');
-                model.classList.toggle('rotating');
-            });
-
-            // User preferences toggles
-            document.getElementById('savePreferences').addEventListener('change', function () {
-                if (this.checked) {
-                    saveUserPreferences();
-                } else {
-                    localStorage.removeItem('userPreferences');
-                }
-            });
-
-            document.getElementById('showRecommendations').addEventListener('change', function () {
-                const aiRecommendations = document.querySelector('.mt-6.bg-white.p-6.rounded-lg.shadow-sm.border-l-4.border-blue-500');
-                if (aiRecommendations) {
-                    aiRecommendations.style.display = this.checked ? 'block' : 'none';
-                }
-            });
-
-            document.getElementById('show3DPreview').addEventListener('change', function () {
-                const preview3D = document.querySelector('.mt-4.pt-4.border-t.border-gray-100');
-                if (preview3D) {
-                    preview3D.style.display = this.checked ? 'block' : 'none';
-                }
-            });
-
-            // History filter
-            document.getElementById('historyFilter').addEventListener('change', function () {
-                filterHistory(this.value);
-            });
-
-            // Load user preferences if saved
-            loadUserPreferences();
-        });
-
-        // Function to update 3D preview based on dimensions
-        function update3DPreview() {
-            const width = parseFloat(document.getElementById('width').value) || 1;
-            const height = parseFloat(document.getElementById('height').value) || 1;
-            const depth = parseFloat(document.getElementById('depth').value) || 1;
-
-            // Simple CSS 3D representation
-            const model = document.getElementById('product3DModel');
-            model.innerHTML = '';
-
-            // Create a simple 3D box
-            const box = document.createElement('div');
-            box.style.width = `${width * 50}px`;
-            box.style.height = `${height * 50}px`;
-            box.style.position = 'absolute';
-            box.style.top = '50%';
-            box.style.left = '50%';
-            box.style.transform = 'translate(-50%, -50%) rotateY(0deg)';
-            box.style.transformStyle = 'preserve-3d';
-            box.style.transition = 'transform 1s ease';
-
-            // Front face
-            const front = document.createElement('div');
-            front.style.position = 'absolute';
-            front.style.width = `${width * 50}px`;
-            front.style.height = `${height * 50}px`;
-            front.style.background = '#f97316';
-            front.style.transform = `translateZ(${depth * 25}px)`;
-            front.style.opacity = '0.8';
-            box.appendChild(front);
-
-            // Back face
-            const back = document.createElement('div');
-            back.style.position = 'absolute';
-            back.style.width = `${width * 50}px`;
-            back.style.height = `${height * 50}px`;
-            back.style.background = '#f97316';
-            back.style.transform = `translateZ(${-depth * 25}px)`;
-            back.style.opacity = '0.6';
-            box.appendChild(back);
-
-            // Top face
-            const top = document.createElement('div');
-            top.style.position = 'absolute';
-            top.style.width = `${width * 50}px`;
-            top.style.height = `${depth * 50}px`;
-            top.style.background = '#ea580c';
-            top.style.transform = `rotateX(90deg) translateZ(${height * 25}px)`;
-            top.style.opacity = '0.7';
-            box.appendChild(top);
-
-            // Bottom face
-            const bottom = document.createElement('div');
-            bottom.style.position = 'absolute';
-            bottom.style.width = `${width * 50}px`;
-            bottom.style.height = `${depth * 50}px`;
-            bottom.style.background = '#ea580c';
-            bottom.style.transform = `rotateX(-90deg) translateZ(${height * 25}px)`;
-            bottom.style.opacity = '0.7';
-            box.appendChild(bottom);
-
-            // Left face
-            const left = document.createElement('div');
-            left.style.position = 'absolute';
-            left.style.width = `${depth * 50}px`;
-            left.style.height = `${height * 50}px`;
-            left.style.background = '#fb923c';
-            left.style.transform = `rotateY(-90deg) translateZ(${width * 25}px)`;
-            left.style.opacity = '0.7';
-            box.appendChild(left);
-
-            // Right face
-            const right = document.createElement('div');
-            right.style.position = 'absolute';
-            right.style.width = `${depth * 50}px`;
-            right.style.height = `${height * 50}px`;
-            right.style.background = '#fb923c';
-            right.style.transform = `rotateY(90deg) translateZ(${width * 25}px)`;
-            right.style.opacity = '0.7';
-            box.appendChild(right);
-
-            model.appendChild(box);
-
-            // Remove placeholder if it exists
-            const placeholder = document.getElementById('product3DPlaceholder');
-            if (placeholder) {
-                placeholder.style.display = 'none';
-            }
-        }
-
-        // Function to save user preferences
-        function saveUserPreferences() {
-            const preferences = {
-                width: document.getElementById('width').value,
-                height: document.getElementById('height').value,
-                depth: document.getElementById('depth').value,
-                material: document.getElementById('material').value,
-                showRecommendations: document.getElementById('showRecommendations').checked,
-                show3DPreview: document.getElementById('show3DPreview').checked
-            };
-
-            localStorage.setItem('userPreferences', JSON.stringify(preferences));
-        }
-
-        // Function to load user preferences
-        function loadUserPreferences() {
-            const savedPreferences = localStorage.getItem('userPreferences');
-            if (savedPreferences) {
-                const preferences = JSON.parse(savedPreferences);
-
-                // Set form values
-                if (preferences.width) document.getElementById('width').value = preferences.width;
-                if (preferences.height) document.getElementById('height').value = preferences.height;
-                if (preferences.depth) document.getElementById('depth').value = preferences.depth;
-                if (preferences.material) document.getElementById('material').value = preferences.material;
-
-                // Set sliders
-                if (preferences.width) {
-                    document.getElementById('widthSlider').value = preferences.width;
-                    document.getElementById('widthValue').textContent = preferences.width;
-                }
-                if (preferences.height) {
-                    document.getElementById('heightSlider').value = preferences.height;
-                    document.getElementById('heightValue').textContent = preferences.height;
-                }
-                if (preferences.depth) {
-                    document.getElementById('depthSlider').value = preferences.depth;
-                    document.getElementById('depthValue').textContent = preferences.depth;
-                }
-
-                // Set toggles
-                document.getElementById('savePreferences').checked = true;
-                document.getElementById('showRecommendations').checked = preferences.showRecommendations !== undefined ? preferences.showRecommendations : true;
-                document.getElementById('show3DPreview').checked = preferences.show3DPreview !== undefined ? preferences.show3DPreview : true;
-
-                // Apply toggle settings
-                if (!document.getElementById('showRecommendations').checked) {
-                    const aiRecommendations = document.querySelector('.mt-6.bg-white.p-6.rounded-lg.shadow-sm.border-l-4.border-blue-500');
-                    if (aiRecommendations) {
-                        aiRecommendations.style.display = 'none';
-                    }
-                }
-
-                if (!document.getElementById('show3DPreview').checked) {
-                    const preview3D = document.querySelector('.mt-4.pt-4.border-t.border-gray-100');
-                    if (preview3D) {
-                        preview3D.style.display = 'none';
-                    }
-                }
-            }
-        }
-
-        // Function to filter history by product type
-        function filterHistory(productType) {
-            const historyItems = document.querySelectorAll('.history-item');
-
-            if (productType === 'all') {
-                historyItems.forEach(item => {
-                    item.style.display = 'block';
-                });
-                return;
-            }
-
-            historyItems.forEach(item => {
-                const itemText = item.textContent.toLowerCase();
-                const productName = getProductName(productType).toLowerCase();
-
-                if (itemText.includes(productName)) {
-                    item.style.display = 'block';
-                } else {
-                    item.style.display = 'none';
-                }
-            });
-        }
-
         function getProductName(type) {
             const names = { wardrobe: 'Tủ quần áo', kitchen: 'Tủ bếp', shoe: 'Tủ giày', study: 'Tủ bàn học', book: 'Tủ sách', bed: 'Giường ngủ' };
             return names[type];
@@ -2944,29 +2222,6 @@
             }
         }, { passive: true });
     </script>
-
-    <!-- AI Chat Widget -->
-    <div class="ai-chat-widget" id="aiChatWidget">
-        <i class="fas fa-robot"></i>
-    </div>
-
-    <div class="ai-chat-container" id="aiChatContainer">
-        <div class="ai-chat-header">
-            <h3><i class="fas fa-robot mr-2"></i> Trợ lý AI</h3>
-            <button class="ai-chat-close" id="aiChatClose"><i class="fas fa-times"></i></button>
-        </div>
-        <div class="ai-chat-messages" id="aiChatMessages">
-            <div class="ai-message ai-message-bot">
-                Xin chào! Tôi là trợ lý AI của Nội Thất Chất Lượng Bàng Vũ. Tôi có thể giúp gì cho bạn về báo giá sản
-                phẩm hoặc tư vấn thiết kế?
-            </div>
-        </div>
-        <div class="ai-chat-input">
-            <input type="text" id="aiChatInput" placeholder="Nhập câu hỏi của bạn...">
-            <button id="aiChatSend"><i class="fas fa-paper-plane"></i></button>
-        </div>
-    </div>
-
     <!-- Floating Contact Buttons - New Version -->
     <div class="fc-container">
         <a href="tel:0972774646" class="fc-button fc-phone">
@@ -2982,231 +2237,6 @@
             <span class="fc-label">Messenger</span>
         </a>
     </div>
-
-    <script src="js/products.js"></script>
-    <script src="js/blog.js"></script>
-    <script src="js/chatbot-ai.js"></script>
-    <script src="js/chatbot-ai-handlers.js"></script>
-    <script>
-        // Thêm chức năng gợi ý thông minh và sản phẩm liên quan từ products.js
-        document.addEventListener('DOMContentLoaded', function () {
-            if (typeof products !== 'undefined' && Array.isArray(products)) {
-                // Xử lý khi form được submit
-                document.getElementById('pricingForm').addEventListener('submit', function () {
-                    // Sau khi tính toán giá, hiển thị gợi ý thông minh và sản phẩm liên quan
-                    setTimeout(() => {
-                        generateSmartRecommendations();
-                        findRelatedProducts();
-                    }, 2000); // Đợi 2 giây sau khi form được submit để hiển thị gợi ý
-                });
-            } else {
-                console.error('Không thể tải dữ liệu sản phẩm từ file products.js');
-            }
-        });
-
-        // Hàm tạo gợi ý thông minh dựa trên dữ liệu sản phẩm và lựa chọn của người dùng
-        function generateSmartRecommendations() {
-            // Hiển thị loading
-            document.getElementById('aiSuggestionLoading').style.display = 'flex';
-            document.getElementById('aiSuggestionContent').classList.add('hidden');
-
-            setTimeout(() => {
-                const productType = document.getElementById('productType').value;
-                const width = parseFloat(document.getElementById('width').value);
-                const height = parseFloat(document.getElementById('height').value);
-                const depth = parseFloat(document.getElementById('depth').value);
-                const material = document.getElementById('material').value;
-
-                // Tìm các sản phẩm cùng loại trong products.js
-                const similarProducts = products.filter(p => {
-                    const category = p.category.toLowerCase();
-
-                    // Kiểm tra loại sản phẩm
-                    if (productType === 'wardrobe' && category.includes('tủ quần áo')) return true;
-                    if (productType === 'kitchen' && category.includes('tủ bếp')) return true;
-                    if (productType === 'shoe' && category.includes('tủ giày')) return true;
-                    if (productType === 'study' && (category.includes('tủ bàn học') || category.includes('bàn học'))) return true;
-                    if (productType === 'book' && category.includes('tủ sách')) return true;
-                    if (productType === 'bed' && category.includes('giường')) return true;
-
-                    return false;
-                });
-
-                // Tạo gợi ý dựa trên kích thước
-                let sizeRecommendation = '';
-                if (width > 2 && height > 2) {
-                    sizeRecommendation = `Với kích thước ${width}m x ${height}m x ${depth}m, bạn nên chia thành nhiều ngăn để tối ưu không gian lưu trữ và tăng tính thẩm mỹ.`;
-                } else if (width < 1) {
-                    sizeRecommendation = `Kích thước ${width}m x ${height}m x ${depth}m khá nhỏ, bạn nên tận dụng chiều cao bằng cách thêm các ngăn kéo hoặc kệ treo.`;
-                } else {
-                    sizeRecommendation = `Kích thước ${width}m x ${height}m x ${depth}m phù hợp cho không gian vừa phải. Bạn có thể tối ưu bằng cách thêm các ngăn kéo bên trong.`;
-                }
-
-                // Tạo gợi ý dựa trên chất liệu
-                let materialRecommendation = '';
-                if (material === 'standard') {
-                    materialRecommendation = 'Chất liệu nhựa tiêu chuẩn phù hợp với không gian thông thường, nhưng nếu đặt ở khu vực có độ ẩm cao, bạn nên cân nhắc nâng cấp lên nhựa cao cấp.';
-                } else if (material === 'premium') {
-                    materialRecommendation = 'Chất liệu nhựa cao cấp là lựa chọn tốt cho độ bền và thẩm mỹ. Phù hợp với hầu hết các không gian trong nhà.';
-                } else {
-                    materialRecommendation = 'Chất liệu nhựa siêu bền là lựa chọn tối ưu cho độ bền lâu dài, đặc biệt phù hợp với không gian có nhiều người sử dụng hoặc khu vực có độ ẩm cao.';
-                }
-
-                // Tạo gợi ý dựa trên sản phẩm phổ biến
-                let popularCombination = '';
-                if (similarProducts.length > 0) {
-                    // Lấy sản phẩm có lượt xem cao nhất
-                    const mostPopular = similarProducts.sort((a, b) => (b.views || 0) - (a.views || 0))[0];
-                    if (mostPopular) {
-                        const relatedCategories = [];
-
-                        if (productType === 'wardrobe') relatedCategories.push('kệ trang trí', 'giường ngủ');
-                        if (productType === 'kitchen') relatedCategories.push('kệ gia vị', 'bàn ăn');
-                        if (productType === 'shoe') relatedCategories.push('kệ trang trí', 'tủ quần áo');
-                        if (productType === 'study') relatedCategories.push('kệ sách', 'ghế văn phòng');
-                        if (productType === 'book') relatedCategories.push('bàn học', 'đèn bàn');
-                        if (productType === 'bed') relatedCategories.push('tủ quần áo', 'tủ đầu giường');
-
-                        const randomIndex = Math.floor(Math.random() * relatedCategories.length);
-                        const relatedCategory = relatedCategories[randomIndex] || 'kệ trang trí';
-
-                        popularCombination = `Khách hàng thường kết hợp ${getProductName(productType)} với ${relatedCategory} để tạo không gian sống hài hòa và tiện nghi.`;
-                    } else {
-                        popularCombination = `Khách hàng thường kết hợp ${getProductName(productType)} với các sản phẩm nội thất khác cùng màu sắc để tạo sự đồng bộ cho không gian sống.`;
-                    }
-                } else {
-                    popularCombination = `Khách hàng thường kết hợp ${getProductName(productType)} với các sản phẩm nội thất khác cùng phong cách để tạo sự đồng bộ cho không gian sống.`;
-                }
-
-                // Cập nhật gợi ý
-                document.getElementById('aiSuggestion1').textContent = sizeRecommendation;
-                document.getElementById('aiSuggestion2').textContent = materialRecommendation;
-                document.getElementById('aiSuggestion3').textContent = popularCombination;
-
-                // Ẩn loading và hiển thị nội dung
-                document.getElementById('aiSuggestionLoading').style.display = 'none';
-                document.getElementById('aiSuggestionContent').classList.remove('hidden');
-            }, 1500); // Giả lập thời gian xử lý
-        }
-
-        // Hàm tìm sản phẩm liên quan từ products.js
-        function findRelatedProducts() {
-            // Hiển thị loading
-            document.getElementById('relatedProductsLoading').style.display = 'flex';
-            document.getElementById('relatedProducts').classList.add('hidden');
-
-            setTimeout(() => {
-                const productType = document.getElementById('productType').value;
-                const material = document.getElementById('material').value;
-
-                // Tìm các sản phẩm cùng loại trong products.js
-                let relatedProducts = [];
-
-                if (typeof products !== 'undefined' && Array.isArray(products)) {
-                    // Tìm sản phẩm cùng loại
-                    const sameTypeProducts = products.filter(p => {
-                        const category = p.category.toLowerCase();
-
-                        if (productType === 'wardrobe' && category.includes('tủ quần áo')) return true;
-                        if (productType === 'kitchen' && category.includes('tủ bếp')) return true;
-                        if (productType === 'shoe' && category.includes('tủ giày')) return true;
-                        if (productType === 'study' && (category.includes('tủ bàn học') || category.includes('bàn học'))) return true;
-                        if (productType === 'book' && category.includes('tủ sách')) return true;
-                        if (productType === 'bed' && category.includes('giường')) return true;
-
-                        return false;
-                    });
-
-                    // Tìm sản phẩm bổ sung
-                    const complementaryProducts = products.filter(p => {
-                        const category = p.category.toLowerCase();
-
-                        // Sản phẩm bổ sung cho từng loại
-                        if (productType === 'wardrobe' && (category.includes('giường') || category.includes('kệ'))) return true;
-                        if (productType === 'kitchen' && (category.includes('bàn ăn') || category.includes('kệ'))) return true;
-                        if (productType === 'shoe' && (category.includes('kệ') || category.includes('tủ'))) return true;
-                        if (productType === 'study' && (category.includes('ghế') || category.includes('kệ sách'))) return true;
-                        if (productType === 'book' && (category.includes('bàn') || category.includes('đèn'))) return true;
-                        if (productType === 'bed' && (category.includes('tủ') || category.includes('đèn'))) return true;
-
-                        return false;
-                    });
-
-                    // Ưu tiên sản phẩm nổi bật
-                    const featuredProducts = products.filter(p => p.featured === true);
-
-                    // Kết hợp các danh sách và loại bỏ trùng lặp
-                    relatedProducts = [...sameTypeProducts, ...complementaryProducts, ...featuredProducts]
-                        .filter((p, index, self) => self.findIndex(item => item.id === p.id) === index)
-                        .slice(0, 6); // Lấy tối đa 6 sản phẩm
-
-                    // Nếu không tìm thấy đủ sản phẩm, thêm sản phẩm ngẫu nhiên
-                    if (relatedProducts.length < 3) {
-                        const randomProducts = products
-                            .sort(() => 0.5 - Math.random())
-                            .slice(0, 3 - relatedProducts.length);
-
-                        relatedProducts = [...relatedProducts, ...randomProducts];
-                    }
-
-                    // Lấy 3 sản phẩm đầu tiên
-                    relatedProducts = relatedProducts.slice(0, 3);
-                }
-
-                // Tạo HTML cho sản phẩm liên quan
-                let relatedProductsHTML = '';
-
-                if (relatedProducts.length > 0) {
-                    relatedProducts.forEach(product => {
-                        const productImage = product.image || (product.gallery && product.gallery.length > 0 ? product.gallery[0] : './images/products/placeholder.jpg');
-                        const productName = product.name || 'Sản phẩm nội thất';
-
-                        relatedProductsHTML += `
-                        <a href="product-details.html?id=${product.id}" class="block bg-gray-50 rounded-lg p-2 hover:bg-gray-100 transition-colors">
-                            <div class="aspect-square bg-gray-200 rounded-md mb-2 overflow-hidden">
-                                <img src="${productImage}" alt="${productName}" class="w-full h-full object-cover">
-                            </div>
-                            <p class="text-xs font-medium text-gray-900 truncate">${productName}</p>
-                            <p class="text-xs text-orange-500">Xem chi tiết</p>
-                        </a>
-                        `;
-                    });
-                } else {
-                    // Sản phẩm mặc định nếu không tìm thấy sản phẩm liên quan
-                    relatedProductsHTML = `
-                    <a href="products.html" class="block bg-gray-50 rounded-lg p-2 hover:bg-gray-100 transition-colors">
-                        <div class="aspect-square bg-gray-200 rounded-md mb-2 overflow-hidden">
-                            <img src="./images/products/sanpham1/sanpham1.webp" alt="Tủ quần áo hiện đại" class="w-full h-full object-cover">
-                        </div>
-                        <p class="text-xs font-medium text-gray-900 truncate">Tủ quần áo hiện đại</p>
-                        <p class="text-xs text-orange-500">Xem chi tiết</p>
-                    </a>
-                    <a href="products.html" class="block bg-gray-50 rounded-lg p-2 hover:bg-gray-100 transition-colors">
-                        <div class="aspect-square bg-gray-200 rounded-md mb-2 overflow-hidden">
-                            <img src="./images/products/sanpham2/sanpham2.webp" alt="Kệ trang trí đa năng" class="w-full h-full object-cover">
-                        </div>
-                        <p class="text-xs font-medium text-gray-900 truncate">Kệ trang trí đa năng</p>
-                        <p class="text-xs text-orange-500">Xem chi tiết</p>
-                    </a>
-                    <a href="products.html" class="block bg-gray-50 rounded-lg p-2 hover:bg-gray-100 transition-colors">
-                        <div class="aspect-square bg-gray-200 rounded-md mb-2 overflow-hidden">
-                            <img src="./images/products/sanpham3/sanpham3.webp" alt="Bàn làm việc gỗ công nghiệp" class="w-full h-full object-cover">
-                        </div>
-                        <p class="text-xs font-medium text-gray-900 truncate">Bàn làm việc gỗ công nghiệp</p>
-                        <p class="text-xs text-orange-500">Xem chi tiết</p>
-                    </a>
-                    `;
-                }
-
-                // Cập nhật HTML
-                document.getElementById('relatedProducts').innerHTML = relatedProductsHTML;
-
-                // Ẩn loading và hiển thị nội dung
-                document.getElementById('relatedProductsLoading').style.display = 'none';
-                document.getElementById('relatedProducts').classList.remove('hidden');
-            }, 2000); // Giả lập thời gian xử lý
-        }
-    </script>
 </body>
 
 </html>
