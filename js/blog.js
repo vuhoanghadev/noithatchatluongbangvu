@@ -139,7 +139,6 @@ const posts = [
       <p>Chọn tủ quần áo không chỉ là việc mua sắm mà còn là cách bạn đầu tư cho không gian sống tiện nghi và thẩm mỹ. Hãy áp dụng 5 mẹo trên để tìm được chiếc tủ hoàn hảo cho ngôi nhà của bạn. Nếu cần tư vấn thêm hoặc muốn khám phá các mẫu tủ quần áo hiện đại, hãy liên hệ với chúng tôi ngay hôm nay!</p>
 
     `,
-    relatedProducts: [1, 2, 3, 4],
     views: 290, // Giữ nguyên lượt xem
   },
   {
@@ -163,7 +162,6 @@ const posts = [
         <p>Năm 2025, nội thất tối giản và bền vững sẽ lên ngôi...</p>
         <p><strong>Màu sắc:</strong> Tông màu trung tính kết hợp điểm nhấn cam.</p>
       `,
-    relatedProducts: [4, 5],
     views: 0,
   },
   {
@@ -187,7 +185,6 @@ const posts = [
         <p>Phòng ngủ này sử dụng giường gỗ tự nhiên và tủ quần áo đa năng...</p>
         <img src="images/blog/post-3b.jpg" alt="Phòng ngủ" loading="lazy">
       `,
-    relatedProducts: [8, 1],
     views: 0,
   },
   {
@@ -211,201 +208,248 @@ const posts = [
         <p><strong>1. Sử dụng tủ góc:</strong> Tận dụng góc bếp hiệu quả.</p>
         <p><strong>2. Kệ treo:</strong> Tăng không gian lưu trữ.</p>
       `,
-    relatedProducts: [2],
     views: 0,
   },
   {
     id: 5,
     title: 'Nội Thất Thông Minh Cho Nhà Nhỏ',
     category: 'Xu hướng',
+    author: 'Nguyễn Văn An',
+    authorAvatar: 'https://i.pravatar.cc/150?img=11',
+    blogDate: '28/02/2025',
     image:
       'https://plus.unsplash.com/premium_photo-1661595245288-65d1430d0d13?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NXx8bGl2aW5nJTIwcm9vbXxlbnwwfHwwfHx8MA%3D%3D',
     excerpt: 'Giải pháp nội thất thông minh cho không gian hạn chế.',
     content: `
         <p>Nội thất đa năng như giường gấp, bàn gấp đang rất được ưa chuộng...</p>
       `,
-    relatedProducts: [6, 7],
+    views: 85,
   },
   {
     id: 6,
     title: 'Nội Thất Thông Minh Cho Nhà Nhỏ',
     category: 'Xu hướng',
+    author: 'Trần Minh Tuấn',
+    authorAvatar: 'https://i.pravatar.cc/150?img=12',
+    blogDate: '25/02/2025',
     image:
       'https://plus.unsplash.com/premium_photo-1661595245288-65d1430d0d13?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NXx8bGl2aW5nJTIwcm9vbXxlbnwwfHwwfHx8MA%3D%3D',
     excerpt: 'Giải pháp nội thất thông minh cho không gian hạn chế.',
     content: `
         <p>Nội thất đa năng như giường gấp, bàn gấp đang rất được ưa chuộng...</p>
       `,
-    relatedProducts: [6, 7],
+    views: 72,
   },
   {
     id: 7,
     title: 'Nội Thất Thông Minh Cho Nhà Nhỏ',
     category: 'Xu hướng',
+    author: 'Lê Thị Hồng',
+    authorAvatar: 'https://i.pravatar.cc/150?img=13',
+    blogDate: '22/02/2025',
     image:
       'https://plus.unsplash.com/premium_photo-1661595245288-65d1430d0d13?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NXx8bGl2aW5nJTIwcm9vbXxlbnwwfHwwfHx8MA%3D%3D',
     excerpt: 'Giải pháp nội thất thông minh cho không gian hạn chế.',
     content: `
         <p>Nội thất đa năng như giường gấp, bàn gấp đang rất được ưa chuộng...</p>
       `,
-    relatedProducts: [6, 7],
+    views: 65,
   },
   {
     id: 8,
     title: 'Nội Thất Thông Minh Cho Nhà Nhỏ',
     category: 'Xu hướng',
+    author: 'Phạm Văn Đức',
+    authorAvatar: 'https://i.pravatar.cc/150?img=14',
+    blogDate: '20/02/2025',
     image:
       'https://plus.unsplash.com/premium_photo-1661595245288-65d1430d0d13?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NXx8bGl2aW5nJTIwcm9vbXxlbnwwfHwwfHx8MA%3D%3D',
     excerpt: 'Giải pháp nội thất thông minh cho không gian hạn chế.',
     content: `
         <p>Nội thất đa năng như giường gấp, bàn gấp đang rất được ưa chuộng...</p>
       `,
-    relatedProducts: [6, 7],
+    views: 58,
   },
   {
     id: 9,
     title: 'Nội Thất Thông Minh Cho Nhà Nhỏ',
     category: 'Xu hướng',
+    author: 'Nguyễn Thị Lan',
+    authorAvatar: 'https://i.pravatar.cc/150?img=15',
+    blogDate: '18/02/2025',
     image:
       'https://plus.unsplash.com/premium_photo-1661595245288-65d1430d0d13?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NXx8bGl2aW5nJTIwcm9vbXxlbnwwfHwwfHx8MA%3D%3D',
     excerpt: 'Giải pháp nội thất thông minh cho không gian hạn chế.',
     content: `
         <p>Nội thất đa năng như giường gấp, bàn gấp đang rất được ưa chuộng...</p>
       `,
-    relatedProducts: [6, 7],
+    views: 52,
   },
   {
     id: 10,
     title: 'Nội Thất Thông Minh Cho Nhà Nhỏ',
     category: 'Xu hướng',
+    author: 'Trần Văn Bình',
+    authorAvatar: 'https://i.pravatar.cc/150?img=16',
+    blogDate: '15/02/2025',
     image:
       'https://plus.unsplash.com/premium_photo-1661595245288-65d1430d0d13?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NXx8bGl2aW5nJTIwcm9vbXxlbnwwfHwwfHx8MA%3D%3D',
     excerpt: 'Giải pháp nội thất thông minh cho không gian hạn chế.',
     content: `
         <p>Nội thất đa năng như giường gấp, bàn gấp đang rất được ưa chuộng...</p>
       `,
-    relatedProducts: [6, 7],
+    views: 48,
   },
 
   {
     id: 11,
     title: 'Nội Thất Thông Minh Cho Nhà Nhỏ',
     category: 'Xu hướng',
+    author: 'Lê Minh Hoàng',
+    authorAvatar: 'https://i.pravatar.cc/150?img=17',
+    blogDate: '12/02/2025',
     image:
       'https://plus.unsplash.com/premium_photo-1661595245288-65d1430d0d13?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NXx8bGl2aW5nJTIwcm9vbXxlbnwwfHwwfHx8MA%3D%3D',
     excerpt: 'Giải pháp nội thất thông minh cho không gian hạn chế.',
     content: `
         <p>Nội thất đa năng như giường gấp, bàn gấp đang rất được ưa chuộng...</p>
       `,
-    relatedProducts: [6, 7],
+    views: 45,
   },
   {
     id: 12,
     title: 'Nội Thất Thông Minh Cho Nhà Nhỏ',
     category: 'Xu hướng',
+    author: 'Nguyễn Thị Hà',
+    authorAvatar: 'https://i.pravatar.cc/150?img=18',
+    blogDate: '10/02/2025',
     image:
       'https://plus.unsplash.com/premium_photo-1661595245288-65d1430d0d13?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NXx8bGl2aW5nJTIwcm9vbXxlbnwwfHwwfHx8MA%3D%3D',
     excerpt: 'Giải pháp nội thất thông minh cho không gian hạn chế.',
     content: `
         <p>Nội thất đa năng như giường gấp, bàn gấp đang rất được ưa chuộng...</p>
       `,
-    relatedProducts: [6, 7],
+    views: 42,
   },
   {
     id: 13,
     title: 'Nội Thất Thông Minh Cho Nhà Nhỏ',
     category: 'Xu hướng',
+    author: 'Trần Văn Nam',
+    authorAvatar: 'https://i.pravatar.cc/150?img=19',
+    blogDate: '08/02/2025',
     image:
       'https://plus.unsplash.com/premium_photo-1661595245288-65d1430d0d13?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NXx8bGl2aW5nJTIwcm9vbXxlbnwwfHwwfHx8MA%3D%3D',
     excerpt: 'Giải pháp nội thất thông minh cho không gian hạn chế.',
     content: `
         <p>Nội thất đa năng như giường gấp, bàn gấp đang rất được ưa chuộng...</p>
       `,
-    relatedProducts: [6, 7],
+    views: 38,
   },
   {
     id: 14,
     title: 'Nội Thất Thông Minh Cho Nhà Nhỏ',
     category: 'Xu hướng',
+    author: 'Phạm Thị Linh',
+    authorAvatar: 'https://i.pravatar.cc/150?img=20',
+    blogDate: '05/02/2025',
     image:
       'https://plus.unsplash.com/premium_photo-1661595245288-65d1430d0d13?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NXx8bGl2aW5nJTIwcm9vbXxlbnwwfHwwfHx8MA%3D%3D',
     excerpt: 'Giải pháp nội thất thông minh cho không gian hạn chế.',
     content: `
         <p>Nội thất đa năng như giường gấp, bàn gấp đang rất được ưa chuộng...</p>
       `,
-    relatedProducts: [6, 7],
+    views: 35,
   },
   {
     id: 15,
     title: 'Nội Thất Thông Minh Cho Nhà Nhỏ',
     category: 'Xu hướng',
+    author: 'Lê Văn Tùng',
+    authorAvatar: 'https://i.pravatar.cc/150?img=21',
+    blogDate: '03/02/2025',
     image:
       'https://plus.unsplash.com/premium_photo-1661595245288-65d1430d0d13?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NXx8bGl2aW5nJTIwcm9vbXxlbnwwfHwwfHx8MA%3D%3D',
     excerpt: 'Giải pháp nội thất thông minh cho không gian hạn chế.',
     content: `
         <p>Nội thất đa năng như giường gấp, bàn gấp đang rất được ưa chuộng...</p>
       `,
-    relatedProducts: [6, 7],
+    views: 32,
   },
   {
     id: 16,
     title: 'Nội Thất Thông Minh Cho Nhà Nhỏ',
     category: 'Xu hướng',
+    author: 'Nguyễn Văn Hùng',
+    authorAvatar: 'https://i.pravatar.cc/150?img=22',
+    blogDate: '30/01/2025',
     image:
       'https://plus.unsplash.com/premium_photo-1661595245288-65d1430d0d13?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NXx8bGl2aW5nJTIwcm9vbXxlbnwwfHwwfHx8MA%3D%3D',
     excerpt: 'Giải pháp nội thất thông minh cho không gian hạn chế.',
     content: `
         <p>Nội thất đa năng như giường gấp, bàn gấp đang rất được ưa chuộng...</p>
       `,
-    relatedProducts: [6, 7],
+    views: 28,
   },
   {
     id: 17,
     title: 'Nội Thất Thông Minh Cho Nhà Nhỏ',
     category: 'Xu hướng',
+    author: 'Trần Thị Thảo',
+    authorAvatar: 'https://i.pravatar.cc/150?img=23',
+    blogDate: '28/01/2025',
     image:
       'https://plus.unsplash.com/premium_photo-1661595245288-65d1430d0d13?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NXx8bGl2aW5nJTIwcm9vbXxlbnwwfHwwfHx8MA%3D%3D',
     excerpt: 'Giải pháp nội thất thông minh cho không gian hạn chế.',
     content: `
         <p>Nội thất đa năng như giường gấp, bàn gấp đang rất được ưa chuộng...</p>
       `,
-    relatedProducts: [6, 7],
+    views: 25,
   },
   {
     id: 18,
     title: 'Nội Thất Thông Minh Cho Nhà Nhỏ',
     category: 'Xu hướng',
+    author: 'Lê Minh Tuấn',
+    authorAvatar: 'https://i.pravatar.cc/150?img=24',
+    blogDate: '25/01/2025',
     image:
       'https://plus.unsplash.com/premium_photo-1661595245288-65d1430d0d13?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NXx8bGl2aW5nJTIwcm9vbXxlbnwwfHwwfHx8MA%3D%3D',
     excerpt: 'Giải pháp nội thất thông minh cho không gian hạn chế.',
     content: `
         <p>Nội thất đa năng như giường gấp, bàn gấp đang rất được ưa chuộng...</p>
       `,
-    relatedProducts: [6, 7],
+    views: 22,
   },
   {
     id: 19,
     title: 'Nội Thất Thông Minh Cho Nhà Nhỏ',
     category: 'Xu hướng',
+    author: 'Phạm Văn Hải',
+    authorAvatar: 'https://i.pravatar.cc/150?img=25',
+    blogDate: '22/01/2025',
     image:
       'https://plus.unsplash.com/premium_photo-1661595245288-65d1430d0d13?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NXx8bGl2aW5nJTIwcm9vbXxlbnwwfHwwfHx8MA%3D%3D',
     excerpt: 'Giải pháp nội thất thông minh cho không gian hạn chế.',
     content: `
         <p>Nội thất đa năng như giường gấp, bàn gấp đang rất được ưa chuộng...</p>
       `,
-    relatedProducts: [6, 7],
+    views: 18,
   },
   {
     id: 20,
     title: 'Nội Thất Thông Minh Cho Nhà Nhỏ',
     category: 'Xu hướng',
+    author: 'Nguyễn Thị Hương',
+    authorAvatar: 'https://i.pravatar.cc/150?img=26',
+    blogDate: '20/01/2025',
     image:
       'https://plus.unsplash.com/premium_photo-1661595245288-65d1430d0d13?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NXx8bGl2aW5nJTIwcm9vbXxlbnwwfHwwfHx8MA%3D%3D',
     excerpt: 'Giải pháp nội thất thông minh cho không gian hạn chế.',
     content: `
         <p>Nội thất đa năng như giường gấp, bàn gấp đang rất được ưa chuộng...</p>
       `,
-    relatedProducts: [6, 7],
+    views: 15,
   },
   {
     id: 21,
@@ -453,7 +497,6 @@ const posts = [
       <p>Chọn tủ quần áo không chỉ là việc mua sắm mà còn là cách bạn đầu tư cho không gian sống tiện nghi và thẩm mỹ. Hãy áp dụng 5 mẹo trên để tìm được chiếc tủ hoàn hảo cho ngôi nhà của bạn. Nếu cần tư vấn thêm hoặc muốn khám phá các mẫu tủ quần áo hiện đại, hãy liên hệ với chúng tôi ngay hôm nay!</p>
 
     `,
-    relatedProducts: [1, 2, 3, 4],
     views: 290,
   },
   {
@@ -470,6 +513,7 @@ const posts = [
     authorExperience: 15,
     authorProjects: 500,
     authorRating: 5.0,
+    blogDate: '23/04/2025',
     image:
       'https://images.unsplash.com/photo-1586023492125-27b2c045efd7?q=80&w=2158&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
     excerpt:
@@ -505,7 +549,6 @@ const posts = [
       <p>Công nghệ AI đang mở ra một kỷ nguyên mới trong thiết kế và sản xuất nội thất, nơi mà sự cá nhân hóa, hiệu quả và bền vững được đặt lên hàng đầu. Tuy nhiên, điều quan trọng là phải nhận thức rằng AI không phải là để thay thế con người, mà là công cụ hỗ trợ để nâng cao khả năng sáng tạo và hiệu quả của các nhà thiết kế.</p>
       <p>Khi công nghệ AI tiếp tục phát triển, chúng ta có thể mong đợi những đột phá mới trong cách chúng ta thiết kế, sản xuất và trải nghiệm không gian sống. Tương lai của thiết kế nội thất với AI không chỉ là về công nghệ, mà còn là về việc tạo ra những không gian sống thông minh hơn, tiện nghi hơn và bền vững hơn cho tất cả mọi người.</p>
     `,
-    relatedProducts: [6, 7, 8],
     views: 150,
   },
 ];

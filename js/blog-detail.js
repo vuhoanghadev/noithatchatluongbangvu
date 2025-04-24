@@ -181,8 +181,8 @@ function handleBlogDetail() {
   // Cập nhật điều hướng bài viết (prev/next)
   updatePostNavigation(postId);
 
-  // Hiển thị sản phẩm liên quan
-  displayRelatedProducts(post.relatedProducts || []);
+  // Ẩn phần sản phẩm liên quan
+  document.querySelector('.related-products-section').style.display = 'none';
 
   // Hiển thị bài viết liên quan
   displayRelatedPosts(postId, post.category);
@@ -326,105 +326,6 @@ function updatePostNavigation(currentPostId) {
   } else {
     nextPost.style.visibility = 'hidden';
   }
-}
-
-// Hàm hiển thị sản phẩm liên quan
-function displayRelatedProducts(relatedProductIds) {
-  const container = document.getElementById('related-products');
-
-  // Nếu không có sản phẩm liên quan, ẩn phần này
-  if (!relatedProductIds || relatedProductIds.length === 0) {
-    document.querySelector('.related-products-section').style.display = 'none';
-    return;
-  }
-
-  // Giả lập dữ liệu sản phẩm
-  const products = [
-    {
-      id: 1,
-      name: 'Ghế Sofa Hiện Đại',
-      image:
-        'https://images.unsplash.com/photo-1555041469-a586c61ea9bc?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8ZnVybml0dXJlfGVufDB8fDB8fHww',
-      promotion: 'Giảm 20%',
-    },
-    {
-      id: 2,
-      name: 'Bàn Ăn Gỗ Tự Nhiên',
-      image:
-        'https://images.unsplash.com/photo-1538688525198-9b88f6f53126?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTB8fGZ1cm5pdHVyZXxlbnwwfHwwfHx8MA%3D%3D',
-      promotion: '',
-    },
-    {
-      id: 3,
-      name: 'Tủ Quần Áo 4 Cánh',
-      image:
-        'https://images.unsplash.com/photo-1594026112284-02bb6f3352fe?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTR8fGZ1cm5pdHVyZXxlbnwwfHwwfHx8MA%3D%3D',
-      promotion: 'Mới',
-    },
-    {
-      id: 4,
-      name: 'Kệ Tivi Phòng Khách',
-      image:
-        'https://images.unsplash.com/photo-1493663284031-b7e3aefcae8e?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Nnx8ZnVybml0dXJlfGVufDB8fDB8fHww',
-      promotion: '',
-    },
-    {
-      id: 5,
-      name: 'Giường Ngủ Gỗ Sồi',
-      image:
-        'https://images.unsplash.com/photo-1505693416388-ac5ce068fe85?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MjB8fGZ1cm5pdHVyZXxlbnwwfHwwfHx8MA%3D%3D',
-      promotion: 'Giảm 15%',
-    },
-    {
-      id: 6,
-      name: 'Bàn Làm Việc Thông Minh',
-      image:
-        'https://images.unsplash.com/photo-1449247709967-d4461a6a6103?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8N3x8ZnVybml0dXJlfGVufDB8fDB8fHww',
-      promotion: '',
-    },
-    {
-      id: 7,
-      name: 'Kệ Sách Đa Năng',
-      image:
-        'https://images.unsplash.com/photo-1594026112284-02bb6f3352fe?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTR8fGZ1cm5pdHVyZXxlbnwwfHwwfHx8MA%3D%3D',
-      promotion: 'Mới',
-    },
-    {
-      id: 8,
-      name: 'Bàn Trang Điểm',
-      image:
-        'https://images.unsplash.com/photo-1538688525198-9b88f6f53126?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTB8fGZ1cm5pdHVyZXxlbnwwfHwwfHx8MA%3D%3D',
-      promotion: '',
-    },
-  ];
-
-  // Lọc sản phẩm liên quan
-  const relatedProducts = products.filter((product) =>
-    relatedProductIds.includes(product.id)
-  );
-
-  // Hiển thị tối đa 4 sản phẩm
-  const productsToShow = relatedProducts.slice(0, 4);
-
-  // Hiển thị sản phẩm
-  container.innerHTML = productsToShow
-    .map(
-      (product) => `
-        <div class="card">
-            <img src="${product.image}" alt="${product.name}" loading="lazy">
-            <h4>${product.name}</h4>
-            ${
-              product.promotion
-                ? `<span class="promo-badge">${product.promotion}</span>`
-                : ''
-            }
-            <a href="product-details.html?id=${
-              product.id
-            }" class="btn-details">Xem chi tiết</a>
-        </div>
-    `
-    )
-    .join('');
 }
 
 // Hàm hiển thị bài viết liên quan

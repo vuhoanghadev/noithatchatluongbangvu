@@ -1249,8 +1249,46 @@ function searchBlogPosts(query, filters = {}) {
       const startOfYear = new Date(now.getFullYear(), 0, 1);
 
       results = results.filter((post) => {
-        // If post doesn't have a date, use a default date
-        const postDate = post.date ? new Date(post.date) : new Date();
+        let postDate;
+
+        // Ưu tiên sử dụng blogDate nếu có
+        if (post.blogDate) {
+          // Chuyển đổi từ định dạng "DD/MM/YYYY" sang Date object
+          const parts = post.blogDate.split('/');
+          if (parts.length === 3) {
+            // Lưu ý: tháng trong JavaScript bắt đầu từ 0, nên cần trừ 1
+            postDate = new Date(
+              parseInt(parts[2]),
+              parseInt(parts[1]) - 1,
+              parseInt(parts[0])
+            );
+            console.log(
+              `Converted blogDate ${post.blogDate} to Date: ${postDate}`
+            );
+          } else {
+            // Nếu không phân tích được blogDate, sử dụng date hoặc ngày hiện tại
+            postDate = post.date ? new Date(post.date) : new Date();
+            console.log(
+              `Could not parse blogDate ${post.blogDate}, using fallback: ${postDate}`
+            );
+          }
+        } else if (post.date) {
+          // Sử dụng trường date nếu không có blogDate
+          postDate = new Date(post.date);
+          console.log(`Using date field: ${post.date} -> ${postDate}`);
+        } else {
+          // Nếu không có cả hai, sử dụng ngày hiện tại
+          postDate = new Date();
+          console.log(`No date fields found, using current date: ${postDate}`);
+        }
+
+        // Kiểm tra xem postDate có hợp lệ không
+        if (isNaN(postDate.getTime())) {
+          console.error(
+            `Invalid date for post ${post.id}: ${post.blogDate || post.date}`
+          );
+          postDate = new Date(); // Sử dụng ngày hiện tại nếu không hợp lệ
+        }
 
         switch (filters.date) {
           case 'today':
@@ -1538,8 +1576,29 @@ function formatPrice(price) {
  * @returns {string} - The formatted date
  */
 function formatDate(dateString) {
-  const date = new Date(dateString);
-  return date.toLocaleDateString('vi-VN');
+  if (!dateString) {
+    return '';
+  }
+
+  try {
+    const date = new Date(dateString);
+
+    // Kiểm tra xem date có hợp lệ không
+    if (isNaN(date.getTime())) {
+      console.error(`Invalid date: ${dateString}`);
+      return dateString; // Trả về chuỗi gốc nếu không thể chuyển đổi
+    }
+
+    // Chuyển đổi sang định dạng DD/MM/YYYY
+    const day = date.getDate().toString().padStart(2, '0');
+    const month = (date.getMonth() + 1).toString().padStart(2, '0');
+    const year = date.getFullYear();
+
+    return `${day}/${month}/${year}`;
+  } catch (error) {
+    console.error(`Error formatting date: ${dateString}`, error);
+    return dateString; // Trả về chuỗi gốc nếu có lỗi
+  }
 }
 
 /**
