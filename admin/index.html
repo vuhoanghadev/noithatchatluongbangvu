@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quản Trị - Nội Thất Chất Lượng Bàng Vũ</title>
+    <link rel="stylesheet" href="css/admin.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <div class="admin-container">
+        <div class="sidebar">
+            <div class="logo">
+                <img src="../images/logo.svg" alt="Logo">
+                <h2>Quản Trị</h2>
+            </div>
+            <nav class="menu">
+                <ul>
+                    <li class="active"><a href="index.html"><i class="fas fa-home"></i> Trang Chủ</a></li>
+                    <li><a href="product-manager.html"><i class="fas fa-box"></i> Quản Lý Sản Phẩm</a></li>
+                    <li><a href="#"><i class="fas fa-newspaper"></i> Quản Lý Bài Viết</a></li>
+                    <li><a href="#"><i class="fas fa-cog"></i> Cài Đặt</a></li>
+                    <li><a href="../index.html" target="_blank"><i class="fas fa-external-link-alt"></i> Xem Website</a></li>
+                </ul>
+            </nav>
+        </div>
+        <div class="main-content">
+            <header>
+                <div class="header-title">
+                    <h1>Bảng Điều Khiển</h1>
+                </div>
+                <div class="user-info">
+                    <span>Admin</span>
+                    <img src="../images/logo.svg" alt="User">
+                </div>
+            </header>
+            <div class="dashboard">
+                <div class="dashboard-card">
+                    <div class="card-icon"><i class="fas fa-box"></i></div>
+                    <div class="card-info">
+                        <h3>Sản Phẩm</h3>
+                        <p id="product-count">0</p>
+                    </div>
+                </div>
+                <div class="dashboard-card">
+                    <div class="card-icon"><i class="fas fa-newspaper"></i></div>
+                    <div class="card-info">
+                        <h3>Bài Viết</h3>
+                        <p>0</p>
+                    </div>
+                </div>
+                <div class="dashboard-card">
+                    <div class="card-icon"><i class="fas fa-eye"></i></div>
+                    <div class="card-info">
+                        <h3>Lượt Xem</h3>
+                        <p>0</p>
+                    </div>
+                </div>
+                <div class="dashboard-card">
+                    <div class="card-icon"><i class="fas fa-shopping-cart"></i></div>
+                    <div class="card-info">
+                        <h3>Đơn Hàng</h3>
+                        <p>0</p>
+                    </div>
+                </div>
+            </div>
+            <div class="quick-actions">
+                <h2>Thao Tác Nhanh</h2>
+                <div class="action-buttons">
+                    <a href="product-manager.html" class="btn-action">
+                        <i class="fas fa-plus"></i> Thêm Sản Phẩm Mới
+                    </a>
+                    <a href="#" class="btn-action">
+                        <i class="fas fa-file-alt"></i> Thêm Bài Viết Mới
+                    </a>
+                    <a href="#" class="btn-action">
+                        <i class="fas fa-cog"></i> Cài Đặt Website
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="../js/products.js"></script>
+    <script src="js/admin.js"></script>
+</body>
+</html>
