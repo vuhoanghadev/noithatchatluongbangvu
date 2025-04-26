@@ -374,7 +374,19 @@ function displayRelatedPosts(currentPostId, category) {
 // Hàm tăng lượt xem - đã được thay thế bởi supabase-views.js
 function increaseViewCount(postId) {
   // Hàm này đã được thay thế bởi phiên bản trong supabase-views.js
-  console.log('Sử dụng hàm tăng lượt xem từ Supabase');
+  console.log(
+    'Hàm increaseViewCount cũ đã bị vô hiệu hóa, sử dụng hàm từ supabase-views.js'
+  );
+
+  // Kiểm tra xem hàm mới đã được tải chưa
+  if (typeof window.supabaseIncreaseViewCount === 'function') {
+    console.log('Chuyển hướng đến hàm mới từ supabase-views.js');
+    return window.supabaseIncreaseViewCount(postId);
+  }
+
+  // Nếu hàm mới chưa được tải, ghi log và không làm gì cả
+  console.log('Hàm mới chưa được tải, không tăng lượt xem');
+  return null;
 }
 
 // Hàm khởi tạo nút Back to Top

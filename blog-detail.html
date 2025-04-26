@@ -420,8 +420,24 @@
 
     <script src="js/main.js"></script>
     <script src="js/blog.js"></script>
+    <script>
+        // Lưu trữ hàm increaseViewCount gốc để có thể khôi phục nếu cần
+        window.originalIncreaseViewCount = null;
+    </script>
     <script src="js/products.js"></script>
     <script src="js/blog-detail.js"></script>
+    <script>
+        // Lưu trữ hàm increaseViewCount từ blog-detail.js
+        if (typeof window.originalIncreaseViewCount === 'undefined' || window.originalIncreaseViewCount === null) {
+            window.originalIncreaseViewCount = window.increaseViewCount;
+            console.log('Đã lưu trữ hàm increaseViewCount gốc');
+
+            // Vô hiệu hóa hàm increaseViewCount cũ
+            window.increaseViewCount = function () {
+                console.log('Hàm increaseViewCount cũ đã bị vô hiệu hóa, sử dụng hàm từ supabase-views.js');
+            };
+        }
+    </script>
     <script src="js/blog-enhancements.js"></script>
     <script src="js/saved-posts-manager.js"></script>
     <script src="js/related-items.js"></script>

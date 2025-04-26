@@ -51,6 +51,8 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css"
         integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA=="
         crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <!-- Supabase JS -->
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.js"></script>
 </head>
 
 <body>
@@ -260,11 +262,76 @@
     <script src="js/bottom-nav.js"></script>
     <script src="js/smooth-navigation.js"></script>
     <script src="js/back-navigation-fix.js"></script>
-    <script src="js/blog.js"></script>
     <script src="js/search-connector.js"></script>
     <script src="js/fullscreen-search.js"></script>
     <script src="js/scroll-progress.js"></script>
     <script src="js/saved-posts-manager.js"></script>
+    <script src="js/supabase-views.js"></script>
+    <script>
+        // Hàm cập nhật lượt xem cho tất cả bài viết trong trang blog
+        async function updateBlogPostViews() {
+            console.log('Cập nhật lượt xem cho trang blog...');
+
+            // Kiểm tra xem Supabase đã được khởi tạo chưa
+            if (!supabase) {
+                console.error('Supabase chưa được khởi tạo, không thể cập nhật lượt xem');
+                return;
+            }
+
+            try {
+                // Lấy tất cả lượt xem từ Supabase
+                const { data, error } = await supabase
+                    .from('blog_views')
+                    .select('post_id, views');
+
+                if (error) {
+                    console.error('Lỗi khi lấy lượt xem:', error);
+                    return;
+                }
+
+                console.log('Dữ liệu lượt xem từ Supabase:', data);
+
+                // Cập nhật lượt xem cho tất cả bài viết
+                if (data && data.length > 0) {
+                    // Tạo đối tượng lưu trữ lượt xem với post_id là key
+                    const viewsMap = {};
+                    data.forEach(item => {
+                        viewsMap[item.post_id] = item.views;
+                    });
+
+                    // Cập nhật lượt xem trong đối tượng posts
+                    posts.forEach(post => {
+                        const postId = post.id.toString();
+                        if (viewsMap[postId]) {
+                            post.views = viewsMap[postId];
+                        }
+                    });
+
+                    console.log('Đã cập nhật lượt xem cho tất cả bài viết');
+
+                    // Cập nhật hiển thị lượt xem trên trang
+                    const viewElements = document.querySelectorAll('.blog-post-views');
+                    viewElements.forEach(element => {
+                        const postId = element.getAttribute('data-post-id');
+                        if (postId && viewsMap[postId]) {
+                            element.textContent = viewsMap[postId];
+                        }
+                    });
+                }
+            } catch (error) {
+                console.error('Lỗi khi cập nhật lượt xem:', error);
+            }
+        }
+
+        // Cập nhật lượt xem khi trang được tải
+        document.addEventListener('DOMContentLoaded', function () {
+            // Khởi tạo Supabase client
+            initSupabaseClient();
+
+            // Cập nhật lượt xem sau khi trang đã tải xong
+            setTimeout(updateBlogPostViews, 1000);
+        });
+    </script>
 
 
     <!-- Back to Top Button -->
