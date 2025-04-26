@@ -54,8 +54,6 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css"
         integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA=="
         crossorigin="anonymous" referrerpolicy="no-referrer" />
-    <!-- Supabase JS -->
-    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.js"></script>
     <div id="fb-root"></div>
     <script async defer crossorigin="anonymous"
         src="https://connect.facebook.net/vi_VN/sdk.js#xfbml=1&version=v22.0"></script>
@@ -420,24 +418,8 @@
 
     <script src="js/main.js"></script>
     <script src="js/blog.js"></script>
-    <script>
-        // Lưu trữ hàm increaseViewCount gốc để có thể khôi phục nếu cần
-        window.originalIncreaseViewCount = null;
-    </script>
     <script src="js/products.js"></script>
     <script src="js/blog-detail.js"></script>
-    <script>
-        // Lưu trữ hàm increaseViewCount từ blog-detail.js
-        if (typeof window.originalIncreaseViewCount === 'undefined' || window.originalIncreaseViewCount === null) {
-            window.originalIncreaseViewCount = window.increaseViewCount;
-            console.log('Đã lưu trữ hàm increaseViewCount gốc');
-
-            // Vô hiệu hóa hàm increaseViewCount cũ
-            window.increaseViewCount = function () {
-                console.log('Hàm increaseViewCount cũ đã bị vô hiệu hóa, sử dụng hàm từ supabase-views.js');
-            };
-        }
-    </script>
     <script src="js/blog-enhancements.js"></script>
     <script src="js/saved-posts-manager.js"></script>
     <script src="js/related-items.js"></script>
@@ -454,7 +436,6 @@
     <script src="js/search-connector.js"></script>
     <script src="js/fullscreen-search.js"></script>
     <script src="js/scroll-progress.js"></script>
-    <script src="js/supabase-views.js"></script>
     <script>
         // Khởi tạo tính năng lưu bài viết khi trang đã tải xong
         document.addEventListener('DOMContentLoaded', function () {

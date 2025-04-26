@@ -371,22 +371,65 @@ function displayRelatedPosts(currentPostId, category) {
     .join('');
 }
 
-// Hàm tăng lượt xem - đã được thay thế bởi supabase-views.js
+// Hàm tăng lượt xem
 function increaseViewCount(postId) {
-  // Hàm này đã được thay thế bởi phiên bản trong supabase-views.js
-  console.log(
-    'Hàm increaseViewCount cũ đã bị vô hiệu hóa, sử dụng hàm từ supabase-views.js'
-  );
+  // Tìm bài viết theo ID
+  const post = posts.find((p) => p.id === postId);
+  if (!post) return;
 
-  // Kiểm tra xem hàm mới đã được tải chưa
-  if (typeof window.supabaseIncreaseViewCount === 'function') {
-    console.log('Chuyển hướng đến hàm mới từ supabase-views.js');
-    return window.supabaseIncreaseViewCount(postId);
+  // Chuyển postId thành chuỗi để đảm bảo tính nhất quán
+  const postIdStr = postId.toString();
+
+  // Lấy dữ liệu lượt xem từ localStorage
+  let viewsData = localStorage.getItem('blogPostViews');
+  let views = viewsData ? JSON.parse(viewsData) : {};
+
+  // Lấy danh sách bài viết đã xem từ localStorage
+  let viewedPostsData = localStorage.getItem('viewedBlogPosts');
+  let viewedPosts = viewedPostsData ? JSON.parse(viewedPostsData) : {};
+
+  // Kiểm tra xem admin đã cập nhật lượt xem thủ công trong blog.js
+  if (post.views && (!views[postIdStr] || post.views > views[postIdStr])) {
+    // Cập nhật lượt xem trong localStorage
+    views[postIdStr] = post.views;
+    localStorage.setItem('blogPostViews', JSON.stringify(views));
+    console.log(
+      `Admin đã cập nhật lượt xem cho bài viết ID ${postIdStr}: ${post.views}`
+    );
+  }
+  // Nếu đã có lượt xem trong localStorage, sử dụng giá trị đó
+  else if (views[postIdStr]) {
+    post.views = views[postIdStr];
   }
 
-  // Nếu hàm mới chưa được tải, ghi log và không làm gì cả
-  console.log('Hàm mới chưa được tải, không tăng lượt xem');
-  return null;
+  // Debug: In ra giá trị lượt xem hiện tại
+  console.log(`Lượt xem hiện tại của bài viết ID ${postIdStr}: ${post.views}`);
+  console.log(`viewedPosts[${postIdStr}] = ${viewedPosts[postIdStr]}`);
+  console.log(`views[${postIdStr}] = ${views[postIdStr]}`);
+  console.log(`post.views = ${post.views}`);
+
+  // Kiểm tra xem người dùng đã từng xem bài viết này chưa
+  if (!viewedPosts[postIdStr]) {
+    // Tăng lượt xem lên 1
+    post.views = (post.views || 0) + 1;
+
+    // Cập nhật lượt xem trong localStorage
+    views[postIdStr] = post.views;
+    localStorage.setItem('blogPostViews', JSON.stringify(views));
+
+    // Đánh dấu bài viết đã được xem
+    viewedPosts[postIdStr] = true;
+    localStorage.setItem('viewedBlogPosts', JSON.stringify(viewedPosts));
+
+    console.log(`Tăng lượt xem cho bài viết ID ${postIdStr} lên ${post.views}`);
+  } else {
+    console.log(
+      `Người dùng đã xem bài viết ID ${postIdStr} trước đó, giữ nguyên lượt xem: ${post.views}`
+    );
+  }
+
+  // Cập nhật hiển thị - Hiển thị lượt xem từ dữ liệu bài viết đã được cập nhật
+  document.getElementById('blog-views').textContent = post.views || 0;
 }
 
 // Hàm khởi tạo nút Back to Top

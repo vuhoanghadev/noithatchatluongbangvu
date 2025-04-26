@@ -16,111 +16,55 @@ function removeDuplicatePosts() {
   uniquePosts.forEach((post) => posts.push(post)); // Thêm các phần tử duy nhất vào mảng
 }
 
-// Hàm để đồng bộ lượt xem từ Supabase
-async function syncViewsWithLocalStorage() {
-  console.log('Đồng bộ lượt xem từ Supabase...');
+// Hàm kiểm tra và tăng lượt xem tự động mỗi ngày mới
+function checkAndIncreaseViewsDaily() {
+  // Lấy ngày hiện tại
+  const today = new Date().toLocaleDateString('vi-VN');
 
-  try {
-    // Kiểm tra xem Supabase đã được khởi tạo chưa
-    if (typeof initSupabaseClient === 'function') {
-      // Khởi tạo Supabase client nếu chưa được khởi tạo
-      if (!window.supabase) {
-        window.supabase = initSupabaseClient();
-      }
-    }
+  // Lấy ngày cuối cùng đã tăng lượt xem từ localStorage
+  const lastIncreasedDate = localStorage.getItem('lastViewsIncreasedDate');
 
-    // Nếu không thể khởi tạo Supabase, sử dụng localStorage
-    if (!window.supabase) {
-      console.log('Không thể kết nối Supabase, sử dụng localStorage...');
-      useLocalStorageViews();
-      return;
-    }
+  // Nếu chưa có ngày cuối cùng hoặc ngày hiện tại khác ngày cuối cùng
+  if (!lastIncreasedDate || lastIncreasedDate !== today) {
+    console.log(`Sang ngày mới: ${today}, tăng lượt xem cho tất cả bài viết`);
 
-    // Lấy lượt xem từ Supabase
-    const { data, error } = await window.supabase
-      .from('blog_views')
-      .select('post_id, views');
+    // Lấy dữ liệu lượt xem từ localStorage
+    let viewsData = localStorage.getItem('blogPostViews');
+    let views = viewsData ? JSON.parse(viewsData) : {};
 
-    if (error) {
-      console.error('Lỗi khi lấy lượt xem từ Supabase:', error);
-      useLocalStorageViews();
-      return;
-    }
-
-    console.log('Dữ liệu lượt xem từ Supabase:', data);
-
-    // Tạo đối tượng lưu trữ lượt xem với post_id là key
-    const supabaseViews = {};
-    if (data && data.length > 0) {
-      data.forEach((item) => {
-        supabaseViews[item.post_id] = item.views;
-      });
-    }
-
-    // Đồng bộ lượt xem giữa blog.js và Supabase
+    // Tăng lượt xem cho tất cả bài viết
     posts.forEach((post) => {
       const postId = post.id.toString();
 
-      // Nếu admin cập nhật lượt xem thủ công trong blog.js
-      if (
-        post.views &&
-        (!supabaseViews[postId] || post.views > supabaseViews[postId])
-      ) {
-        // Cập nhật lượt xem trong Supabase
-        updateViewCountInSupabase(postId, post.views);
-        console.log(
-          `Admin đã cập nhật lượt xem cho bài viết ID ${postId}: ${post.views}`
-        );
-      }
-      // Nếu đã có lượt xem trong Supabase, sử dụng giá trị đó
-      else if (supabaseViews[postId]) {
-        post.views = supabaseViews[postId];
-      }
-      // Nếu chưa có lượt xem trong Supabase, khởi tạo giá trị ban đầu
-      else if (post.views) {
-        updateViewCountInSupabase(postId, post.views);
-      } else {
-        post.views = 0;
-        updateViewCountInSupabase(postId, 0);
-      }
-    });
+      // Tăng lượt xem lên 5
+      post.views = (post.views || 0) + 5;
+      views[postId] = post.views;
 
-    console.log('Đã đồng bộ lượt xem từ Supabase thành công');
-  } catch (error) {
-    console.error('Lỗi khi đồng bộ lượt xem từ Supabase:', error);
-    useLocalStorageViews();
-  }
-}
-
-// Hàm cập nhật lượt xem trong Supabase
-async function updateViewCountInSupabase(postId, count) {
-  try {
-    if (!window.supabase) return;
-
-    const { data, error } = await window.supabase.rpc('update_blog_view', {
-      post_id_param: postId,
-      new_views_param: count,
-    });
-
-    if (error) {
-      console.error('Lỗi khi cập nhật lượt xem trong Supabase:', error);
-    } else {
       console.log(
-        `Đã cập nhật lượt xem cho bài viết ID ${postId} thành ${count} trong Supabase`
+        `Tăng lượt xem cho bài viết ID ${postId} lên ${post.views} (+5 lượt xem)`
       );
-    }
-  } catch (error) {
-    console.error('Lỗi khi cập nhật lượt xem trong Supabase:', error);
+    });
+
+    // Lưu lại vào localStorage
+    localStorage.setItem('blogPostViews', JSON.stringify(views));
+
+    // Cập nhật ngày cuối cùng đã tăng lượt xem
+    localStorage.setItem('lastViewsIncreasedDate', today);
   }
 }
 
-// Hàm sử dụng localStorage khi không thể kết nối Supabase
-function useLocalStorageViews() {
-  console.log('Sử dụng localStorage cho lượt xem...');
+// Hàm để đồng bộ lượt xem giữa blog.js và localStorage
+function syncViewsWithLocalStorage() {
+  // Kiểm tra và tăng lượt xem tự động mỗi ngày mới
+  checkAndIncreaseViewsDaily();
 
   // Lấy dữ liệu lượt xem từ localStorage
   let viewsData = localStorage.getItem('blogPostViews');
   let views = viewsData ? JSON.parse(viewsData) : {};
+
+  // Lấy dữ liệu bài viết đã xem từ localStorage
+  let viewedPostsData = localStorage.getItem('viewedBlogPosts');
+  let viewedPosts = viewedPostsData ? JSON.parse(viewedPostsData) : {};
 
   // Đồng bộ lượt xem giữa blog.js và localStorage
   posts.forEach((post) => {
@@ -762,10 +706,35 @@ if (document.getElementById('blog-grid')) {
         const post = posts.find((p) => p.id === postId);
         if (!post) return;
 
-        console.log(`Người dùng đã click vào bài viết ID ${postIdStr}`);
+        // Lấy dữ liệu lượt xem từ localStorage
+        let viewsData = localStorage.getItem('blogPostViews');
+        let views = viewsData ? JSON.parse(viewsData) : {};
 
-        // Lượt xem sẽ được tăng trong trang blog-detail.html bởi supabase-views.js
-        // Không cần thực hiện thêm hành động nào ở đây
+        // Lấy danh sách bài viết đã xem từ localStorage
+        let viewedPostsData = localStorage.getItem('viewedBlogPosts');
+        let viewedPosts = viewedPostsData ? JSON.parse(viewedPostsData) : {};
+
+        // Kiểm tra xem người dùng đã từng xem bài viết này chưa
+        if (!viewedPosts[postIdStr]) {
+          // Tăng lượt xem lên 1
+          post.views = (post.views || 0) + 1;
+
+          // Cập nhật lượt xem trong localStorage
+          views[postIdStr] = post.views;
+          localStorage.setItem('blogPostViews', JSON.stringify(views));
+
+          // Đánh dấu bài viết đã được xem
+          viewedPosts[postIdStr] = true;
+          localStorage.setItem('viewedBlogPosts', JSON.stringify(viewedPosts));
+
+          console.log(
+            `Tăng lượt xem cho bài viết ID ${postIdStr} lên ${post.views}`
+          );
+        } else {
+          console.log(
+            `Người dùng đã xem bài viết ID ${postIdStr} trước đó, giữ nguyên lượt xem: ${post.views}`
+          );
+        }
 
         // Cho phép sự kiện click tiếp tục xảy ra (chuyển trang)
       });
