@@ -66,9 +66,25 @@ function syncViewsWithLocalStorage() {
   let viewedPostsData = localStorage.getItem('viewedBlogPosts');
   let viewedPosts = viewedPostsData ? JSON.parse(viewedPostsData) : {};
 
+  // Lấy dữ liệu baseViews từ localStorage
+  let baseViewsData = localStorage.getItem('previousBaseViews');
+  let baseViews = baseViewsData ? JSON.parse(baseViewsData) : {};
+
   // Đồng bộ lượt xem giữa blog.js và localStorage
   posts.forEach((post) => {
     const postId = post.id.toString();
+
+    // Khởi tạo baseViews nếu chưa có
+    if (post.baseViews === undefined) {
+      post.baseViews = post.views || 0;
+      post.views = 0;
+    }
+
+    // Luôn ưu tiên baseViews từ blog.js và ghi đè lên giá trị trong localStorage
+    baseViews[postId] = post.baseViews;
+    console.log(
+      `Cập nhật baseViews cho bài viết ID ${postId}: ${post.baseViews}`
+    );
 
     // Nếu admin cập nhật lượt xem thủ công trong blog.js
     if (post.views && (!views[postId] || post.views > views[postId])) {
@@ -90,6 +106,7 @@ function syncViewsWithLocalStorage() {
 
   // Lưu lại vào localStorage
   localStorage.setItem('blogPostViews', JSON.stringify(views));
+  localStorage.setItem('previousBaseViews', JSON.stringify(baseViews));
 }
 
 const posts = [
@@ -139,7 +156,8 @@ const posts = [
       <p>Chọn tủ quần áo không chỉ là việc mua sắm mà còn là cách bạn đầu tư cho không gian sống tiện nghi và thẩm mỹ. Hãy áp dụng 5 mẹo trên để tìm được chiếc tủ hoàn hảo cho ngôi nhà của bạn. Nếu cần tư vấn thêm hoặc muốn khám phá các mẫu tủ quần áo hiện đại, hãy liên hệ với chúng tôi ngay hôm nay!</p>
 
     `,
-    views: 290, // Giữ nguyên lượt xem
+    baseViews: 290, // Lượt xem cơ sở do admin đặt
+    views: 0, // Lượt xem từ người dùng
   },
   {
     id: 2,
@@ -223,7 +241,8 @@ const posts = [
     content: `
         <p>Nội thất đa năng như giường gấp, bàn gấp đang rất được ưa chuộng...</p>
       `,
-    views: 85,
+    baseViews: 85,
+    views: 0,
   },
   {
     id: 6,
@@ -238,7 +257,8 @@ const posts = [
     content: `
         <p>Nội thất đa năng như giường gấp, bàn gấp đang rất được ưa chuộng...</p>
       `,
-    views: 72,
+    baseViews: 72,
+    views: 0,
   },
   {
     id: 7,
@@ -253,7 +273,8 @@ const posts = [
     content: `
         <p>Nội thất đa năng như giường gấp, bàn gấp đang rất được ưa chuộng...</p>
       `,
-    views: 65,
+    baseViews: 65,
+    views: 0,
   },
   {
     id: 8,
@@ -268,7 +289,8 @@ const posts = [
     content: `
         <p>Nội thất đa năng như giường gấp, bàn gấp đang rất được ưa chuộng...</p>
       `,
-    views: 58,
+    baseViews: 58,
+    views: 0,
   },
   {
     id: 9,
@@ -283,7 +305,8 @@ const posts = [
     content: `
         <p>Nội thất đa năng như giường gấp, bàn gấp đang rất được ưa chuộng...</p>
       `,
-    views: 52,
+    baseViews: 52,
+    views: 0,
   },
   {
     id: 10,
@@ -298,7 +321,8 @@ const posts = [
     content: `
         <p>Nội thất đa năng như giường gấp, bàn gấp đang rất được ưa chuộng...</p>
       `,
-    views: 48,
+    baseViews: 48,
+    views: 0,
   },
 
   {
@@ -314,7 +338,8 @@ const posts = [
     content: `
         <p>Nội thất đa năng như giường gấp, bàn gấp đang rất được ưa chuộng...</p>
       `,
-    views: 45,
+    baseViews: 45,
+    views: 0,
   },
   {
     id: 12,
@@ -329,7 +354,8 @@ const posts = [
     content: `
         <p>Nội thất đa năng như giường gấp, bàn gấp đang rất được ưa chuộng...</p>
       `,
-    views: 42,
+    baseViews: 42,
+    views: 0,
   },
   {
     id: 13,
@@ -344,7 +370,8 @@ const posts = [
     content: `
         <p>Nội thất đa năng như giường gấp, bàn gấp đang rất được ưa chuộng...</p>
       `,
-    views: 38,
+    baseViews: 38,
+    views: 0,
   },
   {
     id: 14,
@@ -359,7 +386,8 @@ const posts = [
     content: `
         <p>Nội thất đa năng như giường gấp, bàn gấp đang rất được ưa chuộng...</p>
       `,
-    views: 35,
+    baseViews: 35,
+    views: 0,
   },
   {
     id: 15,
@@ -374,7 +402,8 @@ const posts = [
     content: `
         <p>Nội thất đa năng như giường gấp, bàn gấp đang rất được ưa chuộng...</p>
       `,
-    views: 32,
+    baseViews: 32,
+    views: 0,
   },
   {
     id: 16,
@@ -389,7 +418,8 @@ const posts = [
     content: `
         <p>Nội thất đa năng như giường gấp, bàn gấp đang rất được ưa chuộng...</p>
       `,
-    views: 28,
+    baseViews: 28,
+    views: 0,
   },
   {
     id: 17,
@@ -404,7 +434,8 @@ const posts = [
     content: `
         <p>Nội thất đa năng như giường gấp, bàn gấp đang rất được ưa chuộng...</p>
       `,
-    views: 25,
+    baseViews: 25,
+    views: 0,
   },
   {
     id: 18,
@@ -419,7 +450,8 @@ const posts = [
     content: `
         <p>Nội thất đa năng như giường gấp, bàn gấp đang rất được ưa chuộng...</p>
       `,
-    views: 22,
+    baseViews: 22,
+    views: 0,
   },
   {
     id: 19,
@@ -434,7 +466,8 @@ const posts = [
     content: `
         <p>Nội thất đa năng như giường gấp, bàn gấp đang rất được ưa chuộng...</p>
       `,
-    views: 18,
+    baseViews: 18,
+    views: 0,
   },
   {
     id: 20,
@@ -449,7 +482,8 @@ const posts = [
     content: `
         <p>Nội thất đa năng như giường gấp, bàn gấp đang rất được ưa chuộng...</p>
       `,
-    views: 15,
+    baseViews: 15,
+    views: 0,
   },
   {
     id: 21,
@@ -497,7 +531,8 @@ const posts = [
       <p>Chọn tủ quần áo không chỉ là việc mua sắm mà còn là cách bạn đầu tư cho không gian sống tiện nghi và thẩm mỹ. Hãy áp dụng 5 mẹo trên để tìm được chiếc tủ hoàn hảo cho ngôi nhà của bạn. Nếu cần tư vấn thêm hoặc muốn khám phá các mẫu tủ quần áo hiện đại, hãy liên hệ với chúng tôi ngay hôm nay!</p>
 
     `,
-    views: 290,
+    baseViews: 290,
+    views: 0,
   },
   {
     id: 22,
@@ -549,9 +584,35 @@ const posts = [
       <p>Công nghệ AI đang mở ra một kỷ nguyên mới trong thiết kế và sản xuất nội thất, nơi mà sự cá nhân hóa, hiệu quả và bền vững được đặt lên hàng đầu. Tuy nhiên, điều quan trọng là phải nhận thức rằng AI không phải là để thay thế con người, mà là công cụ hỗ trợ để nâng cao khả năng sáng tạo và hiệu quả của các nhà thiết kế.</p>
       <p>Khi công nghệ AI tiếp tục phát triển, chúng ta có thể mong đợi những đột phá mới trong cách chúng ta thiết kế, sản xuất và trải nghiệm không gian sống. Tương lai của thiết kế nội thất với AI không chỉ là về công nghệ, mà còn là về việc tạo ra những không gian sống thông minh hơn, tiện nghi hơn và bền vững hơn cho tất cả mọi người.</p>
     `,
-    views: 150,
+    baseViews: 152,
+    views: 0,
   },
 ];
+
+/**
+ * Tính tổng lượt xem của bài viết (baseViews + views)
+ * @param {Object} post - Bài viết cần tính tổng lượt xem
+ * @returns {number} - Tổng lượt xem
+ */
+function calculateTotalViews(post) {
+  // Lấy dữ liệu lượt xem từ localStorage
+  let viewsData = localStorage.getItem('blogPostViews');
+  let views = viewsData ? JSON.parse(viewsData) : {};
+
+  // Lấy baseViews từ localStorage
+  let baseViewsData = localStorage.getItem('previousBaseViews');
+  let baseViews = baseViewsData ? JSON.parse(baseViewsData) : {};
+
+  // Lấy ID bài viết
+  const postId = post.id.toString();
+
+  // Tính tổng lượt xem = baseViews + views
+  const totalViews =
+    (baseViews[postId] || post.baseViews || 0) +
+    (views[postId] || post.views || 0);
+
+  return totalViews;
+}
 
 // Đồng bộ lượt xem khi tải trang
 document.addEventListener('DOMContentLoaded', function () {
@@ -665,9 +726,9 @@ if (document.getElementById('blog-grid')) {
             <div class="blog-card-footer">
               <div class="blog-card-meta">
                 <span class="blog-card-date"><i class="far fa-calendar-alt"></i> ${formattedDate}</span>
-                <span class="blog-card-views"><i class="far fa-eye"></i> ${
-                  post.views || 0
-                } Lượt xem</span>
+                <span class="blog-card-views"><i class="far fa-eye"></i> ${calculateTotalViews(
+                  post
+                )} Lượt xem</span>
               </div>
               <a href="blog-detail.html?id=${
                 post.id
@@ -714,6 +775,25 @@ if (document.getElementById('blog-grid')) {
         let viewedPostsData = localStorage.getItem('viewedBlogPosts');
         let viewedPosts = viewedPostsData ? JSON.parse(viewedPostsData) : {};
 
+        // Lấy baseViews từ localStorage
+        let baseViewsData = localStorage.getItem('previousBaseViews');
+        let baseViews = baseViewsData ? JSON.parse(baseViewsData) : {};
+
+        // Khởi tạo baseViews nếu chưa có
+        if (post.baseViews === undefined) {
+          post.baseViews = post.views || 0;
+          post.views = 0;
+        }
+
+        // Lưu baseViews vào localStorage nếu có thay đổi
+        if (!baseViews[postIdStr] || post.baseViews > baseViews[postIdStr]) {
+          baseViews[postIdStr] = post.baseViews;
+          localStorage.setItem('previousBaseViews', JSON.stringify(baseViews));
+        }
+
+        // Tính tổng lượt xem hiện tại
+        const currentTotalViews = calculateTotalViews(post);
+
         // Kiểm tra xem người dùng đã từng xem bài viết này chưa
         if (!viewedPosts[postIdStr]) {
           // Tăng lượt xem lên 1
@@ -727,12 +807,15 @@ if (document.getElementById('blog-grid')) {
           viewedPosts[postIdStr] = true;
           localStorage.setItem('viewedBlogPosts', JSON.stringify(viewedPosts));
 
+          // Tính tổng lượt xem mới
+          const newTotalViews = calculateTotalViews(post);
+
           console.log(
-            `Tăng lượt xem cho bài viết ID ${postIdStr} lên ${post.views}`
+            `Tăng lượt xem cho bài viết ID ${postIdStr} lên ${post.views} (tổng: ${newTotalViews})`
           );
         } else {
           console.log(
-            `Người dùng đã xem bài viết ID ${postIdStr} trước đó, giữ nguyên lượt xem: ${post.views}`
+            `Người dùng đã xem bài viết ID ${postIdStr} trước đó, giữ nguyên lượt xem: ${post.views} (tổng: ${currentTotalViews})`
           );
         }
 

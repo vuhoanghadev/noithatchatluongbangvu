@@ -53,6 +53,23 @@ function handleBlogDetail() {
   let viewsData = localStorage.getItem('blogPostViews');
   let views = viewsData ? JSON.parse(viewsData) : {};
 
+  // Lấy baseViews từ localStorage
+  let baseViewsData = localStorage.getItem('previousBaseViews');
+  let baseViews = baseViewsData ? JSON.parse(baseViewsData) : {};
+
+  // Khởi tạo baseViews nếu chưa có
+  if (post.baseViews === undefined) {
+    post.baseViews = post.views || 0;
+    post.views = 0;
+  }
+
+  // Luôn ưu tiên baseViews từ blog.js và ghi đè lên giá trị trong localStorage
+  baseViews[postId] = post.baseViews;
+  localStorage.setItem('previousBaseViews', JSON.stringify(baseViews));
+  console.log(
+    `Cập nhật baseViews cho bài viết ID ${postId}: ${post.baseViews}`
+  );
+
   // Kiểm tra xem lượt xem trong localStorage có khớp với lượt xem trong blog.js không
   // Nếu lượt xem trong blog.js lớn hơn, có nghĩa là admin đã cập nhật
   if (!views[postId] || post.views > views[postId]) {
@@ -61,9 +78,12 @@ function handleBlogDetail() {
     localStorage.setItem('blogPostViews', JSON.stringify(views));
   }
 
-  // Hiển thị lượt xem - Ưu tiên hiển thị lượt xem từ localStorage
-  document.getElementById('blog-views').textContent =
-    views[postId] || post.views || 0;
+  // Tính tổng lượt xem = baseViews + lượt xem từ người dùng
+  const totalViews =
+    (baseViews[postId] || post.baseViews || 0) + (views[postId] || 0);
+
+  // Hiển thị tổng lượt xem
+  document.getElementById('blog-views').textContent = totalViews;
 
   document.getElementById('blog-image').src = post.image;
   document.getElementById('blog-image').alt = post.title;
@@ -384,6 +404,23 @@ function increaseViewCount(postId) {
   let viewsData = localStorage.getItem('blogPostViews');
   let views = viewsData ? JSON.parse(viewsData) : {};
 
+  // Lấy baseViews từ localStorage
+  let baseViewsData = localStorage.getItem('previousBaseViews');
+  let baseViews = baseViewsData ? JSON.parse(baseViewsData) : {};
+
+  // Khởi tạo baseViews nếu chưa có
+  if (post.baseViews === undefined) {
+    post.baseViews = post.views || 0;
+    post.views = 0;
+  }
+
+  // Luôn ưu tiên baseViews từ blog.js và ghi đè lên giá trị trong localStorage
+  baseViews[postIdStr] = post.baseViews;
+  localStorage.setItem('previousBaseViews', JSON.stringify(baseViews));
+  console.log(
+    `Cập nhật baseViews cho bài viết ID ${postIdStr}: ${post.baseViews}`
+  );
+
   // Lấy danh sách bài viết đã xem từ localStorage
   let viewedPostsData = localStorage.getItem('viewedBlogPosts');
   let viewedPosts = viewedPostsData ? JSON.parse(viewedPostsData) : {};
@@ -402,11 +439,21 @@ function increaseViewCount(postId) {
     post.views = views[postIdStr];
   }
 
+  // Tính tổng lượt xem hiện tại
+  const currentTotalViews =
+    (baseViews[postIdStr] || post.baseViews || 0) + (views[postIdStr] || 0);
+
   // Debug: In ra giá trị lượt xem hiện tại
-  console.log(`Lượt xem hiện tại của bài viết ID ${postIdStr}: ${post.views}`);
+  console.log(
+    `Lượt xem cơ sở của bài viết ID ${postIdStr}: ${
+      baseViews[postIdStr] || post.baseViews || 0
+    }`
+  );
+  console.log(
+    `Lượt xem người dùng của bài viết ID ${postIdStr}: ${views[postIdStr] || 0}`
+  );
+  console.log(`Tổng lượt xem hiện tại: ${currentTotalViews}`);
   console.log(`viewedPosts[${postIdStr}] = ${viewedPosts[postIdStr]}`);
-  console.log(`views[${postIdStr}] = ${views[postIdStr]}`);
-  console.log(`post.views = ${post.views}`);
 
   // Kiểm tra xem người dùng đã từng xem bài viết này chưa
   if (!viewedPosts[postIdStr]) {
@@ -421,15 +468,59 @@ function increaseViewCount(postId) {
     viewedPosts[postIdStr] = true;
     localStorage.setItem('viewedBlogPosts', JSON.stringify(viewedPosts));
 
-    console.log(`Tăng lượt xem cho bài viết ID ${postIdStr} lên ${post.views}`);
+    // Tính tổng lượt xem mới
+    const newTotalViews =
+      (baseViews[postIdStr] || post.baseViews || 0) + post.views;
+
+    console.log(
+      `Tăng lượt xem cho bài viết ID ${postIdStr} lên ${post.views} (tổng: ${newTotalViews})`
+    );
+
+    // Cập nhật hiển thị với hiệu ứng đếm số
+    const viewsElement = document.getElementById('blog-views');
+    if (viewsElement) {
+      animateCountUp(viewsElement, currentTotalViews, newTotalViews);
+    }
   } else {
     console.log(
-      `Người dùng đã xem bài viết ID ${postIdStr} trước đó, giữ nguyên lượt xem: ${post.views}`
+      `Người dùng đã xem bài viết ID ${postIdStr} trước đó, giữ nguyên lượt xem: ${post.views} (tổng: ${currentTotalViews})`
     );
-  }
 
-  // Cập nhật hiển thị - Hiển thị lượt xem từ dữ liệu bài viết đã được cập nhật
-  document.getElementById('blog-views').textContent = post.views || 0;
+    // Hiển thị tổng lượt xem
+    document.getElementById('blog-views').textContent = currentTotalViews;
+  }
+}
+
+/**
+ * Hiệu ứng đếm số tăng dần
+ * @param {HTMLElement} element - Phần tử hiển thị số
+ * @param {number} start - Giá trị bắt đầu
+ * @param {number} end - Giá trị kết thúc
+ */
+function animateCountUp(element, start, end) {
+  // Thêm class để đánh dấu đang có hiệu ứng
+  element.classList.add('count-animation');
+
+  let current = start;
+  const increment = Math.max(1, Math.ceil((end - start) / 10)); // Tăng ít nhất 1, tối đa 1/10 khoảng cách
+  const timer = setInterval(() => {
+    current += increment;
+
+    // Nếu đã đạt hoặc vượt quá giá trị kết thúc
+    if (current >= end) {
+      element.textContent = end;
+      element.classList.add('highlight');
+      clearInterval(timer);
+
+      // Xóa highlight sau 1 giây
+      setTimeout(() => {
+        element.classList.remove('highlight');
+        element.classList.remove('count-animation');
+      }, 1000);
+    } else {
+      element.textContent = current;
+    }
+  }, 200);
 }
 
 // Hàm khởi tạo nút Back to Top
