@@ -416,14 +416,7 @@ body {
     text-align: center;
 }
 
-.promo-info {
-    background: rgba(249, 115, 22, 0.1);
-    border-left: 4px solid var(--product-primary);
-    padding: 15px;
-    border-radius: 0 8px 8px 0;
-    margin-bottom: 25px;
-    font-weight: 500;
-}
+/* Promo info styles moved to promo-info-premium.css */
 
 .product-actions {
     display: flex;
@@ -1155,6 +1148,8 @@ body {
         padding: 4px 10px;
     }
 
+    /* Promo info responsive styles moved to promo-info-premium.css */
+
     .product-specs h3 {
         font-size: 1.1rem;
     }
@@ -1302,6 +1297,8 @@ body {
         padding: 3px 8px;
         margin-bottom: 15px;
     }
+
+    /* Promo info responsive styles moved to promo-info-premium.css */
 
     .product-description {
         font-size: 0.9rem;

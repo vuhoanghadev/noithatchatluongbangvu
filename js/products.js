@@ -1440,9 +1440,9 @@ const products = [
     promotion: 'Ưu đãi đặc biệt tháng 5', // Thông tin khuyến mãi, hiển thị như badge trên sản phẩm
     tag: 'Mới', // Nhãn đánh dấu sản phẩm (Mới, Bán chạy, Hot, v.v.)
     rating: 4.9, // Điểm đánh giá trung bình của sản phẩm, thang điểm từ 0-5
-    views: 850, // Số lượt xem sản phẩm, dùng để thống kê và sắp xếp theo độ phổ biến
+    views: 657, // Số lượt xem sản phẩm, dùng để thống kê và sắp xếp theo độ phổ biến
     soldCount: 75, // Số lượng đã bán, dùng để thống kê và hiển thị độ phổ biến
-    promoEndDate: '2025-05-31T00:00:00', // Ngày kết thúc khuyến mãi theo định dạng ISO, dùng để tính thời gian còn lại
+    promoEndDate: '2025-04-31T00:00:00', // Ngày kết thúc khuyến mãi theo định dạng ISO, dùng để tính thời gian còn lại
     sku: 'NTBV-QA560', // Mã SKU (Stock Keeping Unit) để quản lý kho hàng và tham chiếu sản phẩm
 
     // Thông tin flash sale - chương trình giảm giá nhanh có thời hạn
@@ -1451,8 +1451,8 @@ const products = [
       discountPercent: 25, // Phần trăm giảm giá (%)
       oldPrice: 6000000, // Giá gốc trước khi giảm (VNĐ)
       newPrice: 4500000, // Giá mới sau khi giảm (VNĐ)
-      type: 'fixed', // Loại flash sale: 'fixed' (cố định theo thời gian) hoặc 'daily' (diễn ra hàng ngày)
-      endsAt: '2025-05-31T23:59:59', // Thời điểm kết thúc flash sale theo định dạng ISO
+      type: 'daily', // Loại flash sale: 'fixed' (cố định theo thời gian) hoặc 'daily' (diễn ra hàng ngày)
+      endsAt: '2025-04-31T23:59:59', // Thời điểm kết thúc flash sale theo định dạng ISO
       hidePrice: false, // Ẩn/hiện giá: true (ẩn giá), false (hiển thị giá)
     },
 

@@ -1,0 +1,168 @@
+/* Wishlist Button Styles */
+:root {
+    --wishlist-primary: #f97316;
+    --wishlist-secondary: #0058dd;
+    --wishlist-dark: #1c2332;
+    --wishlist-light: #f8f9fa;
+    --wishlist-white: #ffffff;
+    --wishlist-transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+}
+
+/* Wishlist Button */
+.wishlist-btn {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 12px 25px;
+    background: var(--wishlist-white);
+    color: var(--wishlist-dark);
+    border: 2px solid var(--wishlist-dark);
+    border-radius: 8px;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: var(--wishlist-transition);
+    overflow: hidden;
+    z-index: 1;
+}
+
+.wishlist-btn:hover {
+    color: var(--wishlist-primary);
+    border-color: var(--wishlist-primary);
+    transform: translateY(-3px);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+}
+
+.wishlist-btn i {
+    margin-right: 8px;
+    font-size: 1.1rem;
+    transition: var(--wishlist-transition);
+}
+
+.wishlist-btn:hover i {
+    transform: scale(1.2);
+    color: var(--wishlist-primary);
+}
+
+/* Active state */
+.wishlist-btn.active {
+    background: rgba(249, 115, 22, 0.1);
+    color: var(--wishlist-primary);
+    border-color: var(--wishlist-primary);
+}
+
+.wishlist-btn.active i {
+    color: var(--wishlist-primary);
+}
+
+/* Heart animation */
+.wishlist-btn .heart-animation {
+    position: absolute;
+    top: 50%;
+    left: 25px;
+    transform: translateY(-50%);
+    width: 20px;
+    height: 20px;
+    pointer-events: none;
+    opacity: 0;
+}
+
+.wishlist-btn.animate .heart-animation {
+    animation: heartBurst 0.8s ease-out;
+}
+
+@keyframes heartBurst {
+    0% {
+        opacity: 0;
+        transform: translateY(-50%) scale(0);
+    }
+    30% {
+        opacity: 0.8;
+        transform: translateY(-50%) scale(1.2);
+    }
+    100% {
+        opacity: 0;
+        transform: translateY(-50%) scale(1.8);
+    }
+}
+
+/* Wishlist notification */
+.wishlist-notification {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    background: var(--wishlist-white);
+    border-left: 4px solid var(--wishlist-primary);
+    padding: 15px 20px;
+    border-radius: 8px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    z-index: 1000;
+    transform: translateX(120%);
+    transition: transform 0.4s cubic-bezier(0.68, -0.55, 0.27, 1.55);
+}
+
+.wishlist-notification.show {
+    transform: translateX(0);
+}
+
+.wishlist-notification-icon {
+    width: 40px;
+    height: 40px;
+    background: rgba(249, 115, 22, 0.1);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--wishlist-primary);
+    font-size: 1.2rem;
+}
+
+.wishlist-notification-content {
+    flex: 1;
+}
+
+.wishlist-notification-title {
+    font-weight: 600;
+    color: var(--wishlist-dark);
+    margin-bottom: 3px;
+}
+
+.wishlist-notification-text {
+    font-size: 0.9rem;
+    color: #666;
+}
+
+.wishlist-notification-close {
+    color: #999;
+    cursor: pointer;
+    font-size: 1.1rem;
+    transition: var(--wishlist-transition);
+}
+
+.wishlist-notification-close:hover {
+    color: var(--wishlist-dark);
+}
+
+/* Responsive styles */
+@media (max-width: 768px) {
+    .wishlist-btn {
+        padding: 10px 20px;
+        font-size: 0.95rem;
+    }
+    
+    .wishlist-notification {
+        width: calc(100% - 40px);
+        max-width: 400px;
+    }
+}
+
+@media (max-width: 576px) {
+    .wishlist-btn {
+        width: 100%;
+        justify-content: center;
+    }
+}

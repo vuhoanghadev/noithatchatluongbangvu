@@ -16,27 +16,29 @@ const ViewCounterEnhanced = {
     // Thời gian cập nhật số người đang xem (ms)
     currentViewersUpdateInterval: {
       min: 30000, // 30 giây
-      max: 60000  // 60 giây
+      max: 60000, // 60 giây
     },
     // Thời gian hiển thị thông báo có người mới xem (ms)
     newViewerNotificationDuration: 5000, // 5 giây
     // Thời gian giữa các lần tăng lượt xem giả lập (ms)
     simulatedViewIncreaseInterval: {
       min: 180000, // 3 phút
-      max: 300000  // 5 phút
+      max: 300000, // 5 phút
     },
     // Thời gian chờ trước khi hiển thị thông báo lượt xem mới (ms)
     initialViewIncreaseDelay: {
       min: 120000, // 2 phút
-      max: 180000  // 3 phút
+      max: 180000, // 3 phút
     },
     // Số lượng lượt xem tăng mỗi lần giả lập
     simulatedViewIncreaseAmount: {
       min: 1,
-      max: 3
+      max: 3,
     },
     // Tốc độ hiệu ứng đếm số (ms)
-    countAnimationSpeed: 200
+    countAnimationSpeed: 200,
+    // Số lượng thông báo tối đa hiển thị cùng lúc
+    maxNotifications: 3,
   },
 
   // Biến lưu trữ dữ liệu
@@ -52,19 +54,19 @@ const ViewCounterEnhanced = {
     // ID của timeout để tăng lượt xem giả lập
     simulatedViewIncreaseTimeoutId: null,
     // Lưu trữ giá trị baseViews trước đó
-    previousBaseViews: {}
+    previousBaseViews: {},
   },
 
   /**
    * Khởi tạo hệ thống đếm lượt xem nâng cao
    * @param {number} postId - ID của bài viết hiện tại
    */
-  init: function(postId) {
+  init: function (postId) {
     // Lưu ID bài viết hiện tại
     this.data.currentPostId = postId;
 
     // Tìm bài viết theo ID
-    this.data.currentPost = posts.find(p => p.id === postId);
+    this.data.currentPost = posts.find((p) => p.id === postId);
     if (!this.data.currentPost) return;
 
     // Tạo các phần tử UI cần thiết
@@ -82,13 +84,16 @@ const ViewCounterEnhanced = {
     // Xử lý khi admin thay đổi lượt xem thủ công
     this.handleManualViewChange();
 
-    console.log('ViewCounterEnhanced: Đã khởi tạo hệ thống đếm lượt xem nâng cao cho bài viết ID', postId);
+    console.log(
+      'ViewCounterEnhanced: Đã khởi tạo hệ thống đếm lượt xem nâng cao cho bài viết ID',
+      postId
+    );
   },
 
   /**
    * Tạo các phần tử UI cần thiết
    */
-  createUIElements: function() {
+  createUIElements: function () {
     // Tạo phần tử hiển thị số người đang xem
     this.createCurrentViewersElement();
 
@@ -102,13 +107,36 @@ const ViewCounterEnhanced = {
   /**
    * Tạo phần tử hiển thị số người đang xem
    */
-  createCurrentViewersElement: function() {
+  createCurrentViewersElement: function () {
     // Kiểm tra xem phần tử đã tồn tại chưa
     if (document.getElementById('current-viewers-container')) return;
 
     // Tìm phần tử cha để chèn vào
     const blogMetaElement = document.querySelector('.blog-meta');
-    if (!blogMetaElement) return;
+    if (!blogMetaElement) {
+      console.error('Không tìm thấy phần tử .blog-meta');
+      return;
+    }
+
+    // Tìm phần tử hiển thị lượt xem
+    const blogViewsElement = blogMetaElement.querySelector('.blog-views');
+    if (!blogViewsElement) {
+      console.error('Không tìm thấy phần tử .blog-views');
+      // Nếu không tìm thấy phần tử lượt xem, vẫn thêm vào blog-meta
+
+      // Tạo phần tử hiển thị số người đang xem
+      const currentViewersContainer = document.createElement('div');
+      currentViewersContainer.id = 'current-viewers-container';
+      currentViewersContainer.className = 'blog-current-viewers';
+      currentViewersContainer.innerHTML = `
+        <i class="fas fa-user-friends"></i>
+        <span id="current-viewers-count">0</span>&nbsp;người đang xem
+      `;
+
+      // Thêm vào cuối blog-meta
+      blogMetaElement.appendChild(currentViewersContainer);
+      return;
+    }
 
     // Tạo phần tử hiển thị số người đang xem
     const currentViewersContainer = document.createElement('div');
@@ -116,17 +144,18 @@ const ViewCounterEnhanced = {
     currentViewersContainer.className = 'blog-current-viewers';
     currentViewersContainer.innerHTML = `
       <i class="fas fa-user-friends"></i>
-      <span id="current-viewers-count">0</span> người đang xem
+      <span id="current-viewers-count">0</span>&nbsp;người đang xem
     `;
 
-    // Thêm vào trang
-    blogMetaElement.appendChild(currentViewersContainer);
+    // Thêm vào sau phần tử hiển thị lượt xem
+    blogViewsElement.insertAdjacentElement('afterend', currentViewersContainer);
+    console.log('Đã tạo phần tử hiển thị số người đang xem');
   },
 
   /**
    * Tạo phần tử thông báo lượt xem mới
    */
-  createViewNotificationElement: function() {
+  createViewNotificationElement: function () {
     // Kiểm tra xem phần tử đã tồn tại chưa
     if (document.getElementById('view-notification-container')) return;
 
@@ -141,7 +170,7 @@ const ViewCounterEnhanced = {
   /**
    * Thêm CSS cho các phần tử mới
    */
-  addStyles: function() {
+  addStyles: function () {
     // Kiểm tra xem style đã tồn tại chưa
     if (document.getElementById('view-counter-enhanced-styles')) return;
 
@@ -242,7 +271,7 @@ const ViewCounterEnhanced = {
   /**
    * Khởi tạo giá trị baseViews nếu chưa có
    */
-  initBaseViews: function() {
+  initBaseViews: function () {
     const post = this.data.currentPost;
     if (!post) return;
 
@@ -262,7 +291,7 @@ const ViewCounterEnhanced = {
   /**
    * Cập nhật số người đang xem
    */
-  updateCurrentViewers: function() {
+  updateCurrentViewers: function () {
     const post = this.data.currentPost;
     if (!post) return;
 
@@ -275,7 +304,9 @@ const ViewCounterEnhanced = {
     const viewersCount = this.calculateCurrentViewers(post);
 
     // Cập nhật hiển thị
-    const currentViewersElement = document.getElementById('current-viewers-count');
+    const currentViewersElement = document.getElementById(
+      'current-viewers-count'
+    );
     if (currentViewersElement) {
       // Lưu giá trị cũ để so sánh
       const oldValue = this.data.currentViewers;
@@ -292,10 +323,27 @@ const ViewCounterEnhanced = {
 
           // Thêm hiệu ứng nếu số người đang xem thay đổi
           if (oldValue !== viewersCount) {
+            // Hiệu ứng nhấp nháy cho số người đang xem
             currentViewersElement.classList.add('highlight');
             setTimeout(() => {
               currentViewersElement.classList.remove('highlight');
             }, 1000);
+
+            // Hiệu ứng nhấp nháy cho container
+            const container = document.getElementById(
+              'current-viewers-container'
+            );
+            if (container) {
+              container.style.transform = 'scale(1.1)';
+              setTimeout(() => {
+                container.style.transform = 'scale(1)';
+              }, 300);
+            }
+
+            // Hiển thị thông báo nếu số người đang xem tăng
+            if (viewersCount > oldValue) {
+              this.showCurrentViewersNotification(viewersCount - oldValue);
+            }
           }
         } else {
           container.style.display = 'none';
@@ -319,7 +367,7 @@ const ViewCounterEnhanced = {
    * @param {Object} post - Bài viết cần tính số người đang xem
    * @returns {number} - Số người đang xem
    */
-  calculateCurrentViewers: function(post) {
+  calculateCurrentViewers: function (post) {
     // Tính tuổi bài viết (ngày)
     const postAge = this.getPostAge(post);
 
@@ -351,7 +399,7 @@ const ViewCounterEnhanced = {
   /**
    * Bắt đầu giả lập tăng lượt xem
    */
-  startSimulatedViewIncrease: function() {
+  startSimulatedViewIncrease: function () {
     // Hủy timeout cũ nếu có
     if (this.data.simulatedViewIncreaseTimeoutId) {
       clearTimeout(this.data.simulatedViewIncreaseTimeoutId);
@@ -371,7 +419,7 @@ const ViewCounterEnhanced = {
   /**
    * Giả lập tăng lượt xem
    */
-  simulateViewIncrease: function() {
+  simulateViewIncrease: function () {
     const postId = this.data.currentPostId;
     if (!postId) return;
 
@@ -402,7 +450,7 @@ const ViewCounterEnhanced = {
    * Hiển thị thông báo có người mới xem
    * @param {number} newViews - Số lượt xem mới
    */
-  showViewNotification: function(newViews) {
+  showViewNotification: function (newViews) {
     // Tạo phần tử thông báo
     const notification = document.createElement('div');
     notification.className = 'view-notification';
@@ -411,7 +459,12 @@ const ViewCounterEnhanced = {
     // Thêm vào container
     const container = document.getElementById('view-notification-container');
     if (container) {
-      container.appendChild(notification);
+      // Thêm vào đầu container thay vì cuối
+      if (container.firstChild) {
+        container.insertBefore(notification, container.firstChild);
+      } else {
+        container.appendChild(notification);
+      }
 
       // Hiển thị với hiệu ứng
       setTimeout(() => notification.classList.add('show'), 100);
@@ -421,6 +474,43 @@ const ViewCounterEnhanced = {
         notification.classList.remove('show');
         setTimeout(() => notification.remove(), 500);
       }, this.config.newViewerNotificationDuration);
+
+      // Giới hạn số lượng thông báo hiển thị cùng lúc
+      this.limitNotifications(container);
+    }
+  },
+
+  /**
+   * Hiển thị thông báo khi số người đang xem tăng
+   * @param {number} newViewers - Số người đang xem mới
+   */
+  showCurrentViewersNotification: function (newViewers) {
+    // Tạo phần tử thông báo
+    const notification = document.createElement('div');
+    notification.className = 'view-notification';
+    notification.innerHTML = `<i class="fas fa-user-friends"></i> Có thêm ${newViewers} người đang xem bài viết này`;
+
+    // Thêm vào container
+    const container = document.getElementById('view-notification-container');
+    if (container) {
+      // Thêm vào đầu container thay vì cuối
+      if (container.firstChild) {
+        container.insertBefore(notification, container.firstChild);
+      } else {
+        container.appendChild(notification);
+      }
+
+      // Hiển thị với hiệu ứng
+      setTimeout(() => notification.classList.add('show'), 100);
+
+      // Ẩn sau một khoảng thời gian
+      setTimeout(() => {
+        notification.classList.remove('show');
+        setTimeout(() => notification.remove(), 500);
+      }, this.config.newViewerNotificationDuration);
+
+      // Giới hạn số lượng thông báo hiển thị cùng lúc
+      this.limitNotifications(container);
     }
   },
 
@@ -429,7 +519,7 @@ const ViewCounterEnhanced = {
    * @param {number} postId - ID của bài viết
    * @param {number} newViews - Số lượt xem mới cần thêm vào
    */
-  updateViewCountDisplay: function(postId, newViews) {
+  updateViewCountDisplay: function (postId, newViews) {
     const viewsElement = document.getElementById('blog-views');
     if (!viewsElement) return;
 
@@ -458,7 +548,7 @@ const ViewCounterEnhanced = {
    * @param {number} start - Giá trị bắt đầu
    * @param {number} end - Giá trị kết thúc
    */
-  animateCountUp: function(element, start, end) {
+  animateCountUp: function (element, start, end) {
     // Thêm class để đánh dấu đang có hiệu ứng
     element.classList.add('count-animation');
 
@@ -487,7 +577,7 @@ const ViewCounterEnhanced = {
   /**
    * Xử lý khi admin thay đổi lượt xem thủ công
    */
-  handleManualViewChange: function() {
+  handleManualViewChange: function () {
     const post = this.data.currentPost;
     const postId = this.data.currentPostId;
     if (!post || !postId) return;
@@ -496,11 +586,16 @@ const ViewCounterEnhanced = {
     const previousBaseViews = this.data.previousBaseViews[postId] || 0;
 
     // Luôn cập nhật baseViews từ blog.js
-    console.log(`Cập nhật lượt xem cơ sở: ${previousBaseViews} -> ${post.baseViews}`);
+    console.log(
+      `Cập nhật lượt xem cơ sở: ${previousBaseViews} -> ${post.baseViews}`
+    );
 
     // Lưu giá trị baseViews mới
     this.data.previousBaseViews[postId] = post.baseViews;
-    localStorage.setItem('previousBaseViews', JSON.stringify(this.data.previousBaseViews));
+    localStorage.setItem(
+      'previousBaseViews',
+      JSON.stringify(this.data.previousBaseViews)
+    );
 
     // Lấy tổng lượt xem hiện tại
     let viewsData = localStorage.getItem('blogPostViews');
@@ -521,7 +616,6 @@ const ViewCounterEnhanced = {
         viewsElement.textContent = totalViews;
       }
     }
-  }
   },
 
   /**
@@ -529,7 +623,7 @@ const ViewCounterEnhanced = {
    * @param {Object} post - Bài viết cần tính tuổi
    * @returns {number} - Tuổi của bài viết (ngày)
    */
-  getPostAge: function(post) {
+  getPostAge: function (post) {
     if (!post.blogDate) return 0;
 
     // Chuyển đổi chuỗi ngày thành đối tượng Date
@@ -549,9 +643,9 @@ const ViewCounterEnhanced = {
    * @param {string} category - Danh mục cần lấy hệ số
    * @returns {number} - Hệ số phổ biến
    */
-  getCategoryPopularityFactor: function(category) {
-    const popularCategories = ["Xu hướng", "Mẹo thiết kế nội thất"];
-    const lessPopularCategories = ["Công nghệ", "Dự án"];
+  getCategoryPopularityFactor: function (category) {
+    const popularCategories = ['Xu hướng', 'Mẹo thiết kế nội thất'];
+    const lessPopularCategories = ['Công nghệ', 'Dự án'];
 
     if (popularCategories.includes(category)) {
       return 1.5;
@@ -566,7 +660,7 @@ const ViewCounterEnhanced = {
    * Lấy hệ số thời gian trong ngày
    * @returns {number} - Hệ số thời gian trong ngày
    */
-  getTimeOfDayFactor: function() {
+  getTimeOfDayFactor: function () {
     const hour = new Date().getHours();
 
     if (hour >= 5 && hour <= 8) {
@@ -586,14 +680,43 @@ const ViewCounterEnhanced = {
    * @param {number} max - Giá trị lớn nhất
    * @returns {number} - Số ngẫu nhiên
    */
-  getRandomInRange: function(min, max) {
+  getRandomInRange: function (min, max) {
     return Math.floor(Math.random() * (max - min + 1)) + min;
+  },
+
+  /**
+   * Giới hạn số lượng thông báo hiển thị cùng lúc
+   * @param {HTMLElement} container - Container chứa các thông báo
+   */
+  limitNotifications: function (container) {
+    // Lấy tất cả các thông báo đang hiển thị
+    const notifications = container.querySelectorAll('.view-notification');
+
+    // Nếu số lượng thông báo vượt quá giới hạn
+    if (notifications.length > this.config.maxNotifications) {
+      // Xóa các thông báo cũ nhất (từ cuối container)
+      for (
+        let i = this.config.maxNotifications;
+        i < notifications.length;
+        i++
+      ) {
+        // Ẩn thông báo trước khi xóa
+        notifications[i].classList.remove('show');
+
+        // Xóa thông báo sau khi hiệu ứng ẩn hoàn tất
+        setTimeout(() => {
+          if (notifications[i] && notifications[i].parentNode) {
+            notifications[i].remove();
+          }
+        }, 300);
+      }
+    }
   },
 
   /**
    * Dọn dẹp khi rời khỏi trang
    */
-  cleanup: function() {
+  cleanup: function () {
     // Hủy các timeout
     if (this.data.currentViewersTimeoutId) {
       clearTimeout(this.data.currentViewersTimeoutId);
@@ -603,12 +726,14 @@ const ViewCounterEnhanced = {
       clearTimeout(this.data.simulatedViewIncreaseTimeoutId);
     }
 
-    console.log('ViewCounterEnhanced: Đã dọn dẹp hệ thống đếm lượt xem nâng cao');
-  }
+    console.log(
+      'ViewCounterEnhanced: Đã dọn dẹp hệ thống đếm lượt xem nâng cao'
+    );
+  },
 };
 
 // Khởi tạo khi trang được tải
-document.addEventListener('DOMContentLoaded', function() {
+document.addEventListener('DOMContentLoaded', function () {
   // Kiểm tra xem có phải trang blog-detail không
   if (window.location.pathname.includes('blog-detail.html')) {
     // Lấy ID bài viết từ URL
@@ -623,11 +748,13 @@ document.addEventListener('DOMContentLoaded', function() {
 });
 
 // Khởi tạo khi trang được tải qua AJAX
-document.addEventListener('ajaxPageLoaded', function(event) {
+document.addEventListener('ajaxPageLoaded', function (event) {
   // Kiểm tra xem có phải trang blog-detail không
   if (event.detail.url.includes('blog-detail.html')) {
     // Lấy ID bài viết từ URL
-    const urlParams = new URLSearchParams(new URL(event.detail.url, window.location.origin).search);
+    const urlParams = new URLSearchParams(
+      new URL(event.detail.url, window.location.origin).search
+    );
     const postId = parseInt(urlParams.get('id'));
 
     if (postId) {
@@ -643,6 +770,6 @@ document.addEventListener('ajaxPageLoaded', function(event) {
 });
 
 // Dọn dẹp khi rời khỏi trang
-window.addEventListener('beforeunload', function() {
+window.addEventListener('beforeunload', function () {
   ViewCounterEnhanced.cleanup();
 });

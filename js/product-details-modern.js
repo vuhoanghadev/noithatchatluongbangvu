@@ -287,7 +287,11 @@ document.addEventListener('DOMContentLoaded', function () {
     if (product.promotion) {
       infoHTML += `
                 <div class="promo-info">
-                    <i class="fas fa-gift"></i> Khuyến mãi: ${product.promotion}
+                    <i class="fas fa-gift"></i>
+                    <div class="promo-info-content">
+                        <div class="promo-info-title">Ưu đãi</div>
+                        <div class="promo-info-description">${product.promotion}</div>
+                    </div>
                 </div>
             `;
     }
@@ -352,8 +356,9 @@ document.addEventListener('DOMContentLoaded', function () {
     // 8. Thêm các nút button liên hệ tư vấn và đặt hàng
     infoHTML += `
             <div class="product-actions">
-                <a href="https://m.me/1457621511153713" class="btn-contact">
-                    <i class="fas fa-comment"></i> Liên hệ tư vấn
+                <a href="https://m.me/1457621511153713" class="btn-contact-enhanced">
+                    <div class="shine"></div>
+                    <i class="fas fa-comment"></i> Liên hệ tư vấn ngay
                 </a>
                 <!-- <button class="btn-order" onclick="openOrderModal(product.name)">
                     <i class="fas fa-shopping-cart"></i> Đặt hàng

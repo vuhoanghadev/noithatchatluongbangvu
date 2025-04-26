@@ -584,7 +584,7 @@ const posts = [
       <p>Công nghệ AI đang mở ra một kỷ nguyên mới trong thiết kế và sản xuất nội thất, nơi mà sự cá nhân hóa, hiệu quả và bền vững được đặt lên hàng đầu. Tuy nhiên, điều quan trọng là phải nhận thức rằng AI không phải là để thay thế con người, mà là công cụ hỗ trợ để nâng cao khả năng sáng tạo và hiệu quả của các nhà thiết kế.</p>
       <p>Khi công nghệ AI tiếp tục phát triển, chúng ta có thể mong đợi những đột phá mới trong cách chúng ta thiết kế, sản xuất và trải nghiệm không gian sống. Tương lai của thiết kế nội thất với AI không chỉ là về công nghệ, mà còn là về việc tạo ra những không gian sống thông minh hơn, tiện nghi hơn và bền vững hơn cho tất cả mọi người.</p>
     `,
-    baseViews: 152,
+    baseViews: 165,
     views: 0,
   },
 ];

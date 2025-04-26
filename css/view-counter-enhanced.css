@@ -8,25 +8,73 @@
   align-items: center;
   background-color: rgba(0, 88, 221, 0.1);
   color: #0058dd;
-  padding: 4px 10px;
+  padding: 5px 12px;
   border-radius: 20px;
-  font-size: 0.85rem;
-  margin-left: 10px;
+  font-size: 0.9rem;
   animation: pulse-viewers 2s infinite;
+  transition: all 0.3s ease, transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+  transform-origin: center;
+}
+
+.blog-current-viewers:hover {
+  background-color: rgba(0, 88, 221, 0.15);
+  box-shadow: 0 3px 8px rgba(0, 0, 0, 0.1);
 }
 
 .blog-current-viewers i {
-  margin-right: 5px;
+  margin-right: 6px;
+  font-size: 0.95rem;
+}
+
+/* Đảm bảo hiển thị đúng trong blog-meta */
+.blog-meta {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 12px;
+  margin: 15px 0;
+  padding: 10px 0;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+  border-top: 1px solid rgba(0, 0, 0, 0.05);
+}
+
+/* Cải thiện hiển thị các phần tử trong blog-meta */
+.blog-meta>div {
+  display: flex;
+  align-items: center;
+  background-color: #f8f9fa;
+  padding: 5px 10px;
+  border-radius: 20px;
   font-size: 0.9rem;
+  transition: all 0.3s ease;
+}
+
+.blog-meta>div:hover {
+  background-color: #e9ecef;
+}
+
+.blog-meta i {
+  margin-right: 5px;
+  color: #0058dd;
+}
+
+/* Highlight cho số người đang xem khi thay đổi */
+#current-viewers-count.highlight {
+  color: #f97316;
+  font-weight: bold;
+  transition: color 0.3s ease;
 }
 
 @keyframes pulse-viewers {
   0% {
     box-shadow: 0 0 0 0 rgba(0, 88, 221, 0.4);
   }
+
   70% {
     box-shadow: 0 0 0 6px rgba(0, 88, 221, 0);
   }
+
   100% {
     box-shadow: 0 0 0 0 rgba(0, 88, 221, 0);
   }
@@ -35,9 +83,15 @@
 /* Thông báo lượt xem mới */
 #view-notification-container {
   position: fixed;
-  bottom: 20px;
-  right: 20px;
+  top: 120px;
+  /* Đặt cao hơn để tránh header */
+  left: 20px;
   z-index: 9999;
+  max-width: 300px;
+  pointer-events: none;
+  /* Cho phép click xuyên qua thông báo */
+  transition: top 0.3s ease;
+  /* Thêm transition cho việc thay đổi vị trí */
 }
 
 .view-notification {
@@ -46,16 +100,21 @@
   padding: 12px 20px;
   border-radius: 8px;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
-  margin-top: 10px;
+  margin-bottom: 10px;
+  /* Thay đổi từ margin-top sang margin-bottom */
   display: flex;
   align-items: center;
-  transform: translateX(120%);
-  transition: transform 0.3s ease;
+  transform: translateX(-120%);
+  /* Thay đổi hướng animation từ phải sang trái */
+  transition: transform 0.3s ease, opacity 0.3s ease;
   border-left: 4px solid #0058dd;
+  opacity: 0;
+  max-width: 100%;
 }
 
 .view-notification.show {
   transform: translateX(0);
+  opacity: 1;
 }
 
 .view-notification i {
@@ -104,19 +163,57 @@
 
 /* Responsive */
 @media (max-width: 576px) {
+
+  /* Điều chỉnh blog-meta trên mobile */
+  .blog-meta {
+    gap: 8px;
+    padding: 8px 0;
+    justify-content: center;
+  }
+
+  .blog-meta>div {
+    padding: 4px 8px;
+    font-size: 0.8rem;
+  }
+
   .blog-current-viewers {
     font-size: 0.8rem;
-    padding: 3px 8px;
+    padding: 4px 8px;
   }
-  
+
+  #view-notification-container {
+    top: 110px;
+    /* Đặt thấp hơn trên mobile để tránh header */
+    left: 10px;
+    max-width: 250px;
+  }
+
   .view-notification {
     padding: 10px 15px;
     font-size: 0.9rem;
-    max-width: 90%;
+    max-width: 100%;
+    margin-bottom: 8px;
   }
-  
+
   .blog-badge {
     font-size: 0.8rem;
     padding: 3px 8px;
+  }
+}
+
+/* Điều chỉnh cho màn hình lớn */
+@media (min-width: 992px) {
+  #view-notification-container {
+    top: 120px;
+    left: 30px;
+    max-width: 350px;
+  }
+}
+
+/* Điều chỉnh cho thiết bị có thanh điều hướng cố định ở dưới */
+@media (max-height: 600px) and (max-width: 576px) {
+  #view-notification-container {
+    top: 120px;
+    /* Điều chỉnh cho thiết bị có chiều cao màn hình thấp */
   }
 }

@@ -1,0 +1,244 @@
+/* Premium Promo Info Styles */
+:root {
+    --promo-primary: #f97316;
+    --promo-secondary: #fb923c;
+    --promo-gradient: linear-gradient(135deg, var(--promo-primary), var(--promo-secondary));
+    --promo-text: #ffffff;
+    --promo-dark: #1c2332;
+    --promo-light: #fff8f0;
+    --promo-border: rgba(249, 115, 22, 0.3);
+    --promo-shadow: 0 10px 25px rgba(249, 115, 22, 0.25);
+    --promo-transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+}
+
+/* Main promo container */
+.promo-info {
+    position: relative;
+    background: var(--promo-light);
+    border-radius: 16px;
+    padding: 20px;
+    margin: 25px 0;
+    box-shadow: var(--promo-shadow);
+    overflow: hidden;
+    border: 2px solid var(--promo-primary);
+    transform: translateZ(0);
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+/* Animated background effect */
+.promo-info::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: repeating-linear-gradient(45deg,
+            transparent,
+            transparent 10px,
+            rgba(249, 115, 22, 0.05) 10px,
+            rgba(249, 115, 22, 0.05) 20px);
+    animation: promoBgMove 20s linear infinite;
+    z-index: 0;
+    pointer-events: none;
+}
+
+/* Corner ribbon */
+.promo-info::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 100px;
+    height: 100px;
+    background: var(--promo-primary);
+    transform: rotate(45deg) translate(30px, -60px);
+    z-index: 1;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+}
+
+/* Promo icon */
+.promo-info i {
+    font-size: 1.8rem;
+    color: var(--promo-primary);
+    background: var(--promo-text);
+    width: 50px;
+    height: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    box-shadow: 0 5px 15px rgba(249, 115, 22, 0.3);
+    position: relative;
+    z-index: 2;
+    animation: pulseIcon 2s infinite;
+}
+
+/* Promo content */
+.promo-info-content {
+    flex: 1;
+    position: relative;
+    z-index: 2;
+}
+
+/* Promo title */
+.promo-info-title {
+    font-size: 1.3rem;
+    font-weight: 700;
+    color: var(--promo-primary);
+    margin-bottom: 8px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    text-shadow: 1px 1px 0 rgba(0, 0, 0, 0.05);
+}
+
+/* Special badge */
+.promo-info-title::after {
+    content: 'ĐẶC BIỆT';
+    background: var(--promo-gradient);
+    color: var(--promo-text);
+    font-size: 0.7rem;
+    padding: 3px 8px;
+    border-radius: 4px;
+    font-weight: 700;
+    letter-spacing: 0.5px;
+    box-shadow: 0 3px 8px rgba(249, 115, 22, 0.3);
+    animation: pulseBadge 2s infinite;
+    position: relative;
+    overflow: hidden;
+}
+
+.promo-info-title::after::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.4), transparent);
+    animation: shineEffect 2s infinite;
+}
+
+/* Promo description */
+.promo-info-description {
+    font-size: 1.05rem;
+    line-height: 1.5;
+    color: var(--promo-dark);
+    position: relative;
+    font-weight: 500;
+}
+
+/* Animations */
+@keyframes pulseIcon {
+
+    0%,
+    100% {
+        transform: scale(1);
+    }
+
+    50% {
+        transform: scale(1.1);
+    }
+}
+
+@keyframes pulseBadge {
+
+    0%,
+    100% {
+        transform: scale(1);
+    }
+
+    50% {
+        transform: scale(1.1);
+    }
+}
+
+@keyframes shineEffect {
+    0% {
+        left: -100%;
+    }
+
+    20%,
+    100% {
+        left: 100%;
+    }
+}
+
+@keyframes promoBgMove {
+    0% {
+        transform: translate(0, 0);
+    }
+
+    100% {
+        transform: translate(-50px, 50px);
+    }
+}
+
+/* Responsive styles */
+@media (max-width: 992px) {
+    .promo-info {
+        padding: 15px;
+    }
+
+    .promo-info i {
+        font-size: 1.5rem;
+        width: 45px;
+        height: 45px;
+    }
+
+    .promo-info-title {
+        font-size: 1.2rem;
+    }
+
+    .promo-info-description {
+        font-size: 1rem;
+    }
+}
+
+@media (max-width: 768px) {
+    .promo-info {
+        padding: 15px;
+        gap: 10px;
+    }
+
+    .promo-info i {
+        width: 40px;
+        height: 40px;
+        font-size: 1.3rem;
+    }
+
+    .promo-info-title {
+        font-size: 1.1rem;
+    }
+
+    .promo-info-description {
+        font-size: 0.95rem;
+    }
+}
+
+@media (max-width: 576px) {
+    .promo-info {
+        padding: 12px;
+        gap: 8px;
+    }
+
+    .promo-info i {
+        width: 35px;
+        height: 35px;
+        font-size: 1.2rem;
+    }
+
+    .promo-info-title {
+        font-size: 1rem;
+    }
+
+    .promo-info-description {
+        font-size: 0.9rem;
+        line-height: 1.4;
+    }
+}

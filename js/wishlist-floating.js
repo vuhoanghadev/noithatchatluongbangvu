@@ -1,0 +1,371 @@
+// JavaScript cho tính năng yêu thích sản phẩm ghim
+
+// Khởi tạo tính năng yêu thích sản phẩm
+document.addEventListener('DOMContentLoaded', function() {
+  initWishlistFeature();
+});
+
+// Khởi tạo khi trang được tải qua AJAX (nếu có)
+document.addEventListener('ajaxPageLoaded', function() {
+  initWishlistFeature();
+});
+
+// Khởi tạo khi hoàn tất chuyển trang (nếu có)
+document.addEventListener('page-transition-complete', function() {
+  initWishlistFeature();
+});
+
+// Hàm khởi tạo tính năng yêu thích sản phẩm
+function initWishlistFeature() {
+  console.log('Khởi tạo tính năng yêu thích sản phẩm...');
+  
+  // Tạo nút yêu thích ghim nếu chưa có
+  createWishlistToggle();
+  
+  // Tạo container danh sách sản phẩm yêu thích nếu chưa có
+  createWishlistContainer();
+  
+  // Cập nhật số lượng sản phẩm yêu thích
+  updateWishlistCount();
+  
+  // Cập nhật trạng thái nút yêu thích trên trang chi tiết sản phẩm
+  updateWishlistButtonState();
+}
+
+// Hàm tạo nút yêu thích ghim
+function createWishlistToggle() {
+  // Kiểm tra xem nút đã tồn tại chưa
+  if (document.querySelector('.wishlist-toggle')) {
+    return;
+  }
+  
+  // Tạo nút yêu thích ghim
+  const wishlistToggle = document.createElement('button');
+  wishlistToggle.className = 'wishlist-toggle';
+  wishlistToggle.innerHTML = `
+    <i class="fas fa-heart"></i>
+    <span class="wishlist-count">0</span>
+  `;
+  
+  // Thêm sự kiện click để mở danh sách sản phẩm yêu thích
+  wishlistToggle.addEventListener('click', function() {
+    toggleWishlistContainer();
+  });
+  
+  // Thêm nút vào body
+  document.body.appendChild(wishlistToggle);
+}
+
+// Hàm tạo container danh sách sản phẩm yêu thích
+function createWishlistContainer() {
+  // Kiểm tra xem container đã tồn tại chưa
+  if (document.querySelector('.wishlist-container')) {
+    return;
+  }
+  
+  // Tạo overlay nền
+  const wishlistOverlay = document.createElement('div');
+  wishlistOverlay.className = 'wishlist-overlay';
+  
+  // Thêm sự kiện click để đóng danh sách khi click vào overlay
+  wishlistOverlay.addEventListener('click', function() {
+    toggleWishlistContainer(false);
+  });
+  
+  // Tạo container danh sách sản phẩm yêu thích
+  const wishlistContainer = document.createElement('div');
+  wishlistContainer.className = 'wishlist-container';
+  wishlistContainer.innerHTML = `
+    <div class="wishlist-header">
+      <h3><i class="fas fa-heart"></i> Sản phẩm yêu thích</h3>
+      <button class="wishlist-close"><i class="fas fa-times"></i></button>
+    </div>
+    <div class="wishlist-list">
+      <!-- Danh sách sản phẩm yêu thích sẽ được thêm vào đây -->
+    </div>
+    <div class="wishlist-footer">
+      <button class="wishlist-clear"><i class="fas fa-trash-alt"></i> Xóa tất cả</button>
+      <a href="products.html" class="wishlist-view-all"><i class="fas fa-shopping-bag"></i> Xem tất cả sản phẩm</a>
+    </div>
+  `;
+  
+  // Thêm sự kiện click cho nút đóng
+  wishlistContainer.querySelector('.wishlist-close').addEventListener('click', function() {
+    toggleWishlistContainer(false);
+  });
+  
+  // Thêm sự kiện click cho nút xóa tất cả
+  wishlistContainer.querySelector('.wishlist-clear').addEventListener('click', function() {
+    clearAllWishlist();
+  });
+  
+  // Thêm overlay và container vào body
+  document.body.appendChild(wishlistOverlay);
+  document.body.appendChild(wishlistContainer);
+  
+  // Render danh sách sản phẩm yêu thích
+  renderWishlistItems();
+}
+
+// Hàm mở/đóng danh sách sản phẩm yêu thích
+function toggleWishlistContainer(open) {
+  const wishlistContainer = document.querySelector('.wishlist-container');
+  const wishlistOverlay = document.querySelector('.wishlist-overlay');
+  
+  if (!wishlistContainer || !wishlistOverlay) {
+    return;
+  }
+  
+  // Nếu không có tham số, thì toggle trạng thái hiện tại
+  if (open === undefined) {
+    open = !wishlistContainer.classList.contains('open');
+  }
+  
+  if (open) {
+    wishlistContainer.classList.add('open');
+    wishlistOverlay.classList.add('open');
+    
+    // Thêm sự kiện đóng khi nhấn Escape
+    document.addEventListener('keydown', handleEscapeKey);
+    
+    // Render lại danh sách sản phẩm yêu thích
+    renderWishlistItems();
+  } else {
+    wishlistContainer.classList.remove('open');
+    wishlistOverlay.classList.remove('open');
+    
+    // Xóa sự kiện đóng khi nhấn Escape
+    document.removeEventListener('keydown', handleEscapeKey);
+  }
+}
+
+// Hàm xử lý sự kiện nhấn phím Escape
+function handleEscapeKey(e) {
+  if (e.key === 'Escape') {
+    toggleWishlistContainer(false);
+  }
+}
+
+// Hàm render danh sách sản phẩm yêu thích
+function renderWishlistItems() {
+  const wishlistList = document.querySelector('.wishlist-list');
+  
+  if (!wishlistList) {
+    return;
+  }
+  
+  // Lấy danh sách sản phẩm yêu thích
+  const wishlist = getWishlist();
+  
+  // Nếu không có sản phẩm nào, hiển thị thông báo
+  if (wishlist.length === 0) {
+    wishlistList.innerHTML = `
+      <div class="wishlist-empty">
+        <i class="far fa-heart"></i>
+        <p>Bạn chưa có sản phẩm yêu thích nào</p>
+        <a href="products.html">Xem tất cả sản phẩm</a>
+      </div>
+    `;
+    return;
+  }
+  
+  // Tạo HTML cho danh sách sản phẩm yêu thích
+  let wishlistHTML = '';
+  
+  // Lặp qua từng ID sản phẩm trong danh sách yêu thích
+  wishlist.forEach(productId => {
+    // Tìm thông tin sản phẩm từ ID
+    const product = findProductById(productId);
+    
+    if (product) {
+      wishlistHTML += `
+        <div class="wishlist-item" data-product-id="${product.id}">
+          <div class="wishlist-item-image">
+            <img src="${product.image}" alt="${product.name}">
+          </div>
+          <div class="wishlist-item-content">
+            <h4 class="wishlist-item-title">
+              <a href="product-details.html?id=${product.id}">${product.name}</a>
+            </h4>
+            <div class="wishlist-item-category">
+              <i class="fas fa-tag"></i> ${product.category}
+            </div>
+            <div class="wishlist-item-actions">
+              <a href="product-details.html?id=${product.id}" class="wishlist-item-view">
+                <i class="fas fa-eye"></i> Xem chi tiết
+              </a>
+              <button class="wishlist-item-remove" data-product-id="${product.id}">
+                <i class="fas fa-trash-alt"></i> Xóa
+              </button>
+            </div>
+          </div>
+        </div>
+      `;
+    }
+  });
+  
+  // Cập nhật HTML cho danh sách
+  wishlistList.innerHTML = wishlistHTML;
+  
+  // Thêm sự kiện click cho các nút xóa
+  const removeButtons = wishlistList.querySelectorAll('.wishlist-item-remove');
+  removeButtons.forEach(button => {
+    button.addEventListener('click', function() {
+      const productId = parseInt(this.dataset.productId);
+      removeFromWishlist(productId);
+      
+      // Cập nhật trạng thái nút yêu thích trên trang chi tiết sản phẩm
+      updateWishlistButtonState();
+      
+      // Render lại danh sách sản phẩm yêu thích
+      renderWishlistItems();
+      
+      // Cập nhật số lượng sản phẩm yêu thích
+      updateWishlistCount();
+    });
+  });
+}
+
+// Hàm tìm sản phẩm theo ID
+function findProductById(productId) {
+  // Kiểm tra xem biến products có tồn tại không
+  if (typeof products !== 'undefined') {
+    return products.find(product => product.id === productId);
+  }
+  
+  // Nếu không có biến products, trả về null
+  return null;
+}
+
+// Hàm lấy danh sách sản phẩm yêu thích từ localStorage
+function getWishlist() {
+  const wishlistJSON = localStorage.getItem('wishlist');
+  return wishlistJSON ? JSON.parse(wishlistJSON) : [];
+}
+
+// Hàm thêm sản phẩm vào danh sách yêu thích
+function addToWishlist(productId) {
+  let wishlist = getWishlist();
+  
+  // Kiểm tra xem sản phẩm đã có trong danh sách chưa
+  if (!wishlist.includes(productId)) {
+    wishlist.push(productId);
+    localStorage.setItem('wishlist', JSON.stringify(wishlist));
+    
+    // Cập nhật số lượng sản phẩm yêu thích
+    updateWishlistCount();
+    
+    return true;
+  }
+  
+  return false;
+}
+
+// Hàm xóa sản phẩm khỏi danh sách yêu thích
+function removeFromWishlist(productId) {
+  let wishlist = getWishlist();
+  
+  // Lọc ra các sản phẩm khác với sản phẩm cần xóa
+  wishlist = wishlist.filter(id => id !== productId);
+  localStorage.setItem('wishlist', JSON.stringify(wishlist));
+  
+  // Cập nhật số lượng sản phẩm yêu thích
+  updateWishlistCount();
+  
+  return true;
+}
+
+// Hàm xóa tất cả sản phẩm khỏi danh sách yêu thích
+function clearAllWishlist() {
+  // Hiển thị hộp thoại xác nhận
+  if (confirm('Bạn có chắc muốn xóa tất cả sản phẩm yêu thích không?')) {
+    localStorage.removeItem('wishlist');
+    
+    // Cập nhật số lượng sản phẩm yêu thích
+    updateWishlistCount();
+    
+    // Cập nhật trạng thái nút yêu thích trên trang chi tiết sản phẩm
+    updateWishlistButtonState();
+    
+    // Render lại danh sách sản phẩm yêu thích
+    renderWishlistItems();
+  }
+}
+
+// Hàm cập nhật số lượng sản phẩm yêu thích
+function updateWishlistCount() {
+  const wishlistCount = document.querySelector('.wishlist-count');
+  
+  if (wishlistCount) {
+    const count = getWishlist().length;
+    wishlistCount.textContent = count;
+    
+    // Ẩn số lượng nếu không có sản phẩm nào
+    if (count === 0) {
+      wishlistCount.style.display = 'none';
+    } else {
+      wishlistCount.style.display = 'flex';
+    }
+  }
+}
+
+// Hàm cập nhật trạng thái nút yêu thích trên trang chi tiết sản phẩm
+function updateWishlistButtonState() {
+  // Kiểm tra xem có đang ở trang chi tiết sản phẩm không
+  const urlParams = new URLSearchParams(window.location.search);
+  const productId = parseInt(urlParams.get('id'));
+  
+  if (!productId) {
+    return;
+  }
+  
+  // Tìm nút yêu thích
+  const wishlistBtn = document.getElementById('wishlistBtn');
+  
+  if (wishlistBtn) {
+    // Kiểm tra xem sản phẩm đã có trong danh sách yêu thích chưa
+    const wishlist = getWishlist();
+    const isInWishlist = wishlist.includes(productId);
+    
+    // Cập nhật trạng thái nút
+    updateWishlistButtonUI(wishlistBtn, isInWishlist);
+  }
+}
+
+// Hàm cập nhật giao diện nút yêu thích
+function updateWishlistButtonUI(button, isInWishlist) {
+  if (isInWishlist) {
+    button.classList.add('active');
+    button.innerHTML = `
+      <i class="fas fa-heart"></i> Đã thêm vào yêu thích
+      <div class="heart-animation">
+        <i class="fas fa-heart"></i>
+      </div>
+    `;
+  } else {
+    button.classList.remove('active');
+    button.innerHTML = `
+      <i class="far fa-heart"></i> Thêm vào yêu thích
+      <div class="heart-animation">
+        <i class="fas fa-heart"></i>
+      </div>
+    `;
+  }
+}
+
+// Kiểm tra xem sản phẩm đã có trong danh sách yêu thích chưa
+function isProductInWishlist(productId) {
+  const wishlist = getWishlist();
+  return wishlist.includes(productId);
+}
+
+// Export các hàm để sử dụng ở nơi khác
+window.WishlistManager = {
+  initWishlistFeature,
+  addToWishlist,
+  removeFromWishlist,
+  isProductInWishlist,
+  getWishlist,
+  updateWishlistCount,
+  toggleWishlistContainer
+};

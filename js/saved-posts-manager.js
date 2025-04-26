@@ -427,11 +427,6 @@ function updateSavedPostsCount() {
     countElement.style.display = 'none';
   } else {
     countElement.style.display = 'flex';
-
-    // Đảm bảo số lượng luôn hiển thị
-    if (countElement.textContent === '') {
-      countElement.textContent = count;
-    }
   }
 }
 
@@ -449,8 +444,9 @@ function renderSavedPostsList(container) {
   if (posts.length === 0) {
     container.innerHTML = `
       <div class="saved-posts-empty">
-        <i class="far fa-folder-open"></i>
+        <i class="far fa-bookmark"></i>
         <p>Bạn chưa lưu bài viết nào</p>
+        <a href="blog.html">Xem tất cả bài viết</a>
       </div>
     `;
     return;
@@ -468,11 +464,26 @@ function renderSavedPostsList(container) {
     const savedDate = new Date(post.savedAt);
     const formattedDate = savedDate.toLocaleDateString('vi-VN');
 
+    // Tìm hình ảnh cho bài viết (nếu có)
+    let thumbnailHtml = '';
+    if (post.image) {
+      thumbnailHtml = `<div class="saved-post-thumbnail"><img src="${post.image}" alt="${post.title}"></div>`;
+    } else {
+      thumbnailHtml = `<div class="saved-post-thumbnail"><i class="fas fa-newspaper"></i></div>`;
+    }
+
     item.innerHTML = `
-      <h4 class="saved-post-title"><a href="${post.url}">${post.title}</a></h4>
-      <div class="saved-post-meta">
-        <span>${post.date || formattedDate}</span>
-        <button class="saved-post-remove" data-url="${post.url}">Xóa</button>
+      ${thumbnailHtml}
+      <div class="saved-post-content">
+        <h4 class="saved-post-title"><a href="${post.url}">${
+      post.title
+    }</a></h4>
+        <div class="saved-post-meta">
+          <span class="saved-post-date"><i class="far fa-calendar-alt"></i> ${
+            post.date || formattedDate
+          }</span>
+          <button class="saved-post-remove" data-url="${post.url}">Xóa</button>
+        </div>
       </div>
     `;
 
@@ -531,6 +542,15 @@ function createSavedPostsContainer() {
     existingContainer.remove();
   }
 
+  // Tạo overlay nền
+  const overlay = document.createElement('div');
+  overlay.className = 'saved-posts-overlay';
+
+  // Thêm sự kiện click để đóng danh sách khi click vào overlay
+  overlay.addEventListener('click', function () {
+    toggleSavedPostsContainer(false);
+  });
+
   // Tạo container
   const container = document.createElement('div');
   container.className = 'saved-posts-container';
@@ -539,19 +559,29 @@ function createSavedPostsContainer() {
   const header = document.createElement('div');
   header.className = 'saved-posts-header';
   header.innerHTML = `
-    <h3>Bài viết đã lưu</h3>
-    <button class="saved-posts-close">&times;</button>
+    <h3><i class="fas fa-bookmark"></i> Bài viết đã lưu</h3>
+    <button class="saved-posts-close"><i class="fas fa-times"></i></button>
   `;
 
   // Tạo danh sách bài viết
   const list = document.createElement('div');
   list.className = 'saved-posts-list';
 
+  // Tạo footer
+  const footer = document.createElement('div');
+  footer.className = 'saved-posts-footer';
+  footer.innerHTML = `
+    <button class="saved-posts-clear"><i class="fas fa-trash-alt"></i> Xóa tất cả</button>
+    <a href="blog.html" class="saved-posts-view-all"><i class="fas fa-newspaper"></i> Xem tất cả bài viết</a>
+  `;
+
   // Thêm các phần tử vào container
   container.appendChild(header);
   container.appendChild(list);
+  container.appendChild(footer);
 
-  // Thêm container vào body
+  // Thêm overlay và container vào body
+  document.body.appendChild(overlay);
   document.body.appendChild(container);
   console.log('Đã thêm container vào body');
 
@@ -562,17 +592,83 @@ function createSavedPostsContainer() {
   container
     .querySelector('.saved-posts-close')
     .addEventListener('click', function () {
-      container.classList.remove('open');
-      console.log('Đóng danh sách bài viết đã lưu');
+      toggleSavedPostsContainer(false);
+    });
 
-      // Ẩn overlay
-      const overlay = document.querySelector('.saved-posts-overlay');
-      if (overlay) {
-        overlay.style.display = 'none';
-      }
+  // Thêm sự kiện xóa tất cả
+  container
+    .querySelector('.saved-posts-clear')
+    .addEventListener('click', function () {
+      clearAllSavedPosts();
     });
 
   return container;
+}
+
+// Hàm mở/đóng danh sách bài viết đã lưu
+function toggleSavedPostsContainer(open) {
+  const container = document.querySelector('.saved-posts-container');
+  const overlay = document.querySelector('.saved-posts-overlay');
+
+  if (!container || !overlay) {
+    return;
+  }
+
+  // Nếu không có tham số, thì toggle trạng thái hiện tại
+  if (open === undefined) {
+    open = !container.classList.contains('open');
+  }
+
+  if (open) {
+    container.classList.add('open');
+    overlay.classList.add('open');
+
+    // Thêm sự kiện đóng khi nhấn Escape
+    document.addEventListener('keydown', handleEscapeKey);
+
+    // Render lại danh sách bài viết đã lưu
+    renderSavedPostsList(container.querySelector('.saved-posts-list'));
+  } else {
+    container.classList.remove('open');
+    overlay.classList.remove('open');
+
+    // Xóa sự kiện đóng khi nhấn Escape
+    document.removeEventListener('keydown', handleEscapeKey);
+  }
+}
+
+// Hàm xử lý sự kiện nhấn phím Escape
+function handleEscapeKey(e) {
+  if (e.key === 'Escape') {
+    toggleSavedPostsContainer(false);
+  }
+}
+
+// Hàm xóa tất cả bài viết đã lưu
+function clearAllSavedPosts() {
+  // Hiển thị hộp thoại xác nhận
+  if (confirm('Bạn có chắc muốn xóa tất cả bài viết đã lưu không?')) {
+    // Xóa tất cả bài viết đã lưu
+    savePosts([]);
+
+    // Cập nhật số lượng bài viết đã lưu
+    updateSavedPostsCount();
+
+    // Cập nhật trạng thái nút lưu bài viết trên trang chi tiết bài viết
+    const saveButton = document.querySelector('.save-for-later');
+    if (saveButton) {
+      updateSaveButtonUI(saveButton, false);
+    }
+
+    // Render lại danh sách bài viết đã lưu
+    const container = document.querySelector('.saved-posts-container');
+    if (container) {
+      renderSavedPostsList(container.querySelector('.saved-posts-list'));
+    }
+
+    // Hiển thị thông báo
+    showNotification('Đã xóa tất cả bài viết đã lưu');
+  }
 }
 
 // Tạo nút hiển thị danh sách bài viết đã lưu
@@ -586,102 +682,32 @@ function createSavedPostsToggle() {
     existingToggle.remove();
   }
 
-  // Xóa overlay cũ nếu đã tồn tại
-  const existingOverlay = document.querySelector('.saved-posts-overlay');
-  if (existingOverlay) {
-    existingOverlay.remove();
-  }
-
   // Tạo nút
-  const toggle = document.createElement('div');
+  const toggle = document.createElement('button');
   toggle.className = 'saved-posts-toggle';
-  toggle.innerHTML = '<i class="fas fa-bookmark"></i>';
+  toggle.innerHTML = `
+    <i class="fas fa-bookmark"></i>
+    <span class="saved-posts-count">0</span>
+  `;
   toggle.setAttribute('title', 'Bài viết đã lưu');
 
-  // Đặt các thuộc tính inline style để đảm bảo hiển thị đúng
-  toggle.style.position = 'fixed';
-  toggle.style.top = '300px';
-  toggle.style.right = '20px';
-  toggle.style.width = '55px';
-  toggle.style.height = '55px';
-  toggle.style.backgroundColor = '#0058dd';
-  toggle.style.color = 'white';
-  toggle.style.borderRadius = '50%';
-  toggle.style.display = 'flex';
-  toggle.style.alignItems = 'center';
-  toggle.style.justifyContent = 'center';
-  toggle.style.cursor = 'pointer';
-  toggle.style.zIndex = '1001';
-  toggle.style.boxShadow = '0 4px 10px rgba(0, 0, 0, 0.2)';
-  toggle.style.transition = 'all 0.3s ease';
-  toggle.style.border = 'none';
-
-  // Thêm số lượng bài viết đã lưu
-  const count = document.createElement('span');
-  count.className = 'saved-posts-count';
-
-  // Đặt số lượng bài viết đã lưu trước khi thêm vào DOM
-  const savedPostsCount = getSavedPosts().length;
-  count.textContent = savedPostsCount;
-
-  // Ẩn nếu không có bài viết nào
-  if (savedPostsCount === 0) {
-    count.style.display = 'none';
-  } else {
-    count.style.display = 'flex';
-  }
-
-  toggle.appendChild(count);
-
-  // Cập nhật số lượng bài viết đã lưu
-  updateSavedPostsCount();
-
-  // Tạo overlay
-  const overlay = document.createElement('div');
-  overlay.className = 'saved-posts-overlay';
-  overlay.style.position = 'fixed';
-  overlay.style.top = '0';
-  overlay.style.left = '0';
-  overlay.style.width = '100%';
-  overlay.style.height = '100%';
-  overlay.style.backgroundColor = 'rgba(0, 0, 0, 0.5)';
-  overlay.style.zIndex = '9998';
-  overlay.style.display = 'none';
-  document.body.appendChild(overlay);
-
-  // Thêm sự kiện click
+  // Thêm sự kiện click để mở danh sách bài viết đã lưu
   toggle.addEventListener('click', function () {
     // Tạo container nếu chưa có
-    const container =
-      document.querySelector('.saved-posts-container') ||
+    if (!document.querySelector('.saved-posts-container')) {
       createSavedPostsContainer();
-
-    // Cập nhật danh sách bài viết
-    renderSavedPostsList(container.querySelector('.saved-posts-list'));
-
-    // Hiển thị/ẩn container
-    container.classList.toggle('open');
-
-    // Hiển thị/ẩn overlay
-    if (container.classList.contains('open')) {
-      overlay.style.display = 'block';
-    } else {
-      overlay.style.display = 'none';
     }
-  });
 
-  // Thêm sự kiện click cho overlay
-  overlay.addEventListener('click', function () {
-    const container = document.querySelector('.saved-posts-container');
-    if (container) {
-      container.classList.remove('open');
-    }
-    this.style.display = 'none';
+    // Mở danh sách bài viết đã lưu
+    toggleSavedPostsContainer(true);
   });
 
   // Thêm nút vào body
   document.body.appendChild(toggle);
   console.log('Đã thêm nút hiển thị danh sách bài viết đã lưu vào trang');
+
+  // Cập nhật số lượng bài viết đã lưu
+  updateSavedPostsCount();
 
   // Tạo và thêm thông báo gợi ý
   setTimeout(() => {
@@ -849,10 +875,24 @@ function initSaveForLaterFeature() {
     const postDate = postDateElement ? postDateElement.textContent.trim() : '';
     const postUrl = window.location.href;
 
+    // Tìm hình ảnh bài viết
+    let postImage = '';
+    const blogImage = document.querySelector('.blog-image img');
+    if (blogImage && blogImage.src) {
+      postImage = blogImage.src;
+    } else {
+      // Tìm hình ảnh đầu tiên trong nội dung bài viết
+      const contentImage = document.querySelector('#blog-content img');
+      if (contentImage && contentImage.src) {
+        postImage = contentImage.src;
+      }
+    }
+
     console.log('Thông tin bài viết:', {
       id: postId,
       title: postTitle,
       date: postDate,
+      image: postImage,
     });
 
     // Tạo thông tin bài viết
@@ -861,6 +901,7 @@ function initSaveForLaterFeature() {
       title: postTitle,
       date: postDate,
       url: postUrl,
+      image: postImage,
     };
 
     // Kiểm tra xem nút lưu đã tồn tại chưa
@@ -911,6 +952,7 @@ window.SavedPostsManager = {
   savePost,
   removePost,
   clearAllSavedPosts,
+  toggleSavedPostsContainer,
 };
 
 // Tự động khởi tạo tính năng lưu bài viết khi trang được tải
