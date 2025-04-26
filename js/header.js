@@ -162,7 +162,9 @@ document.addEventListener('DOMContentLoaded', function () {
 
   // Add active class to current page in navigation
   const currentLocation = location.pathname;
-  const menuItems = document.querySelectorAll('.nav-menu a, .mobile-menu a');
+  const menuItems = document.querySelectorAll(
+    '.nav-menu a, .mobile-menu-links a'
+  );
 
   menuItems.forEach((item) => {
     if (
@@ -171,7 +173,13 @@ document.addEventListener('DOMContentLoaded', function () {
         currentLocation.substring(currentLocation.lastIndexOf('/') + 1) ||
       (currentLocation === '/' && item.getAttribute('href') === 'index.html') ||
       (currentLocation.endsWith('/') &&
-        item.getAttribute('href') === 'index.html')
+        item.getAttribute('href') === 'index.html') ||
+      (currentLocation.includes('product-details.html') &&
+        item.getAttribute('href') === 'products.html') ||
+      (currentLocation.includes('blog-detail.html') &&
+        item.getAttribute('href') === 'blog.html') ||
+      (currentLocation.includes('quote-ai.html') &&
+        item.getAttribute('href') === 'quote-ai.html')
     ) {
       item.classList.add('active');
     }

@@ -19,6 +19,13 @@ document.addEventListener('DOMContentLoaded', function () {
         return;
       }
 
+      // If this is a wishlist button, handle wishlist differently
+      if (this.id === 'wishlist-nav') {
+        e.preventDefault();
+        handleWishlist();
+        return;
+      }
+
       // Store the active tab ID in localStorage
       localStorage.setItem('activeTabId', this.id);
     });
@@ -36,14 +43,31 @@ document.addEventListener('DOMContentLoaded', function () {
       item.classList.remove('active');
     });
 
+    // Check if search parameter is present
+    const urlParams = new URLSearchParams(window.location.search);
+    if (urlParams.get('search') === 'true') {
+      // Add active class to search tab
+      document.getElementById('search-nav')?.classList.add('active');
+    }
+    // Check if wishlist parameter is present
+    else if (urlParams.get('wishlist') === 'true') {
+      // Add active class to wishlist tab
+      document.getElementById('wishlist-nav')?.classList.add('active');
+    }
     // Determine which tab should be active based on URL
-    if (
+    else if (
       currentURL.includes('products.html') ||
       currentURL.includes('product-details.html')
     ) {
       document.getElementById('products-nav')?.classList.add('active');
-    } else if (currentURL.includes('blog.html')) {
+    } else if (
+      currentURL.includes('blog.html') ||
+      currentURL.includes('blog-detail.html')
+    ) {
       document.getElementById('blog-nav')?.classList.add('active');
+    } else if (currentURL.includes('quote-ai.html')) {
+      // Không cần thiết lập active cho bottom nav khi ở trang báo giá
+      // vì không có tab tương ứng trong bottom nav
     } else if (
       currentURL.includes('index.html') ||
       currentURL.endsWith('/') ||
@@ -53,16 +77,6 @@ document.addEventListener('DOMContentLoaded', function () {
       currentURL.endsWith('.io')
     ) {
       document.getElementById('home-nav')?.classList.add('active');
-    }
-
-    // Check if search parameter is present
-    const urlParams = new URLSearchParams(window.location.search);
-    if (urlParams.get('search') === 'true') {
-      // Remove active class from all items
-      bottomNavItems.forEach((item) => item.classList.remove('active'));
-
-      // Add active class to search tab
-      document.getElementById('search-nav')?.classList.add('active');
     }
 
     // Store the active tab ID in localStorage
@@ -119,6 +133,85 @@ document.addEventListener('DOMContentLoaded', function () {
     lastScrollTop = scrollTop;
   });
 
+  // Handle wishlist functionality
+  function handleWishlist() {
+    // Add active class to wishlist tab
+    bottomNavItems.forEach((item) => item.classList.remove('active'));
+    document.getElementById('wishlist-nav')?.classList.add('active');
+
+    // Store the active tab ID in localStorage
+    localStorage.setItem('activeTabId', 'wishlist-nav');
+
+    // Check if wishlist toggle function exists
+    if (typeof toggleWishlistContainer === 'function') {
+      // Open wishlist container
+      toggleWishlistContainer(true);
+    } else {
+      // If wishlist function doesn't exist, load wishlist script and try again
+      const wishlistScript = document.createElement('script');
+      wishlistScript.src = 'js/wishlist-floating.js';
+
+      // Hiển thị loading indicator
+      const loadingIndicator = document.createElement('div');
+      loadingIndicator.className = 'wishlist-loading-indicator';
+      loadingIndicator.innerHTML = `
+        <div class="wishlist-loading-spinner"></div>
+        <div class="wishlist-loading-text">Đang tải danh sách yêu thích...</div>
+      `;
+      document.body.appendChild(loadingIndicator);
+
+      wishlistScript.onload = function () {
+        // After script loads, try to open wishlist
+        if (typeof toggleWishlistContainer === 'function') {
+          // Xóa loading indicator
+          document.body.removeChild(loadingIndicator);
+
+          // Mở danh sách yêu thích
+          toggleWishlistContainer(true);
+        } else {
+          console.error('Wishlist functionality not available');
+
+          // Hiển thị thông báo lỗi
+          loadingIndicator.innerHTML = `
+            <div class="wishlist-loading-error">
+              <i class="fas fa-exclamation-circle"></i>
+              <div>Không thể tải danh sách yêu thích</div>
+            </div>
+          `;
+
+          // Xóa loading indicator sau 2 giây
+          setTimeout(() => {
+            if (document.body.contains(loadingIndicator)) {
+              document.body.removeChild(loadingIndicator);
+            }
+          }, 2000);
+        }
+      };
+
+      // Xử lý lỗi khi tải script
+      wishlistScript.onerror = function () {
+        console.error('Failed to load wishlist script');
+
+        // Hiển thị thông báo lỗi
+        loadingIndicator.innerHTML = `
+          <div class="wishlist-loading-error">
+            <i class="fas fa-exclamation-circle"></i>
+            <div>Không thể tải danh sách yêu thích</div>
+          </div>
+        `;
+
+        // Xóa loading indicator sau 2 giây
+        setTimeout(() => {
+          if (document.body.contains(loadingIndicator)) {
+            document.body.removeChild(loadingIndicator);
+          }
+        }, 2000);
+      };
+
+      document.head.appendChild(wishlistScript);
+    }
+  }
+
   // Check if we need to set the search tab as active
   const urlParams = new URLSearchParams(window.location.search);
   if (urlParams.get('search') === 'true') {
@@ -139,6 +232,25 @@ document.addEventListener('DOMContentLoaded', function () {
         searchInput.scrollIntoView({ behavior: 'smooth', block: 'center' });
       }, 500);
     }
+  }
+
+  // Check if we need to set the wishlist tab as active
+  if (urlParams.get('wishlist') === 'true') {
+    // Remove active class from all items
+    bottomNavItems.forEach((item) => item.classList.remove('active'));
+
+    // Add active class to wishlist tab
+    document.getElementById('wishlist-nav')?.classList.add('active');
+
+    // Store the active tab ID in localStorage
+    localStorage.setItem('activeTabId', 'wishlist-nav');
+
+    // Open wishlist if function exists
+    setTimeout(() => {
+      if (typeof toggleWishlistContainer === 'function') {
+        toggleWishlistContainer(true);
+      }
+    }, 500);
   }
 
   // Add event listener for popstate (browser back/forward buttons)

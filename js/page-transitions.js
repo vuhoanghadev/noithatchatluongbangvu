@@ -307,31 +307,38 @@ function startPageTransition(url, x, y, isHistoryNavigation = false) {
 function updateActiveNavigation(url) {
   // Get all navigation items
   const navItems = document.querySelectorAll(
-    '.nav-menu a, .mobile-menu-links a, .bottom-nav-item'
+    '.nav-menu a, .mobile-menu-links a'
   );
+  const bottomNavItems = document.querySelectorAll('.bottom-nav-item');
 
   // Remove active class from all items
   navItems.forEach((item) => {
     item.classList.remove('active');
   });
 
-  // Add active class to matching items
-  navItems.forEach((item) => {
-    if (item.href === url || url.includes(item.getAttribute('href'))) {
-      item.classList.add('active');
-    }
-  });
-
-  // Special handling for bottom navigation
-  const bottomNavItems = document.querySelectorAll('.bottom-nav-item');
+  // Remove active class from bottom nav items
   bottomNavItems.forEach((item) => {
     item.classList.remove('active');
+  });
+
+  // Add active class to matching items in main navigation and mobile menu
+  navItems.forEach((item) => {
+    const href = item.getAttribute('href');
+    if (
+      item.href === url ||
+      url.includes(href) ||
+      (url.includes('product-details.html') && href === 'products.html') ||
+      (url.includes('blog-detail.html') && href === 'blog.html') ||
+      (url.includes('quote-ai.html') && href === 'quote-ai.html')
+    ) {
+      item.classList.add('active');
+    }
   });
 
   // Determine which bottom nav item should be active
   if (url.includes('products.html') || url.includes('product-details.html')) {
     document.getElementById('products-nav')?.classList.add('active');
-  } else if (url.includes('blog.html')) {
+  } else if (url.includes('blog.html') || url.includes('blog-detail.html')) {
     document.getElementById('blog-nav')?.classList.add('active');
   } else if (
     url.includes('index.html') ||
