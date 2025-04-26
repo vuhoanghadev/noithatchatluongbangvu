@@ -1,0 +1,308 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quản lý lượt xem - Nội Thất Chất Lượng Bàng Vũ</title>
+    <link rel="icon" href="../images/logo.svg" type="image/svg+xml">
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&family=Playfair+Display:wght@400;500;600;700&family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <!-- Stylesheets -->
+    <link rel="stylesheet" href="../css/main.css">
+    <link rel="stylesheet" href="../css/admin.css">
+    <!-- Font Awesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+    <!-- Supabase JS -->
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <style>
+        .views-manager {
+            padding: 20px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        .views-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+        
+        .views-table th, .views-table td {
+            border: 1px solid #ddd;
+            padding: 12px;
+            text-align: left;
+        }
+        
+        .views-table th {
+            background-color: #f2f2f2;
+            font-weight: 600;
+        }
+        
+        .views-table tr:nth-child(even) {
+            background-color: #f9f9f9;
+        }
+        
+        .views-table tr:hover {
+            background-color: #f1f1f1;
+        }
+        
+        .views-input {
+            width: 100px;
+            padding: 8px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+        }
+        
+        .update-btn {
+            padding: 8px 12px;
+            background-color: #0058dd;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        
+        .update-btn:hover {
+            background-color: #0046b5;
+        }
+        
+        .sync-btn {
+            padding: 10px 16px;
+            background-color: #28a745;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            margin-bottom: 20px;
+        }
+        
+        .sync-btn:hover {
+            background-color: #218838;
+        }
+        
+        .admin-menu {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+        
+        .admin-menu a {
+            padding: 10px 15px;
+            background-color: #f2f2f2;
+            color: #333;
+            text-decoration: none;
+            border-radius: 4px;
+        }
+        
+        .admin-menu a:hover, .admin-menu a.active {
+            background-color: #0058dd;
+            color: white;
+        }
+        
+        .status-message {
+            padding: 10px;
+            margin: 10px 0;
+            border-radius: 4px;
+        }
+        
+        .status-success {
+            background-color: #d4edda;
+            color: #155724;
+            border: 1px solid #c3e6cb;
+        }
+        
+        .status-error {
+            background-color: #f8d7da;
+            color: #721c24;
+            border: 1px solid #f5c6cb;
+        }
+    </style>
+</head>
+<body>
+    <div class="admin-header">
+        <h1>Quản lý lượt xem</h1>
+        <div class="admin-menu">
+            <a href="index.html">Trang chủ Admin</a>
+            <a href="product-manager.html">Quản lý sản phẩm</a>
+            <a href="blog-manager.html">Quản lý blog</a>
+            <a href="views-manager.html" class="active">Quản lý lượt xem</a>
+            <a href="../index.html" target="_blank">Xem website</a>
+        </div>
+    </div>
+    
+    <div class="views-manager">
+        <div id="status-message"></div>
+        
+        <button id="sync-views" class="sync-btn">
+            <i class="fas fa-sync-alt"></i> Đồng bộ lượt xem
+        </button>
+        
+        <table class="views-table">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Tiêu đề bài viết</th>
+                    <th>Lượt xem</th>
+                    <th>Thao tác</th>
+                </tr>
+            </thead>
+            <tbody id="views-table-body">
+                <!-- Dữ liệu sẽ được thêm vào đây bằng JavaScript -->
+            </tbody>
+        </table>
+    </div>
+    
+    <script src="../js/blog.js"></script>
+    <script>
+        // Khởi tạo Supabase client
+        const supabaseUrl = 'https://xsuyxftywtysdltdlvna.supabase.co';
+        const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InhzdXl4ZnR5d3R5c2RsdGRsdm5hIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDU2NjYzMjcsImV4cCI6MjA2MTI0MjMyN30.P8iiRp5ZyfUbgMpD8kwC5bPUO1Aron3sLDAe8fIbZY8';
+        const supabase = supabase.createClient(supabaseUrl, supabaseKey);
+        
+        // Hiển thị thông báo
+        function showMessage(message, isError = false) {
+            const statusMessage = document.getElementById('status-message');
+            statusMessage.textContent = message;
+            statusMessage.className = isError ? 'status-message status-error' : 'status-message status-success';
+            
+            // Tự động ẩn sau 5 giây
+            setTimeout(() => {
+                statusMessage.textContent = '';
+                statusMessage.className = 'status-message';
+            }, 5000);
+        }
+        
+        // Hàm cập nhật lượt xem
+        async function updateViewCount(postId, count) {
+            try {
+                const postIdStr = postId.toString();
+                
+                // Gọi hàm RPC để cập nhật lượt xem
+                const { data, error } = await supabase.rpc('update_blog_view', {
+                    post_id_param: postIdStr,
+                    new_views_param: count
+                });
+                
+                if (error) {
+                    console.error('Lỗi khi cập nhật lượt xem:', error);
+                    showMessage(`Lỗi khi cập nhật lượt xem: ${error.message}`, true);
+                    return false;
+                }
+                
+                // Cập nhật lượt xem trong đối tượng post
+                const post = posts.find(p => p.id == postId);
+                if (post) {
+                    post.views = count;
+                }
+                
+                showMessage(`Đã cập nhật lượt xem cho bài viết ID ${postId} thành ${count}`);
+                return true;
+            } catch (error) {
+                console.error('Lỗi khi cập nhật lượt xem:', error);
+                showMessage(`Lỗi khi cập nhật lượt xem: ${error.message}`, true);
+                return false;
+            }
+        }
+        
+        // Hàm lấy lượt xem từ Supabase
+        async function getViewsFromSupabase() {
+            try {
+                const { data, error } = await supabase
+                    .from('blog_views')
+                    .select('post_id, views');
+                
+                if (error) {
+                    console.error('Lỗi khi lấy lượt xem:', error);
+                    showMessage(`Lỗi khi lấy lượt xem: ${error.message}`, true);
+                    return {};
+                }
+                
+                // Chuyển đổi mảng thành đối tượng với post_id là key
+                const views = {};
+                data.forEach(item => {
+                    views[item.post_id] = item.views;
+                });
+                
+                return views;
+            } catch (error) {
+                console.error('Lỗi khi lấy lượt xem:', error);
+                showMessage(`Lỗi khi lấy lượt xem: ${error.message}`, true);
+                return {};
+            }
+        }
+        
+        // Hàm đồng bộ lượt xem từ blog.js lên Supabase
+        async function syncViewsToSupabase() {
+            try {
+                // Lấy lượt xem từ Supabase
+                const supabaseViews = await getViewsFromSupabase();
+                
+                // Đồng bộ lượt xem từ blog.js lên Supabase
+                for (const post of posts) {
+                    const postId = post.id.toString();
+                    
+                    // Nếu lượt xem trong blog.js lớn hơn lượt xem trong Supabase
+                    if (post.views && (!supabaseViews[postId] || post.views > supabaseViews[postId])) {
+                        await updateViewCount(post.id, post.views);
+                    }
+                    // Nếu lượt xem trong Supabase lớn hơn lượt xem trong blog.js
+                    else if (supabaseViews[postId] && (!post.views || supabaseViews[postId] > post.views)) {
+                        post.views = supabaseViews[postId];
+                    }
+                }
+                
+                showMessage('Đã đồng bộ lượt xem thành công');
+                
+                // Cập nhật lại bảng
+                renderViewsTable();
+            } catch (error) {
+                console.error('Lỗi khi đồng bộ lượt xem:', error);
+                showMessage(`Lỗi khi đồng bộ lượt xem: ${error.message}`, true);
+            }
+        }
+        
+        // Hàm hiển thị bảng lượt xem
+        async function renderViewsTable() {
+            const tableBody = document.getElementById('views-table-body');
+            
+            // Lấy lượt xem từ Supabase
+            const supabaseViews = await getViewsFromSupabase();
+            
+            // Sắp xếp bài viết theo ID giảm dần
+            const sortedPosts = [...posts].sort((a, b) => b.id - a.id);
+            
+            // Tạo HTML cho bảng
+            tableBody.innerHTML = sortedPosts.map(post => {
+                const postId = post.id.toString();
+                const views = supabaseViews[postId] || post.views || 0;
+                
+                return `
+                    <tr>
+                        <td>${post.id}</td>
+                        <td>${post.title}</td>
+                        <td>
+                            <input type="number" class="views-input" value="${views}" min="0" id="views-${post.id}">
+                        </td>
+                        <td>
+                            <button class="update-btn" onclick="updateViewCount(${post.id}, parseInt(document.getElementById('views-${post.id}').value))">
+                                Cập nhật
+                            </button>
+                        </td>
+                    </tr>
+                `;
+            }).join('');
+        }
+        
+        // Khởi tạo trang
+        document.addEventListener('DOMContentLoaded', function() {
+            // Hiển thị bảng lượt xem
+            renderViewsTable();
+            
+            // Xử lý sự kiện click nút đồng bộ
+            document.getElementById('sync-views').addEventListener('click', syncViewsToSupabase);
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,336 @@
+<!DOCTYPE html>
+<html lang="vi">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quản lý Bài viết - Nội Thất Chất Lượng Bàng Vũ</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="css/admin.css">
+    <script src="../js/blog.js"></script>
+</head>
+
+<body>
+    <div class="admin-container">
+        <div class="sidebar">
+            <div class="logo">
+                <img src="../images/logo.svg" alt="Logo">
+                <h2>Admin Panel</h2>
+            </div>
+            <div class="menu">
+                <ul>
+                    <li><a href="index.html"><i class="fas fa-tachometer-alt"></i> Dashboard</a></li>
+                    <li><a href="product-manager.html"><i class="fas fa-box"></i> Quản lý Sản phẩm</a></li>
+                    <li class="active"><a href="blog-manager.html"><i class="fas fa-newspaper"></i> Quản lý Bài viết</a>
+                    </li>
+                    <li><a href="order-manager.html"><i class="fas fa-shopping-cart"></i> Quản lý Đơn hàng</a></li>
+                    <li><a href="user-manager.html"><i class="fas fa-users"></i> Quản lý Người dùng</a></li>
+                    <li><a href="settings.html"><i class="fas fa-cog"></i> Cài đặt</a></li>
+                    <li><a href="../index.html"><i class="fas fa-sign-out-alt"></i> Đăng xuất</a></li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="main-content">
+            <header>
+                <div class="header-title">
+                    <h1>Quản lý Bài viết</h1>
+                </div>
+                <div class="user-info">
+                    <span>Admin</span>
+                    <img src="../images/admin-avatar.jpg" alt="Admin Avatar">
+                </div>
+            </header>
+
+            <div class="product-manager-container">
+                <div class="product-manager-header">
+                    <h2>Danh sách Bài viết</h2>
+                    <div class="product-actions">
+                        <button id="add-blog-btn" class="btn primary"><i class="fas fa-plus"></i> Thêm Bài viết</button>
+                        <button id="export-blog-btn" class="btn success"><i class="fas fa-file-export"></i> Xuất
+                            File</button>
+                    </div>
+                </div>
+
+                <div class="filter-section">
+                    <div class="filter-group">
+                        <label for="category-filter">Danh mục:</label>
+                        <select id="category-filter">
+                            <option value="all">Tất cả danh mục</option>
+                            <!-- Các danh mục sẽ được thêm bằng JavaScript -->
+                        </select>
+                    </div>
+                    <div class="filter-group">
+                        <label for="author-filter">Tác giả:</label>
+                        <select id="author-filter">
+                            <option value="all">Tất cả tác giả</option>
+                            <!-- Các tác giả sẽ được thêm bằng JavaScript -->
+                        </select>
+                    </div>
+                    <div class="filter-group">
+                        <label for="search-blog">Tìm kiếm:</label>
+                        <input type="text" id="search-blog" placeholder="Tên hoặc ID bài viết...">
+                    </div>
+                    <div class="filter-group">
+                        <button id="apply-filter" class="btn secondary"><i class="fas fa-filter"></i> Áp dụng</button>
+                    </div>
+                </div>
+
+                <div class="filter-section">
+                    <div class="filter-group">
+                        <label for="items-per-page">Hiển thị:</label>
+                        <select id="items-per-page">
+                            <option value="10">10 bài viết</option>
+                            <option value="20">20 bài viết</option>
+                            <option value="40">40 bài viết</option>
+                            <option value="60">60 bài viết</option>
+                            <option value="80">80 bài viết</option>
+                            <option value="100">100 bài viết</option>
+                            <option value="all">Tất cả bài viết</option>
+                        </select>
+                    </div>
+                </div>
+
+                <table class="product-table">
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Hình ảnh</th>
+                            <th>Tiêu đề</th>
+                            <th>Danh mục</th>
+                            <th>Tác giả</th>
+                            <th>Ngày đăng</th>
+                            <th>Lượt xem</th>
+                            <th>Thao tác</th>
+                        </tr>
+                    </thead>
+                    <tbody id="blog-list">
+                        <!-- Danh sách bài viết sẽ được thêm bằng JavaScript -->
+                    </tbody>
+                </table>
+
+                <div class="pagination" id="pagination">
+                    <!-- Phân trang sẽ được thêm bằng JavaScript -->
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal thêm/sửa bài viết -->
+    <div id="blog-modal" class="modal">
+        <div class="modal-content fullscreen">
+            <div class="modal-header">
+                <h2 id="modal-title">Thêm Bài viết Mới</h2>
+                <div class="modal-controls">
+                    <button id="toggle-fullscreen" class="btn" title="Chuyển đổi chế độ toàn màn hình"><i
+                            class="fas fa-compress"></i></button>
+                    <span class="close">&times;</span>
+                </div>
+            </div>
+            <div class="modal-body">
+                <div class="tabs">
+                    <button class="tab-btn active" data-tab="basic-info">Thông tin cơ bản</button>
+                    <button class="tab-btn" data-tab="content-tab">Nội dung</button>
+                    <button class="tab-btn" data-tab="author-info">Thông tin tác giả</button>
+                </div>
+
+                <form id="blog-form">
+                    <input type="hidden" id="blog-id">
+
+                    <!-- Tab Thông tin cơ bản -->
+                    <div class="tab-content active" id="basic-info">
+                        <div class="form-group">
+                            <label for="blog-title">Tiêu đề bài viết:</label>
+                            <input type="text" id="blog-title" required>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="blog-category">Danh mục:</label>
+                                <select id="blog-category" required>
+                                    <!-- Các danh mục sẽ được thêm bằng JavaScript -->
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="blog-date">Ngày đăng:</label>
+                                <input type="text" id="blog-date" placeholder="DD/MM/YYYY">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="blog-excerpt">Tóm tắt:</label>
+                            <textarea id="blog-excerpt" rows="3" required></textarea>
+                        </div>
+                        <div class="form-group">
+                            <label for="blog-image">Hình ảnh chính:</label>
+                            <input type="text" id="blog-image" placeholder="URL hình ảnh">
+                        </div>
+                        <div class="form-group">
+                            <label for="blog-views">Lượt xem:</label>
+                            <input type="number" id="blog-views" min="0" placeholder="0">
+                        </div>
+                    </div>
+
+                    <!-- Tab Nội dung -->
+                    <div class="tab-content" id="content-tab">
+                        <div class="form-group">
+                            <label for="blog-content">Nội dung bài viết:</label>
+                            <div class="simple-editor-container">
+                                <div class="simple-editor-toolbar">
+                                    <div class="toolbar-group">
+                                        <select class="editor-select compact" data-command="formatBlock"
+                                            title="Kiểu đoạn văn">
+                                            <option value="p">Đoạn văn</option>
+                                            <option value="h1">Tiêu đề 1</option>
+                                            <option value="h2">Tiêu đề 2</option>
+                                            <option value="h3">Tiêu đề 3</option>
+                                            <option value="h4">Tiêu đề 4</option>
+                                        </select>
+                                        <select class="editor-select compact" data-command="fontName" title="Phông chữ">
+                                            <option value="Arial">Arial</option>
+                                            <option value="Helvetica">Helvetica</option>
+                                            <option value="Times New Roman">Times</option>
+                                            <option value="Segoe UI">Segoe UI</option>
+                                        </select>
+                                        <select class="editor-select compact" data-command="fontSize" title="Cỡ chữ">
+                                            <option value="1">Nhỏ</option>
+                                            <option value="3">Thường</option>
+                                            <option value="5">Lớn</option>
+                                        </select>
+                                    </div>
+                                    <div class="toolbar-group">
+                                        <button type="button" class="editor-btn" data-command="bold" title="Đậm"><i
+                                                class="fas fa-bold"></i></button>
+                                        <button type="button" class="editor-btn" data-command="italic"
+                                            title="Nghiêng"><i class="fas fa-italic"></i></button>
+                                        <button type="button" class="editor-btn" data-command="underline"
+                                            title="Gạch chân"><i class="fas fa-underline"></i></button>
+                                        <button type="button" class="editor-btn" data-command="strikeThrough"
+                                            title="Gạch ngang"><i class="fas fa-strikethrough"></i></button>
+                                    </div>
+                                    <div class="toolbar-group">
+                                        <button type="button" class="editor-btn" data-command="justifyLeft"
+                                            title="Căn trái"><i class="fas fa-align-left"></i></button>
+                                        <button type="button" class="editor-btn" data-command="justifyCenter"
+                                            title="Căn giữa"><i class="fas fa-align-center"></i></button>
+                                        <button type="button" class="editor-btn" data-command="justifyRight"
+                                            title="Căn phải"><i class="fas fa-align-right"></i></button>
+                                    </div>
+                                    <div class="toolbar-group">
+                                        <button type="button" class="editor-btn" data-command="insertUnorderedList"
+                                            title="Danh sách"><i class="fas fa-list-ul"></i></button>
+                                        <button type="button" class="editor-btn" data-command="insertOrderedList"
+                                            title="Danh sách số"><i class="fas fa-list-ol"></i></button>
+                                    </div>
+                                    <div class="toolbar-group">
+                                        <button type="button" class="editor-btn" data-command="createLink"
+                                            title="Chèn liên kết"><i class="fas fa-link"></i></button>
+                                        <button type="button" class="editor-btn" data-command="insertImage"
+                                            title="Chèn hình ảnh"><i class="fas fa-image"></i></button>
+                                    </div>
+                                </div>
+                                <div id="blog-content-editor" class="simple-editor-content" contenteditable="true">
+                                </div>
+                                <textarea id="blog-content" style="display: none;"></textarea>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Tab Thông tin tác giả -->
+                    <div class="tab-content" id="author-info">
+                        <div class="form-group">
+                            <label for="blog-author">Tên tác giả:</label>
+                            <input type="text" id="blog-author" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="blog-author-avatar">Avatar tác giả:</label>
+                            <input type="text" id="blog-author-avatar" placeholder="URL avatar">
+                        </div>
+                        <div class="form-group">
+                            <label for="blog-author-bio">Tiểu sử tác giả:</label>
+                            <textarea id="blog-author-bio" rows="4"></textarea>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="blog-author-verified">Chức danh:</label>
+                                <input type="text" id="blog-author-verified"
+                                    placeholder="VD: Chuyên gia, Kiến trúc sư...">
+                            </div>
+                            <div class="form-group">
+                                <label for="blog-author-job">Nghề nghiệp:</label>
+                                <input type="text" id="blog-author-job" placeholder="VD: Chuyên gia thiết kế nội thất">
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="blog-author-experience">Kinh nghiệm (năm):</label>
+                                <input type="number" id="blog-author-experience" min="0">
+                            </div>
+                            <div class="form-group">
+                                <label for="blog-author-projects">Số dự án:</label>
+                                <input type="number" id="blog-author-projects" min="0">
+                            </div>
+                            <div class="form-group">
+                                <label for="blog-author-rating">Đánh giá:</label>
+                                <input type="number" id="blog-author-rating" min="0" max="5" step="0.1">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-actions">
+                        <button type="button" id="fill-sample-btn" class="btn secondary"><i class="fas fa-magic"></i>
+                            Điền thông tin mẫu</button>
+                        <button type="button" id="cancel-btn" class="btn">Hủy</button>
+                        <button type="submit" id="save-btn" class="btn primary">Lưu</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal xem trước khi xuất file -->
+    <div id="export-modal" class="modal">
+        <div class="modal-content large">
+            <div class="modal-header">
+                <h2>Xem trước file blog.js</h2>
+                <span class="close">&times;</span>
+            </div>
+            <div class="modal-body">
+                <div class="export-options">
+                    <button id="copy-export" class="btn secondary"><i class="fas fa-copy"></i> Sao chép</button>
+                    <button id="download-export" class="btn success"><i class="fas fa-download"></i> Tải xuống</button>
+                </div>
+                <pre id="export-preview"></pre>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal xác nhận -->
+    <div id="confirm-modal" class="modal">
+        <div class="modal-content small">
+            <div class="modal-header">
+                <h2>Xác nhận</h2>
+                <span class="close">&times;</span>
+            </div>
+            <div class="modal-body">
+                <p id="confirm-message">Bạn có chắc chắn muốn thực hiện hành động này?</p>
+                <div class="form-actions">
+                    <button id="confirm-cancel" class="btn">Hủy</button>
+                    <button id="confirm-ok" class="btn danger">Xác nhận</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Thông báo -->
+    <div id="notification" class="notification">
+        <div class="notification-content">
+            <i class="notification-icon"></i>
+            <span class="notification-message"></span>
+        </div>
+    </div>
+
+    <script src="js/admin-main.js"></script>
+    <script src="js/blog-list.js"></script>
+    <script src="js/blog-edit.js"></script>
+</body>
+
+</html>

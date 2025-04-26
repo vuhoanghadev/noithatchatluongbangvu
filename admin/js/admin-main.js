@@ -85,6 +85,34 @@ function updateProductCount() {
 
 // Hàm khởi tạo các sự kiện
 function initEvents() {
+  // Xử lý sự kiện thay đổi trực tiếp cho dropdown danh mục và trạng thái
+  const categoryFilter = document.getElementById('category-filter');
+  const statusFilter = document.getElementById('status-filter');
+  const searchInput = document.getElementById('search-product');
+
+  if (categoryFilter) {
+    categoryFilter.addEventListener('change', function () {
+      filterProducts();
+    });
+  }
+
+  if (statusFilter) {
+    statusFilter.addEventListener('change', function () {
+      filterProducts();
+    });
+  }
+
+  if (searchInput) {
+    // Lọc khi người dùng nhập (sau 300ms để tránh gọi quá nhiều lần)
+    let searchTimeout;
+    searchInput.addEventListener('input', function () {
+      clearTimeout(searchTimeout);
+      searchTimeout = setTimeout(function () {
+        filterProducts();
+      }, 300);
+    });
+  }
+
   // Xử lý tabs trong modal
   const tabButtons = document.querySelectorAll('.tab-btn');
   tabButtons.forEach((button) => {
@@ -156,6 +184,27 @@ function initEvents() {
   if (fillSampleBtn) {
     fillSampleBtn.addEventListener('click', function () {
       fillSampleProductData();
+    });
+  }
+
+  // Xử lý nút chuyển đổi chế độ toàn màn hình
+  const toggleFullscreenBtn = document.getElementById('toggle-fullscreen');
+  if (toggleFullscreenBtn) {
+    toggleFullscreenBtn.addEventListener('click', function () {
+      const modalContent = document.querySelector('.modal-content');
+      modalContent.classList.toggle('fullscreen');
+
+      // Thay đổi biểu tượng
+      const icon = this.querySelector('i');
+      if (modalContent.classList.contains('fullscreen')) {
+        icon.classList.remove('fa-expand');
+        icon.classList.add('fa-compress');
+        this.setAttribute('title', 'Thu nhỏ');
+      } else {
+        icon.classList.remove('fa-compress');
+        icon.classList.add('fa-expand');
+        this.setAttribute('title', 'Toàn màn hình');
+      }
     });
   }
 
@@ -418,6 +467,16 @@ function generateNewProductId() {
   return Math.max(...allProducts.map((product) => product.id)) + 1;
 }
 
+// Hàm lọc sản phẩm (gọi hàm trong product-list.js)
+function filterProducts() {
+  // Kiểm tra xem hàm filterProducts có tồn tại trong phạm vi toàn cục không
+  if (typeof window.filterProducts === 'function') {
+    window.filterProducts();
+  } else {
+    console.warn('Hàm filterProducts không tồn tại trong phạm vi toàn cục');
+  }
+}
+
 // Hàm tính giá mới dựa trên phần trăm giảm giá và giá cũ
 function calculateFlashSalePrice() {
   const flashsaleDiscount = document.getElementById('flashsale-discount');
@@ -597,6 +656,38 @@ function fillSampleProductData() {
       <button type="button" class="btn remove-care-tip"><i class="fas fa-trash"></i></button>`
     );
   });
+
+  // Thêm đánh giá mẫu
+  const reviewsContainer = document.getElementById('reviews-container');
+  if (reviewsContainer) {
+    reviewsContainer.innerHTML = `
+      <div class="review-card">
+        <div class="review-header">
+          <span class="review-author">Nguyễn Văn A</span>
+          <span class="review-date">${formatDate(new Date())}</span>
+        </div>
+        <div class="review-rating">
+          <i class="fas fa-star"></i>
+          <i class="fas fa-star"></i>
+          <i class="fas fa-star"></i>
+          <i class="fas fa-star"></i>
+          <i class="fas fa-star"></i>
+          (5.0)
+        </div>
+        <div class="review-content">
+          Sản phẩm rất đẹp và chất lượng. Tôi rất hài lòng với tủ quần áo này. Giao hàng nhanh, lắp đặt chuyên nghiệp.
+        </div>
+        <div class="review-actions">
+          <button type="button" class="btn secondary edit-review" data-index="0">
+            <i class="fas fa-edit"></i> Sửa
+          </button>
+          <button type="button" class="btn danger delete-review" data-index="0">
+            <i class="fas fa-trash"></i> Xóa
+          </button>
+        </div>
+      </div>
+    `;
+  }
 
   // Hiển thị thông báo
   showNotification('Đã điền thông tin mẫu thành công!', 'success');

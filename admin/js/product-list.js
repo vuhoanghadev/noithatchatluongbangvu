@@ -4,7 +4,7 @@
 
 // Biến toàn cục cho phân trang
 let currentPage = 1;
-const itemsPerPage = 10;
+let itemsPerPage = 10; // Mặc định hiển thị 10 sản phẩm trên một trang
 let filteredProducts = [];
 
 // Khởi tạo khi trang được tải
@@ -63,20 +63,60 @@ function initProductListEvents() {
       sortProducts(this.value);
     });
   }
+
+  // Xử lý thay đổi số lượng sản phẩm trên một trang
+  const itemsPerPageSelect = document.getElementById('items-per-page');
+  if (itemsPerPageSelect) {
+    itemsPerPageSelect.addEventListener('change', function () {
+      const value = this.value;
+      if (value === 'all') {
+        // Hiển thị tất cả sản phẩm
+        itemsPerPage = filteredProducts.length;
+      } else {
+        // Hiển thị số lượng sản phẩm được chọn
+        itemsPerPage = parseInt(value);
+      }
+      // Reset về trang đầu tiên và hiển thị lại danh sách
+      currentPage = 1;
+      renderProductList();
+    });
+  }
 }
 
-// Hàm lọc sản phẩm
-function filterProducts() {
+// Hàm lọc sản phẩm - đặt trong window để có thể gọi từ bên ngoài
+window.filterProducts = function () {
   const categoryFilter = document.getElementById('category-filter');
+  const statusFilter = document.getElementById('status-filter');
   const searchInput = document.getElementById('search-product');
 
   const category = categoryFilter ? categoryFilter.value : 'all';
-  const searchTerm = searchInput ? searchInput.value.toLowerCase() : '';
+  const status = statusFilter ? statusFilter.value : 'all';
+  const searchTerm = searchInput ? searchInput.value.toLowerCase().trim() : '';
 
-  // Lọc sản phẩm theo danh mục và từ khóa tìm kiếm
+  // Lọc sản phẩm theo danh mục, trạng thái và từ khóa tìm kiếm
   filteredProducts = allProducts.filter((product) => {
     // Lọc theo danh mục
     const categoryMatch = category === 'all' || product.category === category;
+
+    // Lọc theo trạng thái
+    let statusMatch = true;
+    if (status !== 'all') {
+      switch (status) {
+        case 'featured':
+          statusMatch = product.featured === true;
+          break;
+        case 'promotion':
+          statusMatch = product.promotion && product.promotion.trim() !== '';
+          break;
+        case 'flashsale':
+          statusMatch = product.flashsale && product.flashsale.active === true;
+          break;
+        case 'sale':
+          statusMatch =
+            product.tag && product.tag.toLowerCase().includes('sale');
+          break;
+      }
+    }
 
     // Lọc theo từ khóa tìm kiếm (tên hoặc ID)
     let searchMatch = true;
@@ -89,7 +129,7 @@ function filterProducts() {
       searchMatch = nameMatch || idMatch || skuMatch;
     }
 
-    return categoryMatch && searchMatch;
+    return categoryMatch && statusMatch && searchMatch;
   });
 
   // Reset về trang đầu tiên
@@ -97,6 +137,11 @@ function filterProducts() {
 
   // Hiển thị danh sách sản phẩm đã lọc
   renderProductList();
+};
+
+// Hàm lọc sản phẩm - phiên bản cục bộ
+function filterProducts() {
+  window.filterProducts();
 }
 
 // Hàm sắp xếp sản phẩm
@@ -126,9 +171,16 @@ function renderProductList() {
   if (!productList) return;
 
   // Tính toán phân trang
-  const startIndex = (currentPage - 1) * itemsPerPage;
-  const endIndex = startIndex + itemsPerPage;
-  const paginatedProducts = filteredProducts.slice(startIndex, endIndex);
+  let paginatedProducts;
+
+  // Kiểm tra nếu hiển thị tất cả sản phẩm
+  if (itemsPerPage >= filteredProducts.length) {
+    paginatedProducts = filteredProducts;
+  } else {
+    const startIndex = (currentPage - 1) * itemsPerPage;
+    const endIndex = startIndex + itemsPerPage;
+    paginatedProducts = filteredProducts.slice(startIndex, endIndex);
+  }
 
   // Xóa danh sách cũ
   productList.innerHTML = '';
@@ -136,10 +188,50 @@ function renderProductList() {
   // Thêm sản phẩm vào danh sách
   if (paginatedProducts.length === 0) {
     const emptyRow = document.createElement('tr');
-    emptyRow.innerHTML = `<td colspan="6" class="text-center">Không có sản phẩm nào</td>`;
+    emptyRow.innerHTML = `<td colspan="7" class="text-center">Không có sản phẩm nào</td>`;
     productList.appendChild(emptyRow);
   } else {
     paginatedProducts.forEach((product) => {
+      // Tạo các badge trạng thái
+      let statusBadges = '';
+
+      // Kiểm tra sản phẩm nổi bật
+      if (product.featured === true) {
+        statusBadges += `<span class="status-badge featured">Nổi bật</span>`;
+      }
+
+      // Kiểm tra sản phẩm có ưu đãi
+      if (product.promotion && product.promotion.trim() !== '') {
+        statusBadges += `<span class="status-badge promotion" title="${product.promotion}">Ưu đãi: ${product.promotion}</span>`;
+      }
+
+      // Kiểm tra sản phẩm có flashsale
+      if (product.flashsale && product.flashsale.active === true) {
+        const discountInfo = product.flashsale.discountPercent
+          ? `Giảm ${product.flashsale.discountPercent}%`
+          : '';
+        const priceInfo = product.flashsale.oldPrice
+          ? `${product.flashsale.oldPrice.toLocaleString()}đ → ${product.flashsale.newPrice.toLocaleString()}đ`
+          : '';
+        const tooltip = `${discountInfo}${
+          discountInfo && priceInfo ? ', ' : ''
+        }${priceInfo}`;
+
+        statusBadges += `<span class="status-badge flashsale" title="${tooltip}">Flash Sale${
+          discountInfo ? `: ${discountInfo}` : ''
+        }</span>`;
+      }
+
+      // Kiểm tra sản phẩm có tag sale
+      if (product.tag && product.tag.toLowerCase().includes('sale')) {
+        statusBadges += `<span class="status-badge sale" title="Tag: ${product.tag}">Sale</span>`;
+      }
+
+      // Nếu không có badge nào, hiển thị "Không"
+      if (statusBadges === '') {
+        statusBadges = '<span class="text-muted">Không</span>';
+      }
+
       const row = document.createElement('tr');
       row.innerHTML = `
                 <td>${product.id}</td>
@@ -149,6 +241,7 @@ function renderProductList() {
                 <td>${product.name}</td>
                 <td>${product.category || ''}</td>
                 <td>${product.price || 'Liên hệ'}</td>
+                <td>${statusBadges}</td>
                 <td class="product-actions-cell">
                     <button class="btn-icon edit" data-id="${
                       product.id
@@ -167,6 +260,9 @@ function renderProductList() {
 
   // Thêm sự kiện cho các nút sửa và xóa
   addProductActionEvents();
+
+  // Thêm tooltip cho các badge
+  addTooltipEvents();
 }
 
 // Hàm hiển thị phân trang
@@ -180,8 +276,12 @@ function renderPagination() {
   // Xóa phân trang cũ
   pagination.innerHTML = '';
 
-  // Không hiển thị phân trang nếu chỉ có 1 trang
-  if (totalPages <= 1) return;
+  // Không hiển thị phân trang nếu chỉ có 1 trang hoặc hiển thị tất cả sản phẩm
+  if (totalPages <= 1 || itemsPerPage >= filteredProducts.length) {
+    // Hiển thị thông tin số lượng sản phẩm
+    pagination.innerHTML = `<div class="pagination-info">Hiển thị ${filteredProducts.length} sản phẩm</div>`;
+    return;
+  }
 
   // Thêm nút Previous
   if (currentPage > 1) {
@@ -360,6 +460,40 @@ function resetDynamicFields() {
             <button type="button" class="btn remove-care-tip"><i class="fas fa-trash"></i></button>
         </div>
     `;
+}
+
+// Hàm thêm sự kiện tooltip cho các badge
+function addTooltipEvents() {
+  const badges = document.querySelectorAll('.status-badge');
+  badges.forEach((badge) => {
+    if (badge.title) {
+      // Thêm sự kiện hiển thị tooltip khi hover
+      badge.addEventListener('mouseenter', function (e) {
+        // Tạo tooltip element
+        const tooltip = document.createElement('div');
+        tooltip.className = 'badge-tooltip';
+        tooltip.textContent = this.title;
+        document.body.appendChild(tooltip);
+
+        // Định vị tooltip
+        const rect = this.getBoundingClientRect();
+        tooltip.style.left =
+          rect.left + rect.width / 2 - tooltip.offsetWidth / 2 + 'px';
+        tooltip.style.top = rect.bottom + 10 + 'px';
+
+        // Lưu tooltip vào badge để có thể xóa sau
+        this.tooltip = tooltip;
+      });
+
+      // Xóa tooltip khi không hover nữa
+      badge.addEventListener('mouseleave', function () {
+        if (this.tooltip) {
+          document.body.removeChild(this.tooltip);
+          this.tooltip = null;
+        }
+      });
+    }
+  });
 }
 
 // Hàm điền thông tin sản phẩm vào form
@@ -611,7 +745,17 @@ function addReviewActionEvents() {
   const addReviewButton = document.getElementById('add-review');
   if (addReviewButton) {
     addReviewButton.addEventListener('click', function () {
-      openReviewModal();
+      // Kiểm tra xem sản phẩm đã được lưu chưa
+      const productId = document.getElementById('product-id').value;
+      if (!productId) {
+        // Nếu chưa lưu sản phẩm, hiển thị thông báo
+        showNotification(
+          'Vui lòng lưu sản phẩm trước khi thêm đánh giá',
+          'error'
+        );
+      } else {
+        openReviewModal();
+      }
     });
   }
 }

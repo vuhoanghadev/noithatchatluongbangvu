@@ -259,6 +259,26 @@ function getProductFromForm() {
     if (existingProduct && existingProduct.reviews) {
       product.reviews = existingProduct.reviews;
     }
+  } else {
+    // Kiểm tra xem có đánh giá mẫu trong container không
+    const reviewsContainer = document.getElementById('reviews-container');
+    if (reviewsContainer && reviewsContainer.querySelector('.review-card')) {
+      // Có đánh giá mẫu, thêm vào sản phẩm
+      product.reviews = [
+        {
+          author: 'Nguyễn Văn A',
+          date: formatDate(new Date()),
+          rating: 5.0,
+          content:
+            'Sản phẩm rất đẹp và chất lượng. Tôi rất hài lòng với tủ quần áo này. Giao hàng nhanh, lắp đặt chuyên nghiệp.',
+          isAnonymous: false,
+          avatar: '',
+          images: [],
+          videos: [],
+          replies: [],
+        },
+      ];
+    }
   }
 
   // Lấy thông tin chính sách
@@ -429,7 +449,26 @@ function openReviewModal(review = null, reviewIndex = -1) {
 // Hàm lưu đánh giá
 function saveReview() {
   // Lấy ID sản phẩm
-  const productId = parseInt(document.getElementById('product-id').value);
+  const productIdField = document.getElementById('product-id');
+
+  // Kiểm tra xem đang thêm sản phẩm mới hay chỉnh sửa sản phẩm
+  if (!productIdField.value) {
+    // Đang thêm sản phẩm mới, lưu sản phẩm trước
+    saveProduct();
+
+    // Lấy ID sản phẩm mới được tạo (sản phẩm đầu tiên trong mảng)
+    if (allProducts.length > 0) {
+      productIdField.value = allProducts[0].id;
+    } else {
+      showNotification(
+        'Không thể thêm đánh giá, vui lòng lưu sản phẩm trước',
+        'error'
+      );
+      return;
+    }
+  }
+
+  const productId = parseInt(productIdField.value);
   const product = allProducts.find((p) => p.id === productId);
 
   if (!product) {
@@ -605,7 +644,26 @@ function openReplyModal(reply = null, reviewIndex = -1, replyIndex = -1) {
 // Hàm lưu phản hồi
 function saveReply() {
   // Lấy ID sản phẩm
-  const productId = parseInt(document.getElementById('product-id').value);
+  const productIdField = document.getElementById('product-id');
+
+  // Kiểm tra xem đang thêm sản phẩm mới hay chỉnh sửa sản phẩm
+  if (!productIdField.value) {
+    // Đang thêm sản phẩm mới, lưu sản phẩm trước
+    saveProduct();
+
+    // Lấy ID sản phẩm mới được tạo (sản phẩm đầu tiên trong mảng)
+    if (allProducts.length > 0) {
+      productIdField.value = allProducts[0].id;
+    } else {
+      showNotification(
+        'Không thể thêm phản hồi, vui lòng lưu sản phẩm trước',
+        'error'
+      );
+      return;
+    }
+  }
+
+  const productId = parseInt(productIdField.value);
   const product = allProducts.find((p) => p.id === productId);
 
   if (!product) {

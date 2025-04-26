@@ -68,20 +68,6 @@ const products = [
         <li>Chất liệu nhựa Đài Loan bền chắc, chống ẩm mốc, chống cong vênh</li>
         <li>Màu vân óc chó sang trọng, dễ dàng kết hợp với nhiều phong cách nội thất</li>
       </ul>`,
-      images: [
-        {
-          src: 'images/products/product1.png',
-          caption: 'Tủ quần áo QA205 - Góc nhìn tổng thể',
-        },
-        {
-          src: 'images/products/product2.png',
-          caption: 'Chi tiết ngăn kéo và ô hở bên trái',
-        },
-        {
-          src: 'images/products/product3.png',
-          caption: 'Không gian lưu trữ bên trong tủ',
-        },
-      ],
     },
     // Thông tin đánh giá cho tab đánh giá
     reviews: [
@@ -1095,6 +1081,12 @@ const products = [
     detailedDescription: {
       content: `<p>Tủ quần áo QA205 là sự lựa chọn hoàn hảo cho không gian phòng ngủ hiện đại với thiết kế sang trọng và công năng vượt trội.</p>
       <p>Được chế tác từ gỗ MDF phủ melamine cao cấp với vân gỗ óc chó ấm áp, sản phẩm không chỉ mang đến vẻ đẹp thẩm mỹ mà còn đảm bảo độ bền vượt trội theo thời gian.</p>
+
+      <div class="product-image-showcase">
+        <img src="images/products/product1.png" alt="Tủ quần áo QA205 - Góc nhìn tổng thể">
+        <div class="image-caption">Tủ quần áo QA205 - Góc nhìn tổng thể</div>
+      </div>
+
       <h4>Đặc điểm nổi bật:</h4>
       <ul>
         <li>Thiết kế 4 cánh mở rộng rãi, tạo không gian lưu trữ tối đa</li>
@@ -1102,21 +1094,20 @@ const products = [
         <li>Ô hở bên trái tiện dụng để trưng bày hoặc để đồ thường xuyên sử dụng</li>
         <li>Chất liệu nhựa Đài Loan bền chắc, chống ẩm mốc, chống cong vênh</li>
         <li>Màu vân óc chó sang trọng, dễ dàng kết hợp với nhiều phong cách nội thất</li>
-      </ul>`,
-      images: [
-        {
-          src: 'images/products/product1.png',
-          caption: 'Tủ quần áo QA205 - Góc nhìn tổng thể',
-        },
-        {
-          src: 'images/products/product2.png',
-          caption: 'Chi tiết ngăn kéo và ô hở bên trái',
-        },
-        {
-          src: 'images/products/product3.png',
-          caption: 'Không gian lưu trữ bên trong tủ',
-        },
-      ],
+      </ul>
+
+      <div class="product-image-showcase">
+        <img src="images/products/product2.png" alt="Chi tiết ngăn kéo và ô hở bên trái">
+        <div class="image-caption">Chi tiết ngăn kéo và ô hở bên trái</div>
+      </div>
+
+      <p>Với thiết kế tinh tế và chất lượng vượt trội, tủ quần áo QA205 không chỉ là nơi lưu trữ quần áo mà còn là điểm nhấn sang trọng cho không gian phòng ngủ của bạn.</p>
+
+      <div class="product-image-showcase">
+        <img src="images/products/product3.png" alt="Không gian lưu trữ bên trong tủ">
+        <div class="image-caption">Không gian lưu trữ bên trong tủ</div>
+      </div>
+      `,
     },
     // Thông tin đánh giá cho tab đánh giá
     reviews: [
@@ -1428,6 +1419,186 @@ const products = [
         'Sử dụng miếng lót khi đặt vật dụng nóng hoặc lạnh lên bề mặt tủ',
         'Kiểm tra và siết chặt các ốc vít định kỳ 6 tháng/lần',
         'Sử dụng sáp đánh bóng gỗ 1 năm/lần để duy trì vẻ đẹp của sản phẩm',
+      ],
+    },
+  },
+
+  {
+    id: 56, // Mã số định danh duy nhất của sản phẩm, sử dụng để tham chiếu trong hệ thống
+    name: 'Tủ Quần Áo QA560 - 5 Cánh Mở, 3 Ngăn Kéo, Vân Gỗ Sồi Tự Nhiên', // Tên đầy đủ của sản phẩm, nên bao gồm các đặc điểm chính
+    category: 'Tủ Quần Áo', // Danh mục sản phẩm, sử dụng để phân loại và lọc sản phẩm
+    image: 'images/products/product1.png', // Đường dẫn đến hình ảnh chính của sản phẩm, hiển thị trong danh sách sản phẩm
+    reviewCode: 'NTBV2056', // Mã bình luận cho sản phẩm, sử dụng để quản lý đánh giá và bình luận
+    featured: false, // Đánh dấu sản phẩm nổi bật, sẽ được hiển thị ở trang chủ hoặc các vị trí đặc biệt
+    // Mô tả ngắn gọn về sản phẩm, hiển thị trong danh sách sản phẩm và trang chi tiết
+    description:
+      'Tủ quần áo QA560 là sự kết hợp hoàn hảo giữa thiết kế hiện đại và công năng vượt trội. Được chế tác từ gỗ MDF phủ melamine cao cấp với vân gỗ sồi tự nhiên, sản phẩm mang đến vẻ đẹp sang trọng và ấm áp cho không gian phòng ngủ. Thiết kế 5 cánh mở rộng rãi cùng 3 ngăn kéo tiện lợi giúp tối ưu hóa không gian lưu trữ, đáp ứng mọi nhu cầu sắp xếp quần áo và phụ kiện. Chất liệu chống ẩm mốc, chống cong vênh, đảm bảo độ bền lâu dài trong mọi điều kiện thời tiết.',
+    size: '100x130x60cm', // Kích thước sản phẩm theo định dạng Rộng x Cao x Sâu (cm)
+    warranty: '10 năm', // Thời gian bảo hành của sản phẩm
+    price: 'Liên Hệ', // Giá sản phẩm, có thể là số hoặc chuỗi như "Liên Hệ" nếu không hiển thị giá cố định
+    material: 'Gỗ MDF phủ melamine vân gỗ sồi', // Chất liệu chính của sản phẩm
+    promotion: 'Ưu đãi đặc biệt tháng 5', // Thông tin khuyến mãi, hiển thị như badge trên sản phẩm
+    tag: 'Mới', // Nhãn đánh dấu sản phẩm (Mới, Bán chạy, Hot, v.v.)
+    rating: 4.9, // Điểm đánh giá trung bình của sản phẩm, thang điểm từ 0-5
+    views: 850, // Số lượt xem sản phẩm, dùng để thống kê và sắp xếp theo độ phổ biến
+    soldCount: 75, // Số lượng đã bán, dùng để thống kê và hiển thị độ phổ biến
+    promoEndDate: '2025-05-31T00:00:00', // Ngày kết thúc khuyến mãi theo định dạng ISO, dùng để tính thời gian còn lại
+    sku: 'NTBV-QA560', // Mã SKU (Stock Keeping Unit) để quản lý kho hàng và tham chiếu sản phẩm
+
+    // Thông tin flash sale - chương trình giảm giá nhanh có thời hạn
+    flashsale: {
+      active: true, // Trạng thái kích hoạt flash sale (true: đang diễn ra, false: không có)
+      discountPercent: 25, // Phần trăm giảm giá (%)
+      oldPrice: 6000000, // Giá gốc trước khi giảm (VNĐ)
+      newPrice: 4500000, // Giá mới sau khi giảm (VNĐ)
+      type: 'fixed', // Loại flash sale: 'fixed' (cố định theo thời gian) hoặc 'daily' (diễn ra hàng ngày)
+      endsAt: '2025-05-31T23:59:59', // Thời điểm kết thúc flash sale theo định dạng ISO
+      hidePrice: false, // Ẩn/hiện giá: true (ẩn giá), false (hiển thị giá)
+    },
+
+    // Thư viện hình ảnh sản phẩm - hiển thị trong trang chi tiết sản phẩm
+    gallery: [
+      'images/products/product1.png', // Hình ảnh 1 - Hình ảnh tổng thể sản phẩm
+      'images/products/product2.png', // Hình ảnh 2 - Góc nhìn khác của sản phẩm
+      'images/products/product3.png', // Hình ảnh 3 - Chi tiết sản phẩm
+      'images/products/product4.png', // Hình ảnh 4 - Chi tiết sản phẩm
+      'images/products/product5.png', // Hình ảnh 5 - Chi tiết sản phẩm
+    ],
+    // Thông tin chi tiết cho tab mô tả chi tiết - hiển thị dưới dạng bảng thông số kỹ thuật
+    specifications: {
+      'Kích thước': '180x200x60cm (Rộng x Cao x Sâu)', // Kích thước chi tiết của sản phẩm
+      'Chất liệu': 'Gỗ MDF phủ melamine vân gỗ sồi', // Chất liệu chính và phụ của sản phẩm
+      'Màu sắc': 'Vân gỗ sồi tự nhiên', // Màu sắc hoặc họa tiết của sản phẩm
+      'Số cánh': '5 cánh mở', // Số lượng cánh cửa của tủ
+      'Ngăn kéo': '3 ngăn kéo', // Số lượng ngăn kéo của tủ
+      // Các tính năng nổi bật của sản phẩm
+      'Tính năng đặc biệt':
+        'Chống ẩm mốc, Chống cong vênh, Bề mặt chống trầy xước',
+      'Phong cách': 'Hiện đại, Sang trọng', // Phong cách thiết kế của sản phẩm
+      'Xuất xứ': 'Việt Nam', // Nơi sản xuất sản phẩm
+      'Thời gian bảo hành': '10 năm', // Thời gian bảo hành của sản phẩm
+      'Mã sản phẩm': 'NTBV-QA560', // Mã sản phẩm để tham chiếu
+      // Tóm tắt các điểm nổi bật của sản phẩm
+      'ĐIỂM NỔI BẬT':
+        'Thiết kế 5 cánh mở rộng rãi, 3 ngăn kéo tiện lợi, Chất liệu gỗ MDF phủ melamine cao cấp, Chống ẩm mốc, Chống cong vênh, Màu vân gỗ sồi tự nhiên sang trọng',
+    },
+
+    // Mô tả chi tiết sản phẩm - hiển thị dưới dạng nội dung HTML có định dạng
+    detailedDescription: {
+      content: `<p>Tủ quần áo QA560 là sự lựa chọn hoàn hảo cho không gian phòng ngủ hiện đại với thiết kế sang trọng và công năng vượt trội.</p>
+      <p>Được chế tác từ gỗ MDF phủ melamine cao cấp với vân gỗ sồi tự nhiên ấm áp, sản phẩm không chỉ mang đến vẻ đẹp thẩm mỹ mà còn đảm bảo độ bền vượt trội theo thời gian.</p>
+      <h4>Đặc điểm nổi bật:</h4>
+      <ul>
+        <li>Thiết kế 5 cánh mở rộng rãi, tạo không gian lưu trữ tối đa</li>
+        <li>3 ngăn kéo tiện lợi cho việc sắp xếp đồ lót, phụ kiện</li>
+        <li>Chất liệu gỗ MDF phủ melamine cao cấp, bền chắc, chống ẩm mốc, chống cong vênh</li>
+        <li>Màu vân gỗ sồi tự nhiên sang trọng, dễ dàng kết hợp với nhiều phong cách nội thất</li>
+        <li>Kích thước rộng rãi, phù hợp với các phòng ngủ có diện tích vừa và lớn</li>
+      </ul>
+      <!-- Khối hiển thị hình ảnh với chú thích - sử dụng class product-image-showcase -->
+      <div class="product-image-showcase">
+        <img src="images/products/product1.png" alt="Tủ quần áo QA560 - Góc nhìn tổng thể">
+        <div class="image-caption">Tủ quần áo QA560 - Góc nhìn tổng thể</div>
+      </div>
+      <p>Tủ quần áo QA560 được thiết kế với 5 cánh mở rộng rãi, mang đến không gian lưu trữ tối ưu cho quần áo và phụ kiện. Bên trong tủ được phân chia thành nhiều ngăn với kích thước khác nhau, giúp việc sắp xếp trở nên dễ dàng và khoa học hơn.</p>
+      <!-- Khối hiển thị hình ảnh thứ hai với chú thích -->
+      <div class="product-image-showcase">
+        <img src="images/products/product2.png" alt="Cấu trúc bên trong tủ QA560">
+        <div class="image-caption">Cấu trúc bên trong tủ QA560 với nhiều ngăn tiện lợi</div>
+      </div>`,
+    },
+    // Thông tin đánh giá cho tab đánh giá - hiển thị dưới dạng danh sách các đánh giá từ khách hàng
+    reviews: [
+      {
+        author: 'Nguyễn Văn Minh', // Tên người đánh giá
+        date: '10/05/2025 09:15 AM', // Ngày và giờ đăng đánh giá theo định dạng DD/MM/YYYY HH:MM AM/PM
+        rating: 5, // Số sao đánh giá (thang điểm từ 0-5)
+        // Nội dung đánh giá
+        content:
+          'Tủ quần áo đẹp và chắc chắn, đúng với mô tả. Giao hàng nhanh và lắp đặt tận tình. Tôi rất hài lòng với sản phẩm này!',
+        images: [
+          // Mảng đường dẫn đến hình ảnh đính kèm trong đánh giá
+          'images/products/product1.png',
+          'images/products/product2.png',
+        ],
+        videos: [], // Mảng đường dẫn đến video đính kèm trong đánh giá (nếu có)
+        isAnonymous: false, // Đánh dấu đánh giá ẩn danh hay không (true: ẩn danh, false: hiển thị tên)
+        avatar: '../images/avt1.webp', // Đường dẫn đến ảnh đại diện của người đánh giá
+        replies: [
+          // Mảng các phản hồi cho đánh giá này
+          {
+            author: 'Nội Thất Bàng Vũ', // Tên người phản hồi
+            isAdmin: true, // Đánh dấu người phản hồi là admin hay không (true: admin, false: khách hàng)
+            date: '10/05/2025 14:30 PM', // Ngày và giờ phản hồi
+            // Nội dung phản hồi
+            content:
+              'Cảm ơn anh đã tin tưởng và ủng hộ sản phẩm của chúng tôi. Chúc anh và gia đình có trải nghiệm tuyệt vời với sản phẩm!',
+            avatar: '../images/logo.svg', // Đường dẫn đến ảnh đại diện của người phản hồi
+          },
+        ],
+      },
+      {
+        author: 'Trần Thị Hương', // Tên người đánh giá thứ hai
+        date: '05/05/2025 10:45 AM', // Ngày và giờ đăng đánh giá
+        rating: 4.5, // Số sao đánh giá (4.5/5)
+        // Nội dung đánh giá
+        content:
+          'Tủ đẹp, chất lượng tốt, màu sắc đúng như hình. Tuy nhiên thời gian giao hàng hơi lâu. Nhưng nhìn chung tôi vẫn rất hài lòng với sản phẩm.',
+        images: ['images/products/product3.png'], // Một hình ảnh đính kèm
+        videos: [], // Không có video đính kèm
+        isAnonymous: false, // Không ẩn danh
+        avatar: '../images/avt2.webp', // Ảnh đại diện của người đánh giá
+        replies: [
+          // Phản hồi từ cửa hàng
+          {
+            author: 'Nội Thất Bàng Vũ', // Tên cửa hàng
+            isAdmin: true, // Đánh dấu là admin
+            date: '06/05/2025 09:00 AM', // Ngày và giờ phản hồi
+            // Nội dung phản hồi
+            content:
+              'Cảm ơn chị đã phản hồi. Chúng tôi xin lỗi về sự chậm trễ trong quá trình giao hàng. Chúng tôi sẽ cải thiện dịch vụ trong thời gian tới.',
+            avatar: '../images/logo.svg', // Logo cửa hàng làm ảnh đại diện
+          },
+        ],
+      },
+    ],
+    // Thông tin chính sách cho tab chính sách - hiển thị các chính sách liên quan đến sản phẩm
+    policies: {
+      // Chính sách vận chuyển - quy định về phí vận chuyển và phạm vi giao hàng
+      shipping:
+        'Miễn phí vận chuyển trong phạm vi 10km từ cửa hàng. Phí vận chuyển sẽ được tính dựa trên khoảng cách và khối lượng sản phẩm cho các khu vực khác.',
+      // Chính sách đổi trả - quy định về thời gian và điều kiện đổi trả sản phẩm
+      returns:
+        'Quý khách có thể đổi trả sản phẩm trong vòng 7 ngày kể từ ngày nhận hàng nếu sản phẩm có lỗi từ nhà sản xuất. Sản phẩm đổi trả phải còn nguyên vẹn, không có dấu hiệu đã qua sử dụng.',
+      // Chính sách bảo hành - thời gian và phạm vi bảo hành sản phẩm
+      warranty:
+        'Sản phẩm được bảo hành chính hãng 10 năm cho các lỗi kỹ thuật. Bảo hành không áp dụng cho các trường hợp hư hỏng do sử dụng không đúng cách hoặc tự ý sửa chữa.',
+      // Phương thức thanh toán - các hình thức thanh toán được chấp nhận
+      payment:
+        'Chúng tôi chấp nhận thanh toán bằng tiền mặt, chuyển khoản ngân hàng, thẻ tín dụng/ghi nợ và các ví điện tử phổ biến như MoMo, ZaloPay.',
+    },
+
+    // Thông tin bảo quản cho tab bảo quản - hướng dẫn cách bảo quản và sử dụng sản phẩm
+    care: {
+      // Hướng dẫn vệ sinh sản phẩm - cách làm sạch và bảo dưỡng thường xuyên
+      cleaning:
+        'Lau chùi sản phẩm thường xuyên bằng khăn mềm, khô hoặc hơi ẩm. Tránh sử dụng các chất tẩy rửa có tính axit hoặc kiềm mạnh.',
+      // Hướng dẫn về ánh sáng mặt trời - cách bảo vệ sản phẩm khỏi tác động của ánh nắng
+      sunlight:
+        'Không đặt sản phẩm dưới ánh nắng mặt trời trực tiếp trong thời gian dài để tránh bạc màu và biến dạng.',
+      // Hướng dẫn về độ ẩm - cách bảo vệ sản phẩm khỏi tác động của độ ẩm
+      humidity:
+        'Không đặt sản phẩm ở nơi có độ ẩm cao hoặc tiếp xúc trực tiếp với nước để tránh gỗ bị cong vênh, nấm mốc.',
+      // Hướng dẫn về nhiệt độ - cách bảo vệ sản phẩm khỏi tác động của nhiệt độ
+      temperature:
+        'Duy trì sản phẩm ở nhiệt độ phòng ổn định, tránh thay đổi nhiệt độ đột ngột có thể gây nứt, cong vênh.',
+      tips: [
+        // Mảng các mẹo bảo quản bổ sung - các lời khuyên hữu ích để kéo dài tuổi thọ sản phẩm
+        'Nhiệt độ lý tưởng: 18-24°C', // Nhiệt độ phòng lý tưởng để bảo quản sản phẩm
+        'Độ ẩm lý tưởng: 40-60%', // Độ ẩm phòng lý tưởng để bảo quản sản phẩm
+        'Sử dụng miếng lót khi đặt vật dụng nóng hoặc lạnh lên bề mặt tủ', // Bảo vệ bề mặt khỏi nhiệt độ cực đoan
+        'Kiểm tra và siết chặt các ốc vít định kỳ 6 tháng/lần', // Bảo dưỡng định kỳ để đảm bảo độ bền
+        'Sử dụng sáp đánh bóng gỗ 1 năm/lần để duy trì vẻ đẹp của sản phẩm', // Bảo dưỡng bề mặt để giữ độ bóng
       ],
     },
   },

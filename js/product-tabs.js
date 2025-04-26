@@ -193,30 +193,12 @@ function populateTabContent(product) {
       descriptionHTML += '</div>';
 
       // Add content from detailedDescription
-      descriptionHTML += product.detailedDescription.content;
+      let processedContent = product.detailedDescription.content;
 
-      // Add images if available
-      if (
-        product.detailedDescription.images &&
-        product.detailedDescription.images.length > 0
-      ) {
-        descriptionHTML += '<div class="description-images">';
-        product.detailedDescription.images.forEach((image) => {
-          descriptionHTML += `
-                        <div class="description-image-container">
-                            <img src="${image.src}" alt="${
-            image.caption || product.name
-          }" class="description-image">
-                            ${
-                              image.caption
-                                ? `<p class="description-image-caption">${image.caption}</p>`
-                                : ''
-                            }
-                        </div>
-                    `;
-        });
-        descriptionHTML += '</div>';
-      }
+      // No need for replacement as we're using the new structure directly
+      descriptionHTML += processedContent;
+
+      // Images are now embedded directly in the content
 
       descriptionHTML += '</div>';
       descriptionContent.innerHTML = descriptionHTML;

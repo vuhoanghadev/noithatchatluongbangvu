@@ -357,6 +357,74 @@ header {
     background-color: #e9ecef;
 }
 
+/* Status badges */
+.status-badge {
+    display: inline-block;
+    padding: 4px 8px;
+    border-radius: 4px;
+    font-size: 0.75rem;
+    font-weight: 500;
+    margin-right: 4px;
+    margin-bottom: 4px;
+    white-space: nowrap;
+    max-width: 200px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    cursor: pointer;
+}
+
+.text-muted {
+    color: #6c757d;
+    font-style: italic;
+}
+
+.status-badge.featured {
+    background-color: #0058dd;
+    color: white;
+}
+
+.status-badge.promotion {
+    background-color: #28a745;
+    color: white;
+}
+
+.status-badge.flashsale {
+    background-color: #dc3545;
+    color: white;
+}
+
+.status-badge.sale {
+    background-color: #fd7e14;
+    color: white;
+}
+
+/* Tooltip cho badge */
+.badge-tooltip {
+    position: fixed;
+    background-color: #333;
+    color: #fff;
+    padding: 6px 10px;
+    border-radius: 4px;
+    font-size: 0.8rem;
+    z-index: 1000;
+    max-width: 300px;
+    text-align: center;
+    pointer-events: none;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+    white-space: normal;
+}
+
+.badge-tooltip::before {
+    content: '';
+    position: absolute;
+    top: -5px;
+    left: 50%;
+    transform: translateX(-50%);
+    border-width: 0 5px 5px;
+    border-style: solid;
+    border-color: transparent transparent #333;
+}
+
 .btn-icon.edit:hover {
     color: #0058dd;
     border-color: #0058dd;
@@ -405,6 +473,13 @@ header {
     width: 36px;
 }
 
+.pagination-info {
+    font-size: 0.9rem;
+    color: #6c757d;
+    text-align: center;
+    padding: 10px;
+}
+
 /* Modal */
 .modal {
     display: none;
@@ -436,6 +511,41 @@ header {
     max-width: 400px;
 }
 
+/* Lớp CSS cho modal toàn màn hình */
+.modal-content.fullscreen {
+    width: 98%;
+    max-width: none;
+    height: 98vh;
+    margin: 1vh auto;
+    display: flex;
+    flex-direction: column;
+}
+
+.modal-content.fullscreen .modal-body {
+    flex: 1;
+    max-height: none;
+    overflow-y: auto;
+    padding: 15px 20px;
+}
+
+.modal-content.fullscreen .tabs {
+    position: sticky;
+    top: 0;
+    background-color: #fff;
+    z-index: 10;
+    padding-top: 10px;
+}
+
+.modal-content.fullscreen .form-actions {
+    position: sticky;
+    bottom: 0;
+    background-color: #fff;
+    padding: 15px 0;
+    margin-top: 10px;
+    border-top: 1px solid #eee;
+    z-index: 10;
+}
+
 .modal-header {
     padding: 15px 20px;
     border-bottom: 1px solid #eee;
@@ -447,6 +557,30 @@ header {
 .modal-header h2 {
     font-size: 1.5rem;
     color: #1c2332;
+}
+
+.modal-controls {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+#toggle-fullscreen {
+    width: 36px;
+    height: 36px;
+    padding: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: transparent;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    cursor: pointer;
+    color: #555;
+}
+
+#toggle-fullscreen:hover {
+    background-color: #f8f9fa;
 }
 
 .close {
@@ -719,23 +853,56 @@ header {
 .simple-editor-toolbar {
     background-color: #f8f9fa;
     border-bottom: 1px solid #ddd;
-    padding: 8px;
+    padding: 5px;
     display: flex;
     flex-wrap: wrap;
     gap: 5px;
+    position: sticky;
+    top: 0;
+    z-index: 20;
+    transition: all 0.3s ease;
+    align-items: center;
+}
+
+.simple-editor-toolbar.sticky {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    border-radius: 0;
+    padding: 5px 10px;
+    background-color: #fff;
+    z-index: 1000;
+}
+
+.modal-content.fullscreen .simple-editor-toolbar {
+    top: 50px;
+    /* Để không bị che bởi tabs */
+}
+
+.toolbar-group {
+    display: flex;
+    gap: 2px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    background-color: #fff;
+    padding: 2px;
+    margin-right: 3px;
 }
 
 .editor-btn {
-    width: 32px;
-    height: 32px;
-    background-color: #fff;
-    border: 1px solid #ddd;
-    border-radius: 4px;
+    width: 28px;
+    height: 28px;
+    background-color: transparent;
+    border: none;
+    border-radius: 3px;
     cursor: pointer;
     display: flex;
     align-items: center;
     justify-content: center;
     transition: all 0.2s ease;
+    font-size: 0.9rem;
 }
 
 .editor-btn:hover {
@@ -745,23 +912,29 @@ header {
 .editor-btn.active {
     background-color: #0058dd;
     color: #fff;
-    border-color: #0058dd;
 }
 
 .editor-separator {
     width: 1px;
-    height: 24px;
+    height: 20px;
     background-color: #ddd;
-    margin: 0 5px;
+    margin: 0 3px;
 }
 
 .editor-select {
-    height: 32px;
+    height: 28px;
     border: 1px solid #ddd;
-    border-radius: 4px;
+    border-radius: 3px;
     padding: 0 8px;
     background-color: #fff;
     cursor: pointer;
+    font-size: 0.9rem;
+}
+
+.editor-select.compact {
+    border: none;
+    padding: 0 4px;
+    margin: 0 2px;
 }
 
 .simple-editor-content {
@@ -772,6 +945,11 @@ header {
     font-family: Arial, sans-serif;
     font-size: 16px;
     line-height: 1.6;
+}
+
+.modal-content.fullscreen .simple-editor-content {
+    min-height: 500px;
+    height: calc(100vh - 300px);
 }
 
 .simple-editor-content:focus {
@@ -830,6 +1008,11 @@ header {
 
     .simple-editor-toolbar {
         flex-wrap: wrap;
-        justify-content: center;
+        justify-content: flex-start;
+        padding: 3px;
+    }
+
+    .toolbar-group {
+        margin-bottom: 3px;
     }
 }
