@@ -101,9 +101,10 @@
             <nav class="nav-container">
                 <ul class="nav-menu">
                     <li><a href="index.html">Trang Chủ</a></li>
-                    <li><a href="products.html">Sản Phẩm</a></li>
-                    <li><a href="blog.html">Blog</a></li>
+                    <li><a href="products.html" class="active">Sản Phẩm</a></li>
+                    <li><a href="quy-trinh-thiet-ke.html">Quy Trình Thiết Kế</a></li>
                     <li><a href="quote-ai.html">Báo Giá</a></li>
+                    <li><a href="blog.html">Blog</a></li>
                 </ul>
             </nav>
 
@@ -136,9 +137,10 @@
 
         <ul class="mobile-menu-links">
             <li><a href="index.html"><i class="fas fa-home"></i> Trang Chủ</a></li>
-            <li><a href="products.html"><i class="fas fa-couch"></i> Sản Phẩm</a></li>
+            <li><a href="products.html" class="active"><i class="fas fa-couch"></i> Sản Phẩm</a></li>
+            <li><a href="quy-trinh-thiet-ke.html"><i class="fas fa-drafting-compass"></i> Quy Trình Thiết Kế</a></li>
+            <li><a href="quote-ai.html"><i class="fas fa-robot"></i> Báo Giá</a></li>
             <li><a href="blog.html"><i class="fas fa-newspaper"></i> Blog</a></li>
-            <li><a href="quote-ai.html"><i class="fas fa-robot"></i> Báo Giá AI</a></li>
         </ul>
 
         <div class="mobile-menu-divider"></div>
@@ -378,6 +380,65 @@
     <script src="js/scroll-progress.js"></script>
     <script src="js/wishlist-button.js"></script>
     <script src="js/wishlist-floating.js"></script>
+
+    <script>
+        // Khởi tạo khi trang đã tải xong
+        document.addEventListener('DOMContentLoaded', function () {
+            console.log('Trang product-details đã tải xong, đánh dấu menu Sản Phẩm là active...');
+            // Đợi một chút để đảm bảo các phần tử đã được tải đầy đủ
+            setTimeout(function () {
+                // Đảm bảo mục Sản Phẩm được đánh dấu là active
+                setActiveProductNav();
+            }, 500);
+        });
+
+        // Khởi tạo lại khi trang được tải qua AJAX
+        document.addEventListener('ajaxPageLoaded', function (event) {
+            if (event.detail.url.includes('product-details.html')) {
+                console.log('Trang product-details được tải qua AJAX, đánh dấu lại menu Sản Phẩm là active...');
+                setTimeout(function () {
+                    setActiveProductNav();
+                }, 500);
+            }
+        });
+
+        // Khởi tạo lại khi hoàn tất chuyển trang
+        document.addEventListener('page-transition-complete', function (event) {
+            if (event.detail.url.includes('product-details.html')) {
+                console.log('Chuyển trang đến product-details hoàn tất, đánh dấu lại menu Sản Phẩm là active...');
+                setTimeout(function () {
+                    setActiveProductNav();
+                }, 500);
+            }
+        });
+
+        // Hàm đánh dấu mục Sản Phẩm là active
+        function setActiveProductNav() {
+            // Xóa class active từ tất cả các mục trong thanh navigation chính
+            document.querySelectorAll('.nav-menu a').forEach(function (item) {
+                item.classList.remove('active');
+            });
+
+            // Thêm class active cho mục Sản Phẩm trong thanh navigation chính
+            document.querySelector('.nav-menu a[href="products.html"]').classList.add('active');
+
+            // Xóa class active từ tất cả các mục trong thanh navigation di động
+            document.querySelectorAll('.mobile-menu-links a').forEach(function (item) {
+                item.classList.remove('active');
+            });
+
+            // Thêm class active cho mục Sản Phẩm trong thanh navigation di động
+            document.querySelector('.mobile-menu-links a[href="products.html"]').classList.add('active');
+
+            // Đánh dấu mục Sản Phẩm là active trong bottom navigation
+            document.querySelectorAll('.bottom-nav-item').forEach(function (item) {
+                item.classList.remove('active');
+            });
+            document.getElementById('products-nav').classList.add('active');
+
+            console.log('Đã đánh dấu mục Sản Phẩm là active trong tất cả các thanh navigation');
+        }
+    </script>
 
     <!-- Bottom Navigation for Mobile -->
     <nav class="bottom-nav">
