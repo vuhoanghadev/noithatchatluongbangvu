@@ -53,7 +53,10 @@
     <link rel="stylesheet" href="css/banner-new.css">
     <link rel="stylesheet" href="css/footer-modern.css">
     <link rel="stylesheet" href="css/floating-contact-new.css">
-    <link rel="stylesheet" href="css/chatbot-ai.css">
+    <link rel="stylesheet" href="css/ai-chatbot.css">
+    <link rel="stylesheet" href="css/related-products.css">
+
+    <!-- Đảm bảo file CSS được tải đúng cách -->
     <style>
         body {
             font-family: 'Poppins', sans-serif;
@@ -207,146 +210,7 @@
             }
         }
 
-        /* Styles for AI chat widget */
-        .ai-chat-widget {
-            position: fixed;
-            bottom: 80px;
-            left: 20px;
-            /* Đặt ở góc trái thay vì góc phải */
-            width: 60px;
-            height: 60px;
-            background-color: #f97316;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: white;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
-            cursor: pointer;
-            z-index: 999;
-            transition: all 0.3s ease;
-        }
 
-        .ai-chat-widget:hover {
-            transform: scale(1.1);
-        }
-
-        .ai-chat-widget i {
-            font-size: 24px;
-        }
-
-        .ai-chat-container {
-            position: fixed;
-            bottom: 80px;
-            left: 20px;
-            /* Đặt ở góc trái thay vì góc phải */
-            width: 350px;
-            height: 450px;
-            background-color: white;
-            border-radius: 12px;
-            box-shadow: 0 5px 25px rgba(0, 0, 0, 0.2);
-            z-index: 1000;
-            display: none;
-            flex-direction: column;
-            overflow: hidden;
-        }
-
-        .ai-chat-container.open {
-            display: flex;
-        }
-
-        /* Responsive styles for AI chat widget */
-        @media (max-width: 768px) {
-            .ai-chat-widget {
-                bottom: 140px;
-                /* Increase bottom position on mobile to avoid bottom nav */
-                left: 15px;
-                width: 50px;
-                height: 50px;
-            }
-
-            .ai-chat-container {
-                bottom: 140px;
-                left: 15px;
-                width: 300px;
-                height: 400px;
-            }
-        }
-
-        .ai-chat-header {
-            background-color: #f97316;
-            color: white;
-            padding: 15px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        .ai-chat-header h3 {
-            margin: 0;
-            font-size: 16px;
-            font-weight: 600;
-        }
-
-        .ai-chat-close {
-            background: none;
-            border: none;
-            color: white;
-            cursor: pointer;
-            font-size: 18px;
-        }
-
-        .ai-chat-messages {
-            flex: 1;
-            padding: 15px;
-            overflow-y: auto;
-        }
-
-        .ai-chat-input {
-            border-top: 1px solid #e5e7eb;
-            padding: 10px;
-            display: flex;
-        }
-
-        .ai-chat-input input {
-            flex: 1;
-            padding: 10px;
-            border: 1px solid #e5e7eb;
-            border-radius: 20px;
-            outline: none;
-        }
-
-        .ai-chat-input button {
-            background-color: #f97316;
-            color: white;
-            border: none;
-            border-radius: 20px;
-            padding: 10px 15px;
-            margin-left: 10px;
-            cursor: pointer;
-        }
-
-        .ai-message {
-            margin-bottom: 10px;
-            max-width: 80%;
-        }
-
-        .ai-message-bot {
-            background-color: #f3f4f6;
-            padding: 10px 15px;
-            border-radius: 18px 18px 18px 0;
-            align-self: flex-start;
-            color: #4b5563;
-        }
-
-        .ai-message-user {
-            background-color: #f97316;
-            color: white;
-            padding: 10px 15px;
-            border-radius: 18px 18px 0 18px;
-            align-self: flex-end;
-            margin-left: auto;
-        }
 
         #suggestSize:hover {
             background-color: #f97316;
@@ -1705,20 +1569,27 @@
                             </div>
 
                             <!-- Related Products Section -->
-                            <div class="mt-6 bg-white p-6 rounded-lg shadow-sm border-l-4 border-green-500">
-                                <h4 class="text-md font-semibold mb-3 text-gray-900 flex items-center">
-                                    <i class="fas fa-th-large text-green-500 mr-2"></i>
-                                    Sản Phẩm Liên Quan
-                                </h4>
-                                <div id="relatedProductsLoading" class="flex items-center justify-center py-4">
-                                    <div class="animate-spin rounded-full h-6 w-6 border-b-2 border-green-500"></div>
-                                    <span class="ml-2">Đang tìm sản phẩm phù hợp...</span>
+                            <div class="related-products-section mt-6">
+                                <div class="related-products-header">
+                                    <h4 class="related-products-title">
+                                        <i class="fas fa-th-large"></i>
+                                        Sản Phẩm Liên Quan
+                                    </h4>
                                 </div>
-                                <div id="relatedProducts" class="grid grid-cols-2 md:grid-cols-3 gap-3 hidden"></div>
-                                <div class="mt-3 text-center">
-                                    <a href="products.html"
-                                        class="text-sm text-orange-500 hover:text-orange-600 inline-flex items-center">
-                                        Xem tất cả sản phẩm <i class="fas fa-arrow-right ml-1"></i>
+
+                                <!-- Loading State -->
+                                <div id="relatedProductsLoading" class="related-products-loading">
+                                    <div class="related-products-loading-spinner"></div>
+                                    <span class="related-products-loading-text">Đang tìm sản phẩm phù hợp...</span>
+                                </div>
+
+                                <!-- Products Grid -->
+                                <div id="relatedProducts" class="related-products-grid hidden"></div>
+
+                                <!-- Footer with View All Link -->
+                                <div class="related-products-footer">
+                                    <a href="products.html" class="related-products-view-all">
+                                        Xem tất cả sản phẩm <i class="fas fa-arrow-right"></i>
                                     </a>
                                 </div>
                             </div>
@@ -2945,27 +2816,7 @@
         }, { passive: true });
     </script>
 
-    <!-- AI Chat Widget -->
-    <div class="ai-chat-widget" id="aiChatWidget">
-        <i class="fas fa-robot"></i>
-    </div>
 
-    <div class="ai-chat-container" id="aiChatContainer">
-        <div class="ai-chat-header">
-            <h3><i class="fas fa-robot mr-2"></i> Trợ lý AI</h3>
-            <button class="ai-chat-close" id="aiChatClose"><i class="fas fa-times"></i></button>
-        </div>
-        <div class="ai-chat-messages" id="aiChatMessages">
-            <div class="ai-message ai-message-bot">
-                Xin chào! Tôi là trợ lý AI của Nội Thất Chất Lượng Bàng Vũ. Tôi có thể giúp gì cho bạn về báo giá sản
-                phẩm hoặc tư vấn thiết kế?
-            </div>
-        </div>
-        <div class="ai-chat-input">
-            <input type="text" id="aiChatInput" placeholder="Nhập câu hỏi của bạn...">
-            <button id="aiChatSend"><i class="fas fa-paper-plane"></i></button>
-        </div>
-    </div>
 
     <!-- Floating Contact Buttons - New Version -->
     <div class="fc-container">
@@ -2983,11 +2834,44 @@
         </a>
     </div>
 
+    <!-- Chatbot Static Elements -->
+    <button id="chatbot-toggle" class="chatbot-toggle" type="button" aria-label="Mở trợ lý AI">
+        <i class="fas fa-robot"></i>
+    </button>
+
+    <div id="chatbot-container" class="chatbot-container">
+        <div class="chatbot-header">
+            <div class="chatbot-header-title">
+                <i class="fas fa-robot"></i>
+                <h3>Trợ lý AI</h3>
+            </div>
+            <button class="chatbot-close" id="chatbot-close">
+                <i class="fas fa-times"></i>
+            </button>
+        </div>
+        <div class="chatbot-messages" id="chatbot-messages">
+            <!-- Messages will be added here -->
+        </div>
+        <div class="chatbot-input-container">
+            <input type="text" class="chatbot-input" id="chatbot-input" placeholder="Nhập tin nhắn...">
+            <button class="chatbot-send" id="chatbot-send">
+                <i class="fas fa-paper-plane"></i>
+            </button>
+        </div>
+    </div>
+
     <script src="js/products.js"></script>
     <script src="js/blog.js"></script>
-    <script src="js/chatbot-ai.js"></script>
-    <script src="js/chatbot-ai-handlers.js"></script>
+    <script src="js/ai-chatbot-simple.js"></script>
     <script>
+        // Thêm hiệu ứng nhấp nháy để thu hút sự chú ý
+        window.addEventListener('load', function () {
+            const chatbotToggle = document.getElementById('chatbot-toggle');
+            if (chatbotToggle) {
+                chatbotToggle.style.animation = 'pulse 2s infinite';
+            }
+        });
+
         // Thêm chức năng gợi ý thông minh và sản phẩm liên quan từ products.js
         document.addEventListener('DOMContentLoaded', function () {
             if (typeof products !== 'undefined' && Array.isArray(products)) {
@@ -3160,40 +3044,76 @@
                     relatedProducts.forEach(product => {
                         const productImage = product.image || (product.gallery && product.gallery.length > 0 ? product.gallery[0] : './images/products/placeholder.jpg');
                         const productName = product.name || 'Sản phẩm nội thất';
+                        const productCategory = product.category || 'Nội thất';
+                        const isFeatured = product.featured ? `<div class="related-product-badge">Nổi bật</div>` : '';
+                        const isNew = product.isNew ? `<div class="related-product-badge">Mới</div>` : '';
+                        const badge = isFeatured || isNew;
 
                         relatedProductsHTML += `
-                        <a href="product-details.html?id=${product.id}" class="block bg-gray-50 rounded-lg p-2 hover:bg-gray-100 transition-colors">
-                            <div class="aspect-square bg-gray-200 rounded-md mb-2 overflow-hidden">
-                                <img src="${productImage}" alt="${productName}" class="w-full h-full object-cover">
+                        <a href="product-details.html?id=${product.id}" class="related-product-card">
+                            ${badge}
+                            <div class="related-product-image-container">
+                                <img src="${productImage}" alt="${productName}" class="related-product-image">
                             </div>
-                            <p class="text-xs font-medium text-gray-900 truncate">${productName}</p>
-                            <p class="text-xs text-orange-500">Xem chi tiết</p>
+                            <div class="related-product-info">
+                                <h3 class="related-product-name">${productName}</h3>
+                                <div class="related-product-category">
+                                    <i class="fas fa-tag"></i> ${productCategory}
+                                </div>
+                                <div class="related-product-button">
+                                    Xem chi tiết <i class="fas fa-arrow-right"></i>
+                                </div>
+                            </div>
                         </a>
                         `;
                     });
                 } else {
                     // Sản phẩm mặc định nếu không tìm thấy sản phẩm liên quan
                     relatedProductsHTML = `
-                    <a href="products.html" class="block bg-gray-50 rounded-lg p-2 hover:bg-gray-100 transition-colors">
-                        <div class="aspect-square bg-gray-200 rounded-md mb-2 overflow-hidden">
-                            <img src="./images/products/sanpham1/sanpham1.webp" alt="Tủ quần áo hiện đại" class="w-full h-full object-cover">
+                    <a href="products.html" class="related-product-card">
+                        <div class="related-product-badge">Gợi ý</div>
+                        <div class="related-product-image-container">
+                            <img src="./images/products/sanpham1/sanpham1.webp" alt="Tủ quần áo hiện đại" class="related-product-image">
                         </div>
-                        <p class="text-xs font-medium text-gray-900 truncate">Tủ quần áo hiện đại</p>
-                        <p class="text-xs text-orange-500">Xem chi tiết</p>
+                        <div class="related-product-info">
+                            <h3 class="related-product-name">Tủ quần áo hiện đại</h3>
+                            <div class="related-product-category">
+                                <i class="fas fa-tag"></i> Tủ quần áo
+                            </div>
+                            <div class="related-product-button">
+                                Xem chi tiết <i class="fas fa-arrow-right"></i>
+                            </div>
+                        </div>
                     </a>
-                    <a href="products.html" class="block bg-gray-50 rounded-lg p-2 hover:bg-gray-100 transition-colors">
-                        <div class="aspect-square bg-gray-200 rounded-md mb-2 overflow-hidden">
-                            <img src="./images/products/sanpham2/sanpham2.webp" alt="Kệ trang trí đa năng" class="w-full h-full object-cover">
+                    <a href="products.html" class="related-product-card">
+                        <div class="related-product-badge">Gợi ý</div>
+                        <div class="related-product-image-container">
+                            <img src="./images/products/sanpham2/sanpham2.webp" alt="Kệ trang trí đa năng" class="related-product-image">
                         </div>
-                        <p class="text-xs font-medium text-gray-900 truncate">Kệ trang trí đa năng</p>
-                        <p class="text-xs text-orange-500">Xem chi tiết</p>
+                        <div class="related-product-info">
+                            <h3 class="related-product-name">Kệ trang trí đa năng</h3>
+                            <div class="related-product-category">
+                                <i class="fas fa-tag"></i> Kệ trang trí
+                            </div>
+                            <div class="related-product-button">
+                                Xem chi tiết <i class="fas fa-arrow-right"></i>
+                            </div>
+                        </div>
                     </a>
-                    <a href="products.html" class="block bg-gray-50 rounded-lg p-2 hover:bg-gray-100 transition-colors">
-                        <div class="aspect-square bg-gray-200 rounded-md mb-2 overflow-hidden">
-                            <img src="./images/products/sanpham3/sanpham3.webp" alt="Bàn làm việc gỗ công nghiệp" class="w-full h-full object-cover">
+                    <a href="products.html" class="related-product-card">
+                        <div class="related-product-badge">Gợi ý</div>
+                        <div class="related-product-image-container">
+                            <img src="./images/products/sanpham3/sanpham3.webp" alt="Bàn làm việc gỗ công nghiệp" class="related-product-image">
                         </div>
-                        <p class="text-xs font-medium text-gray-900 truncate">Bàn làm việc gỗ công nghiệp</p>
-                        <p class="text-xs text-orange-500">Xem chi tiết</p>
+                        <div class="related-product-info">
+                            <h3 class="related-product-name">Bàn làm việc gỗ công nghiệp</h3>
+                            <div class="related-product-category">
+                                <i class="fas fa-tag"></i> Bàn làm việc
+                            </div>
+                            <div class="related-product-button">
+                                Xem chi tiết <i class="fas fa-arrow-right"></i>
+                            </div>
+                        </div>
                     </a>
                     `;
                 }
