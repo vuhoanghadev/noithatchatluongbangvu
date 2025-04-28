@@ -26,10 +26,90 @@ document.addEventListener('DOMContentLoaded', function () {
         return;
       }
 
-      // Store the active tab ID in localStorage
-      localStorage.setItem('activeTabId', this.id);
+      // For regular navigation items
+      if (this.getAttribute('href')) {
+        e.preventDefault();
+
+        // Add active class to this item
+        bottomNavItems.forEach((navItem) => navItem.classList.remove('active'));
+        this.classList.add('active');
+
+        // Store the active tab ID in localStorage
+        localStorage.setItem('activeTabId', this.id);
+
+        // Get the URL to navigate to
+        const url = this.getAttribute('href');
+
+        // Check if page transitions are available
+        if (typeof startPageTransition === 'function') {
+          // Use page transition
+          startPageTransition(url);
+        } else {
+          // Fallback to normal navigation with a loading indicator
+          showLoadingIndicator();
+          setTimeout(() => {
+            window.location.href = url;
+          }, 100);
+        }
+      }
     });
   });
+
+  // Simple loading indicator function
+  function showLoadingIndicator() {
+    // Check if loading indicator already exists
+    let loadingIndicator = document.querySelector('.mobile-loading-indicator');
+
+    if (!loadingIndicator) {
+      // Create loading indicator
+      loadingIndicator = document.createElement('div');
+      loadingIndicator.className = 'mobile-loading-indicator';
+      loadingIndicator.innerHTML = `
+        <div class="loading-spinner"></div>
+        <div class="loading-text">Đang tải...</div>
+      `;
+      document.body.appendChild(loadingIndicator);
+
+      // Add styles if they don't exist
+      if (!document.getElementById('mobile-loading-styles')) {
+        const styles = document.createElement('style');
+        styles.id = 'mobile-loading-styles';
+        styles.textContent = `
+          .mobile-loading-indicator {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(255, 255, 255, 0.8);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            z-index: 10000;
+          }
+          .mobile-loading-indicator .loading-spinner {
+            width: 50px;
+            height: 50px;
+            border: 5px solid rgba(249, 115, 22, 0.2);
+            border-radius: 50%;
+            border-top-color: #f97316;
+            animation: spin 1s linear infinite;
+          }
+          .mobile-loading-indicator .loading-text {
+            margin-top: 15px;
+            color: #f97316;
+            font-weight: 600;
+          }
+          @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+          }
+        `;
+        document.head.appendChild(styles);
+      }
+    }
+  }
 
   /**
    * Updates the active tab based on the current URL
@@ -143,9 +223,12 @@ document.addEventListener('DOMContentLoaded', function () {
     localStorage.setItem('activeTabId', 'wishlist-nav');
 
     // Check if wishlist toggle function exists
-    if (typeof toggleWishlistContainer === 'function') {
+    if (
+      typeof window.WishlistManager !== 'undefined' &&
+      typeof window.WishlistManager.toggleWishlistContainer === 'function'
+    ) {
       // Open wishlist container
-      toggleWishlistContainer(true);
+      window.WishlistManager.toggleWishlistContainer(true);
     } else {
       // If wishlist function doesn't exist, load wishlist script and try again
       const wishlistScript = document.createElement('script');
@@ -162,12 +245,15 @@ document.addEventListener('DOMContentLoaded', function () {
 
       wishlistScript.onload = function () {
         // After script loads, try to open wishlist
-        if (typeof toggleWishlistContainer === 'function') {
+        if (
+          typeof window.WishlistManager !== 'undefined' &&
+          typeof window.WishlistManager.toggleWishlistContainer === 'function'
+        ) {
           // Xóa loading indicator
           document.body.removeChild(loadingIndicator);
 
           // Mở danh sách yêu thích
-          toggleWishlistContainer(true);
+          window.WishlistManager.toggleWishlistContainer(true);
         } else {
           console.error('Wishlist functionality not available');
 
@@ -247,8 +333,11 @@ document.addEventListener('DOMContentLoaded', function () {
 
     // Open wishlist if function exists
     setTimeout(() => {
-      if (typeof toggleWishlistContainer === 'function') {
-        toggleWishlistContainer(true);
+      if (
+        typeof window.WishlistManager !== 'undefined' &&
+        typeof window.WishlistManager.toggleWishlistContainer === 'function'
+      ) {
+        window.WishlistManager.toggleWishlistContainer(true);
       }
     }, 500);
   }
@@ -260,8 +349,50 @@ document.addEventListener('DOMContentLoaded', function () {
   });
 
   // Add event listener for page transitions completion
-  document.addEventListener('page-transition-complete', function () {
+  document.addEventListener('page-transition-complete', function (event) {
+    console.log(
+      'Page transition complete, updating navigation for URL:',
+      event.detail.url
+    );
+
     // Update active tab after page transition is complete
     updateActiveTabBasedOnURL();
+
+    // Remove any loading indicators that might be present
+    const loadingIndicator = document.querySelector(
+      '.mobile-loading-indicator'
+    );
+    if (loadingIndicator) {
+      loadingIndicator.style.opacity = '0';
+      setTimeout(() => {
+        if (loadingIndicator.parentNode) {
+          loadingIndicator.parentNode.removeChild(loadingIndicator);
+        }
+      }, 300);
+    }
+  });
+
+  // Also listen for the ajaxPageLoaded event as a fallback
+  document.addEventListener('ajaxPageLoaded', function (event) {
+    console.log(
+      'AJAX page loaded, updating navigation for URL:',
+      event.detail.url
+    );
+
+    // Update active tab after AJAX page load
+    updateActiveTabBasedOnURL();
+
+    // Remove any loading indicators that might be present
+    const loadingIndicator = document.querySelector(
+      '.mobile-loading-indicator'
+    );
+    if (loadingIndicator) {
+      loadingIndicator.style.opacity = '0';
+      setTimeout(() => {
+        if (loadingIndicator.parentNode) {
+          loadingIndicator.parentNode.removeChild(loadingIndicator);
+        }
+      }, 300);
+    }
   });
 });

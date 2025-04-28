@@ -420,7 +420,7 @@ document.addEventListener('DOMContentLoaded', function () {
     // Get related products (same category, different ID)
     const related = products
       .filter((p) => p.category === product.category && p.id !== product.id)
-      .slice(0, 4);
+      .slice(0, 4); // Show 4 related products
 
     if (related.length === 0) {
       relatedProducts.innerHTML =
@@ -433,10 +433,10 @@ document.addEventListener('DOMContentLoaded', function () {
       const card = createProductCard(relatedProduct);
       relatedProducts.appendChild(card);
 
-      // Add fade-in animation with delay
+      // Add fade-in animation with staggered delay
       setTimeout(() => {
         card.classList.add('fade-in');
-      }, index * 100);
+      }, 100 + index * 150); // Increased delay between items for better visual effect
     });
   }
 
@@ -450,7 +450,7 @@ document.addEventListener('DOMContentLoaded', function () {
     const alsoLiked = products
       .filter((p) => p.category !== product.category && p.id !== product.id)
       .sort(() => 0.5 - Math.random()) // Shuffle array
-      .slice(0, 4);
+      .slice(0, 4); // Show 4 "also liked" products
 
     if (alsoLiked.length === 0) {
       alsoLikedProducts.innerHTML =
@@ -463,10 +463,10 @@ document.addEventListener('DOMContentLoaded', function () {
       const card = createAlsoLikedProductCard(likedProduct);
       alsoLikedProducts.appendChild(card);
 
-      // Add fade-in animation with delay
+      // Add fade-in animation with staggered delay
       setTimeout(() => {
         card.classList.add('fade-in');
-      }, index * 100);
+      }, 100 + index * 150); // Increased delay between items for better visual effect
     });
   }
 
@@ -523,7 +523,9 @@ document.addEventListener('DOMContentLoaded', function () {
                             <span>${rating.toFixed(1)}</span>
                         </div>
                     </div>
-                    <div class="also-liked-product-views">
+                    <div class="also-liked-product-views" title="${views.toLocaleString(
+                      'vi-VN'
+                    )} lượt xem">
                         <i class="fas fa-eye"></i>
                         <span>${views.toLocaleString('vi-VN')}</span>
                     </div>
@@ -534,8 +536,8 @@ document.addEventListener('DOMContentLoaded', function () {
                 <div class="product-action">
                     <a href="product-details.html?id=${
                       product.id
-                    }" class="product-details also-liked-details">
-                        Xem ngay <i class="fas fa-arrow-right"></i>
+                    }" class="also-liked-details">
+                        Xem chi tiết <i class="fas fa-arrow-right"></i>
                     </a>
                 </div>
             </div>
@@ -616,7 +618,9 @@ document.addEventListener('DOMContentLoaded', function () {
                             <span>${rating.toFixed(1)}</span>
                         </div>
                     </div>
-                    <div class="related-product-sold">
+                    <div class="related-product-sold" title="${soldCount.toLocaleString(
+                      'vi-VN'
+                    )} lượt bán">
                         <i class="fas fa-shopping-cart"></i>
                         <span>${soldCount.toLocaleString('vi-VN')}</span>
                     </div>
@@ -628,7 +632,7 @@ document.addEventListener('DOMContentLoaded', function () {
                     <a href="product-details.html?id=${
                       product.id
                     }" class="product-details">
-                        Chi tiết <i class="fas fa-arrow-right"></i>
+                        Xem chi tiết <i class="fas fa-arrow-right"></i>
                     </a>
                 </div>
             </div>

@@ -13,6 +13,9 @@ let currentPageUrl = window.location.href;
 // Flag to track if a transition is in progress
 let isTransitioning = false;
 
+// Timeout reference for transition
+let transitionTimeout = null;
+
 // Preload common pages in the background
 const pagesToPreload = [
   'index.html',
@@ -86,6 +89,9 @@ function createTransitionElements() {
  * Initializes the page transition system
  */
 function initPageTransitions() {
+  // Check if we should use page transitions
+  const shouldUseTransitions = !isMobileWithLowMemory();
+
   // Handle all link clicks for smooth transitions
   document.addEventListener('click', function (e) {
     // Find closest anchor tag
@@ -100,6 +106,14 @@ function initPageTransitions() {
       !link.getAttribute('download') &&
       !link.classList.contains('no-transition')
     ) {
+      // If we're on a mobile device with low memory, use normal navigation
+      if (!shouldUseTransitions) {
+        // For mobile devices with potential memory issues, use normal navigation
+        // but add a loading indicator
+        showSimpleLoadingIndicator();
+        return; // Let the default navigation happen
+      }
+
       // Prevent default navigation
       e.preventDefault();
 
@@ -124,7 +138,15 @@ function initPageTransitions() {
   bottomNavItems.forEach((item) => {
     item.addEventListener('click', function (e) {
       // Skip the search nav item as it has special handling
-      if (this.id === 'search-nav') return;
+      if (this.id === 'search-nav' || this.id === 'wishlist-nav') return;
+
+      // If we're on a mobile device with low memory, use normal navigation
+      if (!shouldUseTransitions) {
+        // For mobile devices with potential memory issues, use normal navigation
+        // but add a loading indicator
+        showSimpleLoadingIndicator();
+        return; // Let the default navigation happen
+      }
 
       e.preventDefault();
 
@@ -170,11 +192,25 @@ function startPageTransition(url, x, y, isHistoryNavigation = false) {
   const mainContent = document.querySelector('.main-content');
 
   // If we're already in a transition, don't start another one
-  if (overlay.classList.contains('active')) return;
+  if (isTransitioning || overlay.classList.contains('active')) {
+    console.log('Transition already in progress, ignoring new request');
+    return;
+  }
+
+  // Set transitioning flag
+  isTransitioning = true;
 
   // Determine if we're going to a different page
   const isSamePage = url === window.location.href;
-  if (isSamePage) return;
+  if (isSamePage) {
+    isTransitioning = false;
+    return;
+  }
+
+  // Clear any existing transition timeouts
+  if (transitionTimeout) {
+    clearTimeout(transitionTimeout);
+  }
 
   // Fade out current content
   if (mainContent) {
@@ -219,85 +255,144 @@ function startPageTransition(url, x, y, isHistoryNavigation = false) {
     loadingIndicator.classList.add('active');
   }, 500);
 
-  // Fetch the new page content
-  fetch(url)
-    .then((response) => response.text())
-    .then((html) => {
-      // Parse the HTML
-      const parser = new DOMParser();
-      const newDocument = parser.parseFromString(html, 'text/html');
-
-      // Complete the progress bar
-      clearInterval(progressInterval);
-      progressBar.style.width = '100%';
-
-      // Update the page title
-      document.title = newDocument.title;
-
-      // If this isn't a history navigation, push the new state
-      if (!isHistoryNavigation) {
-        history.pushState({}, newDocument.title, url);
+  // Fetch the new page content with timeout
+  const fetchPromise = fetch(url)
+    .then((response) => {
+      if (!response.ok) {
+        throw new Error(`HTTP error! Status: ${response.status}`);
       }
+      return response.text();
+    })
+    .then((html) => {
+      try {
+        // Parse the HTML
+        const parser = new DOMParser();
+        const newDocument = parser.parseFromString(html, 'text/html');
 
-      // Wait for transition effects to complete
-      setTimeout(() => {
-        // Extract the main content from the new page
-        const newMainContent = newDocument.querySelector('main').innerHTML;
-
-        // Update the main content
-        if (mainContent) {
-          mainContent.innerHTML = newMainContent;
-          mainContent.classList.remove('fade-out');
-          mainContent.classList.add('fade-in');
-
-          // Remove the animation class after it completes
-          setTimeout(() => {
-            mainContent.classList.remove('fade-in');
-          }, 500);
+        // Check if we got a valid document with main content
+        const newMainContent = newDocument.querySelector('main');
+        if (!newMainContent) {
+          throw new Error('Could not find main content in the loaded page');
         }
 
-        // Update the active state in the navigation
-        updateActiveNavigation(url);
+        // Complete the progress bar
+        clearInterval(progressInterval);
+        progressBar.style.width = '100%';
 
-        // Hide loading elements
-        clearTimeout(loadingTimeout);
-        loadingIndicator.classList.remove('active');
-        rippleContainer.classList.remove('active');
-        overlay.classList.remove('active');
+        // Update the page title
+        document.title = newDocument.title;
 
-        // Reset progress bar
-        setTimeout(() => {
-          progressBar.classList.remove('active');
-          progressBar.style.width = '0%';
-        }, 300);
+        // If this isn't a history navigation, push the new state
+        if (!isHistoryNavigation) {
+          history.pushState({}, newDocument.title, url);
+        }
 
-        // Execute scripts from the new page
-        executeScripts(newDocument);
+        // Wait for transition effects to complete
+        transitionTimeout = setTimeout(() => {
+          try {
+            // Update the main content
+            if (mainContent) {
+              mainContent.innerHTML = newMainContent.innerHTML;
+              mainContent.classList.remove('fade-out');
+              mainContent.classList.add('fade-in');
 
-        // Scroll to top
-        window.scrollTo(0, 0);
+              // Remove the animation class after it completes
+              setTimeout(() => {
+                mainContent.classList.remove('fade-in');
+              }, 500);
+            }
 
-        // Dispatch custom events that the page has been loaded via AJAX
-        document.dispatchEvent(
-          new CustomEvent('ajaxPageLoaded', {
-            detail: { url: url },
-          })
-        );
+            // Update the active state in the navigation
+            updateActiveNavigation(url);
 
-        // Dispatch a custom event that the page transition is complete
-        document.dispatchEvent(
-          new CustomEvent('page-transition-complete', {
-            detail: { url: url },
-          })
-        );
-      }, 500);
+            // Hide loading elements
+            clearTimeout(loadingTimeout);
+            loadingIndicator.classList.remove('active');
+            rippleContainer.classList.remove('active');
+            overlay.classList.remove('active');
+
+            // Reset progress bar
+            setTimeout(() => {
+              progressBar.classList.remove('active');
+              progressBar.style.width = '0%';
+            }, 300);
+
+            // Execute scripts from the new page
+            executeScripts(newDocument);
+
+            // Scroll to top
+            window.scrollTo(0, 0);
+
+            // Dispatch custom events that the page has been loaded via AJAX
+            document.dispatchEvent(
+              new CustomEvent('ajaxPageLoaded', {
+                detail: { url: url },
+              })
+            );
+
+            // Dispatch a custom event that the page transition is complete
+            document.dispatchEvent(
+              new CustomEvent('page-transition-complete', {
+                detail: { url: url },
+              })
+            );
+
+            // Reset transitioning flag
+            isTransitioning = false;
+          } catch (innerError) {
+            console.error('Error during content update:', innerError);
+            resetTransitionState();
+            // Fall back to normal navigation
+            window.location.href = url;
+          }
+        }, 500);
+      } catch (parseError) {
+        console.error('Error parsing HTML:', parseError);
+        throw parseError;
+      }
     })
     .catch((error) => {
       console.error('Error during page transition:', error);
-
+      resetTransitionState();
       // On error, just navigate normally
       window.location.href = url;
     });
+
+  // Add a timeout to the fetch operation
+  const timeoutPromise = new Promise((_, reject) => {
+    setTimeout(() => reject(new Error('Fetch timeout')), 10000); // 10 second timeout
+  });
+
+  // Race between fetch and timeout
+  Promise.race([fetchPromise, timeoutPromise]).catch((error) => {
+    console.error('Fetch failed or timed out:', error);
+    resetTransitionState();
+    window.location.href = url;
+  });
+
+  // Function to reset transition state
+  function resetTransitionState() {
+    // Reset transitioning flag
+    isTransitioning = false;
+
+    // Hide loading elements
+    clearTimeout(loadingTimeout);
+    if (loadingIndicator) loadingIndicator.classList.remove('active');
+    if (rippleContainer) rippleContainer.classList.remove('active');
+    if (overlay) overlay.classList.remove('active');
+
+    // Reset progress bar
+    if (progressBar) {
+      progressBar.classList.remove('active');
+      progressBar.style.width = '0%';
+    }
+
+    // Clear interval
+    if (progressInterval) clearInterval(progressInterval);
+
+    // Clear timeout
+    if (transitionTimeout) clearTimeout(transitionTimeout);
+  }
 }
 
 /**
@@ -418,3 +513,87 @@ function handleInitialPageLoad() {
 
 // Handle initial page load animation
 handleInitialPageLoad();
+
+/**
+ * Detects if the device is a mobile device with potentially low memory
+ * @returns {boolean} True if the device is a mobile device with low memory
+ */
+function isMobileWithLowMemory() {
+  // Check if it's a mobile device
+  const isMobile =
+    /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(
+      navigator.userAgent
+    );
+
+  // If we can detect device memory, check if it's low
+  let hasLowMemory = false;
+  if (navigator.deviceMemory) {
+    hasLowMemory = navigator.deviceMemory < 4; // Less than 4GB RAM
+  }
+
+  // For iOS devices, we can't detect memory, so use a more conservative approach
+  const isOlderIOS =
+    /iPhone|iPad|iPod/.test(navigator.userAgent) &&
+    /OS [0-9]_|OS 10_|OS 11_|OS 12_|OS 13_/.test(navigator.userAgent);
+
+  // Return true for mobile devices with low memory or older iOS devices
+  return isMobile && (hasLowMemory || isOlderIOS);
+}
+
+/**
+ * Shows a simple loading indicator for mobile devices
+ */
+function showSimpleLoadingIndicator() {
+  // Check if loading indicator already exists
+  let loadingIndicator = document.querySelector('.mobile-loading-indicator');
+
+  if (!loadingIndicator) {
+    // Create loading indicator
+    loadingIndicator = document.createElement('div');
+    loadingIndicator.className = 'mobile-loading-indicator';
+    loadingIndicator.innerHTML = `
+      <div class="loading-spinner"></div>
+      <div class="loading-text">Đang tải...</div>
+    `;
+    document.body.appendChild(loadingIndicator);
+
+    // Add styles if they don't exist
+    if (!document.getElementById('mobile-loading-styles')) {
+      const styles = document.createElement('style');
+      styles.id = 'mobile-loading-styles';
+      styles.textContent = `
+        .mobile-loading-indicator {
+          position: fixed;
+          top: 0;
+          left: 0;
+          width: 100%;
+          height: 100%;
+          background-color: rgba(255, 255, 255, 0.8);
+          display: flex;
+          flex-direction: column;
+          justify-content: center;
+          align-items: center;
+          z-index: 10000;
+        }
+        .mobile-loading-indicator .loading-spinner {
+          width: 50px;
+          height: 50px;
+          border: 5px solid rgba(249, 115, 22, 0.2);
+          border-radius: 50%;
+          border-top-color: #f97316;
+          animation: spin 1s linear infinite;
+        }
+        .mobile-loading-indicator .loading-text {
+          margin-top: 15px;
+          color: #f97316;
+          font-weight: 600;
+        }
+        @keyframes spin {
+          0% { transform: rotate(0deg); }
+          100% { transform: rotate(360deg); }
+        }
+      `;
+      document.head.appendChild(styles);
+    }
+  }
+}

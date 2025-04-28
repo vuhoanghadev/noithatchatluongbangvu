@@ -19,15 +19,15 @@
 
 /* Make sure bottom nav stays visible during transitions */
 .bottom-nav {
-    z-index: 9997;
+    z-index: 9980;
 }
 
 /* Ensure the transition works well with the floating contact buttons */
 .fc-container {
-    z-index: 9998;
+    z-index: 9985;
 }
 
 /* Ensure the transition works well with the back to top button */
 .back-to-top {
-    z-index: 9998;
+    z-index: 9985;
 }

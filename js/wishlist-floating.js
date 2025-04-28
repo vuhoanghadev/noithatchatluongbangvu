@@ -22,8 +22,12 @@ function initWishlistFeature() {
   // Kiểm tra xem có đang ở mobile không
   const isMobile = window.innerWidth <= 768;
 
+  // Kiểm tra xem có đang ở trang sản phẩm không
+  const isProductPage = isProductRelatedPage();
+
   // Tạo nút yêu thích ghim nếu chưa có và không phải ở mobile
-  if (!isMobile) {
+  // Chỉ hiển thị nút yêu thích ghim trên các trang sản phẩm
+  if (!isMobile && isProductPage) {
     createWishlistToggle();
   }
 
@@ -40,9 +44,19 @@ function initWishlistFeature() {
   window.addEventListener('resize', handleResize);
 }
 
+// Hàm kiểm tra xem có đang ở trang liên quan đến sản phẩm không
+function isProductRelatedPage() {
+  const currentURL = window.location.href;
+  return (
+    currentURL.includes('products.html') ||
+    currentURL.includes('product-details.html')
+  );
+}
+
 // Hàm xử lý sự kiện resize
 function handleResize() {
   const isMobile = window.innerWidth <= 768;
+  const isProductPage = isProductRelatedPage();
   const wishlistToggle = document.querySelector('.wishlist-toggle');
 
   if (isMobile) {
@@ -51,12 +65,19 @@ function handleResize() {
       wishlistToggle.style.display = 'none';
     }
   } else {
-    // Hiện nút yêu thích nổi trên desktop
-    if (wishlistToggle) {
-      wishlistToggle.style.display = 'flex';
+    // Hiện nút yêu thích nổi trên desktop nếu đang ở trang sản phẩm
+    if (isProductPage) {
+      if (wishlistToggle) {
+        wishlistToggle.style.display = 'flex';
+      } else {
+        // Tạo nút nếu chưa có
+        createWishlistToggle();
+      }
     } else {
-      // Tạo nút nếu chưa có
-      createWishlistToggle();
+      // Ẩn nút yêu thích nổi nếu không phải trang sản phẩm
+      if (wishlistToggle) {
+        wishlistToggle.style.display = 'none';
+      }
     }
   }
 }
@@ -144,6 +165,7 @@ function createWishlistContainer() {
 function toggleWishlistContainer(open) {
   const wishlistContainer = document.querySelector('.wishlist-container');
   const wishlistOverlay = document.querySelector('.wishlist-overlay');
+  const isMobile = window.innerWidth <= 768;
 
   if (!wishlistContainer || !wishlistOverlay) {
     // Nếu container chưa tồn tại, tạo mới và thử lại
@@ -164,6 +186,13 @@ function toggleWishlistContainer(open) {
       newWishlistOverlay.classList.add('open');
       document.addEventListener('keydown', handleEscapeKey);
       renderWishlistItems();
+
+      // Thêm class để xác định đang ở mobile hay desktop
+      if (isMobile) {
+        newWishlistContainer.classList.add('mobile-view');
+      } else {
+        newWishlistContainer.classList.remove('mobile-view');
+      }
     }
 
     return;
@@ -175,6 +204,13 @@ function toggleWishlistContainer(open) {
   }
 
   if (open) {
+    // Thêm class để xác định đang ở mobile hay desktop
+    if (isMobile) {
+      wishlistContainer.classList.add('mobile-view');
+    } else {
+      wishlistContainer.classList.remove('mobile-view');
+    }
+
     wishlistContainer.classList.add('open');
     wishlistOverlay.classList.add('open');
 
@@ -193,6 +229,11 @@ function toggleWishlistContainer(open) {
 
       // Thêm class active cho nút yêu thích
       wishlistNavItem.classList.add('active');
+    }
+
+    // Nếu đang ở mobile, thêm class vào body để ngăn cuộn trang
+    if (isMobile) {
+      document.body.classList.add('wishlist-open');
     }
   } else {
     wishlistContainer.classList.remove('open');
@@ -214,7 +255,10 @@ function toggleWishlistContainer(open) {
       currentURL.includes('product-details.html')
     ) {
       document.getElementById('products-nav')?.classList.add('active');
-    } else if (currentURL.includes('blog.html')) {
+    } else if (
+      currentURL.includes('blog.html') ||
+      currentURL.includes('blog-detail.html')
+    ) {
       document.getElementById('blog-nav')?.classList.add('active');
     } else if (
       currentURL.includes('index.html') ||
@@ -225,6 +269,11 @@ function toggleWishlistContainer(open) {
       currentURL.endsWith('.io')
     ) {
       document.getElementById('home-nav')?.classList.add('active');
+    }
+
+    // Nếu đang ở mobile, xóa class khỏi body để cho phép cuộn trang
+    if (isMobile) {
+      document.body.classList.remove('wishlist-open');
     }
   }
 }
@@ -382,6 +431,14 @@ function showRemoveNotification() {
   // Ẩn thông báo sau 2 giây
   setTimeout(() => {
     notification.classList.remove('show');
+
+    // Đảm bảo thông báo được xóa khỏi DOM sau khi hiệu ứng ẩn hoàn tất
+    setTimeout(() => {
+      // Kiểm tra xem thông báo còn tồn tại không và không có class show
+      if (notification && !notification.classList.contains('show')) {
+        notification.remove();
+      }
+    }, 300); // Thời gian phải khớp với thời gian transition trong CSS
   }, 2000);
 }
 
