@@ -11,7 +11,9 @@
     /* background-color: #fff5f5; */
     box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.1);
     z-index: 9990;
-    transition: all 0.3s ease;
+    transition: transform 0.3s ease, opacity 0.3s ease;
+    will-change: transform;
+    /* Tối ưu hiệu suất animation */
 }
 
 .bottom-nav-grid {

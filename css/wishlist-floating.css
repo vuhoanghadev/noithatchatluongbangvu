@@ -84,6 +84,10 @@ body.wishlist-open {
 /* Kiểu dáng đặc biệt cho mobile */
 .wishlist-container.mobile-view {
   border-radius: 0;
+  height: 100%;
+  /* Đảm bảo chiều cao 100% */
+  z-index: 10005;
+  /* Đảm bảo hiển thị trên thanh navigation */
 }
 
 /* Header của danh sách */
@@ -347,11 +351,13 @@ body.wishlist-open {
   width: 100%;
   height: 100%;
   background-color: rgba(0, 0, 0, 0.5);
-  z-index: 10000;
-  /* Tăng z-index cao hơn các nút liên hệ (9999) */
+  z-index: 10004;
+  /* Tăng z-index cao hơn các nút liên hệ (9999) nhưng thấp hơn container */
   opacity: 0;
   visibility: hidden;
   transition: all 0.3s ease;
+  will-change: opacity, visibility;
+  /* Tối ưu hiệu suất animation */
 }
 
 .wishlist-overlay.open {
@@ -509,8 +515,10 @@ body.wishlist-open {
   .wishlist-container {
     width: 100%;
     right: -100%;
-    z-index: 10002;
-    /* Đảm bảo hiển thị trên cùng */
+    z-index: 10005;
+    /* Tăng z-index để hiển thị trên thanh navigation */
+    height: 100%;
+    /* Đảm bảo chiều cao 100% */
   }
 
   .wishlist-container.open {
@@ -538,6 +546,8 @@ body.wishlist-open {
     z-index: 2;
     background-color: white;
     box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.1);
+    border-radius: 0;
+    /* Đảm bảo không có bo góc */
   }
 }
 
@@ -545,10 +555,12 @@ body.wishlist-open {
   .wishlist-container {
     width: 100%;
     right: -100%;
-    height: calc(100% - 60px);
-    /* Để tránh che phủ thanh navigation dưới cùng */
+    height: 100%;
+    /* Mở rộng toàn màn hình, che phủ cả thanh navigation */
     top: 0;
     border-radius: 0;
+    z-index: 10005;
+    /* Tăng z-index để hiển thị trên thanh navigation */
   }
 
   .wishlist-header h3 {
@@ -618,34 +630,34 @@ body.wishlist-open {
 
   /* Hiệu ứng khi mở container */
   .wishlist-container.open {
-    animation: slideInFromBottom 0.3s forwards;
+    animation: slideInFromRight 0.3s forwards;
   }
 
-  @keyframes slideInFromBottom {
+  @keyframes slideInFromRight {
     0% {
-      transform: translateY(100%);
+      transform: translateX(100%);
       opacity: 0;
     }
 
     100% {
-      transform: translateY(0);
+      transform: translateX(0);
       opacity: 1;
     }
   }
 
   /* Hiệu ứng khi đóng container */
   .wishlist-container:not(.open) {
-    animation: slideOutToBottom 0.3s forwards;
+    animation: slideOutToRight 0.3s forwards;
   }
 
-  @keyframes slideOutToBottom {
+  @keyframes slideOutToRight {
     0% {
-      transform: translateY(0);
+      transform: translateX(0);
       opacity: 1;
     }
 
     100% {
-      transform: translateY(100%);
+      transform: translateX(100%);
       opacity: 0;
     }
   }

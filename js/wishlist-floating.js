@@ -234,6 +234,10 @@ function toggleWishlistContainer(open) {
     // Nếu đang ở mobile, thêm class vào body để ngăn cuộn trang
     if (isMobile) {
       document.body.classList.add('wishlist-open');
+
+      // Đảm bảo container hiển thị toàn màn hình trên mobile
+      wishlistContainer.style.height = '100%';
+      wishlistContainer.style.zIndex = '10005';
     }
   } else {
     wishlistContainer.classList.remove('open');

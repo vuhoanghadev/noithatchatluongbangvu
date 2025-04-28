@@ -205,9 +205,13 @@ document.addEventListener('DOMContentLoaded', function () {
     if (scrollTop > lastScrollTop) {
       // Scrolling down - hide navigation
       bottomNav.style.transform = 'translateY(100%)';
+      // Lưu hướng cuộn cuối cùng
+      bottomNav.setAttribute('data-scroll-direction', 'down');
     } else {
       // Scrolling up - show navigation
       bottomNav.style.transform = 'translateY(0)';
+      // Lưu hướng cuộn cuối cùng
+      bottomNav.setAttribute('data-scroll-direction', 'up');
     }
 
     lastScrollTop = scrollTop;

@@ -722,6 +722,18 @@ function createSavedPostsContainer() {
   document.body.appendChild(container);
   console.log('Đã thêm container vào body');
 
+  // Đảm bảo container được render với vị trí ban đầu (ngoài màn hình)
+  // để chuẩn bị cho animation khi mở
+  container.style.right = '-400px';
+  if (window.innerWidth <= 576) {
+    container.style.right = '-100%';
+  } else if (window.innerWidth <= 768) {
+    container.style.right = '-320px';
+  }
+
+  // Force reflow để đảm bảo browser đã render vị trí ban đầu
+  container.offsetWidth;
+
   // Render danh sách bài viết
   renderSavedPostsList(list);
 
@@ -757,8 +769,15 @@ function toggleSavedPostsContainer(open) {
   }
 
   if (open) {
-    container.classList.add('open');
-    overlay.classList.add('open');
+    // Đảm bảo container đã được render vào DOM và có vị trí ban đầu
+    // trước khi thêm class để kích hoạt animation
+    requestAnimationFrame(() => {
+      // Sử dụng requestAnimationFrame để đảm bảo browser đã render trạng thái ban đầu
+      requestAnimationFrame(() => {
+        container.classList.add('open');
+        overlay.classList.add('open');
+      });
+    });
 
     // Thêm sự kiện đóng khi nhấn Escape
     document.addEventListener('keydown', handleEscapeKey);
@@ -832,11 +851,18 @@ function createSavedPostsToggle() {
   toggle.addEventListener('click', function () {
     // Tạo container nếu chưa có
     if (!document.querySelector('.saved-posts-container')) {
-      createSavedPostsContainer();
-    }
+      const container = createSavedPostsContainer();
 
-    // Mở danh sách bài viết đã lưu
-    toggleSavedPostsContainer(true);
+      // Đảm bảo container đã được render vào DOM trước khi toggle
+      setTimeout(() => {
+        // Mở danh sách bài viết đã lưu sau một khoảng thời gian ngắn
+        // để đảm bảo browser đã render container với vị trí ban đầu
+        toggleSavedPostsContainer(true);
+      }, 50);
+    } else {
+      // Mở danh sách bài viết đã lưu
+      toggleSavedPostsContainer(true);
+    }
   });
 
   // Thêm nút vào body

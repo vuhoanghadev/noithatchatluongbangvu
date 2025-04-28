@@ -53,6 +53,26 @@ document.addEventListener('DOMContentLoaded', function () {
       menuToggle.classList.remove('active'); // Remove active class from menu toggle
       document.body.style.overflow = ''; // Re-enable scrolling
 
+      // Hiện lại thanh điều hướng dưới cùng khi đóng menu
+      const bottomNav = document.querySelector('.bottom-nav');
+      if (bottomNav) {
+        // Kiểm tra vị trí cuộn để quyết định có hiển thị thanh điều hướng hay không
+        const scrollTop =
+          window.pageYOffset || document.documentElement.scrollTop;
+
+        // Chỉ hiển thị thanh điều hướng nếu đang ở gần đầu trang hoặc đang cuộn lên
+        if (scrollTop < 200) {
+          bottomNav.style.transform = 'translateY(0)';
+        } else {
+          // Kiểm tra hướng cuộn cuối cùng từ bottom-nav.js
+          const lastScrollDirection =
+            bottomNav.getAttribute('data-scroll-direction') || 'up';
+          if (lastScrollDirection === 'up') {
+            bottomNav.style.transform = 'translateY(0)';
+          }
+        }
+      }
+
       // Reset animation if menu bars exist
       if (menuBars.length === 3) {
         // Reset first bar
@@ -80,6 +100,13 @@ document.addEventListener('DOMContentLoaded', function () {
       mobileMenu.classList.add('active');
       menuToggle.classList.add('active'); // Add active class to menu toggle
       document.body.style.overflow = 'hidden'; // Prevent scrolling when menu is open
+
+      // Ẩn thanh điều hướng dưới cùng khi mở menu
+      const bottomNav = document.querySelector('.bottom-nav');
+      if (bottomNav) {
+        bottomNav.style.transform = 'translateY(100%)';
+        bottomNav.style.transition = 'transform 0.3s ease';
+      }
 
       // Add animation to menu bars if they exist
       if (menuBars.length === 3) {

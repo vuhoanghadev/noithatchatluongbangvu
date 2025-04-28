@@ -130,6 +130,10 @@
   overflow-y: auto !important;
   display: flex !important;
   flex-direction: column !important;
+  will-change: right !important;
+  /* Tối ưu hóa hiệu suất animation */
+  backface-visibility: hidden !important;
+  /* Tối ưu hóa hiệu suất animation */
 }
 
 .saved-posts-container.open {
@@ -477,7 +481,11 @@
   z-index: 10000;
   opacity: 0;
   visibility: hidden;
-  transition: all 0.3s ease;
+  transition: opacity 0.3s ease, visibility 0.3s ease;
+  will-change: opacity, visibility;
+  /* Tối ưu hóa hiệu suất animation */
+  backface-visibility: hidden;
+  /* Tối ưu hóa hiệu suất animation */
 }
 
 .saved-posts-overlay.open {
