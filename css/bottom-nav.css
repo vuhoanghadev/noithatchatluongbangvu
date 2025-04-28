@@ -8,12 +8,12 @@
     width: 100%;
     height: 60px;
     background-color: #ffffff;
-    /* background-color: #fff5f5; */
     box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.1);
     z-index: 9990;
     transition: transform 0.3s ease, opacity 0.3s ease;
     will-change: transform;
     /* Tối ưu hiệu suất animation */
+    border-top: 1px solid rgba(249, 115, 22, 0.1);
 }
 
 .bottom-nav-grid {
@@ -51,8 +51,21 @@
 
 /* Active state */
 .bottom-nav-item.active {
-    color: #0058dd;
-    /* color: #f97316; */
+    color: #f97316;
+    position: relative;
+}
+
+.bottom-nav-item.active::before {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 5px;
+    height: 5px;
+    background-color: #f97316;
+    border-radius: 50%;
+    box-shadow: 0 0 8px rgba(249, 115, 22, 0.5);
 }
 
 .bottom-nav-item.active i {
@@ -61,42 +74,47 @@
 
 /* Hover effects */
 .bottom-nav-item:hover {
-    color: #0058dd;
+    color: #f97316;
+}
+
+.bottom-nav-item:hover i {
+    transform: translateY(-2px);
+    transition: transform 0.3s ease;
 }
 
 /* Ripple effect on click */
-.bottom-nav-item::after {
-    content: '';
+.bottom-nav-item {
+    position: relative;
+    overflow: hidden;
+}
+
+.ripple-effect {
     position: absolute;
-    top: 50%;
-    left: 50%;
-    width: 5px;
-    height: 5px;
-    background: rgba(0, 88, 221, 0.3);
-    opacity: 0;
-    border-radius: 100%;
-    transform: scale(1, 1) translate(-50%, -50%);
-    transform-origin: 50% 50%;
+    background: rgba(249, 115, 22, 0.3);
+    border-radius: 50%;
+    width: 100px;
+    height: 100px;
+    margin-top: -50px;
+    margin-left: -50px;
+    animation: ripple-animation 0.8s ease-out;
+    pointer-events: none;
+    z-index: 0;
 }
 
-.bottom-nav-item:active::after {
-    animation: ripple 0.6s ease-out;
-}
-
-@keyframes ripple {
+@keyframes ripple-animation {
     0% {
-        transform: scale(0, 0);
+        transform: scale(0);
         opacity: 0.5;
     }
 
     20% {
-        transform: scale(25, 25);
+        transform: scale(1.5);
         opacity: 0.5;
     }
 
     100% {
+        transform: scale(3);
         opacity: 0;
-        transform: scale(40, 40);
     }
 }
 
@@ -127,6 +145,11 @@
 
 .bottom-nav-item.active i {
     animation: bounce 0.5s ease;
+    background: linear-gradient(135deg, #f97316, #e84c10);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    text-shadow: 0 1px 2px rgba(249, 115, 22, 0.2);
 }
 
 /* Search icon specific styles */
@@ -142,7 +165,7 @@
     transform: translateX(-50%);
     width: 40px;
     height: 40px;
-    background-color: #f0f8ff;
+    background-color: rgba(249, 115, 22, 0.1);
     border-radius: 50%;
     z-index: -1;
     opacity: 0;

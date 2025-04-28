@@ -12,6 +12,22 @@ document.addEventListener('DOMContentLoaded', function () {
   // Add click event listener to each item
   bottomNavItems.forEach((item) => {
     item.addEventListener('click', function (e) {
+      // Thêm hiệu ứng ripple khi click
+      const rect = this.getBoundingClientRect();
+      const x = e.clientX - rect.left;
+      const y = e.clientY - rect.top;
+
+      const ripple = document.createElement('span');
+      ripple.classList.add('ripple-effect');
+      ripple.style.left = x + 'px';
+      ripple.style.top = y + 'px';
+      this.appendChild(ripple);
+
+      // Xóa ripple sau khi animation hoàn thành
+      setTimeout(() => {
+        ripple.remove();
+      }, 1000);
+
       // If this is a search button, handle search differently
       if (this.id === 'search-nav') {
         e.preventDefault();

@@ -237,7 +237,7 @@ function toggleWishlistContainer(open) {
 
       // Đảm bảo container hiển thị toàn màn hình trên mobile
       wishlistContainer.style.height = '100%';
-      wishlistContainer.style.zIndex = '10005';
+      // Không cần thiết lập z-index ở đây vì đã được thiết lập trong CSS
     }
   } else {
     wishlistContainer.classList.remove('open');
@@ -300,13 +300,13 @@ function renderWishlistItems() {
   // Lấy danh sách sản phẩm yêu thích
   const wishlist = getWishlist();
 
-  // Nếu không có sản phẩm nào, hiển thị thông báo
+  // Nếu không có sản phẩm nào, hiển thị thông báo với giao diện cải tiến và nội dung phù hợp hơn
   if (wishlist.length === 0) {
     wishlistList.innerHTML = `
       <div class="wishlist-empty">
         <i class="far fa-heart"></i>
         <p>Bạn chưa có sản phẩm yêu thích nào</p>
-        <a href="products.html">Xem tất cả sản phẩm</a>
+        <p class="wishlist-empty-tip">Nhấn vào biểu tượng <i class="fas fa-heart"></i> trên trang sản phẩm để thêm vào danh sách yêu thích</p>
       </div>
     `;
     return;
@@ -315,10 +315,10 @@ function renderWishlistItems() {
   // Tạo HTML cho danh sách sản phẩm yêu thích
   let wishlistHTML = '';
 
-  // Thêm số lượng sản phẩm yêu thích
+  // Thêm số lượng sản phẩm yêu thích với giao diện cải tiến
   wishlistHTML += `
     <div class="wishlist-count-info">
-      <span>Có ${wishlist.length} sản phẩm yêu thích</span>
+      <span><i class="fas fa-heart"></i> Có ${wishlist.length} sản phẩm yêu thích</span>
     </div>
   `;
 
@@ -331,7 +331,7 @@ function renderWishlistItems() {
       // Kiểm tra xem có đang ở mobile không
       const isMobile = window.innerWidth <= 768;
 
-      // Tạo HTML cho item sản phẩm
+      // Tạo HTML cho item sản phẩm với cấu trúc cải tiến
       wishlistHTML += `
         <div class="wishlist-item" data-product-id="${product.id}">
           <div class="wishlist-item-image">
@@ -371,9 +371,17 @@ function renderWishlistItems() {
 
       // Thêm hiệu ứng xóa trước khi thực sự xóa
       const wishlistItem = this.closest('.wishlist-item');
-      wishlistItem.style.transition = 'all 0.3s ease';
-      wishlistItem.style.opacity = '0';
-      wishlistItem.style.transform = 'translateX(20px)';
+
+      // Sử dụng class để áp dụng animation thay vì inline style
+      wishlistItem.classList.add('removing');
+
+      // Vô hiệu hóa nút để tránh click nhiều lần
+      this.disabled = true;
+
+      // Lấy tên sản phẩm để hiển thị trong thông báo
+      const productName = wishlistItem.querySelector(
+        '.wishlist-item-title a'
+      ).textContent;
 
       setTimeout(() => {
         // Xóa sản phẩm khỏi danh sách yêu thích
@@ -388,9 +396,9 @@ function renderWishlistItems() {
         // Cập nhật số lượng sản phẩm yêu thích
         updateWishlistCount();
 
-        // Hiển thị thông báo
-        showRemoveNotification();
-      }, 300);
+        // Hiển thị thông báo với tên sản phẩm
+        showRemoveNotification(productName);
+      }, 500); // Tăng thời gian để phù hợp với thời gian animation
     });
   });
 
@@ -407,32 +415,49 @@ function renderWishlistItems() {
 }
 
 // Hàm hiển thị thông báo khi xóa sản phẩm
-function showRemoveNotification() {
+function showRemoveNotification(productName = '') {
   // Kiểm tra xem đã có thông báo chưa
   let notification = document.querySelector('.wishlist-remove-notification');
 
-  if (!notification) {
-    // Tạo thông báo mới
-    notification = document.createElement('div');
-    notification.className = 'wishlist-remove-notification';
-    notification.innerHTML = `
-      <div class="wishlist-notification-icon">
-        <i class="fas fa-check-circle"></i>
-      </div>
-      <div class="wishlist-notification-content">
-        <div class="wishlist-notification-title">Đã xóa sản phẩm</div>
-        <div class="wishlist-notification-text">Sản phẩm đã được xóa khỏi danh sách yêu thích</div>
-      </div>
-    `;
-
-    // Thêm vào body
-    document.body.appendChild(notification);
+  // Xóa thông báo cũ nếu có
+  if (notification) {
+    notification.remove();
   }
 
-  // Hiển thị thông báo
-  notification.classList.add('show');
+  // Tạo thông báo mới
+  notification = document.createElement('div');
+  notification.className = 'wishlist-remove-notification';
 
-  // Ẩn thông báo sau 2 giây
+  // Tạo nội dung thông báo
+  let notificationText = 'Sản phẩm đã được xóa khỏi danh sách yêu thích';
+  if (productName) {
+    // Rút gọn tên sản phẩm nếu quá dài
+    const shortName =
+      productName.length > 30
+        ? productName.substring(0, 30) + '...'
+        : productName;
+    notificationText = `"${shortName}" đã được xóa khỏi danh sách yêu thích`;
+  }
+
+  notification.innerHTML = `
+    <div class="wishlist-notification-icon">
+      <i class="fas fa-check-circle"></i>
+    </div>
+    <div class="wishlist-notification-content">
+      <div class="wishlist-notification-title">Đã xóa sản phẩm</div>
+      <div class="wishlist-notification-text">${notificationText}</div>
+    </div>
+  `;
+
+  // Thêm vào body
+  document.body.appendChild(notification);
+
+  // Hiển thị thông báo sau một khoảng thời gian ngắn để tạo hiệu ứng mượt mà
+  setTimeout(() => {
+    notification.classList.add('show');
+  }, 10);
+
+  // Ẩn thông báo sau 2.5 giây
   setTimeout(() => {
     notification.classList.remove('show');
 
@@ -443,7 +468,7 @@ function showRemoveNotification() {
         notification.remove();
       }
     }, 300); // Thời gian phải khớp với thời gian transition trong CSS
-  }, 2000);
+  }, 2500);
 }
 
 // Hàm tìm sản phẩm theo ID

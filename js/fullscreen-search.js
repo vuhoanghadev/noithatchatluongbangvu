@@ -503,7 +503,7 @@ function initSearch() {
         const icons = filterToggle.querySelectorAll('i');
         icons.forEach((icon) => {
           if (isFilterOpen) {
-            icon.style.color = '#0058dd';
+            icon.style.color = '#f97316';
           } else {
             icon.style.color = '#777';
           }
@@ -1789,13 +1789,16 @@ function initAdvancedFilters() {
         btn.classList.remove('active');
         if (newFilterState) {
           btn.classList.add('active');
+          btn.style.backgroundColor = '#f9f9f9';
+        } else {
+          btn.style.backgroundColor = '';
         }
 
         // Update the icon color as well
         const icons = btn.querySelectorAll('i');
         icons.forEach((icon) => {
           if (newFilterState) {
-            icon.style.color = '#0058dd';
+            icon.style.color = '#f97316';
           } else {
             icon.style.color = '#777';
           }
