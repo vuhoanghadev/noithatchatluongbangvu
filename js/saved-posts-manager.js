@@ -230,7 +230,7 @@ function showConfirmDialog(title, message, onConfirm) {
   overlay.style.width = '100%';
   overlay.style.height = '100%';
   overlay.style.backgroundColor = 'rgba(0, 0, 0, 0.5)';
-  overlay.style.zIndex = '10000';
+  overlay.style.zIndex = '10010'; // Tăng z-index cao hơn saved-posts-container (10001)
   overlay.style.display = 'flex';
   overlay.style.justifyContent = 'center';
   overlay.style.alignItems = 'center';
@@ -245,6 +245,7 @@ function showConfirmDialog(title, message, onConfirm) {
   dialogContainer.style.maxWidth = '400px';
   dialogContainer.style.padding = '20px';
   dialogContainer.style.animation = 'dialogFadeIn 0.3s ease';
+  dialogContainer.style.margin = '0 15px'; // Thêm margin để tránh bị sát cạnh màn hình trên mobile
 
   // Tạo tiêu đề
   const dialogTitle = document.createElement('h3');
@@ -267,29 +268,34 @@ function showConfirmDialog(title, message, onConfirm) {
   dialogButtons.style.display = 'flex';
   dialogButtons.style.justifyContent = 'flex-end';
   dialogButtons.style.gap = '10px';
+  dialogButtons.style.flexWrap = 'wrap'; // Cho phép các nút xuống dòng trên màn hình nhỏ
 
   // Nút hủy
   const cancelButton = document.createElement('button');
-  cancelButton.style.padding = '8px 16px';
+  cancelButton.style.padding = '10px 20px';
   cancelButton.style.backgroundColor = '#f1f1f1';
   cancelButton.style.color = '#333';
   cancelButton.style.border = 'none';
-  cancelButton.style.borderRadius = '4px';
+  cancelButton.style.borderRadius = '6px';
   cancelButton.style.cursor = 'pointer';
   cancelButton.style.fontWeight = '500';
   cancelButton.style.transition = 'all 0.2s ease';
+  cancelButton.style.margin = '5px'; // Thêm margin để tránh các nút quá sát nhau trên mobile
+  cancelButton.style.minWidth = '100px'; // Đảm bảo nút đủ rộng để dễ nhấn trên mobile
   cancelButton.textContent = 'Hủy';
 
   // Nút xác nhận
   const confirmButton = document.createElement('button');
-  confirmButton.style.padding = '8px 16px';
+  confirmButton.style.padding = '10px 20px';
   confirmButton.style.backgroundColor = '#f44336';
   confirmButton.style.color = 'white';
   confirmButton.style.border = 'none';
-  confirmButton.style.borderRadius = '4px';
+  confirmButton.style.borderRadius = '6px';
   confirmButton.style.cursor = 'pointer';
   confirmButton.style.fontWeight = '500';
   confirmButton.style.transition = 'all 0.2s ease';
+  confirmButton.style.margin = '5px'; // Thêm margin để tránh các nút quá sát nhau trên mobile
+  confirmButton.style.minWidth = '100px'; // Đảm bảo nút đủ rộng để dễ nhấn trên mobile
   confirmButton.textContent = 'Xóa';
 
   // Thêm hiệu ứng hover

@@ -304,8 +304,8 @@ function renderWishlistItems() {
   if (wishlist.length === 0) {
     wishlistList.innerHTML = `
       <div class="wishlist-empty">
-        <i class="far fa-heart"></i>
-        <p>Bạn chưa có sản phẩm yêu thích nào</p>
+
+
         <p class="wishlist-empty-tip">Nhấn vào biểu tượng <i class="fas fa-heart"></i> trên trang sản phẩm để thêm vào danh sách yêu thích</p>
       </div>
     `;
@@ -348,10 +348,10 @@ function renderWishlistItems() {
             </div>
             <div class="wishlist-item-actions">
               <a href="product-details.html?id=${product.id}" class="wishlist-item-view">
-                <i class="fas fa-eye"></i> Xem chi tiết
+                <i class="fas fa-eye"></i><span>Xem chi tiết</span>
               </a>
               <button class="wishlist-item-remove" data-product-id="${product.id}">
-                <i class="fas fa-trash-alt"></i> Xóa
+                <i class="fas fa-trash-alt"></i><span>Xóa</span>
               </button>
             </div>
           </div>
@@ -383,6 +383,9 @@ function renderWishlistItems() {
         '.wishlist-item-title a'
       ).textContent;
 
+      // Lưu trữ thông tin về container để sử dụng trong setTimeout
+      const isMobile = window.innerWidth <= 576;
+
       setTimeout(() => {
         // Xóa sản phẩm khỏi danh sách yêu thích
         removeFromWishlist(productId);
@@ -398,6 +401,14 @@ function renderWishlistItems() {
 
         // Hiển thị thông báo với tên sản phẩm
         showRemoveNotification(productName);
+
+        // Trên thiết bị di động, đóng danh sách yêu thích sau một khoảng thời gian
+        // để người dùng có thể thấy thông báo xóa
+        if (isMobile && getWishlist().length === 0) {
+          setTimeout(() => {
+            toggleWishlistContainer(false);
+          }, 1500); // Đợi 1.5 giây sau khi hiển thị thông báo
+        }
       }, 500); // Tăng thời gian để phù hợp với thời gian animation
     });
   });

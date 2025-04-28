@@ -508,6 +508,27 @@
   transition: opacity 0.3s ease;
 }
 
+/* Styles cho hộp thoại xác nhận */
+.confirm-dialog-overlay {
+  z-index: 10010 !important;
+  /* Đảm bảo hiển thị trên tất cả các phần tử khác */
+}
+
+/* Media queries cho thiết bị di động */
+@media (max-width: 576px) {
+  .saved-posts-container {
+    width: 100% !important;
+    right: -100% !important;
+  }
+
+  /* Đảm bảo hộp thoại xác nhận hiển thị đúng trên mobile */
+  .confirm-dialog-container {
+    width: 95% !important;
+    max-width: 350px !important;
+    padding: 15px !important;
+  }
+}
+
 /* Responsive styles */
 @media (max-width: 768px) {
   .saved-posts-toggle {

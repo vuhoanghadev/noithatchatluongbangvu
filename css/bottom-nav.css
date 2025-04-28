@@ -34,6 +34,10 @@
     transition: all 0.3s ease;
     position: relative;
     overflow: hidden;
+    -webkit-tap-highlight-color: transparent;
+    /* Loại bỏ hiệu ứng màu xanh khi nhấn trên thiết bị di động */
+    outline: none;
+    /* Loại bỏ outline khi focus */
 }
 
 .bottom-nav-item i {
@@ -80,6 +84,27 @@
 .bottom-nav-item:hover i {
     transform: translateY(-2px);
     transition: transform 0.3s ease;
+}
+
+/* Active state when tapping */
+.bottom-nav-item:active,
+.bottom-nav-item:focus,
+.bottom-nav-item:focus-visible,
+.bottom-nav-item:focus-within {
+    color: #f97316 !important;
+}
+
+.bottom-nav-item:active i,
+.bottom-nav-item:focus i,
+.bottom-nav-item:focus-visible i,
+.bottom-nav-item:focus-within i {
+    transform: translateY(-2px);
+    color: #f97316 !important;
+}
+
+/* Clicked state */
+.bottom-nav-item.clicked {
+    color: #f97316 !important;
 }
 
 /* Ripple effect on click */
@@ -149,6 +174,19 @@
     -webkit-background-clip: text;
     background-clip: text;
     color: transparent;
+    text-shadow: 0 1px 2px rgba(249, 115, 22, 0.2);
+}
+
+/* Gradient effect for icons on tap/click */
+.bottom-nav-item:active i,
+.bottom-nav-item:focus i,
+.bottom-nav-item:focus-visible i,
+.bottom-nav-item:focus-within i,
+.bottom-nav-item.clicked i {
+    background: linear-gradient(135deg, #f97316, #e84c10);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent !important;
     text-shadow: 0 1px 2px rgba(249, 115, 22, 0.2);
 }
 

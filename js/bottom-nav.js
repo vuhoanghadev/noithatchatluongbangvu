@@ -11,6 +11,18 @@ document.addEventListener('DOMContentLoaded', function () {
 
   // Add click event listener to each item
   bottomNavItems.forEach((item) => {
+    // Add touchstart event to immediately apply orange color
+    item.addEventListener(
+      'touchstart',
+      function () {
+        bottomNavItems.forEach((navItem) => {
+          navItem.classList.remove('clicked');
+        });
+        this.classList.add('clicked');
+      },
+      { passive: true }
+    );
+
     item.addEventListener('click', function (e) {
       // Thêm hiệu ứng ripple khi click
       const rect = this.getBoundingClientRect();
@@ -31,6 +43,13 @@ document.addEventListener('DOMContentLoaded', function () {
       // If this is a search button, handle search differently
       if (this.id === 'search-nav') {
         e.preventDefault();
+        // Thêm class clicked để áp dụng màu cam ngay lập tức
+        bottomNavItems.forEach((navItem) => {
+          navItem.classList.remove('active');
+          navItem.classList.remove('clicked');
+        });
+        this.classList.add('active');
+        this.classList.add('clicked');
         handleSearch();
         return;
       }
@@ -38,6 +57,13 @@ document.addEventListener('DOMContentLoaded', function () {
       // If this is a wishlist button, handle wishlist differently
       if (this.id === 'wishlist-nav') {
         e.preventDefault();
+        // Thêm class clicked để áp dụng màu cam ngay lập tức
+        bottomNavItems.forEach((navItem) => {
+          navItem.classList.remove('active');
+          navItem.classList.remove('clicked');
+        });
+        this.classList.add('active');
+        this.classList.add('clicked');
         handleWishlist();
         return;
       }
@@ -47,8 +73,12 @@ document.addEventListener('DOMContentLoaded', function () {
         e.preventDefault();
 
         // Add active class to this item
-        bottomNavItems.forEach((navItem) => navItem.classList.remove('active'));
+        bottomNavItems.forEach((navItem) => {
+          navItem.classList.remove('active');
+          navItem.classList.remove('clicked');
+        });
         this.classList.add('active');
+        this.classList.add('clicked'); // Thêm class clicked để áp dụng màu cam ngay lập tức
 
         // Store the active tab ID in localStorage
         localStorage.setItem('activeTabId', this.id);
@@ -184,6 +214,13 @@ document.addEventListener('DOMContentLoaded', function () {
 
   // Handle search functionality
   function handleSearch() {
+    // Đảm bảo nút search vẫn giữ màu cam
+    const searchNav = document.getElementById('search-nav');
+    if (searchNav) {
+      searchNav.classList.add('active');
+      searchNav.classList.add('clicked');
+    }
+
     // Check if fullscreen search is available
     const fullscreenSearch = document.querySelector('.fullscreen-search');
 
@@ -236,8 +273,15 @@ document.addEventListener('DOMContentLoaded', function () {
   // Handle wishlist functionality
   function handleWishlist() {
     // Add active class to wishlist tab
-    bottomNavItems.forEach((item) => item.classList.remove('active'));
-    document.getElementById('wishlist-nav')?.classList.add('active');
+    bottomNavItems.forEach((item) => {
+      item.classList.remove('active');
+      item.classList.remove('clicked');
+    });
+    const wishlistNav = document.getElementById('wishlist-nav');
+    if (wishlistNav) {
+      wishlistNav.classList.add('active');
+      wishlistNav.classList.add('clicked');
+    }
 
     // Store the active tab ID in localStorage
     localStorage.setItem('activeTabId', 'wishlist-nav');

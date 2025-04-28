@@ -382,7 +382,8 @@ body.wishlist-open {
   display: flex;
   align-items: center;
   gap: 15px;
-  z-index: 10003;
+  z-index: 10010;
+  /* Tăng z-index cao hơn wishlist-container (10005) */
   transition: transform 0.3s cubic-bezier(0.68, -0.55, 0.27, 1.55), opacity 0.3s ease, visibility 0.3s ease;
   max-width: 90%;
   width: 350px;
@@ -394,6 +395,30 @@ body.wishlist-open {
   transform: translateX(-50%) translateY(0);
   opacity: 1;
   visibility: visible;
+}
+
+/* Điều chỉnh thông báo xóa sản phẩm trên thiết bị di động */
+@media (max-width: 576px) {
+  .wishlist-remove-notification {
+    bottom: 70px;
+    /* Đặt thông báo cao hơn để tránh bị thanh navigation che khuất */
+    width: 90%;
+    padding: 12px;
+  }
+
+  .wishlist-notification-icon {
+    width: 35px;
+    height: 35px;
+    font-size: 1rem;
+  }
+
+  .wishlist-notification-title {
+    font-size: 0.95rem;
+  }
+
+  .wishlist-notification-text {
+    font-size: 0.85rem;
+  }
 }
 
 .wishlist-notification-icon {
@@ -705,12 +730,20 @@ body.wishlist-open {
   .wishlist-item-view,
   .wishlist-item-remove {
     flex: 1;
+    display: flex;
+    align-items: center;
     justify-content: center;
     padding: 8px 0;
     border-radius: 8px;
     font-weight: 500;
     font-size: 0.85rem;
     transition: all 0.25s ease;
+    height: 36px;
+    /* Đặt chiều cao cố định cho cả hai nút */
+    box-sizing: border-box;
+    /* Đảm bảo padding không làm tăng kích thước */
+    text-align: center;
+    line-height: 1;
   }
 
   .wishlist-item-view {
@@ -733,6 +766,13 @@ body.wishlist-open {
   .wishlist-item-remove:hover {
     background-color: rgba(244, 67, 54, 0.15);
     transform: translateY(-1px);
+  }
+
+  /* Đảm bảo icon trong nút có kích thước đồng đều */
+  .wishlist-item-view i,
+  .wishlist-item-remove i {
+    margin-right: 5px;
+    font-size: 0.85rem;
   }
 
   /* Hiệu ứng khi mở container */

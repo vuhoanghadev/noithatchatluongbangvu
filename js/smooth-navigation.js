@@ -79,15 +79,15 @@ function createTransitionOverlay() {
             .loader-spinner {
                 width: 40px;
                 height: 40px;
-                border: 3px solid rgba(0, 88, 221, 0.1);
-                border-top: 3px solid #0058dd;
+                border: 3px solid rgba(249, 115, 22, 0.1);
+                border-top: 3px solid #f97316;
                 border-radius: 50%;
                 animation: spin 1s linear infinite;
                 margin-bottom: 10px;
             }
 
             .loader-text {
-                color: #0058dd;
+                color: #f97316;
                 font-size: 14px;
                 font-weight: 500;
             }
@@ -304,7 +304,7 @@ document.addEventListener('DOMContentLoaded', function () {
         }
 
         .bottom-nav-item.clicked i {
-            color: #0058dd;
+            color: #f97316;
         }
     `;
   document.head.appendChild(styleElement);

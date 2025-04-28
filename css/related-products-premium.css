@@ -253,7 +253,7 @@
 .also-liked-product-views {
     display: flex;
     align-items: center;
-    gap: 5px;
+    gap: 4px;
     background-color: rgba(249, 115, 22, 0.1);
     padding: 5px 8px;
     border-radius: 20px;
@@ -269,12 +269,14 @@
 .also-liked-product-views span {
     text-overflow: ellipsis;
     overflow: hidden;
+    display: inline-block;
 }
 
 .related-product-sold i,
 .also-liked-product-views i {
     font-size: 0.85rem;
     flex-shrink: 0;
+    min-width: 12px;
 }
 
 .product-price {
@@ -373,6 +375,13 @@
 .also-liked-product-views {
     background-color: rgba(0, 88, 221, 0.1);
     color: var(--product-secondary);
+}
+
+@media (max-width: 576px) {
+    .also-liked-product-views {
+        background-color: rgba(0, 88, 221, 0.08);
+        color: var(--product-secondary);
+    }
 }
 
 .also-liked-card .product-price {
@@ -535,30 +544,50 @@
     }
 
     .product-stats-container {
-        flex-wrap: wrap;
-        justify-content: flex-start;
-        gap: 10px;
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: center;
+        gap: 5px;
+        flex-wrap: nowrap;
     }
 
     .product-stats {
-        width: 100%;
-        justify-content: space-between;
+        display: flex;
+        justify-content: flex-start;
+        width: auto;
+        flex-shrink: 0;
     }
 
     .related-product-sold,
     .also-liked-product-views {
         margin-top: 0;
-        padding: 4px 10px;
-        font-size: 0.75rem;
-        flex-grow: 1;
+        padding: 3px 6px;
+        font-size: 0.7rem;
+        flex-grow: 0;
+        flex-shrink: 1;
         justify-content: center;
-        max-width: 48%;
+        max-width: none;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
     }
 
     .product-rating {
-        flex-grow: 1;
-        justify-content: center;
-        max-width: 48%;
+        flex-grow: 0;
+        flex-shrink: 0;
+        justify-content: flex-start;
+        max-width: none;
+        font-size: 0.75rem;
+    }
+
+    .product-rating span {
+        font-size: 0.7rem;
+    }
+
+    .product-rating i {
+        font-size: 0.7rem;
+        margin-right: 1px;
     }
 
     .product-content {
