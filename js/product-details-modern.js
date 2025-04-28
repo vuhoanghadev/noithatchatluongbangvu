@@ -149,9 +149,47 @@ document.addEventListener('DOMContentLoaded', function () {
     // Create info HTML - Sắp xếp theo thứ tự yêu cầu
     let infoHTML = '';
 
-    // 1. Thêm tag sản phẩm (nếu có)
+    // 1. Thêm tag sản phẩm (nếu có) với icon phù hợp
     if (product.tag) {
-      infoHTML += `<div class="product-tag"><span>${product.tag}</span></div>`;
+      // Xác định icon phù hợp dựa trên loại tag
+      let tagIcon = '';
+      let tagClass = '';
+
+      if (
+        product.tag.toLowerCase().includes('sale') ||
+        product.tag.toLowerCase().includes('giảm')
+      ) {
+        tagIcon = '<i class="fas fa-bolt"></i>';
+        tagClass = 'sale';
+      } else if (
+        product.tag.toLowerCase().includes('new') ||
+        product.tag.toLowerCase().includes('mới')
+      ) {
+        tagIcon = '<i class="fas fa-certificate"></i>';
+        tagClass = 'new';
+      } else if (
+        product.tag.toLowerCase().includes('featured') ||
+        product.tag.toLowerCase().includes('nổi bật')
+      ) {
+        tagIcon = '<i class="fas fa-star"></i>';
+        tagClass = 'featured';
+      } else if (
+        product.tag.toLowerCase().includes('limited') ||
+        product.tag.toLowerCase().includes('giới hạn')
+      ) {
+        tagIcon = '<i class="fas fa-hourglass-half"></i>';
+        tagClass = 'limited';
+      } else if (
+        product.tag.toLowerCase().includes('bestseller') ||
+        product.tag.toLowerCase().includes('bán chạy')
+      ) {
+        tagIcon = '<i class="fas fa-crown"></i>';
+        tagClass = 'bestseller';
+      } else {
+        tagIcon = '<i class="fas fa-tag"></i>';
+      }
+
+      infoHTML += `<div class="product-tag"><span class="${tagClass}">${tagIcon} ${product.tag}</span></div>`;
     }
 
     // 2. Thêm tiêu đề sản phẩm

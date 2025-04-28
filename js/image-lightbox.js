@@ -101,14 +101,37 @@ function initLightbox() {
     lightboxImg.src = imageSrc;
     lightbox.classList.add('active');
     document.body.style.overflow = 'hidden'; // Prevent scrolling
+
+    // Ensure the lightbox is on top of everything
+    lightbox.style.zIndex = '99999';
+
+    // Reset zoom and position
     resetZoom();
+
+    // Add active class to image container for animation
+    const imageContainer = document.querySelector('.lightbox-image-container');
+    if (imageContainer) {
+      imageContainer.classList.add('active');
+
+      // Remove active class after animation completes
+      setTimeout(() => {
+        imageContainer.classList.remove('active');
+      }, 500);
+    }
   }
 
   // Close lightbox
   function closeLightbox() {
-    lightbox.classList.remove('active');
-    document.body.style.overflow = ''; // Restore scrolling
-    resetZoom();
+    // Add fade-out effect
+    lightbox.style.opacity = '0';
+
+    // Wait for fade-out animation to complete before removing active class
+    setTimeout(() => {
+      lightbox.classList.remove('active');
+      lightbox.style.opacity = ''; // Reset opacity
+      document.body.style.overflow = ''; // Restore scrolling
+      resetZoom();
+    }, 300);
   }
 
   // Navigate to previous image
@@ -267,8 +290,25 @@ window.openImageLightbox = function (imageSrc) {
     lightbox.classList.add('active');
     document.body.style.overflow = 'hidden'; // Prevent scrolling
 
+    // Ensure the lightbox is on top of everything
+    lightbox.style.zIndex = '99999';
+
     // Reset zoom
     lightboxImg.style.transform = 'scale(1)';
     document.getElementById('zoom-level').textContent = '100%';
+
+    // Reset position
+    lightboxImg.style.transform = 'translate(0, 0) scale(1)';
+
+    // Add active class to image container for animation
+    const imageContainer = document.querySelector('.lightbox-image-container');
+    if (imageContainer) {
+      imageContainer.classList.add('active');
+
+      // Remove active class after animation completes
+      setTimeout(() => {
+        imageContainer.classList.remove('active');
+      }, 500);
+    }
   }
 };

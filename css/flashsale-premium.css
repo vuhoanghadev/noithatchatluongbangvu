@@ -17,7 +17,9 @@
     background: var(--flashsale-light);
     border-radius: 16px;
     padding: 20px;
-    margin: 25px 0;
+    /* margin: 25px 0; */
+    margin-top: 0px;
+    margin-bottom: 25px;
     box-shadow: var(--flashsale-shadow);
     overflow: hidden;
     border: 2px solid var(--flashsale-secondary);

@@ -182,7 +182,8 @@
 .product-category {
     color: var(--product-text-light);
     font-size: 0.85rem;
-    margin-bottom: 10px;
+    margin-top: 20px;
+    margin-bottom: 20px;
     display: flex;
     align-items: center;
     gap: 5px;

@@ -1425,7 +1425,7 @@ const products = [
 
   {
     id: 56, // Mã số định danh duy nhất của sản phẩm, sử dụng để tham chiếu trong hệ thống
-    name: 'Tủ Quần Áo QA560 - 5 Cánh Mở, 3 Ngăn Kéo, Vân Gỗ Sồi Tự Nhiên', // Tên đầy đủ của sản phẩm, nên bao gồm các đặc điểm chính
+    name: 'Tủ Quần Áo NTBV9874 - 5 Cánh Mở, 3 Ngăn Kéo, Nhựa Đài Loan Cao Cấp', // Tên đầy đủ của sản phẩm, nên bao gồm các đặc điểm chính
     category: 'Tủ Quần Áo', // Danh mục sản phẩm, sử dụng để phân loại và lọc sản phẩm
     image: 'images/products/product1.png', // Đường dẫn đến hình ảnh chính của sản phẩm, hiển thị trong danh sách sản phẩm
     reviewCode: 'NTBV2056', // Mã bình luận cho sản phẩm, sử dụng để quản lý đánh giá và bình luận
@@ -1437,8 +1437,8 @@ const products = [
     warranty: '10 năm', // Thời gian bảo hành của sản phẩm
     price: 'Liên Hệ', // Giá sản phẩm, có thể là số hoặc chuỗi như "Liên Hệ" nếu không hiển thị giá cố định
     material: 'Gỗ MDF phủ melamine vân gỗ sồi', // Chất liệu chính của sản phẩm
-    promotion: 'Ưu đãi đặc biệt tháng 5', // Thông tin khuyến mãi, hiển thị như badge trên sản phẩm
-    tag: 'Mới', // Nhãn đánh dấu sản phẩm (Mới, Bán chạy, Hot, v.v.)
+    promotion: '', // Thông tin khuyến mãi, hiển thị như badge trên sản phẩm
+    tag: 'BÁN CHẠY', // Nhãn đánh dấu sản phẩm (Mới, Bán chạy, Hot, v.v.)
     rating: 4.9, // Điểm đánh giá trung bình của sản phẩm, thang điểm từ 0-5
     views: 657, // Số lượt xem sản phẩm, dùng để thống kê và sắp xếp theo độ phổ biến
     soldCount: 75, // Số lượng đã bán, dùng để thống kê và hiển thị độ phổ biến
