@@ -1,45 +1,73 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">
   <url>
     <loc>https://noithatbangvu.shop/</loc>
     <lastmod>2024-10-25</lastmod>
     <changefreq>weekly</changefreq>
     <priority>1.0</priority>
+    <image:image>
+      <image:loc>https://images.unsplash.com/photo-1598928506311-c55ded91a20c?q=80&amp;w=2070&amp;auto=format&amp;fit=crop&amp;ixlib=rb-4.0.3&amp;ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D</image:loc>
+      <image:title>Nội Thất Bàng Vũ - Thiết kế và sản xuất nội thất cao cấp tại Hà Nội</image:title>
+    </image:image>
   </url>
   <url>
     <loc>https://noithatbangvu.shop/products.html</loc>
     <lastmod>2024-10-25</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
+    <image:image>
+      <image:loc>https://images.unsplash.com/photo-1586023492125-27b2c045efd7?q=80&amp;w=2158&amp;auto=format&amp;fit=crop&amp;ixlib=rb-4.0.3&amp;ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D</image:loc>
+      <image:title>Sản Phẩm Nội Thất Cao Cấp - Nội Thất Bàng Vũ</image:title>
+    </image:image>
   </url>
   <url>
     <loc>https://noithatbangvu.shop/quy-trinh-thiet-ke.html</loc>
     <lastmod>2024-10-25</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
+    <image:image>
+      <image:loc>https://images.unsplash.com/photo-1600607687920-4e2a09cf159d?q=80&amp;w=2070&amp;auto=format&amp;fit=crop&amp;ixlib=rb-4.0.3</image:loc>
+      <image:title>Quy Trình Thiết Kế Nội Thất Chuyên Nghiệp - Nội Thất Bàng Vũ</image:title>
+    </image:image>
   </url>
   <url>
     <loc>https://noithatbangvu.shop/quote-ai.html</loc>
     <lastmod>2024-10-25</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
+    <image:image>
+      <image:loc>https://images.unsplash.com/photo-1667855766927-9d0c8fa1965a?q=80&amp;w=1974&amp;auto=format&amp;fit=crop&amp;ixlib=rb-4.0.3&amp;ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D</image:loc>
+      <image:title>Báo Giá AI - Nội Thất Bàng Vũ</image:title>
+    </image:image>
   </url>
   <url>
     <loc>https://noithatbangvu.shop/blog.html</loc>
     <lastmod>2024-10-25</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
+    <image:image>
+      <image:loc>https://images.unsplash.com/photo-1616486338812-3dadae4b4ace?q=80&amp;w=1932&amp;auto=format&amp;fit=crop&amp;ixlib=rb-4.0.3&amp;ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D</image:loc>
+      <image:title>Blog Nội Thất - Chia sẻ kiến thức và xu hướng thiết kế - Nội Thất Bàng Vũ</image:title>
+    </image:image>
   </url>
   <url>
     <loc>https://noithatbangvu.shop/product-details.html</loc>
     <lastmod>2024-10-25</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
+    <image:image>
+      <image:loc>https://images.unsplash.com/photo-1586023492125-27b2c045efd7?q=80&amp;w=2158&amp;auto=format&amp;fit=crop&amp;ixlib=rb-4.0.3&amp;ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D</image:loc>
+      <image:title>Chi Tiết Sản Phẩm Nội Thất Cao Cấp - Nội Thất Bàng Vũ</image:title>
+    </image:image>
   </url>
   <url>
     <loc>https://noithatbangvu.shop/blog-detail.html</loc>
     <lastmod>2024-10-25</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
+    <image:image>
+      <image:loc>https://images.unsplash.com/photo-1616486338812-3dadae4b4ace?q=80&amp;w=1932&amp;auto=format&amp;fit=crop&amp;ixlib=rb-4.0.3&amp;ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D</image:loc>
+      <image:title>Chi Tiết Bài Viết Blog Nội Thất - Nội Thất Bàng Vũ</image:title>
+    </image:image>
   </url>
 </urlset>

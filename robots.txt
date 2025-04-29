@@ -1,4 +1,13 @@
+# robots.txt for Nội Thất Bàng Vũ
 User-agent: *
 Allow: /
+Allow: /css/
+Allow: /js/
+Disallow: /images/icon/
+Disallow: /fonts/
 
+# Allow product images for SEO
+Allow: /images/products/
+
+# Sitemap
 Sitemap: https://noithatbangvu.shop/sitemap.xml
