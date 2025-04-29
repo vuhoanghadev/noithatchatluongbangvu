@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kiểm tra Cloudinary</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        .test-container {
+            margin-bottom: 30px;
+            border: 1px solid #ddd;
+            padding: 20px;
+            border-radius: 5px;
+        }
+        .test-title {
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+        .image-container {
+            margin-top: 10px;
+        }
+        img {
+            max-width: 100%;
+            border: 1px solid #eee;
+        }
+        .status {
+            margin-top: 10px;
+            padding: 5px 10px;
+            border-radius: 3px;
+            display: inline-block;
+        }
+        .success {
+            background-color: #d4edda;
+            color: #155724;
+        }
+        .error {
+            background-color: #f8d7da;
+            color: #721c24;
+        }
+        .cors-info {
+            background-color: #f8f9fa;
+            padding: 15px;
+            border-radius: 5px;
+            margin-top: 30px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Kiểm tra Cloudinary</h1>
+    
+    <div class="test-container">
+        <div class="test-title">Test 1: Tải hình ảnh trực tiếp từ Cloudinary</div>
+        <div class="image-container">
+            <img id="direct-image" src="https://res.cloudinary.com/dpwsaqvl9/image/upload/v1745868300/TEST/ref8khrhh9swrazqibft.jpg" alt="Cloudinary Test Image" 
+                 onerror="document.getElementById('direct-status').textContent='Lỗi: Không thể tải hình ảnh'; document.getElementById('direct-status').className='status error';">
+        </div>
+        <div id="direct-status" class="status">Đang tải...</div>
+    </div>
+    
+    <div class="test-container">
+        <div class="test-title">Test 2: Tải hình ảnh với crossorigin="anonymous"</div>
+        <div class="image-container">
+            <img id="cors-image" src="https://res.cloudinary.com/dpwsaqvl9/image/upload/v1745868300/TEST/ref8khrhh9swrazqibft.jpg" alt="Cloudinary Test Image with CORS" 
+                 crossorigin="anonymous"
+                 onerror="document.getElementById('cors-status').textContent='Lỗi: Không thể tải hình ảnh với CORS'; document.getElementById('cors-status').className='status error';">
+        </div>
+        <div id="cors-status" class="status">Đang tải...</div>
+    </div>
+    
+    <div class="test-container">
+        <div class="test-title">Test 3: Tải hình ảnh với fetch API</div>
+        <div class="image-container" id="fetch-container">
+            <!-- Hình ảnh sẽ được thêm vào đây bằng JavaScript -->
+        </div>
+        <div id="fetch-status" class="status">Đang tải...</div>
+    </div>
+    
+    <div class="cors-info">
+        <h3>Thông tin về CORS</h3>
+        <p>Nếu Test 1 và Test 2 không hiển thị hình ảnh, có thể bạn đang gặp vấn đề với CORS (Cross-Origin Resource Sharing).</p>
+        <p>Để khắc phục:</p>
+        <ol>
+            <li>Đăng nhập vào tài khoản Cloudinary của bạn</li>
+            <li>Vào phần Settings > Security</li>
+            <li>Trong phần "Allowed origins", thêm tên miền của bạn (ví dụ: <code>https://your-domain.com</code>)</li>
+            <li>Lưu cấu hình</li>
+        </ol>
+    </div>
+    
+    <script>
+        // Kiểm tra khi hình ảnh tải thành công
+        document.getElementById('direct-image').onload = function() {
+            document.getElementById('direct-status').textContent = 'Thành công: Hình ảnh đã tải';
+            document.getElementById('direct-status').className = 'status success';
+        };
+        
+        document.getElementById('cors-image').onload = function() {
+            document.getElementById('cors-status').textContent = 'Thành công: Hình ảnh đã tải với CORS';
+            document.getElementById('cors-status').className = 'status success';
+        };
+        
+        // Test với Fetch API
+        const fetchStatus = document.getElementById('fetch-status');
+        const fetchContainer = document.getElementById('fetch-container');
+        
+        fetch('https://res.cloudinary.com/dpwsaqvl9/image/upload/v1745868300/TEST/ref8khrhh9swrazqibft.jpg')
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Network response was not ok');
+                }
+                return response.blob();
+            })
+            .then(blob => {
+                const img = document.createElement('img');
+                img.src = URL.createObjectURL(blob);
+                img.alt = 'Cloudinary Test Image with Fetch';
+                fetchContainer.appendChild(img);
+                
+                fetchStatus.textContent = 'Thành công: Hình ảnh đã tải với Fetch API';
+                fetchStatus.className = 'status success';
+            })
+            .catch(error => {
+                console.error('Error fetching image:', error);
+                fetchStatus.textContent = 'Lỗi: ' + error.message;
+                fetchStatus.className = 'status error';
+            });
+    </script>
+</body>
+</html>
