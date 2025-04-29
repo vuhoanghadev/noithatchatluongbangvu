@@ -1,7 +1,4 @@
 User-agent: *
 Allow: /
-Disallow: /css/
-Disallow: /js/
-Disallow: /images/
 
 Sitemap: https://noithatbangvu.shop/sitemap.xml
