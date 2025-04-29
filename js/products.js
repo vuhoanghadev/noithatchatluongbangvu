@@ -1463,7 +1463,7 @@ const products = [
       'images/products/product3.png', // Hình ảnh 3 - Chi tiết sản phẩm
       'images/products/product4.png', // Hình ảnh 4 - Chi tiết sản phẩm
       'images/products/product5.png', // Hình ảnh 5 - Chi tiết sản phẩm
-      'https://res.cloudinary.com/dpwsaqvl9/image/upload/v1745868300/TEST/ref8khrhh9swrazqibft.jpg',
+      'https://res.cloudinary.com/dpwsaqvl9/image/upload/v1745945301/noithatbangvu/0e246ba363f5b0abe9e429_nljvxo.jpg',
     ],
     // Thông tin chi tiết cho tab mô tả chi tiết - hiển thị dưới dạng bảng thông số kỹ thuật
     specifications: {
