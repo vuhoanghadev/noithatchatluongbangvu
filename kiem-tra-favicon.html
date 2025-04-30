@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="vi">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kiểm Tra Favicon - Nội Thất Bàng Vũ</title>
+    <!-- Favicons -->
+    <link rel="apple-touch-icon" sizes="180x180" href="./images/favicon/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="96x96" href="./images/favicon/favicon-96x96.png">
+    <link rel="icon" href="./images/favicon/favicon.ico" type="image/x-icon">
+    <link rel="shortcut icon" href="./images/favicon/favicon.ico" type="image/x-icon">
+    <link rel="icon" href="./images/favicon/favicon.svg" type="image/svg+xml">
+    <link rel="manifest" href="./images/favicon/site.webmanifest">
+    <style>
+        body {
+            font-family: 'Roboto', Arial, sans-serif;
+            line-height: 1.6;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            color: #333;
+        }
+
+        h1 {
+            color: #f37321;
+            border-bottom: 2px solid #f37321;
+            padding-bottom: 10px;
+        }
+
+        .container {
+            background-color: #f9f9f9;
+            border-left: 4px solid #f37321;
+            padding: 20px;
+            margin-bottom: 20px;
+        }
+
+        .note {
+            background-color: #fff8e6;
+            border-left: 4px solid #ffc107;
+            padding: 15px;
+            margin: 20px 0;
+        }
+
+        .favicon-display {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+            margin: 30px 0;
+        }
+
+        .favicon-item {
+            text-align: center;
+            padding: 15px;
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+
+        .favicon-item img {
+            display: block;
+            margin: 0 auto 10px;
+            border: 1px dashed #ddd;
+        }
+
+        .favicon-item p {
+            margin: 5px 0;
+            font-size: 14px;
+        }
+
+        .steps {
+            margin-top: 30px;
+        }
+
+        .step {
+            margin-bottom: 15px;
+            padding-left: 20px;
+            position: relative;
+        }
+
+        .step:before {
+            content: "✓";
+            position: absolute;
+            left: 0;
+            color: #f37321;
+        }
+    </style>
+</head>
+
+<body>
+    <h1>Kiểm Tra Favicon - Nội Thất Bàng Vũ</h1>
+
+    <div class="container">
+        <p>Trang này được tạo ra để kiểm tra xem favicon đã được cài đặt đúng cách chưa. Nếu bạn thấy biểu tượng favicon
+            trong tab trình duyệt, điều đó có nghĩa là favicon đã được cài đặt thành công.</p>
+
+        <div class="note">
+            <strong>Lưu ý:</strong> Favicon có thể mất một thời gian để hiển thị trên kết quả tìm kiếm Google, ngay cả
+            khi nó đã hiển thị đúng trên trình duyệt của bạn.
+        </div>
+
+        <div class="favicon-display">
+            <div class="favicon-item">
+                <img src="./images/favicon/favicon.ico" alt="Favicon ICO" width="48" height="48">
+                <p><strong>favicon.ico</strong></p>
+                <p>Định dạng truyền thống</p>
+            </div>
+
+            <div class="favicon-item">
+                <img src="./images/favicon/favicon-96x96.png" alt="Favicon 96x96" width="96" height="96">
+                <p><strong>favicon-96x96.png</strong></p>
+                <p>Cho màn hình độ phân giải cao</p>
+            </div>
+
+            <div class="favicon-item">
+                <img src="./images/favicon/apple-touch-icon.png" alt="Apple Touch Icon" width="180" height="180">
+                <p><strong>apple-touch-icon.png</strong></p>
+                <p>Cho thiết bị iOS</p>
+            </div>
+
+            <div class="favicon-item">
+                <img src="./images/favicon/favicon.svg" alt="SVG Icon" width="48" height="48">
+                <p><strong>favicon.svg</strong></p>
+                <p>Định dạng vector</p>
+            </div>
+
+            <div class="favicon-item">
+                <img src="./images/favicon/web-app-manifest-192x192.png" alt="Web App Manifest Icon" width="96"
+                    height="96">
+                <p><strong>web-app-manifest-192x192.png</strong></p>
+                <p>Cho ứng dụng web</p>
+            </div>
+        </div>
+
+        <div class="steps">
+            <h3>Các bước đã thực hiện:</h3>
+            <div class="step">Tạo các file favicon từ logo.svg</div>
+            <div class="step">Thêm các thẻ favicon vào trang web</div>
+            <div class="step">Cập nhật robots.txt để cho phép Google truy cập vào favicon</div>
+            <div class="step">Kiểm tra hiển thị favicon trên trình duyệt</div>
+        </div>
+
+        <div class="note">
+            <p><strong>Bước tiếp theo:</strong> Sau khi đã cài đặt favicon đúng cách, bạn nên yêu cầu Google lập chỉ mục
+                lại trang web của bạn thông qua Google Search Console để đảm bảo favicon được cập nhật trong kết quả tìm
+                kiếm.</p>
+        </div>
+    </div>
+
+    <p><a href="index.html">Quay lại trang chủ</a></p>
+</body>
+
+</html>

@@ -6,8 +6,10 @@ Allow: /js/
 Disallow: /images/icon/
 Disallow: /fonts/
 
-# Allow product images for SEO
+# Allow product images and favicon for SEO
 Allow: /images/products/
+Allow: /images/favicon/
+Allow: /images/logo.svg
 
 # Sitemap
 Sitemap: https://noithatbangvu.shop/sitemap.xml

@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hướng dẫn tạo Favicon cho Nội Thất Bàng Vũ</title>
+    <style>
+        body {
+            font-family: 'Roboto', Arial, sans-serif;
+            line-height: 1.6;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            color: #333;
+        }
+        h1 {
+            color: #f37321;
+            border-bottom: 2px solid #f37321;
+            padding-bottom: 10px;
+        }
+        h2 {
+            color: #f37321;
+            margin-top: 30px;
+        }
+        .step {
+            background-color: #f9f9f9;
+            border-left: 4px solid #f37321;
+            padding: 15px;
+            margin-bottom: 20px;
+        }
+        code {
+            background-color: #f5f5f5;
+            padding: 2px 5px;
+            border-radius: 3px;
+            font-family: monospace;
+        }
+        .note {
+            background-color: #fff8e6;
+            border-left: 4px solid #ffc107;
+            padding: 15px;
+            margin: 20px 0;
+        }
+        img {
+            max-width: 100%;
+            height: auto;
+            display: block;
+            margin: 20px 0;
+            border: 1px solid #ddd;
+        }
+    </style>
+</head>
+<body>
+    <h1>Hướng dẫn tạo Favicon cho Nội Thất Bàng Vũ</h1>
+    
+    <div class="note">
+        <strong>Vấn đề:</strong> Favicon SVG không hiển thị trên kết quả tìm kiếm Google. Chúng ta cần tạo favicon.ico và các định dạng khác để đảm bảo hiển thị đúng trên mọi nền tảng.
+    </div>
+    
+    <h2>Bước 1: Tạo favicon từ file logo.svg</h2>
+    
+    <div class="step">
+        <p>Truy cập một trong các trang web sau để chuyển đổi file SVG thành favicon:</p>
+        <ul>
+            <li><a href="https://realfavicongenerator.net/" target="_blank">Real Favicon Generator</a> (Khuyến nghị)</li>
+            <li><a href="https://favicon.io/favicon-converter/" target="_blank">Favicon.io</a></li>
+            <li><a href="https://cloudconvert.com/svg-to-ico" target="_blank">CloudConvert</a></li>
+        </ul>
+        <p>Tải lên file <code>images/logo.svg</code> và tạo các file favicon sau:</p>
+        <ul>
+            <li>favicon.ico (kích thước 16x16, 32x32, 48x48)</li>
+            <li>apple-touch-icon.png (kích thước 180x180)</li>
+            <li>favicon-32x32.png</li>
+            <li>favicon-16x16.png</li>
+        </ul>
+    </div>
+    
+    <h2>Bước 2: Lưu các file favicon</h2>
+    
+    <div class="step">
+        <p>Tải xuống các file favicon đã tạo và lưu vào thư mục <code>images/favicon/</code> của website.</p>
+    </div>
+    
+    <h2>Bước 3: Cập nhật mã HTML</h2>
+    
+    <div class="step">
+        <p>Sau khi đã tạo và lưu các file favicon, hãy thêm đoạn mã sau vào phần <code>&lt;head&gt;</code> của tất cả các trang HTML (thay thế hoặc bổ sung vào thẻ favicon hiện tại):</p>
+        <pre><code>&lt;link rel="apple-touch-icon" sizes="180x180" href="/images/favicon/apple-touch-icon.png"&gt;
+&lt;link rel="icon" type="image/png" sizes="32x32" href="/images/favicon/favicon-32x32.png"&gt;
+&lt;link rel="icon" type="image/png" sizes="16x16" href="/images/favicon/favicon-16x16.png"&gt;
+&lt;link rel="icon" href="/images/favicon/favicon.ico" type="image/x-icon"&gt;
+&lt;link rel="shortcut icon" href="/images/favicon/favicon.ico" type="image/x-icon"&gt;</code></pre>
+    </div>
+    
+    <h2>Bước 4: Cập nhật robots.txt</h2>
+    
+    <div class="step">
+        <p>Đảm bảo rằng Google có thể truy cập vào thư mục favicon bằng cách kiểm tra file robots.txt. Thêm dòng sau nếu cần:</p>
+        <pre><code>Allow: /images/favicon/</code></pre>
+    </div>
+    
+    <div class="note">
+        <p><strong>Lưu ý:</strong> Sau khi thực hiện các thay đổi, có thể mất vài ngày đến vài tuần để Google cập nhật favicon trong kết quả tìm kiếm. Bạn có thể yêu cầu Google lập chỉ mục lại trang chủ của bạn bằng cách sử dụng Google Search Console.</p>
+    </div>
+</body>
+</html>

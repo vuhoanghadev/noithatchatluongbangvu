@@ -1,0 +1,108 @@
+HƯỚNG DẪN TẠO VÀ CÀI ĐẶT FAVICON CHO WEBSITE NỘI THẤT BÀNG VŨ
+=================================================================
+
+Vấn đề: Favicon SVG không hiển thị trên kết quả tìm kiếm Google.
+
+Giải pháp: Tạo và cài đặt favicon theo định dạng ICO và PNG để đảm bảo hiển thị đúng trên mọi nền tảng, đặc biệt là trên kết quả tìm kiếm Google.
+
+BƯỚC 1: TẠO CÁC FILE FAVICON
+----------------------------
+
+1. Truy cập trang web Real Favicon Generator: https://realfavicongenerator.net/
+
+2. Tải lên file logo.svg của bạn
+
+3. Tùy chỉnh các thiết lập cho favicon:
+   - Đảm bảo favicon có nền màu cam (#f37321) giống với logo hiện tại
+   - Chọn kích thước phù hợp cho từng loại thiết bị
+   - Đối với favicon.ico, chọn các kích thước 16x16, 32x32 và 48x48
+
+4. Tạo favicon và tải xuống gói favicon đầy đủ
+
+5. Giải nén gói favicon và lấy các file sau:
+   - favicon.ico
+   - favicon-96x96.png
+   - favicon.svg
+   - apple-touch-icon.png
+   - web-app-manifest-192x192.png
+   - web-app-manifest-512x512.png
+   - site.webmanifest
+
+BƯỚC 2: TẠO THƯ MỤC VÀ LƯU CÁC FILE FAVICON
+-------------------------------------------
+
+1. Tạo thư mục mới trong website: /images/favicon/
+
+2. Lưu các file favicon vào thư mục này:
+   - /images/favicon/favicon.ico
+   - /images/favicon/favicon-96x96.png
+   - /images/favicon/favicon.svg
+   - /images/favicon/apple-touch-icon.png
+   - /images/favicon/web-app-manifest-192x192.png
+   - /images/favicon/web-app-manifest-512x512.png
+   - /images/favicon/site.webmanifest
+
+BƯỚC 3: CẬP NHẬT MÃ HTML
+-----------------------
+
+Thêm đoạn mã sau vào phần <head> của tất cả các trang HTML (thay thế hoặc bổ sung vào thẻ favicon hiện tại):
+
+```html
+<!-- Favicons -->
+<link rel="apple-touch-icon" sizes="180x180" href="./images/favicon/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="96x96" href="./images/favicon/favicon-96x96.png">
+<link rel="icon" href="./images/favicon/favicon.ico" type="image/x-icon">
+<link rel="shortcut icon" href="./images/favicon/favicon.ico" type="image/x-icon">
+<link rel="icon" href="./images/favicon/favicon.svg" type="image/svg+xml">
+<link rel="manifest" href="./images/favicon/site.webmanifest">
+```
+
+Các file HTML cần cập nhật:
+- index.html
+- products.html
+- product-details.html
+- blog.html
+- blog-detail.html
+- quy-trinh-thiet-ke.html
+- quote-ai.html
+- Và các trang khác...
+
+BƯỚC 4: CẬP NHẬT ROBOTS.TXT
+--------------------------
+
+Đảm bảo Google có thể truy cập vào thư mục favicon bằng cách thêm dòng sau vào file robots.txt:
+
+```
+Allow: /images/favicon/
+Allow: /images/logo.svg
+```
+
+BƯỚC 5: KIỂM TRA FAVICON
+-----------------------
+
+1. Mở trang web của bạn trong trình duyệt và kiểm tra xem favicon có hiển thị đúng không
+2. Kiểm tra trên các trình duyệt khác nhau (Chrome, Firefox, Safari, Edge)
+3. Kiểm tra trên thiết bị di động
+
+BƯỚC 6: YÊU CẦU GOOGLE LẬP CHỈ MỤC LẠI
+-------------------------------------
+
+1. Truy cập Google Search Console: https://search.google.com/search-console
+2. Chọn trang web của bạn
+3. Sử dụng công cụ "URL Inspection" để kiểm tra trang chủ
+4. Yêu cầu Google lập chỉ mục lại trang chủ
+
+LƯU Ý QUAN TRỌNG
+---------------
+
+- Favicon có thể mất vài ngày đến vài tuần để hiển thị trong kết quả tìm kiếm Google
+- Đảm bảo favicon có kích thước ít nhất 48x48px theo khuyến nghị của Google
+- Favicon phải đại diện cho thương hiệu của bạn và dễ nhận biết
+- Nếu favicon vẫn không hiển thị sau vài tuần, hãy kiểm tra lại các thiết lập và đảm bảo Google có thể truy cập vào các file favicon
+
+KIỂM TRA FAVICON
+---------------
+
+Bạn có thể sử dụng trang kiem-tra-favicon.html để kiểm tra xem favicon đã được cài đặt đúng cách chưa.
+
+Chúc bạn thành công!
