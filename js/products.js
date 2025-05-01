@@ -2492,7 +2492,7 @@ const products = [
     rating: 4.7, // Điểm đánh giá trung bình của sản phẩm, thang điểm từ 0-5
     views: 645, // Số lượt xem sản phẩm, dùng để thống kê và sắp xếp theo độ phổ biến
     soldCount: 81, // Số lượng đã bán, dùng để thống kê và hiển thị độ phổ biến
-    promoEndDate: '2025-04-31T00:00:00', // Ngày kết thúc khuyến mãi theo định dạng ISO, dùng để tính thời gian còn lại
+    promoEndDate: '2025-05-03T00:00:00', // Ngày kết thúc khuyến mãi theo định dạng ISO, dùng để tính thời gian còn lại
     sku: 'NTBV-QA560', // Mã SKU (Stock Keeping Unit) để quản lý kho hàng và tham chiếu sản phẩm
 
     // Thông tin flash sale - chương trình giảm giá nhanh có thời hạn
@@ -3064,7 +3064,7 @@ const products = [
     rating: 4.7, // Điểm đánh giá trung bình của sản phẩm, thang điểm từ 0-5
     views: 567, // Số lượt xem sản phẩm, dùng để thống kê và sắp xếp theo độ phổ biến
     soldCount: 61, // Số lượng đã bán, dùng để thống kê và hiển thị độ phổ biến
-    promoEndDate: '2025-04-31T00:00:00', // Ngày kết thúc khuyến mãi theo định dạng ISO, dùng để tính thời gian còn lại
+    promoEndDate: '2025-05-03T00:00:00', // Ngày kết thúc khuyến mãi theo định dạng ISO, dùng để tính thời gian còn lại
     sku: 'NTBV-QA560', // Mã SKU (Stock Keeping Unit) để quản lý kho hàng và tham chiếu sản phẩm
 
     // Thông tin flash sale - chương trình giảm giá nhanh có thời hạn
@@ -3448,7 +3448,7 @@ const products = [
     rating: 4.7, // Điểm đánh giá trung bình của sản phẩm, thang điểm từ 0-5
     views: 498, // Số lượt xem sản phẩm, dùng để thống kê và sắp xếp theo độ phổ biến
     soldCount: 43, // Số lượng đã bán, dùng để thống kê và hiển thị độ phổ biến
-    promoEndDate: '2025-04-31T00:00:00', // Ngày kết thúc khuyến mãi theo định dạng ISO, dùng để tính thời gian còn lại
+    promoEndDate: '2025-05-03T00:00:00', // Ngày kết thúc khuyến mãi theo định dạng ISO, dùng để tính thời gian còn lại
     sku: 'NTBV-QA560', // Mã SKU (Stock Keeping Unit) để quản lý kho hàng và tham chiếu sản phẩm
 
     // Thông tin flash sale - chương trình giảm giá nhanh có thời hạn
