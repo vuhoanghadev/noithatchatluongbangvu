@@ -90,13 +90,33 @@ document.addEventListener('DOMContentLoaded', function () {
       }
     }
 
-    menuToggle.addEventListener('click', function () {
+    // Thêm sự kiện touchstart để phản hồi nhanh hơn trên thiết bị cảm ứng
+    menuToggle.addEventListener(
+      'touchstart',
+      function (e) {
+        // Ngăn chặn hành vi mặc định để tránh xung đột với sự kiện click
+        e.preventDefault();
+        console.log('Menu toggle touchstart event fired');
+        toggleMenu();
+      },
+      { passive: false }
+    );
+
+    // Giữ lại sự kiện click cho các thiết bị không hỗ trợ touch
+    menuToggle.addEventListener('click', function (e) {
+      console.log('Menu toggle click event fired');
+      toggleMenu();
+    });
+
+    // Hàm xử lý chung cho việc toggle menu
+    function toggleMenu() {
       // Kiểm tra xem menu đã active chưa để tránh click nhiều lần
       if (mobileMenu.classList.contains('active')) {
         closeMenu();
         return;
       }
 
+      console.log('Opening mobile menu');
       mobileMenu.classList.add('active');
       menuToggle.classList.add('active'); // Add active class to menu toggle
       document.body.style.overflow = 'hidden'; // Prevent scrolling when menu is open
@@ -162,7 +182,7 @@ document.addEventListener('DOMContentLoaded', function () {
           contactBtn.classList.add('visible');
         }, 500);
       }
-    });
+    }
 
     // Hàm closeMenu đã được định nghĩa ở trên
 
