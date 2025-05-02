@@ -1,8 +1,13 @@
-// Menu mobile toggle - Đã được xử lý trong header.js
-// Không thêm event listener ở đây để tránh xung đột
+// Menu mobile toggle
 document.addEventListener('DOMContentLoaded', () => {
-  // Đã chuyển xử lý menu toggle sang header.js
-  console.log('main.js loaded - menu toggle handled in header.js');
+  const menuToggle = document.querySelector('.menu-toggle');
+  const menu = document.querySelector('.menu');
+
+  if (menuToggle && menu) {
+    menuToggle.addEventListener('click', () => {
+      menu.classList.toggle('active');
+    });
+  }
 });
 
 // Fade-in animation cho các section

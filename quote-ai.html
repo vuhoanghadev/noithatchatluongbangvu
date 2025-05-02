@@ -1871,38 +1871,33 @@
     <script>
         // Fix for mobile menu contact button on quote-ai.html
         document.addEventListener('DOMContentLoaded', function () {
+            const menuToggle = document.querySelector('.menu-toggle');
             const mobileMenu = document.querySelector('.mobile-menu');
+            const mobileMenuClose = document.querySelector('.mobile-menu-close');
             const contactBtn = document.querySelector('.mobile-contact-btn');
 
-            // Thêm một observer để theo dõi trạng thái của mobile menu
-            if (mobileMenu && contactBtn) {
-                // Sử dụng MutationObserver để theo dõi thay đổi class của mobile menu
-                const observer = new MutationObserver(function (mutations) {
-                    mutations.forEach(function (mutation) {
-                        if (mutation.attributeName === 'class') {
-                            // Kiểm tra xem mobile menu có class 'active' không
-                            if (mobileMenu.classList.contains('active')) {
-                                console.log('Mobile menu opened - ensuring contact button is visible');
-                                // Reset any inline styles that might be causing conflicts
-                                contactBtn.style.cssText = '';
-                                // Force a reflow to ensure CSS transitions work properly
-                                void contactBtn.offsetWidth;
-                                // Let CSS handle the transition
-                                setTimeout(() => {
-                                    contactBtn.classList.add('visible');
-                                }, 100);
-                            } else {
-                                console.log('Mobile menu closed - hiding contact button');
-                                contactBtn.classList.remove('visible');
-                            }
-                        }
-                    });
+            if (menuToggle && mobileMenu && contactBtn) {
+                // Override the click event for menu toggle
+                menuToggle.addEventListener('click', function () {
+                    // Reset any inline styles that might be causing conflicts
+                    contactBtn.style.cssText = '';
+
+                    // Force a reflow to ensure CSS transitions work properly
+                    void contactBtn.offsetWidth;
+
+                    // Let CSS handle the transition
+                    setTimeout(() => {
+                        contactBtn.classList.add('visible');
+                    }, 500);
                 });
 
-                // Cấu hình observer để theo dõi thay đổi thuộc tính class
-                observer.observe(mobileMenu, { attributes: true });
-
-                console.log('Mobile menu observer initialized for contact button visibility');
+                // Override the close menu function
+                if (mobileMenuClose) {
+                    mobileMenuClose.addEventListener('click', function () {
+                        // Remove visible class from contact button first
+                        contactBtn.classList.remove('visible');
+                    });
+                }
             }
         });
     </script>
