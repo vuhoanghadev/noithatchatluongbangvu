@@ -468,6 +468,31 @@ footer .container {
     opacity: 1;
 }
 
+/* Footer legal links */
+.footer-legal-links {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+.footer-legal-links a {
+    color: var(--footer-primary);
+    text-decoration: none;
+    font-size: 0.9rem;
+    transition: var(--footer-transition);
+    padding: 5px;
+}
+
+.footer-legal-links a:hover {
+    color: var(--footer-white);
+    text-decoration: underline;
+}
+
+.footer-link-separator {
+    color: var(--footer-text-light);
+    font-size: 0.9rem;
+}
+
 /* Responsive styles */
 @media (max-width: 1200px) {
     .footer-content {
@@ -557,6 +582,10 @@ footer .container {
     }
 
     .footer-payment-methods {
+        justify-content: center;
+    }
+
+    .footer-legal-links {
         justify-content: center;
     }
 }

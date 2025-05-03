@@ -185,7 +185,7 @@ function createLegalModals() {
             </div>
 
             <div class="legal-modal-footer">
-                 <p>© 2025 Nội Thất Chất Lượng Bàng Vũ. Cập nhật lần cuối: 15/04/2025</p>
+                 <p>© 2025 Nội Thất Chất Lượng Bàng Vũ. Cập nhật lần cuối: 15/06/2024</p>
             </div>
         </div>
     `;
@@ -307,7 +307,7 @@ function createLegalModals() {
             </div>
 
             <div class="legal-modal-footer">
-                <p>© 2025 Nội Thất Chất Lượng Bàng Vũ. Cập nhật lần cuối: 15/04/2025</p>
+                <p>© 2025 Nội Thất Chất Lượng Bàng Vũ. Cập nhật lần cuối: 15/06/2024</p>
             </div>
         </div>
     `;

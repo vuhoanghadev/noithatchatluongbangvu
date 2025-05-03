@@ -34,7 +34,8 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    z-index: 9999;
+    z-index: 999999;
+    /* Increased z-index to ensure it's above all other elements */
     opacity: 0;
     visibility: hidden;
     transition: opacity 0.4s cubic-bezier(0.19, 1, 0.22, 1), visibility 0.4s cubic-bezier(0.19, 1, 0.22, 1);
@@ -60,6 +61,8 @@
     transition: transform 0.5s cubic-bezier(0.19, 1, 0.22, 1);
     display: flex;
     flex-direction: column;
+    margin: auto;
+    /* Center the modal */
 }
 
 .legal-modal-overlay.active .legal-modal {
@@ -123,7 +126,10 @@
 .legal-modal-body {
     padding: 30px;
     overflow-y: auto;
+    /* Enable vertical scrolling */
     flex: 1;
+    max-height: calc(85vh - 150px);
+    /* Ensure there's room for scrolling, accounting for header and footer */
 }
 
 .legal-modal-body-content {
@@ -320,15 +326,26 @@
         border-radius: 0;
         max-height: 100vh;
         height: 100vh;
+        margin: 0;
+        /* Remove margin on mobile */
     }
 
     .legal-modal-overlay.active .legal-modal {
         transform: translateY(0) scale(1);
     }
 
+    .legal-modal-overlay {
+        align-items: flex-start;
+        /* Align to top on mobile */
+    }
+
     .legal-modal-header {
         padding: 15px;
         border-radius: 0;
+        position: sticky;
+        /* Keep header visible when scrolling */
+        top: 0;
+        z-index: 10;
     }
 
     .legal-modal-title {
@@ -337,6 +354,10 @@
 
     .legal-modal-body {
         padding: 15px;
+        max-height: calc(100vh - 110px);
+        /* Adjust for mobile */
+        -webkit-overflow-scrolling: touch;
+        /* Smooth scrolling on iOS */
     }
 
     .legal-modal-body h3 {
@@ -353,6 +374,11 @@
     .legal-modal-footer {
         padding: 12px 15px;
         font-size: 0.75rem;
+        position: sticky;
+        /* Keep footer visible */
+        bottom: 0;
+        background-color: #f8f9fa;
+        z-index: 10;
     }
 
     .legal-modal-decoration {

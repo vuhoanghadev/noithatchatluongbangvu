@@ -56,21 +56,9 @@ document.addEventListener('DOMContentLoaded', function () {
       // Hiện lại thanh điều hướng dưới cùng khi đóng menu
       const bottomNav = document.querySelector('.bottom-nav');
       if (bottomNav) {
-        // Kiểm tra vị trí cuộn để quyết định có hiển thị thanh điều hướng hay không
-        const scrollTop =
-          window.pageYOffset || document.documentElement.scrollTop;
-
-        // Chỉ hiển thị thanh điều hướng nếu đang ở gần đầu trang hoặc đang cuộn lên
-        if (scrollTop < 200) {
-          bottomNav.style.transform = 'translateY(0)';
-        } else {
-          // Kiểm tra hướng cuộn cuối cùng từ bottom-nav.js
-          const lastScrollDirection =
-            bottomNav.getAttribute('data-scroll-direction') || 'up';
-          if (lastScrollDirection === 'up') {
-            bottomNav.style.transform = 'translateY(0)';
-          }
-        }
+        // Luôn hiển thị thanh điều hướng khi đóng menu
+        bottomNav.style.transition = 'transform 0.3s ease';
+        bottomNav.style.transform = 'translateY(0)';
       }
 
       // Reset animation if menu bars exist

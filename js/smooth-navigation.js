@@ -193,7 +193,7 @@ function startPageTransition(url) {
 
   if (bottomNav) {
     bottomNav.style.transition = 'transform 0.4s ease';
-    bottomNav.style.transform = 'translateY(60px)';
+    bottomNav.style.transform = 'translateY(60px)'; // Slide down animation
   }
 
   // Add transition overlay with slight delay

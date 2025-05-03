@@ -242,33 +242,13 @@ document.addEventListener('DOMContentLoaded', function () {
     }
   }
 
-  // Add scroll behavior to hide/show bottom navigation
-  let lastScrollTop = 0;
+  // Initialize bottom navigation
   const bottomNav = document.querySelector('.bottom-nav');
 
-  window.addEventListener('scroll', function () {
-    let scrollTop = window.pageYOffset || document.documentElement.scrollTop;
-
-    // Don't hide navigation when near the top of the page
-    if (scrollTop < 200) {
-      bottomNav.style.transform = 'translateY(0)';
-      return;
-    }
-
-    if (scrollTop > lastScrollTop) {
-      // Scrolling down - hide navigation
-      bottomNav.style.transform = 'translateY(100%)';
-      // Lưu hướng cuộn cuối cùng
-      bottomNav.setAttribute('data-scroll-direction', 'down');
-    } else {
-      // Scrolling up - show navigation
-      bottomNav.style.transform = 'translateY(0)';
-      // Lưu hướng cuộn cuối cùng
-      bottomNav.setAttribute('data-scroll-direction', 'up');
-    }
-
-    lastScrollTop = scrollTop;
-  });
+  // Always show the bottom navigation by default
+  if (bottomNav) {
+    bottomNav.style.transform = 'translateY(0)';
+  }
 
   // Handle wishlist functionality
   function handleWishlist() {
