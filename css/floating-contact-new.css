@@ -329,8 +329,8 @@
 /* Mobile styles */
 @media (max-width: 768px) {
     .fc-container {
-        bottom: 80px;
-        /* Increased to avoid overlap with bottom nav */
+        bottom: 100px;
+        /* Increased by 20px to avoid overlap with bottom nav */
         right: 15px;
         gap: 12px;
     }
@@ -458,8 +458,8 @@
 /* Small mobile devices */
 @media (max-width: 576px) {
     .fc-container {
-        bottom: 75px;
-        /* Increased to avoid overlap with bottom nav */
+        bottom: 95px;
+        /* Increased by 20px to avoid overlap with bottom nav */
         right: 10px;
         gap: 10px;
     }

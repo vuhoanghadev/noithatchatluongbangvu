@@ -15,25 +15,25 @@
 /* Mobile styles */
 @media (max-width: 768px) {
     .fc-container {
-        bottom: 80px;
-        /* Adjusted to avoid overlap with bottom nav */
+        bottom: 100px;
+        /* Increased by 20px to avoid overlap with bottom nav */
     }
 
     .back-to-top {
-        bottom: 80px;
-        /* Adjusted to avoid overlap with bottom nav */
+        bottom: 100px;
+        /* Increased by 20px to avoid overlap with bottom nav */
     }
 }
 
 /* Small mobile devices */
 @media (max-width: 576px) {
     .fc-container {
-        bottom: 75px;
-        /* Adjusted to avoid overlap with bottom nav */
+        bottom: 95px;
+        /* Increased by 20px to avoid overlap with bottom nav */
     }
 
     .back-to-top {
-        bottom: 75px;
-        /* Adjusted to avoid overlap with bottom nav */
+        bottom: 95px;
+        /* Increased by 20px to avoid overlap with bottom nav */
     }
 }

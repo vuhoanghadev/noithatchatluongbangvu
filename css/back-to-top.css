@@ -112,8 +112,8 @@
 /* Responsive Styles */
 @media (max-width: 768px) {
     .back-to-top {
-        bottom: 80px;
-        /* Increased to avoid overlap with bottom nav */
+        bottom: 100px;
+        /* Increased by 20px to avoid overlap with bottom nav */
         left: 15px;
         width: 45px;
         height: 45px;
@@ -123,8 +123,8 @@
 
 @media (max-width: 576px) {
     .back-to-top {
-        bottom: 75px;
-        /* Increased to avoid overlap with bottom nav */
+        bottom: 95px;
+        /* Increased by 20px to avoid overlap with bottom nav */
         left: 10px;
         width: 40px;
         height: 40px;
