@@ -1,24 +1,44 @@
 // JavaScript for Privacy Policy and Terms of Service Modals
 document.addEventListener('DOMContentLoaded', function () {
-  // Create modal elements
-  createLegalModals();
+  // Ensure modals are removed if they already exist (to prevent duplicates)
+  const existingPrivacyModal = document.getElementById('privacy-policy-modal');
+  const existingTermsModal = document.getElementById('terms-of-service-modal');
 
-  // Add event listeners
+  if (existingPrivacyModal) {
+    existingPrivacyModal.remove();
+  }
+
+  if (existingTermsModal) {
+    existingTermsModal.remove();
+  }
+
+  // Create modal elements with a slight delay to ensure DOM is fully loaded
+  setTimeout(function () {
+    createLegalModals();
+
+    // Add event listeners after modals are created
+    setupEventListeners();
+  }, 100);
+});
+
+// Setup all event listeners
+function setupEventListeners() {
+  // Add event listeners for modal links
   const privacyLink = document.getElementById('privacy-policy-link');
   const termsLink = document.getElementById('terms-of-service-link');
 
   if (privacyLink) {
-    privacyLink.addEventListener('click', function (e) {
-      e.preventDefault();
-      openModal('privacy-policy-modal');
-    });
+    // Remove any existing event listeners
+    privacyLink.removeEventListener('click', handlePrivacyClick);
+    // Add new event listener
+    privacyLink.addEventListener('click', handlePrivacyClick);
   }
 
   if (termsLink) {
-    termsLink.addEventListener('click', function (e) {
-      e.preventDefault();
-      openModal('terms-of-service-modal');
-    });
+    // Remove any existing event listeners
+    termsLink.removeEventListener('click', handleTermsClick);
+    // Add new event listener
+    termsLink.addEventListener('click', handleTermsClick);
   }
 
   // Close modal when clicking/touching outside
@@ -78,7 +98,20 @@ document.addEventListener('DOMContentLoaded', function () {
       }
     }, 300);
   });
-});
+}
+
+// Handler functions for click events
+function handlePrivacyClick(e) {
+  e.preventDefault();
+  console.log('Privacy policy link clicked');
+  openModal('privacy-policy-modal');
+}
+
+function handleTermsClick(e) {
+  e.preventDefault();
+  console.log('Terms of service link clicked');
+  openModal('terms-of-service-modal');
+}
 
 // Function to create modal elements
 function createLegalModals() {
@@ -322,15 +355,38 @@ function createLegalModals() {
 
 // Function to open modal
 function openModal(modalId) {
+  console.log('Opening modal:', modalId);
   const modal = document.getElementById(modalId);
   if (modal) {
+    // Force repaint before adding active class
+    void modal.offsetWidth;
+
+    // Add active class
     modal.classList.add('active');
     document.body.style.overflow = 'hidden'; // Prevent scrolling
+
+    // Log success
+    console.log('Modal opened successfully:', modalId);
+
+    // Make sure modal is visible and on top
+    modal.style.display = 'flex';
+    modal.style.zIndex = '999999';
+
+    // Force browser to recognize the modal
+    setTimeout(function () {
+      if (!modal.classList.contains('active')) {
+        console.log('Modal not active after timeout, forcing active state');
+        modal.classList.add('active');
+      }
+    }, 50);
+  } else {
+    console.error('Modal not found:', modalId);
   }
 }
 
 // Function to close all modals
 function closeAllModals() {
+  console.log('Closing all modals');
   const modals = document.querySelectorAll('.legal-modal-overlay');
   modals.forEach((modal) => {
     modal.classList.remove('active');
