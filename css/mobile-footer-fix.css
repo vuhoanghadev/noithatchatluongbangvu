@@ -2,19 +2,27 @@
 
 /* Only apply on mobile devices */
 @media (max-width: 768px) {
+
     /* Add padding to the footer bottom to prevent overlap with bottom navigation */
     .footer-bottom {
-        padding-bottom: 80px !important; /* 60px (nav height) + 20px (extra space) */
+        padding-bottom: 80px !important;
+        /* 60px (nav height) + 20px (extra space) */
     }
-    
+
     /* Ensure the footer legal links are visible */
     .footer-legal-links {
         margin-bottom: 10px;
+    }
+
+    /* Add padding to the bottom of the page to ensure content isn't hidden behind the navigation */
+    body {
+        padding-bottom: 60px;
     }
 }
 
 /* Adjust for smaller screens */
 @media (max-width: 576px) {
+
     /* Increase padding slightly for better appearance on very small screens */
     .footer-bottom {
         padding-bottom: 85px !important;
