@@ -2487,12 +2487,12 @@ const products = [
     warranty: '5 năm', // Thời gian bảo hành của sản phẩm
     price: 'Liên Hệ', // Giá sản phẩm, có thể là số hoặc chuỗi như "Liên Hệ" nếu không hiển thị giá cố định
     material: 'Nhựa Chinhue 2.0 Plus', // Chất liệu chính của sản phẩm
-    promotion: 'ưu đãi giảm 30%', // Thông tin khuyến mãi, hiển thị như badge trên sản phẩm
+    promotion: 'Ưu Đãi Giảm 20%', // Thông tin khuyến mãi, hiển thị như badge trên sản phẩm
     tag: 'HOT', // Nhãn đánh dấu sản phẩm (Mới, Bán chạy, Hot, v.v.)
     rating: 4.7, // Điểm đánh giá trung bình của sản phẩm, thang điểm từ 0-5
     views: 645, // Số lượt xem sản phẩm, dùng để thống kê và sắp xếp theo độ phổ biến
     soldCount: 81, // Số lượng đã bán, dùng để thống kê và hiển thị độ phổ biến
-    promoEndDate: '2025-05-03T00:00:00', // Ngày kết thúc khuyến mãi theo định dạng ISO, dùng để tính thời gian còn lại
+    promoEndDate: '2025-05-06T00:00:00', // Ngày kết thúc khuyến mãi theo định dạng ISO, dùng để tính thời gian còn lại
     sku: 'NTBV-QA560', // Mã SKU (Stock Keeping Unit) để quản lý kho hàng và tham chiếu sản phẩm
 
     // Thông tin flash sale - chương trình giảm giá nhanh có thời hạn
@@ -3059,12 +3059,12 @@ const products = [
     warranty: '7 năm', // Thời gian bảo hành của sản phẩm
     price: 'Liên Hệ', // Giá sản phẩm, có thể là số hoặc chuỗi như "Liên Hệ" nếu không hiển thị giá cố định
     material: 'Gỗ công nghiệp MDF cao cấp', // Chất liệu chính của sản phẩm
-    promotion: 'ưu đãi đặc biệt tháng 4', // Thông tin khuyến mãi, hiển thị như badge trên sản phẩm
+    promotion: 'Ưu Đãi Đặc Biệt Tháng 5', // Thông tin khuyến mãi, hiển thị như badge trên sản phẩm
     tag: 'MỚI', // Nhãn đánh dấu sản phẩm (Mới, Bán chạy, Hot, v.v.)
     rating: 4.7, // Điểm đánh giá trung bình của sản phẩm, thang điểm từ 0-5
     views: 567, // Số lượt xem sản phẩm, dùng để thống kê và sắp xếp theo độ phổ biến
     soldCount: 61, // Số lượng đã bán, dùng để thống kê và hiển thị độ phổ biến
-    promoEndDate: '2025-05-03T00:00:00', // Ngày kết thúc khuyến mãi theo định dạng ISO, dùng để tính thời gian còn lại
+    promoEndDate: '2025-05-31T00:00:00', // Ngày kết thúc khuyến mãi theo định dạng ISO, dùng để tính thời gian còn lại
     sku: 'NTBV-QA560', // Mã SKU (Stock Keeping Unit) để quản lý kho hàng và tham chiếu sản phẩm
 
     // Thông tin flash sale - chương trình giảm giá nhanh có thời hạn
@@ -3443,12 +3443,12 @@ const products = [
     warranty: '7 năm', // Thời gian bảo hành của sản phẩm
     price: 'Liên Hệ', // Giá sản phẩm, có thể là số hoặc chuỗi như "Liên Hệ" nếu không hiển thị giá cố định
     material: 'Gỗ MDF cao cấp', // Chất liệu chính của sản phẩm
-    promotion: 'giảm 20%', // Thông tin khuyến mãi, hiển thị như badge trên sản phẩm
+    promotion: 'Ưu Đãi Giảm 30%', // Thông tin khuyến mãi, hiển thị như badge trên sản phẩm
     tag: 'MỚI', // Nhãn đánh dấu sản phẩm (Mới, Bán chạy, Hot, v.v.)
     rating: 4.7, // Điểm đánh giá trung bình của sản phẩm, thang điểm từ 0-5
     views: 498, // Số lượt xem sản phẩm, dùng để thống kê và sắp xếp theo độ phổ biến
     soldCount: 43, // Số lượng đã bán, dùng để thống kê và hiển thị độ phổ biến
-    promoEndDate: '2025-05-03T00:00:00', // Ngày kết thúc khuyến mãi theo định dạng ISO, dùng để tính thời gian còn lại
+    promoEndDate: '2025-05-10T00:00:00', // Ngày kết thúc khuyến mãi theo định dạng ISO, dùng để tính thời gian còn lại
     sku: 'NTBV-QA560', // Mã SKU (Stock Keeping Unit) để quản lý kho hàng và tham chiếu sản phẩm
 
     // Thông tin flash sale - chương trình giảm giá nhanh có thời hạn
