@@ -1,0 +1,56 @@
+/* Button Position Fix - Adjusts the position of floating buttons to prevent overlap with bottom navigation */
+
+/* Adjust floating contact buttons position */
+.fc-container {
+    bottom: 130px; /* Increased from 60px to avoid overlap with bottom nav */
+}
+
+/* Adjust back-to-top button position */
+.back-to-top {
+    bottom: 130px; /* Increased from 60px to avoid overlap with bottom nav */
+}
+
+/* Mobile styles */
+@media (max-width: 768px) {
+    .fc-container {
+        bottom: 130px; /* Increased from 80px */
+    }
+    
+    .back-to-top {
+        bottom: 130px; /* Increased from 80px */
+    }
+}
+
+/* Small mobile devices */
+@media (max-width: 576px) {
+    .fc-container {
+        bottom: 125px; /* Increased from 75px */
+    }
+    
+    .back-to-top {
+        bottom: 125px; /* Increased from 75px */
+    }
+}
+
+/* iPhone Safe Area adjustments */
+@supports (padding-bottom: env(safe-area-inset-bottom)) {
+    @media (max-width: 768px) {
+        .fc-container {
+            bottom: calc(130px + env(safe-area-inset-bottom));
+        }
+        
+        .back-to-top {
+            bottom: calc(130px + env(safe-area-inset-bottom));
+        }
+    }
+    
+    @media (max-width: 576px) {
+        .fc-container {
+            bottom: calc(125px + env(safe-area-inset-bottom));
+        }
+        
+        .back-to-top {
+            bottom: calc(125px + env(safe-area-inset-bottom));
+        }
+    }
+}

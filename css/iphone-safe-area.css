@@ -1,0 +1,35 @@
+/* iPhone Safe Area Fix - Adds padding to prevent bottom navigation from being covered by home indicator */
+
+/* Apply safe area inset to bottom navigation */
+@supports (padding-bottom: env(safe-area-inset-bottom)) {
+    .bottom-nav {
+        padding-bottom: env(safe-area-inset-bottom);
+        height: calc(60px + env(safe-area-inset-bottom));
+    }
+
+    /* Adjust the position of the bottom nav items to stay centered */
+    .bottom-nav-grid {
+        padding-bottom: env(safe-area-inset-bottom);
+    }
+
+    /* Adjust footer padding to account for the taller navigation bar */
+    @media (max-width: 768px) {
+        .footer-bottom {
+            padding-bottom: calc(80px + env(safe-area-inset-bottom)) !important;
+        }
+    }
+
+    /* Button positions are now handled in button-position-fix.css */
+}
+
+/* Add viewport-fit=cover to ensure the page extends to the edges on iPhone X and newer */
+@media screen and (max-width: 768px) {
+    html {
+        height: 100%;
+    }
+
+    body {
+        min-height: 100%;
+        padding-bottom: calc(60px + env(safe-area-inset-bottom)) !important;
+    }
+}
