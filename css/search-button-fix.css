@@ -1,0 +1,108 @@
+/* Search Button Fix - Cải thiện trạng thái hover và active cho nút tìm kiếm */
+
+/* Sử dụng biến màu từ theme chính */
+:root {
+    --search-btn-bg: var(--premium-secondary, #0058dd);
+    --search-btn-hover-bg: var(--premium-primary, #f97316);
+    --search-btn-active-bg: var(--premium-primary-dark, #e86207);
+    --search-btn-text: var(--premium-white, #ffffff);
+    --search-btn-text-hover: var(--premium-white, #ffffff);
+    --search-btn-text-active: var(--premium-white, #ffffff);
+    --search-btn-shadow: 0 4px 10px rgba(0, 88, 221, 0.2);
+    --search-btn-shadow-hover: 0 6px 15px rgba(249, 115, 22, 0.3);
+    --search-btn-shadow-active: 0 2px 8px rgba(249, 115, 22, 0.25);
+    --search-btn-transition: all 0.3s cubic-bezier(0.165, 0.84, 0.44, 1);
+}
+
+/* Nút tìm kiếm cơ bản */
+.search-button {
+    position: absolute;
+    right: 8px;
+    top: 8px;
+    bottom: 8px;
+    width: 44px;
+    background: var(--search-btn-bg);
+    color: var(--search-btn-text);
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: var(--search-btn-transition);
+    box-shadow: var(--search-btn-shadow);
+    overflow: hidden;
+    z-index: 5;
+}
+
+/* Hiệu ứng hover */
+.search-button:hover {
+    background: var(--search-btn-hover-bg);
+    color: var(--search-btn-text-hover);
+    transform: translateY(-2px);
+    box-shadow: var(--search-btn-shadow-hover);
+}
+
+/* Hiệu ứng active (khi nhấn) */
+.search-button:active {
+    background: var(--search-btn-active-bg);
+    color: var(--search-btn-text-active);
+    transform: translateY(0);
+    box-shadow: var(--search-btn-shadow-active);
+}
+
+/* Hiệu ứng focus */
+.search-button:focus {
+    outline: none;
+    box-shadow: 0 0 0 3px rgba(249, 115, 22, 0.3);
+}
+
+/* Hiệu ứng ripple khi click */
+.search-button::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 100px;
+    height: 100px;
+    background: rgba(255, 255, 255, 0.2);
+    border-radius: 50%;
+    transform: translate(-50%, -50%) scale(0);
+    opacity: 0;
+    transition: transform 0.5s, opacity 0.5s;
+    pointer-events: none;
+}
+
+.search-button:active::after {
+    transform: translate(-50%, -50%) scale(1);
+    opacity: 1;
+    transition: 0s;
+}
+
+/* Hiệu ứng cho icon */
+.search-button i {
+    font-size: 1rem;
+    transition: transform 0.3s ease;
+}
+
+.search-button:hover i {
+    transform: scale(1.1);
+}
+
+.search-button:active i {
+    transform: scale(0.95);
+}
+
+/* Responsive styles */
+@media (max-width: 576px) {
+    .search-button {
+        width: 40px;
+        right: 6px;
+        top: 6px;
+        bottom: 6px;
+    }
+    
+    .search-button i {
+        font-size: 0.9rem;
+    }
+}
