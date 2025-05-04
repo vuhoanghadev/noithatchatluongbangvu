@@ -1,5 +1,16 @@
 // JavaScript for Privacy Policy and Terms of Service Modals
 document.addEventListener('DOMContentLoaded', function () {
+  // Clear any potentially problematic localStorage or sessionStorage items
+  try {
+    // Clear any storage items that might be related to modals
+    localStorage.removeItem('privacy-policy-modal-state');
+    localStorage.removeItem('terms-of-service-modal-state');
+    sessionStorage.removeItem('privacy-policy-modal-state');
+    sessionStorage.removeItem('terms-of-service-modal-state');
+  } catch (e) {
+    console.log('Storage clearing failed, but continuing: ', e);
+  }
+
   // Create modal elements
   createLegalModals();
 
@@ -10,14 +21,36 @@ document.addEventListener('DOMContentLoaded', function () {
   if (privacyLink) {
     privacyLink.addEventListener('click', function (e) {
       e.preventDefault();
-      openModal('privacy-policy-modal');
+      // Clear any modal-related storage before opening
+      try {
+        localStorage.removeItem('privacy-policy-modal-state');
+        sessionStorage.removeItem('privacy-policy-modal-state');
+      } catch (e) {
+        console.log('Storage clearing failed, but continuing: ', e);
+      }
+
+      // Use a small timeout to ensure DOM is ready
+      setTimeout(function () {
+        openModal('privacy-policy-modal');
+      }, 10);
     });
   }
 
   if (termsLink) {
     termsLink.addEventListener('click', function (e) {
       e.preventDefault();
-      openModal('terms-of-service-modal');
+      // Clear any modal-related storage before opening
+      try {
+        localStorage.removeItem('terms-of-service-modal-state');
+        sessionStorage.removeItem('terms-of-service-modal-state');
+      } catch (e) {
+        console.log('Storage clearing failed, but continuing: ', e);
+      }
+
+      // Use a small timeout to ensure DOM is ready
+      setTimeout(function () {
+        openModal('terms-of-service-modal');
+      }, 10);
     });
   }
 
@@ -82,18 +115,33 @@ document.addEventListener('DOMContentLoaded', function () {
 
 // Function to create modal elements
 function createLegalModals() {
+  // Remove any existing modals first to avoid duplicates
+  const existingPrivacyModal = document.getElementById('privacy-policy-modal');
+  const existingTermsModal = document.getElementById('terms-of-service-modal');
+
+  if (existingPrivacyModal) {
+    existingPrivacyModal.remove();
+  }
+
+  if (existingTermsModal) {
+    existingTermsModal.remove();
+  }
+
   // Create Privacy Policy Modal
   const privacyModal = document.createElement('div');
   privacyModal.id = 'privacy-policy-modal';
   privacyModal.className = 'legal-modal-overlay';
+  privacyModal.setAttribute('role', 'dialog');
+  privacyModal.setAttribute('aria-labelledby', 'privacy-policy-title');
+  privacyModal.setAttribute('aria-modal', 'true');
   privacyModal.innerHTML = `
         <div class="legal-modal">
             <div class="legal-modal-decoration legal-modal-decoration-1"></div>
             <div class="legal-modal-decoration legal-modal-decoration-2"></div>
 
             <div class="legal-modal-header">
-                <h2 class="legal-modal-title">Chính Sách Bảo Mật</h2>
-                <button class="legal-modal-close">&times;</button>
+                <h2 class="legal-modal-title" id="privacy-policy-title">Chính Sách Bảo Mật</h2>
+                <button class="legal-modal-close" aria-label="Đóng">&times;</button>
             </div>
 
             <div class="legal-modal-body">
@@ -195,14 +243,17 @@ function createLegalModals() {
   const termsModal = document.createElement('div');
   termsModal.id = 'terms-of-service-modal';
   termsModal.className = 'legal-modal-overlay';
+  termsModal.setAttribute('role', 'dialog');
+  termsModal.setAttribute('aria-labelledby', 'terms-of-service-title');
+  termsModal.setAttribute('aria-modal', 'true');
   termsModal.innerHTML = `
         <div class="legal-modal">
             <div class="legal-modal-decoration legal-modal-decoration-1"></div>
             <div class="legal-modal-decoration legal-modal-decoration-2"></div>
 
             <div class="legal-modal-header">
-                <h2 class="legal-modal-title">Điều Khoản Sử Dụng</h2>
-                <button class="legal-modal-close">&times;</button>
+                <h2 class="legal-modal-title" id="terms-of-service-title">Điều Khoản Sử Dụng</h2>
+                <button class="legal-modal-close" aria-label="Đóng">&times;</button>
             </div>
 
             <div class="legal-modal-body">
@@ -322,18 +373,66 @@ function createLegalModals() {
 
 // Function to open modal
 function openModal(modalId) {
-  const modal = document.getElementById(modalId);
+  // Ensure the modal exists, if not, recreate it
+  let modal = document.getElementById(modalId);
+  if (!modal) {
+    console.log('Modal not found, recreating modals...');
+    createLegalModals();
+    modal = document.getElementById(modalId);
+  }
+
   if (modal) {
+    // Force repaint before adding active class
+    void modal.offsetWidth;
+
+    // Add active class and prevent scrolling
     modal.classList.add('active');
-    document.body.style.overflow = 'hidden'; // Prevent scrolling
+    document.body.style.overflow = 'hidden';
+
+    // Log success for debugging
+    console.log('Modal opened successfully: ' + modalId);
+
+    // Add a fallback in case the modal doesn't appear
+    setTimeout(function () {
+      if (modal && !modal.classList.contains('active')) {
+        console.log('Modal not active after timeout, forcing active state');
+        modal.classList.add('active');
+
+        // Force visibility through inline styles as a last resort
+        modal.style.opacity = '1';
+        modal.style.visibility = 'visible';
+      }
+    }, 100);
+  } else {
+    console.error('Failed to open modal: ' + modalId);
   }
 }
 
 // Function to close all modals
 function closeAllModals() {
   const modals = document.querySelectorAll('.legal-modal-overlay');
+
+  // Clear any modal-related storage
+  try {
+    localStorage.removeItem('privacy-policy-modal-state');
+    localStorage.removeItem('terms-of-service-modal-state');
+    sessionStorage.removeItem('privacy-policy-modal-state');
+    sessionStorage.removeItem('terms-of-service-modal-state');
+  } catch (e) {
+    console.log('Storage clearing failed, but continuing: ', e);
+  }
+
+  // Remove active class from all modals
   modals.forEach((modal) => {
     modal.classList.remove('active');
+
+    // Also reset inline styles if they were applied as a fallback
+    modal.style.opacity = '';
+    modal.style.visibility = '';
   });
-  document.body.style.overflow = ''; // Restore scrolling
+
+  // Restore scrolling
+  document.body.style.overflow = '';
+
+  console.log('All modals closed');
 }

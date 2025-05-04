@@ -34,18 +34,22 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    z-index: 999999;
-    /* Increased z-index to ensure it's above all other elements */
+    z-index: 999999 !important;
+    /* Force highest z-index */
     opacity: 0;
     visibility: hidden;
     transition: opacity 0.4s cubic-bezier(0.19, 1, 0.22, 1), visibility 0.4s cubic-bezier(0.19, 1, 0.22, 1);
     backdrop-filter: blur(5px);
     -webkit-backdrop-filter: blur(5px);
+    pointer-events: none;
+    /* Don't block clicks when hidden */
 }
 
 .legal-modal-overlay.active {
     opacity: 1;
     visibility: visible;
+    pointer-events: auto;
+    /* Re-enable pointer events when visible */
 }
 
 .legal-modal {
