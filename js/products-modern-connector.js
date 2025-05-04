@@ -111,14 +111,21 @@ document.addEventListener('DOMContentLoaded', function () {
 
       // Hide search suggestions if input is empty
       if (this.value.trim().length === 0) {
+        // Đảm bảo ẩn tất cả các box gợi ý khi input rỗng
         hideSearchSuggestions();
         return;
       }
 
       // Set new timeout (debounce for 300ms)
       searchTimeout = setTimeout(() => {
-        // Show search suggestions
-        showSearchSuggestions(this.value.trim());
+        // Đảm bảo xóa tất cả các box gợi ý cũ trước khi hiển thị box mới
+        hideSearchSuggestions();
+
+        // Đợi animation ẩn hoàn tất trước khi hiển thị box mới
+        setTimeout(() => {
+          // Show search suggestions
+          showSearchSuggestions(this.value.trim());
+        }, 310); // Đợi lâu hơn thời gian animation ẩn (300ms)
       }, 300);
     });
 
@@ -182,8 +189,8 @@ document.addEventListener('DOMContentLoaded', function () {
 
   // Function to show search suggestions
   function showSearchSuggestions(searchTerm) {
-    // Remove existing suggestions
-    hideSearchSuggestions();
+    // Đảm bảo không có box gợi ý nào đang hiển thị
+    // Lưu ý: hideSearchSuggestions() đã được gọi trước đó trong event listener
 
     // Normalize search term for non-accented search
     const normalizedSearchTerm = removeAccents(searchTerm.toLowerCase());
@@ -234,6 +241,47 @@ document.addEventListener('DOMContentLoaded', function () {
         padding: '20px',
         textAlign: 'center',
       });
+
+      // Tạo nút đóng
+      const closeButton = document.createElement('button');
+      closeButton.innerHTML = '<i class="fas fa-times"></i>';
+      Object.assign(closeButton.style, {
+        position: 'absolute',
+        top: '10px',
+        right: '10px',
+        background: 'none',
+        border: 'none',
+        color: 'var(--product-text-light)',
+        cursor: 'pointer',
+        fontSize: '0.9rem',
+        padding: '5px',
+        borderRadius: '50%',
+        width: '24px',
+        height: '24px',
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center',
+        transition: 'all 0.2s ease',
+        zIndex: '10',
+      });
+
+      // Thêm hiệu ứng hover cho nút đóng
+      closeButton.addEventListener('mouseenter', () => {
+        closeButton.style.backgroundColor = 'rgba(0, 0, 0, 0.05)';
+        closeButton.style.color = '#1c2332';
+      });
+
+      closeButton.addEventListener('mouseleave', () => {
+        closeButton.style.backgroundColor = '';
+        closeButton.style.color = 'var(--product-text-light)';
+      });
+
+      // Thêm sự kiện click để đóng box gợi ý
+      closeButton.addEventListener('click', () => {
+        hideSearchSuggestions();
+      });
+
+      noResultsContainer.appendChild(closeButton);
 
       // Create icon
       const noResultsIcon = document.createElement('div');
@@ -366,6 +414,18 @@ document.addEventListener('DOMContentLoaded', function () {
     const header = document.createElement('div');
     header.className = 'search-suggestions-header';
 
+    // Tạo container cho phần tiêu đề và nút đóng
+    const headerContainer = document.createElement('div');
+    headerContainer.style.display = 'flex';
+    headerContainer.style.justifyContent = 'space-between';
+    headerContainer.style.alignItems = 'center';
+    headerContainer.style.width = '100%';
+
+    // Tạo phần tiêu đề
+    const titleContainer = document.createElement('div');
+    titleContainer.style.display = 'flex';
+    titleContainer.style.alignItems = 'center';
+
     // Add search icon with animation
     const searchIcon = document.createElement('i');
     searchIcon.className = 'fas fa-search';
@@ -376,8 +436,10 @@ document.addEventListener('DOMContentLoaded', function () {
       animation: 'pulse 1.5s infinite',
     });
 
-    header.appendChild(searchIcon);
-    header.appendChild(document.createTextNode(`Kết quả tìm kiếm cho `));
+    titleContainer.appendChild(searchIcon);
+    titleContainer.appendChild(
+      document.createTextNode(`Kết quả tìm kiếm cho `)
+    );
 
     const searchTermSpan = document.createElement('span');
     searchTermSpan.textContent = `"${searchTerm}"`;
@@ -388,8 +450,49 @@ document.addEventListener('DOMContentLoaded', function () {
       marginRight: '2px',
     });
 
-    header.appendChild(searchTermSpan);
-    header.appendChild(document.createTextNode(':'));
+    titleContainer.appendChild(searchTermSpan);
+    titleContainer.appendChild(document.createTextNode(':'));
+
+    // Tạo nút đóng
+    const closeButton = document.createElement('button');
+    closeButton.innerHTML = '<i class="fas fa-times"></i>';
+    Object.assign(closeButton.style, {
+      background: 'none',
+      border: 'none',
+      color: 'var(--product-text-light)',
+      cursor: 'pointer',
+      fontSize: '0.9rem',
+      padding: '5px',
+      marginLeft: '10px',
+      borderRadius: '50%',
+      width: '24px',
+      height: '24px',
+      display: 'flex',
+      alignItems: 'center',
+      justifyContent: 'center',
+      transition: 'all 0.2s ease',
+    });
+
+    // Thêm hiệu ứng hover cho nút đóng
+    closeButton.addEventListener('mouseenter', () => {
+      closeButton.style.backgroundColor = 'rgba(0, 0, 0, 0.05)';
+      closeButton.style.color = '#1c2332';
+    });
+
+    closeButton.addEventListener('mouseleave', () => {
+      closeButton.style.backgroundColor = '';
+      closeButton.style.color = 'var(--product-text-light)';
+    });
+
+    // Thêm sự kiện click để đóng box gợi ý
+    closeButton.addEventListener('click', () => {
+      hideSearchSuggestions();
+    });
+
+    // Thêm các phần tử vào header
+    headerContainer.appendChild(titleContainer);
+    headerContainer.appendChild(closeButton);
+    header.appendChild(headerContainer);
 
     // Create content container for scrollable items
     const contentContainer = document.createElement('div');
@@ -665,23 +768,30 @@ document.addEventListener('DOMContentLoaded', function () {
 
   // Function to hide search suggestions
   function hideSearchSuggestions() {
-    const existingSuggestions = document.querySelector('.search-suggestions');
-    if (existingSuggestions) {
-      // Animate out with improved animation
-      existingSuggestions.style.opacity = '0';
-      existingSuggestions.style.transform = 'translateY(-8px) scale(0.98)';
+    // Tìm tất cả các box gợi ý hiện có
+    const existingSuggestions = document.querySelectorAll(
+      '.search-suggestions'
+    );
 
-      // Remove after animation
-      setTimeout(() => {
-        // Remove from document body
-        if (document.body.contains(existingSuggestions)) {
-          document.body.removeChild(existingSuggestions);
-        }
-        // Also check parent node as fallback
-        else if (existingSuggestions.parentNode) {
-          existingSuggestions.parentNode.removeChild(existingSuggestions);
-        }
-      }, 300);
+    // Nếu có box gợi ý, xóa tất cả
+    if (existingSuggestions.length > 0) {
+      existingSuggestions.forEach((suggestion) => {
+        // Animate out with improved animation
+        suggestion.style.opacity = '0';
+        suggestion.style.transform = 'translateY(-8px) scale(0.98)';
+
+        // Remove after animation
+        setTimeout(() => {
+          // Remove from document body
+          if (document.body.contains(suggestion)) {
+            document.body.removeChild(suggestion);
+          }
+          // Also check parent node as fallback
+          else if (suggestion.parentNode) {
+            suggestion.parentNode.removeChild(suggestion);
+          }
+        }, 300);
+      });
     }
   }
 
