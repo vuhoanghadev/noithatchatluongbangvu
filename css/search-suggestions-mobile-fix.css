@@ -1,0 +1,159 @@
+/* Search Suggestions Mobile Fix - Cải thiện giao diện box kết quả tìm kiếm trên thiết bị di động */
+
+/* Responsive styles for search suggestions */
+@media (max-width: 576px) {
+    /* Điều chỉnh container chính */
+    .search-suggestions {
+        max-height: 400px;
+        margin-top: 6px;
+        border-radius: 6px;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    }
+
+    /* Điều chỉnh header */
+    .search-suggestions-header {
+        padding: 10px 12px;
+        font-size: 0.85rem;
+        border-radius: 6px 6px 0 0;
+    }
+
+    /* Điều chỉnh container tiêu đề và nút đóng */
+    .search-suggestions-header > div {
+        width: 100%;
+        flex-wrap: nowrap;
+    }
+
+    /* Điều chỉnh container tiêu đề */
+    .search-suggestions-header > div > div:first-child {
+        flex: 1;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+
+    /* Điều chỉnh icon tìm kiếm */
+    .search-suggestions-header i.fa-search {
+        font-size: 0.8rem;
+        margin-right: 8px;
+    }
+
+    /* Điều chỉnh text tìm kiếm */
+    .search-suggestions-header span {
+        max-width: 150px;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        display: inline-block;
+    }
+
+    /* Điều chỉnh nút đóng */
+    .search-suggestions-header button {
+        width: 22px;
+        height: 22px;
+        padding: 3px;
+        margin-left: 6px;
+        font-size: 0.8rem;
+        flex-shrink: 0;
+    }
+
+    /* Điều chỉnh các item trong danh sách */
+    .search-suggestion-item {
+        padding: 10px 12px;
+        gap: 10px;
+    }
+
+    /* Điều chỉnh thumbnail */
+    .search-suggestion-item > div:first-child {
+        width: 40px !important;
+        height: 40px !important;
+    }
+
+    /* Điều chỉnh tên sản phẩm */
+    .search-suggestion-item > div:nth-child(2) > div:first-child {
+        font-size: 0.85rem !important;
+    }
+
+    /* Điều chỉnh thông tin danh mục */
+    .search-suggestion-item > div:nth-child(2) > div:nth-child(2) {
+        gap: 8px !important;
+    }
+
+    .search-suggestion-item > div:nth-child(2) > div:nth-child(2) > div {
+        font-size: 0.75rem !important;
+    }
+
+    .search-suggestion-item > div:nth-child(2) > div:nth-child(2) i {
+        font-size: 0.65rem !important;
+    }
+
+    /* Điều chỉnh nút xem tất cả kết quả */
+    .view-all-results {
+        padding: 12px;
+        font-size: 0.85rem;
+    }
+
+    .view-all-results i {
+        font-size: 0.85rem;
+    }
+}
+
+/* Điều chỉnh cho màn hình siêu nhỏ */
+@media (max-width: 360px) {
+    /* Điều chỉnh header */
+    .search-suggestions-header {
+        padding: 8px 10px;
+        font-size: 0.8rem;
+    }
+
+    /* Điều chỉnh icon tìm kiếm */
+    .search-suggestions-header i.fa-search {
+        font-size: 0.75rem;
+        margin-right: 6px;
+    }
+
+    /* Điều chỉnh text tìm kiếm */
+    .search-suggestions-header span {
+        max-width: 120px;
+    }
+
+    /* Điều chỉnh nút đóng */
+    .search-suggestions-header button {
+        width: 20px;
+        height: 20px;
+        padding: 2px;
+        margin-left: 4px;
+        font-size: 0.75rem;
+    }
+
+    /* Điều chỉnh các item trong danh sách */
+    .search-suggestion-item {
+        padding: 8px 10px;
+        gap: 8px;
+    }
+
+    /* Điều chỉnh thumbnail */
+    .search-suggestion-item > div:first-child {
+        width: 36px !important;
+        height: 36px !important;
+    }
+
+    /* Điều chỉnh tên sản phẩm */
+    .search-suggestion-item > div:nth-child(2) > div:first-child {
+        font-size: 0.8rem !important;
+    }
+
+    /* Điều chỉnh thông tin danh mục */
+    .search-suggestion-item > div:nth-child(2) > div:nth-child(2) {
+        gap: 6px !important;
+    }
+
+    .search-suggestion-item > div:nth-child(2) > div:nth-child(2) > div {
+        font-size: 0.7rem !important;
+    }
+
+    /* Điều chỉnh nút xem tất cả kết quả */
+    .view-all-results {
+        padding: 10px;
+        font-size: 0.8rem;
+    }
+}
