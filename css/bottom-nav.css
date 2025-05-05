@@ -40,10 +40,64 @@
     /* Loại bỏ outline khi focus */
 }
 
+/* Badge hiển thị số lượng sản phẩm yêu thích */
+.bottom-nav-item .wishlist-badge {
+    position: absolute;
+    top: 0px;
+    right: calc(50% - 18px);
+    background-color: #f97316;
+    color: white;
+    border-radius: 50%;
+    width: 16px;
+    height: 16px;
+    font-size: 0.65rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 600;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+    opacity: 0;
+    transform: scale(0);
+    transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    border: 1.5px solid white;
+    z-index: 2;
+}
+
+.bottom-nav-item .wishlist-badge.show {
+    opacity: 1;
+    transform: scale(1);
+    animation: badgePulse 2s infinite;
+}
+
+@keyframes badgePulse {
+    0% {
+        box-shadow: 0 0 0 0 rgba(249, 115, 22, 0.4);
+    }
+
+    70% {
+        box-shadow: 0 0 0 4px rgba(249, 115, 22, 0);
+    }
+
+    100% {
+        box-shadow: 0 0 0 0 rgba(249, 115, 22, 0);
+    }
+}
+
 .bottom-nav-item i {
     font-size: 1.25rem;
     margin-bottom: 0.25rem;
     transition: transform 0.3s ease, color 0.3s ease;
+    position: relative;
+}
+
+/* Điều chỉnh biểu tượng yêu thích khi có badge */
+#wishlist-nav i {
+    position: relative;
+    z-index: 1;
+}
+
+#wishlist-nav.has-items i {
+    transform: translateY(2px);
 }
 
 .bottom-nav-item span {

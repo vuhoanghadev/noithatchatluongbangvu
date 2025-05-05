@@ -563,6 +563,9 @@ function updateWishlistCount() {
       wishlistCount.style.display = 'flex';
     }
   }
+
+  // Phát ra sự kiện để cập nhật badge trong thanh điều hướng dưới cùng
+  window.dispatchEvent(new CustomEvent('wishlist-updated'));
 }
 
 // Hàm cập nhật trạng thái nút yêu thích trên trang chi tiết sản phẩm

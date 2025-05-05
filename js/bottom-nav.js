@@ -9,6 +9,9 @@ document.addEventListener('DOMContentLoaded', function () {
   // Set active class based on current URL
   updateActiveTabBasedOnURL();
 
+  // Cập nhật số lượng sản phẩm yêu thích trong thanh điều hướng dưới cùng
+  updateWishlistBadge();
+
   // Add click event listener to each item
   bottomNavItems.forEach((item) => {
     // Add touchstart event to immediately apply orange color
@@ -438,5 +441,37 @@ document.addEventListener('DOMContentLoaded', function () {
         }
       }, 300);
     }
+  });
+
+  /**
+   * Cập nhật số lượng sản phẩm yêu thích trong thanh điều hướng dưới cùng
+   */
+  function updateWishlistBadge() {
+    const wishlistBadge = document.querySelector(
+      '#wishlist-nav .wishlist-badge'
+    );
+    const wishlistNav = document.getElementById('wishlist-nav');
+    if (!wishlistBadge || !wishlistNav) return;
+
+    // Lấy danh sách sản phẩm yêu thích từ localStorage
+    const wishlistJSON = localStorage.getItem('wishlist');
+    const wishlist = wishlistJSON ? JSON.parse(wishlistJSON) : [];
+    const count = wishlist.length;
+
+    // Cập nhật số lượng và hiển thị/ẩn badge
+    wishlistBadge.textContent = count;
+
+    if (count > 0) {
+      wishlistBadge.classList.add('show');
+      wishlistNav.classList.add('has-items');
+    } else {
+      wishlistBadge.classList.remove('show');
+      wishlistNav.classList.remove('has-items');
+    }
+  }
+
+  // Lắng nghe sự kiện thay đổi danh sách yêu thích
+  window.addEventListener('wishlist-updated', function () {
+    updateWishlistBadge();
   });
 });
