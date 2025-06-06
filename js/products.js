@@ -3810,6 +3810,196 @@ const products = [
       ],
     },
   },
+  {
+    id: 21, // Mã số định danh duy nhất của sản phẩm, sử dụng để tham chiếu trong hệ thống
+    name: 'Tủ quần áo kết hợp bàn trang điểm - nhựa đài loan cao cấp - KTV075', // Tên đầy đủ của sản phẩm, nên bao gồm các đặc điểm chính
+    category: 'Kệ tivi', // Danh mục sản phẩm, sử dụng để phân loại và lọc sản phẩm
+    image:
+      'https://res.cloudinary.com/dpwsaqvl9/image/upload/v1746440746/noithatbangvu/id21/tu-quan-ao-ket-hop-ban-trang-diem-combo-phong-ngu-03_she57t.webp', // Đường dẫn đến hình ảnh chính của sản phẩm, hiển thị trong danh sách sản phẩm
+    reviewCode: 'NTBV2056', // Mã bình luận cho sản phẩm, sử dụng để quản lý đánh giá và bình luận
+    featured: false, // Đánh dấu sản phẩm nổi bật, sẽ được hiển thị ở trang chủ hoặc các vị trí đặc biệt
+    // Mô tả ngắn gọn về sản phẩm, hiển thị trong danh sách sản phẩm và trang chi tiết
+    description:
+      'Kệ Tivi Gỗ Công Nghiệp MDF Cao Cấp Thiết Kế Hiện Đại KTV075 là sự lựa chọn hoàn hảo cho không gian phòng khách hiện đại. Được làm từ gỗ công nghiệp MDF cao cấp, sản phẩm đảm bảo độ bền và tính thẩm mỹ vượt trội. Thiết kế thông minh với nhiều ngăn kệ tiện dụng, giúp tối ưu hóa không gian lưu trữ. Bề mặt phủ melamine chống trầy xước, dễ dàng vệ sinh. Kệ tivi được thiết kế với đường nét tinh tế, tạo điểm nhấn nổi bật cho không gian phòng khách.',
+    size: '180x45x40cm', // Kích thước sản phẩm theo định dạng Rộng x Cao x Sâu (cm)
+    warranty: '7 năm', // Thời gian bảo hành của sản phẩm
+    price: 'Liên Hệ', // Giá sản phẩm, có thể là số hoặc chuỗi như "Liên Hệ" nếu không hiển thị giá cố định
+    material: 'Gỗ công nghiệp MDF cao cấp', // Chất liệu chính của sản phẩm
+    promotion: '', // Thông tin khuyến mãi, hiển thị như badge trên sản phẩm
+    tag: 'MỚI', // Nhãn đánh dấu sản phẩm (Mới, Bán chạy, Hot, v.v.)
+    rating: 4.7, // Điểm đánh giá trung bình của sản phẩm, thang điểm từ 0-5
+    views: 589, // Số lượt xem sản phẩm, dùng để thống kê và sắp xếp theo độ phổ biến
+    soldCount: 65, // Số lượng đã bán, dùng để thống kê và hiển thị độ phổ biến
+    promoEndDate: '2025-04-31T00:00:00', // Ngày kết thúc khuyến mãi theo định dạng ISO, dùng để tính thời gian còn lại
+    sku: 'NTBV-QA560', // Mã SKU (Stock Keeping Unit) để quản lý kho hàng và tham chiếu sản phẩm
+
+    // Thông tin flash sale - chương trình giảm giá nhanh có thời hạn
+    flashsale: {
+      active: true, // Trạng thái kích hoạt flash sale (true: đang diễn ra, false: không có)
+      discountPercent: 25, // Phần trăm giảm giá (%)
+      oldPrice: 6000000, // Giá gốc trước khi giảm (VNĐ)
+      newPrice: 4500000, // Giá mới sau khi giảm (VNĐ)
+      type: 'daily', // Loại flash sale: 'fixed' (cố định theo thời gian) hoặc 'daily' (diễn ra hàng ngày)
+      endsAt: '2025-04-31T23:59:59', // Thời điểm kết thúc flash sale theo định dạng ISO
+      hidePrice: false, // Ẩn/hiện giá: true (ẩn giá), false (hiển thị giá)
+    },
+
+    // Thư viện hình ảnh sản phẩm - hiển thị trong trang chi tiết sản phẩm
+    gallery: [
+      'https://res.cloudinary.com/dpwsaqvl9/image/upload/v1746440746/noithatbangvu/id21/tu-quan-ao-ket-hop-ban-trang-diem-combo-phong-ngu-03_she57t.webp', // Hình ảnh chính
+      'https://res.cloudinary.com/dpwsaqvl9/image/upload/v1746440746/noithatbangvu/id21/tu-quan-ao-ket-hop-ban-trang-diem-combo-phong-ngu-01_z3hbe2.webp', // Hình ảnh 1 - Chi tiết sản phẩm
+      'https://res.cloudinary.com/dpwsaqvl9/image/upload/v1746440746/noithatbangvu/id21/tu-quan-ao-ket-hop-ban-trang-diem-combo-phong-ngu-02_r6jfao.webp', // Hình ảnh 2 - Chi tiết sản phẩm
+    ],
+    // Thông tin chi tiết cho tab mô tả chi tiết - hiển thị dưới dạng bảng thông số kỹ thuật
+    specifications: {
+      'Kích thước': '180x45x40cm (Rộng x Cao x Sâu)', // Kích thước chi tiết của sản phẩm
+      'Chất liệu': 'Gỗ công nghiệp MDF cao cấp', // Chất liệu chính và phụ của sản phẩm
+      'Màu sắc': 'Vân gỗ tự nhiên kết hợp màu trắng', // Màu sắc hoặc họa tiết của sản phẩm
+      'Ngăn kéo': '2 ngăn kéo', // Số lượng ngăn kéo của kệ
+      'Kệ mở': '3 kệ mở', // Số lượng kệ mở
+      'Kích thước TV phù hợp': 'Lên đến 65 inch', // Kích thước TV phù hợp
+      'Khả năng chịu lực': 'Lên đến 50kg', // Khả năng chịu lực của kệ
+      // Các tính năng nổi bật của sản phẩm
+      'Tính năng đặc biệt':
+        'Bề mặt chống trầy xước, Chống ẩm mốc, Dễ dàng vệ sinh, Thiết kế thông minh',
+      'Phong cách': 'Hiện đại, Tinh tế', // Phong cách thiết kế của sản phẩm
+      'Phù hợp': 'Phòng khách, Phòng giải trí', // Không gian phù hợp
+      'Xuất xứ': 'Việt Nam', // Nơi sản xuất sản phẩm
+      'Thời gian bảo hành': '7 năm', // Thời gian bảo hành của sản phẩm
+      'Mã sản phẩm': 'NTBV-KTV020', // Mã sản phẩm để tham chiếu
+      // Tóm tắt các điểm nổi bật của sản phẩm
+      'ĐIỂM NỔI BẬT':
+        'Thiết kế hiện đại với đường nét tinh tế, Chất liệu gỗ công nghiệp MDF cao cấp bền bỉ, Bề mặt phủ melamine chống trầy xước, dễ dàng vệ sinh, Kết hợp hài hòa giữa kệ mở và ngăn kéo, Khả năng chịu lực tốt phù hợp với nhiều loại TV',
+    },
+
+    // Mô tả chi tiết sản phẩm - hiển thị dưới dạng nội dung HTML có định dạng
+    detailedDescription: {
+      content: `<p>Kệ Tivi Gỗ Công Nghiệp MDF Cao Cấp Thiết Kế Hiện Đại là sự lựa chọn hoàn hảo cho không gian phòng khách hiện đại, mang đến vẻ đẹp tinh tế và công năng vượt trội.</p>
+      <p>Được làm từ gỗ công nghiệp MDF cao cấp với tông màu vân gỗ tự nhiên kết hợp màu trắng, sản phẩm không chỉ mang đến vẻ đẹp hiện đại mà còn đảm bảo độ bền theo thời gian, tạo điểm nhấn nổi bật cho không gian phòng khách.</p>
+      <h4>Đặc điểm nổi bật:</h4>
+      <ul>
+        <li>Thiết kế hiện đại với đường nét tinh tế, tạo điểm nhấn nổi bật cho không gian phòng khách</li>
+        <li>2 ngăn kéo tiện lợi giúp cất giữ các vật dụng nhỏ như điều khiển, đĩa DVD, phụ kiện</li>
+        <li>3 kệ mở rộng rãi để trưng bày và sử dụng các thiết bị điện tử như đầu thu, loa</li>
+        <li>Chất liệu gỗ công nghiệp MDF cao cấp, bền bỉ và chống ẩm mốc, chống cong vênh</li>
+        <li>Khả năng chịu lực lên đến 50kg, phù hợp với nhiều loại TV có kích thước lên đến 65 inch</li>
+      </ul>
+      <!-- Khối hiển thị hình ảnh với chú thích - sử dụng class product-image-showcase -->
+      <div class="product-image-showcase">
+        <img src="images/image-product/id20/Kệ Tivi Gỗ Công Nghiệp MDF Cao Cấp Thiết Kế Hiện Đại - KTV075.jpg" alt="Kệ Tivi Gỗ Công Nghiệp MDF - Góc nhìn tổng thể">
+        <div class="image-caption">Kệ Tivi Gỗ Công Nghiệp MDF - Góc nhìn tổng thể</div>
+      </div>
+      <p>Kệ tivi được thiết kế với kích thước 180x45x40cm (Rộng x Cao x Sâu), phù hợp với không gian phòng khách hoặc phòng giải trí. Tông màu vân gỗ tự nhiên kết hợp màu trắng dễ dàng kết hợp với nhiều phong cách nội thất, từ hiện đại đến tối giản.</p>
+      <h4>Ưu điểm vượt trội:</h4>
+      <ul>
+        <li>Bề mặt phủ melamine chống trầy xước, dễ dàng vệ sinh chỉ với khăn ẩm</li>
+        <li>Thiết kế tối giản nhưng đầy đủ công năng, tối ưu hóa không gian sử dụng</li>
+        <li>Kết hợp hài hòa giữa kệ mở và ngăn kéo, đáp ứng đa dạng nhu cầu lưu trữ</li>
+        <li>Hệ thống ray trượt và bản lề cao cấp, đảm bảo độ bền và sự êm ái khi sử dụng</li>
+        <li>Thời gian bảo hành lên đến 7 năm, đảm bảo sự an tâm khi sử dụng</li>
+      </ul>
+      <!-- Khối hiển thị hình ảnh thứ hai với chú thích -->
+      <div class="product-image-showcase">
+        <img src="images/image-product/id20/Kệ Tivi Gỗ Công Nghiệp MDF Cao Cấp Thiết Kế Hiện Đại - KTV075 - 1.jpg" alt="Chi tiết ngăn kéo và kệ mở">
+        <div class="image-caption">Chi tiết ngăn kéo và kệ mở tiện lợi</div>
+      </div>
+      <p>Sản phẩm phù hợp với không gian phòng khách hiện đại, mang đến giải pháp lưu trữ tối ưu và nâng cao tính thẩm mỹ cho không gian sống. Với thiết kế thông minh và chất liệu bền bỉ, kệ tivi gỗ công nghiệp MDF sẽ là người bạn đồng hành đáng tin cậy trong không gian giải trí của gia đình bạn.</p>`,
+    },
+    // Thông tin đánh giá cho tab đánh giá - hiển thị dưới dạng danh sách các đánh giá từ khách hàng
+    reviews: [
+      {
+        author: 'Nguyễn Văn Minh', // Tên người đánh giá
+        date: '10/05/2025 09:15 AM', // Ngày và giờ đăng đánh giá theo định dạng DD/MM/YYYY HH:MM AM/PM
+        rating: 5, // Số sao đánh giá (thang điểm từ 0-5)
+        // Nội dung đánh giá
+        content:
+          'Tủ quần áo đẹp và chắc chắn, đúng với mô tả. Giao hàng nhanh và lắp đặt tận tình. Tôi rất hài lòng với sản phẩm này!',
+        images: [
+          // Mảng đường dẫn đến hình ảnh đính kèm trong đánh giá
+          'images/products/product1.png',
+          'images/products/product2.png',
+        ],
+        videos: [], // Mảng đường dẫn đến video đính kèm trong đánh giá (nếu có)
+        isAnonymous: false, // Đánh dấu đánh giá ẩn danh hay không (true: ẩn danh, false: hiển thị tên)
+        avatar: '../images/avt1.webp', // Đường dẫn đến ảnh đại diện của người đánh giá
+        replies: [
+          // Mảng các phản hồi cho đánh giá này
+          {
+            author: 'Nội Thất Bàng Vũ', // Tên người phản hồi
+            isAdmin: true, // Đánh dấu người phản hồi là admin hay không (true: admin, false: khách hàng)
+            date: '10/05/2025 14:30 PM', // Ngày và giờ phản hồi
+            // Nội dung phản hồi
+            content:
+              'Cảm ơn anh đã tin tưởng và ủng hộ sản phẩm của chúng tôi. Chúc anh và gia đình có trải nghiệm tuyệt vời với sản phẩm!',
+            avatar: '../images/logo.svg', // Đường dẫn đến ảnh đại diện của người phản hồi
+          },
+        ],
+      },
+      {
+        author: 'Trần Thị Hương', // Tên người đánh giá thứ hai
+        date: '05/05/2025 10:45 AM', // Ngày và giờ đăng đánh giá
+        rating: 4.5, // Số sao đánh giá (4.5/5)
+        // Nội dung đánh giá
+        content:
+          'Tủ đẹp, chất lượng tốt, màu sắc đúng như hình. Tuy nhiên thời gian giao hàng hơi lâu. Nhưng nhìn chung tôi vẫn rất hài lòng với sản phẩm.',
+        images: ['images/products/product3.png'], // Một hình ảnh đính kèm
+        videos: [], // Không có video đính kèm
+        isAnonymous: false, // Không ẩn danh
+        avatar: '../images/avt2.webp', // Ảnh đại diện của người đánh giá
+        replies: [
+          // Phản hồi từ cửa hàng
+          {
+            author: 'Nội Thất Bàng Vũ', // Tên cửa hàng
+            isAdmin: true, // Đánh dấu là admin
+            date: '06/05/2025 09:00 AM', // Ngày và giờ phản hồi
+            // Nội dung phản hồi
+            content:
+              'Cảm ơn chị đã phản hồi. Chúng tôi xin lỗi về sự chậm trễ trong quá trình giao hàng. Chúng tôi sẽ cải thiện dịch vụ trong thời gian tới.',
+            avatar: '../images/logo.svg', // Logo cửa hàng làm ảnh đại diện
+          },
+        ],
+      },
+    ],
+    // Thông tin chính sách cho tab chính sách - hiển thị các chính sách liên quan đến sản phẩm
+    policies: {
+      // Chính sách vận chuyển - quy định về phí vận chuyển và phạm vi giao hàng
+      shipping:
+        'Miễn phí vận chuyển trong phạm vi 10km từ cửa hàng. Phí vận chuyển sẽ được tính dựa trên khoảng cách và khối lượng sản phẩm cho các khu vực khác.',
+      // Chính sách đổi trả - quy định về thời gian và điều kiện đổi trả sản phẩm
+      returns:
+        'Quý khách có thể đổi trả sản phẩm trong vòng 7 ngày kể từ ngày nhận hàng nếu sản phẩm có lỗi từ nhà sản xuất. Sản phẩm đổi trả phải còn nguyên vẹn, không có dấu hiệu đã qua sử dụng.',
+      // Chính sách bảo hành - thời gian và phạm vi bảo hành sản phẩm
+      warranty:
+        'Sản phẩm được bảo hành chính hãng 10 năm cho các lỗi kỹ thuật. Bảo hành không áp dụng cho các trường hợp hư hỏng do sử dụng không đúng cách hoặc tự ý sửa chữa.',
+      // Phương thức thanh toán - các hình thức thanh toán được chấp nhận
+      payment:
+        'Chúng tôi chấp nhận thanh toán bằng tiền mặt, chuyển khoản ngân hàng, thẻ tín dụng/ghi nợ và các ví điện tử phổ biến như MoMo, ZaloPay.',
+    },
+
+    // Thông tin bảo quản cho tab bảo quản - hướng dẫn cách bảo quản và sử dụng sản phẩm
+    care: {
+      // Hướng dẫn vệ sinh sản phẩm - cách làm sạch và bảo dưỡng thường xuyên
+      cleaning:
+        'Lau chùi sản phẩm thường xuyên bằng khăn mềm, khô hoặc hơi ẩm. Tránh sử dụng các chất tẩy rửa có tính axit hoặc kiềm mạnh.',
+      // Hướng dẫn về ánh sáng mặt trời - cách bảo vệ sản phẩm khỏi tác động của ánh nắng
+      sunlight:
+        'Không đặt sản phẩm dưới ánh nắng mặt trời trực tiếp trong thời gian dài để tránh bạc màu và biến dạng.',
+      // Hướng dẫn về độ ẩm - cách bảo vệ sản phẩm khỏi tác động của độ ẩm
+      humidity:
+        'Không đặt sản phẩm ở nơi có độ ẩm cao hoặc tiếp xúc trực tiếp với nước để tránh gỗ bị cong vênh, nấm mốc.',
+      // Hướng dẫn về nhiệt độ - cách bảo vệ sản phẩm khỏi tác động của nhiệt độ
+      temperature:
+        'Duy trì sản phẩm ở nhiệt độ phòng ổn định, tránh thay đổi nhiệt độ đột ngột có thể gây nứt, cong vênh.',
+      tips: [
+        // Mảng các mẹo bảo quản bổ sung - các lời khuyên hữu ích để kéo dài tuổi thọ sản phẩm
+        'Nhiệt độ lý tưởng: 18-24°C', // Nhiệt độ phòng lý tưởng để bảo quản sản phẩm
+        'Độ ẩm lý tưởng: 40-60%', // Độ ẩm phòng lý tưởng để bảo quản sản phẩm
+        'Sử dụng miếng lót khi đặt vật dụng nóng hoặc lạnh lên bề mặt tủ', // Bảo vệ bề mặt khỏi nhiệt độ cực đoan
+        'Kiểm tra và siết chặt các ốc vít định kỳ 6 tháng/lần', // Bảo dưỡng định kỳ để đảm bảo độ bền
+        'Sử dụng sáp đánh bóng gỗ 1 năm/lần để duy trì vẻ đẹp của sản phẩm', // Bảo dưỡng bề mặt để giữ độ bóng
+      ],
+    },
+  },
 ];
 
 // Trang chủ: Render sản phẩm nổi bật và khuyến mãi

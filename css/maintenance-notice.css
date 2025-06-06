@@ -1,0 +1,317 @@
+/* Maintenance Notice Modal Styles */
+.maintenance-notice-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.8);
+    backdrop-filter: blur(5px);
+    z-index: 10000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.3s ease;
+}
+
+.maintenance-notice-overlay.show {
+    opacity: 1;
+    visibility: visible;
+}
+
+.maintenance-notice-modal {
+    background: linear-gradient(135deg, #ffffff 0%, #f8f9fa 100%);
+    border-radius: 20px;
+    box-shadow: 0 25px 50px rgba(0, 0, 0, 0.3);
+    max-width: 600px;
+    width: 100%;
+    max-height: 90vh;
+    overflow-y: auto;
+    position: relative;
+    transform: scale(0.8) translateY(50px);
+    transition: all 0.3s ease;
+    border: 2px solid #e74c3c;
+}
+
+.maintenance-notice-overlay.show .maintenance-notice-modal {
+    transform: scale(1) translateY(0);
+}
+
+.maintenance-notice-header {
+    background: linear-gradient(135deg, #e74c3c 0%, #c0392b 100%);
+    color: white;
+    padding: 25px 30px;
+    border-radius: 18px 18px 0 0;
+    text-align: center;
+    position: relative;
+}
+
+.maintenance-icon {
+    font-size: 3rem;
+    margin-bottom: 10px;
+    animation: bounce 2s infinite;
+}
+
+@keyframes bounce {
+    0%, 20%, 50%, 80%, 100% {
+        transform: translateY(0);
+    }
+    40% {
+        transform: translateY(-10px);
+    }
+    60% {
+        transform: translateY(-5px);
+    }
+}
+
+.maintenance-notice-header h2 {
+    margin: 0;
+    font-size: 1.5rem;
+    font-weight: 700;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+.maintenance-close-btn {
+    position: absolute;
+    top: 15px;
+    right: 20px;
+    background: rgba(255, 255, 255, 0.2);
+    border: none;
+    color: white;
+    width: 35px;
+    height: 35px;
+    border-radius: 50%;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.2rem;
+    transition: all 0.3s ease;
+}
+
+.maintenance-close-btn:hover {
+    background: rgba(255, 255, 255, 0.3);
+    transform: scale(1.1);
+}
+
+.maintenance-notice-body {
+    padding: 30px;
+}
+
+.maintenance-greeting {
+    text-align: center;
+    margin-bottom: 25px;
+}
+
+.maintenance-greeting p {
+    font-size: 1.1rem;
+    color: #2c3e50;
+    margin: 0;
+}
+
+.maintenance-content {
+    margin-bottom: 25px;
+}
+
+.maintenance-content p {
+    font-size: 1rem;
+    line-height: 1.6;
+    color: #34495e;
+    margin: 0;
+}
+
+.maintenance-services {
+    background: #f8f9fa;
+    padding: 20px;
+    border-radius: 12px;
+    margin-bottom: 25px;
+    border-left: 4px solid #3498db;
+}
+
+.maintenance-services h3 {
+    color: #2c3e50;
+    font-size: 1.1rem;
+    margin: 0 0 15px 0;
+    font-weight: 600;
+}
+
+.maintenance-services ul {
+    margin: 0;
+    padding-left: 20px;
+}
+
+.maintenance-services li {
+    color: #34495e;
+    line-height: 1.6;
+    margin-bottom: 8px;
+}
+
+.maintenance-contact {
+    background: #e8f5e8;
+    padding: 20px;
+    border-radius: 12px;
+    margin-bottom: 25px;
+    border-left: 4px solid #27ae60;
+}
+
+.maintenance-contact h3 {
+    color: #2c3e50;
+    font-size: 1.1rem;
+    margin: 0 0 15px 0;
+    font-weight: 600;
+}
+
+.contact-methods {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.contact-item {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    color: #34495e;
+    font-size: 0.95rem;
+}
+
+.contact-item i {
+    color: #e74c3c;
+    width: 20px;
+    text-align: center;
+}
+
+.maintenance-footer {
+    background: #fff3cd;
+    padding: 20px;
+    border-radius: 12px;
+    margin-bottom: 25px;
+    border-left: 4px solid #f39c12;
+    text-align: center;
+}
+
+.maintenance-footer p {
+    margin: 0;
+    color: #856404;
+    font-size: 1rem;
+    line-height: 1.5;
+}
+
+.maintenance-actions {
+    display: flex;
+    gap: 12px;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+.maintenance-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 12px 20px;
+    border-radius: 25px;
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 0.9rem;
+    transition: all 0.3s ease;
+    border: 2px solid transparent;
+}
+
+.maintenance-btn.primary {
+    background: linear-gradient(135deg, #e74c3c 0%, #c0392b 100%);
+    color: white;
+}
+
+.maintenance-btn.primary:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 20px rgba(231, 76, 60, 0.4);
+}
+
+.maintenance-btn.secondary {
+    background: linear-gradient(135deg, #3498db 0%, #2980b9 100%);
+    color: white;
+}
+
+.maintenance-btn.secondary:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 20px rgba(52, 152, 219, 0.4);
+}
+
+.maintenance-btn.tertiary {
+    background: linear-gradient(135deg, #4267B2 0%, #365899 100%);
+    color: white;
+}
+
+.maintenance-btn.tertiary:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 20px rgba(66, 103, 178, 0.4);
+}
+
+/* Mobile Responsive */
+@media (max-width: 768px) {
+    .maintenance-notice-overlay {
+        padding: 15px;
+    }
+    
+    .maintenance-notice-modal {
+        max-height: 95vh;
+    }
+    
+    .maintenance-notice-header {
+        padding: 20px 25px;
+    }
+    
+    .maintenance-notice-header h2 {
+        font-size: 1.3rem;
+    }
+    
+    .maintenance-notice-body {
+        padding: 25px 20px;
+    }
+    
+    .maintenance-actions {
+        flex-direction: column;
+        align-items: center;
+    }
+    
+    .maintenance-btn {
+        width: 100%;
+        max-width: 250px;
+        justify-content: center;
+    }
+    
+    .contact-methods {
+        gap: 10px;
+    }
+    
+    .contact-item {
+        font-size: 0.9rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .maintenance-notice-header {
+        padding: 15px 20px;
+    }
+    
+    .maintenance-notice-header h2 {
+        font-size: 1.2rem;
+    }
+    
+    .maintenance-notice-body {
+        padding: 20px 15px;
+    }
+    
+    .maintenance-icon {
+        font-size: 2.5rem;
+    }
+    
+    .maintenance-services,
+    .maintenance-contact,
+    .maintenance-footer {
+        padding: 15px;
+    }
+}
